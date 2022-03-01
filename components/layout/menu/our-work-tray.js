@@ -21,6 +21,12 @@ export const OurWorkTray = ({
         right: 0,
         minHeight: '300px',
         backgroundColor: '#e3e9ef',
+        '& a': {
+          textDecoration: 'none',
+        },
+        '& a:hover': {
+          textDecoration: 'underline',
+        },
       }} { ...props }>
         <Container maxWidth={ config.width }>
           <Grid container spacing={ 0 }>
@@ -41,7 +47,7 @@ export const OurWorkTray = ({
                 {
                   researchGroups?.length && researchGroups.map(group => (
                     <ListItem key={ group.id } sx={{ padding: '0.5rem' }}>
-                      <Link to={ `/groups/${ group.id }` } arrow>{ group.name }</Link>
+                      <Link to={ `/groups/${ group.id }` }>{ group.name }</Link>
                     </ListItem>
                   ))
                 }
@@ -65,7 +71,7 @@ export const OurWorkTray = ({
                 {
                   collaborations?.length && collaborations.map(collaboration => (
                     <ListItem key={ collaboration.id } sx={{ padding: '0.5rem' }}>
-                      <Link to={ `/collaborations/${ collaboration.id }` } arrow>{ collaboration.name }</Link>
+                      <Link to={ `/collaborations/${ collaboration.id }` }>{ collaboration.name }</Link>
                     </ListItem>
                   ))
                 }
@@ -89,7 +95,7 @@ export const OurWorkTray = ({
                 {
                   teams?.length && teams.map(team => (
                     <ListItem key={ team.id } sx={{ padding: '0.5rem' }}>
-                      <Link to={ `/teams/${ team.id }` } arrow>{ team.name }</Link>
+                      <Link to={ `/teams/${ team.id }` }>{ team.name }</Link>
                     </ListItem>
                   ))
                 }
