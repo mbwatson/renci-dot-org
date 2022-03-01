@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import NextLink from 'next/link'
+import { ArrowForward as ArrowIcon } from '@mui/icons-material'
 
 const InternalLink = ({ children, className, ...props }) => {
   return (
@@ -60,6 +61,7 @@ export const Link = ({ to, arrow, children, ...props }) => {
   return (
     <LinkComponent href={ to } { ...props }>
       { children }
+      { arrow && <ArrowIcon fontSize="6" sx={{ marginLeft: '2px' }} /> }
     </LinkComponent>
   )
 }
