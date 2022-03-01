@@ -1,0 +1,35 @@
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Typography } from '@mui/material'
+import { fetchPerson } from '../../lib/contentful'
+import { Page } from '../../components'
+import { Pre } from '../../components/pre'
+
+export default function Person() {
+  const router = useRouter()
+  const [person, setPerson] = useState(null)
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const person = await fetchPerson(router.query.id)
+      setPerson(person)
+    }
+    fetchData()
+  }, [router.query.id])
+
+  if (!person) {
+    return 'Loading...'
+  }
+
+  return (
+    <Page
+      title={ `${ person.firstName } ${ person.lastName }` }
+      description={ person.bio }
+    >
+      <Pre>
+        { JSON.stringify(person, null, 2) }
+      </Pre>
+
+    </Page>
+  )
+}

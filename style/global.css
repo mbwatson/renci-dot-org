@@ -1,0 +1,24 @@
+@import url("../fonts/atlas-grotesk/fonts.css");
+
+:root {
+  --primary-color: #00758d;
+}
+
+body {
+  margin: 0;
+}
+
+#__next {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
