@@ -20,7 +20,7 @@ export const OurWorkTray = ({
         left: 0,
         right: 0,
         minHeight: '300px',
-        backgroundColor: '#e3e9ef',
+        backgroundColor: '#e3e9ef !important',
         '& a': {
           textDecoration: 'none',
         },
