@@ -14,21 +14,33 @@ export const OurWorkTray = ({
 
   return (
     <Fade in={ open }>
-      <Paper className={ style.tray } { ...props }>
+      <Paper sx={{
+        position: 'fixed',
+        top: '121px',
+        left: 0,
+        right: 0,
+        minHeight: '300px',
+        backgroundColor: '#e3e9ef',
+      }} { ...props }>
         <Container maxWidth={ config.width }>
           <Grid container spacing={ 0 }>
             <Grid item xs={ 12 } sm={ 4 } className={ style.trayColumn }>
               <List
-                className={ style.trayList }
+                sx={{ padding: 0, margin: '2rem' }}
                 subheader={
-                  <ListSubheader className={ style.trayListTitle }>
+                  <ListSubheader sx={{
+                    backgroundColor: 'transparent',
+                    fontSize: '150%',
+                    padding: '0 0.5rem',
+                    fontWeight: 'normal',
+                  }}>
                     <Link to="/groups">Research Groups</Link>
                   </ListSubheader>
                 }
               >
                 {
                   researchGroups?.length && researchGroups.map(group => (
-                    <ListItem key={ group.id } className={ style.trayListItem }>
+                    <ListItem key={ group.id } sx={{ padding: '0.5rem' }}>
                       <Link to={ `/groups/${ group.id }` } arrow>{ group.name }</Link>
                     </ListItem>
                   ))
@@ -38,16 +50,21 @@ export const OurWorkTray = ({
             
             <Grid item xs={ 12 } sm={ 4 } className={ style.trayColumn }>
               <List
-                className={ style.trayList }
+                sx={{ padding: 0, margin: '2rem' }}
                 subheader={
-                  <ListSubheader className={ style.trayListTitle }>
+                  <ListSubheader sx={{
+                    backgroundColor: 'transparent',
+                    fontSize: '150%',
+                    padding: '0 0.5rem',
+                    fontWeight: 'normal',
+                  }}>
                     <Link to="/collaborations">Collaborations</Link>
                   </ListSubheader>
                 }
               >
                 {
                   collaborations?.length && collaborations.map(collaboration => (
-                    <ListItem key={ collaboration.id } className={ style.trayListItem }>
+                    <ListItem key={ collaboration.id } sx={{ padding: '0.5rem' }}>
                       <Link to={ `/collaborations/${ collaboration.id }` } arrow>{ collaboration.name }</Link>
                     </ListItem>
                   ))
@@ -57,16 +74,21 @@ export const OurWorkTray = ({
             
             <Grid item xs={ 12 } sm={ 4 } className={ style.trayColumn }>
               <List
-                className={ style.trayList }
+                sx={{ padding: 0, margin: '2rem' }}
                 subheader={
-                  <ListSubheader className={ style.trayListTitle }>
+                  <ListSubheader sx={{
+                    backgroundColor: 'transparent',
+                    fontSize: '150%',
+                    padding: '0 0.5rem',
+                    fontWeight: 'normal',
+                  }}>
                     <Link to="/teams">Operations</Link>
                   </ListSubheader>
                 }
               >
                 {
                   teams?.length && teams.map(team => (
-                    <ListItem key={ team.id } className={ style.trayListItem }>
+                    <ListItem key={ team.id } sx={{ padding: '0.5rem' }}>
                       <Link to={ `/teams/${ team.id }` } arrow>{ team.name }</Link>
                     </ListItem>
                   ))

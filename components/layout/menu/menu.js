@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-  Fade, Grid, IconButton, Menu as MuiMenu, MenuItem, Paper, useMediaQuery
+  Box, Fade, Grid, IconButton, Menu as MuiMenu, MenuItem, Paper, useMediaQuery
 } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { OurWorkTray } from './our-work-tray'
@@ -34,11 +34,11 @@ export const Menu = ({ menuItems }) => {
     <nav className={ style.menuContainer }>
       {
         mobile ? (
-          <div className={ style.togglerContainer }>
-            <IconButton size="large" className={ style.toggler }>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <IconButton size="large">
               <MenuIcon />
             </IconButton>
-          </div>
+          </Box>
         ) : (
           <ul className={ style.menu }>
             <li className={ style.menuItem }>
