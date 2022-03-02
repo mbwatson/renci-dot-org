@@ -31,8 +31,8 @@ export default function People() {
 
       {
         people.map(person => (
-          <Fragment key={ person.id }>
-            <Link to={ `/people/${ person.id }` }>
+          <Fragment key={ person.slug }>
+            <Link to={ `/people/${ person.slug }` }>
               { person.firstName } { person.lastName }
             </Link>
             <Pre>
