@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
 import style from './hero.module.css'
+import { useScrollPosition } from '../../../hooks'
 
 export const Hero = ({
   backgroundImage,
   backgroundColor,
   children
 }) => {
+  const { scrollPosition } = useScrollPosition()
   return (
     <Box>
       <Box
@@ -14,6 +16,7 @@ export const Hero = ({
         style={{
           backgroundImage: `url(${ backgroundImage })`,
           backgroundColor,
+          backgroundPosition: `0 ${ scrollPosition / 2 }px`
         }}
       />
       <Box className={ style.placeholder } />
