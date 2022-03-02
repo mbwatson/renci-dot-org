@@ -11,11 +11,12 @@ export default function Person() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const person = await fetchPerson(router.query.id)
+      console.log(router.query.slug)
+      const person = await fetchPerson(router.query.slug)
       setPerson(person)
     }
     fetchData()
-  }, [router.query.id])
+  }, [router.query.slug])
 
   if (!person) {
     return 'Loading...'
