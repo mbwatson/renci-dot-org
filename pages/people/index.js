@@ -18,6 +18,13 @@ const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
  * }
  */
 export default function People({ people }) {
+  // this variable will track which letters in the vertical menu will be links
+  // use a Link component for letter X if we have someone whose last name begins with X.
+  const linkedLetters = letters.reduce((chars, char) => {
+    const index = people.rest.findIndex(person => person.lastName[0] === char)
+    return index > -1 ? [...chars, char] : chars
+  }, [])
+
   return (
     <Page
       title="People"
@@ -70,7 +77,9 @@ export default function People({ people }) {
         }}>
           {
             letters.map(letter => (
-              <Link to={ `#${ letter }` } key={ letter }>{ letter }</Link>
+              linkedLetters.includes(letter)
+              ? <Link to={ `#${ letter }` } key={ letter }>{ letter }</Link>
+              : <Typography component="span" key={ letter } style={{ color: '#abc' }}>{ letter }</Typography>
             ))
           }
         </Box>
