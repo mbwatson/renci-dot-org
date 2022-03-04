@@ -36,7 +36,6 @@ export default function Projects({ projects }) {
   )
 }
 
-
 export async function getStaticProps(context) {
   const projects = await fetchProjects()
   return {

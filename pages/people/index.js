@@ -21,7 +21,7 @@ export default function People({ people }) {
         Consectetur aute tempor culpa fugiat qui anim ut aliqua tempor laboris dolor nulla.
       </Typography>
 
-      <Box sx={{ display: 'flex', gap: '1rem', border: '1px dashed crimson' }}>
+      <Box sx={{ display: 'flex', gap: '1rem' }}>
         <Box component="nav" sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -30,7 +30,7 @@ export default function People({ people }) {
           gap: '4px',
           position: 'sticky',
           top: '10rem',
-          border: '2px dashed blue',
+          marginTop: '2rem',
           alignSelf: 'flex-start',
         }}>
           {
@@ -41,7 +41,6 @@ export default function People({ people }) {
         </Box>
         <Box sx={{
           flex: 1,
-          border: '2px dashed blue',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
         }}>
@@ -66,7 +65,6 @@ export default function People({ people }) {
     </Page>
   )
 }
-
 
 export async function getStaticProps(context) {
   const people = await fetchPeople()

@@ -36,7 +36,6 @@ export default function ResearchGroups({ researchGroups }) {
   )
 }
 
-
 export async function getStaticProps(context) {
   const researchGroups = await fetchResearchGroups()
   return {
