@@ -6,18 +6,7 @@ import { fetchCollaborations } from '../../lib/contentful'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
-export default function ResearchGroups() {
-  const [collaborations, setCollaborations] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const collabs = await fetchCollaborations()
-      setCollaborations(collabs)
-    }
-    fetchData()
-  }, [])
-
-
+export default function ResearchGroups({ collaborations }) {
   return (
     <Page
       title="Collaborations"
@@ -48,4 +37,11 @@ export default function ResearchGroups() {
 
     </Page>
   )
+}
+
+export async function getStaticProps(context) {
+  const collaborations = await fetchCollaborations()
+  return {
+    props: { collaborations },
+  }
 }

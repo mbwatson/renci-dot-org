@@ -6,17 +6,7 @@ import { fetchPeople } from '../../lib/contentful'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
-export default function People() {
-  const [people, setPeople] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const people = await fetchPeople()
-      setPeople(people)
-    }
-    fetchData()
-  }, [])
-
+export default function People({ people }) {
   return (
     <Page
       title="People"
@@ -44,4 +34,12 @@ export default function People() {
 
     </Page>
   )
+}
+
+
+export async function getStaticProps(context) {
+  const people = await fetchPeople()
+  return {
+    props: { people },
+  }
 }
