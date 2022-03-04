@@ -27,10 +27,10 @@ const typography = {
     fontSize: 'clamp(2rem, 6vw, 4rem)',
   },
   h2: {
-    fontSize: 'clamp(1.8rem, 5vw, 3.5rem)',
+    fontSize: 'clamp(1.7rem, 4vw, 3.5rem)',
   },
   h3: {
-    fontSize: 'clamp(1.6rem, 4vw, 3rem)',
+    fontSize: 'clamp(1.55rem, 4vw, 3rem)',
   },
   h4: {
     fontSize: 'clamp(1.4rem, 3vw, 2.5rem)',
