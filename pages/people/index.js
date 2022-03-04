@@ -39,7 +39,7 @@ export default function People({ people }) {
       }}>
         {
           people.ood.map(person => (
-            <Card key={ person.slug } sx={{ height: '100%' }} elevation={ 0 } name={ person.lastName[0] }>
+            <Card key={ person.slug } sx={{ height: '100%' }} elevation={ 0 }>
               <CardContent>
                 <Pre>
                   { JSON.stringify(person, null, 2) }
