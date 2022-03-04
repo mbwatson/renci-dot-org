@@ -4,6 +4,11 @@
   --primary-color: #00758d;
 }
 
+html {
+  scroll-padding-top: 8rem;
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-size: 12pt;
