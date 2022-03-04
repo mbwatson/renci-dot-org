@@ -6,17 +6,7 @@ import { fetchTeams } from '../../lib/contentful'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
-export default function Teams() {
-  const [teams, setTeams] = useState([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const tms = await fetchTeams()
-      setTeams(tms)
-    }
-    fetchData()
-  }, [])
-
+export default function Teams({ teams }) {
   return (
     <Page
       title="Operational Teams"
@@ -44,4 +34,11 @@ export default function Teams() {
 
     </Page>
   )
+}
+
+export async function getStaticProps(context) {
+  const teams = await fetchTeams()
+  return {
+    props: { teams },
+  }
 }

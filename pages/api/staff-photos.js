@@ -1,6 +1,6 @@
 import { fetchGraphQL } from '../../lib/contentful'
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   return fetchGraphQL(`query {
       personCollection {
         items {
