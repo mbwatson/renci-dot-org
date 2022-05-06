@@ -7,6 +7,7 @@ import { Menu as MenuIcon } from '@mui/icons-material'
 import { Menu } from './menu'
 import renciLogo from '../../images/renci.png'
 import { useConfig } from '../../context'
+import { Link } from '../link'
 
 export const Layout = ({ children }) => {
   const { config } = useConfig()
@@ -32,15 +33,19 @@ export const Layout = ({ children }) => {
             alignItems: 'stretch',
             height: '100%',
           }}>
-            <Box sx={{
-              width: '120px',
-              height: '100%',
-              maxWidth: '120px',
-              backgroundImage: `url(${ renciLogo.src })`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: '50% 50%',
-            }} />
+            <Box
+              component={ Link }
+              to="/"
+              sx={{
+                width: '120px',
+                height: '100%',
+                maxWidth: '120px',
+                backgroundImage: `url(${ renciLogo.src })`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: '50% 50%',
+              }}
+            />
             <Menu />
           </Toolbar>
         </Container>
