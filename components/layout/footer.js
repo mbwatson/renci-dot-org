@@ -8,14 +8,17 @@ export const Footer = () => {
     <Box
       sx={{
         background: '#ddd',
-        padding: '2rem',
+        padding: '1rem 0',
         color: theme.palette.text.primary,
+        '& .link-group': {
+          paddingTop: '1rem',
+        },
         '& .link-list': {
           border: '2px dashed blue',
           padding: 0,
           listStyleType: 'none',
           '& li': {
-            marginBottom: '1rem',
+            marginBottom: '0.5rem',
           }
         },
       }}
@@ -23,11 +26,11 @@ export const Footer = () => {
       <Container maxWidth="lg">
         <Grid container sx={{
           border: '1px dashed crimson',
-          '& > *': {
+          '& *': {
             border: '1px dotted purple'
           }
         }}>
-          <Grid item xs={ 12 } md={ 12 } lg={ 5 }>
+          <Grid item xs={ 12 } md={ 12 } lg={ 6 }>
             <Box>
               <Box component="span" sx={{
                 display: 'block',
@@ -39,15 +42,16 @@ export const Footer = () => {
                 backgroundPosition: '0% 50%',
               }} />
               <p>
-                RENCI Anchor at Europa Center <br/>
-                100 Europa Drive, Suite 540 <br/>
+                RENCI <br />
+                Europa Center <br />
+                100 Europa Drive, Suite 540 <br />
                 Chapel Hill, NC  27517
               </p>
             </Box>
             <p>media@renci.org</p>
             <p>919-445-9640</p>
           </Grid>
-          <Grid item xs={ 12 } md={ 4 } lg={ 3 }>
+          <Grid item xs={ 12 } md={ 4 } lg={ 2 } className="link-group">
             <strong>Partners</strong>
             <ul className="link-list">
               <li><Link to="https://www.unc.edu/">UNC-Chapel Hill</Link></li>
@@ -55,7 +59,7 @@ export const Footer = () => {
               <li><Link to="https://duke.edu/">Duke University</Link></li>
             </ul>
           </Grid>
-          <Grid item xs={ 12 } md={ 4 } lg={ 2 }>
+          <Grid item xs={ 12 } md={ 4 } lg={ 2 } className="link-group">
             <strong>Connect</strong>
             <ul className="link-list">
               <li><Link to="https://www.twitter.com/RENCI">Twitter</Link></li>
@@ -64,7 +68,7 @@ export const Footer = () => {
               <li><Link to="https://www.youtube.com/RENCIMedia">YouTube</Link></li>
             </ul>
           </Grid>
-          <Grid item xs={ 12 } md={ 4 } lg={ 2 }>
+          <Grid item xs={ 12 } md={ 4 } lg={ 2 } className="link-group">
             <strong>More</strong>
             <ul className="link-list">
               <li><Link to="/about">About</Link></li>
