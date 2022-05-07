@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
 import { fetchResearchGroup } from '../../lib/contentful'
 import { Page } from '../../components'
+import { Section } from '../../components/layout'
 import { Pre } from '../../components/pre'
 
 export default function ResearchGroup() {
@@ -27,6 +28,18 @@ export default function ResearchGroup() {
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
+      <Section title="News">
+        Coming soon...
+      </Section>
+
+      <Section title="Current Projects">
+        Coming soon...
+      </Section>
+
+      <Section title="Contributors">
+        Coming soon...
+      </Section>
+
       <Pre>
         { JSON.stringify(researchGroup, null, 2) }
       </Pre>

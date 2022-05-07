@@ -4,6 +4,7 @@ import { Typography } from '@mui/material'
 import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { Section } from '../../components/layout'
 
 export default function ResearchGroup() {
   const router = useRouter()
@@ -27,6 +28,10 @@ export default function ResearchGroup() {
       description={ team.description }
       heroImage={ team.featuredImage ? team.featuredImage.url : null }
     >
+      <Section title="Team Members">
+        Coming soon...
+      </Section>
+
       <Pre>
         { JSON.stringify(team, null, 2) }
       </Pre>
