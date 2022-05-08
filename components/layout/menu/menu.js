@@ -51,13 +51,13 @@ export const Menu = ({ menuItems }) => {
               className={ style.menuItem }
               onMouseOver={ () => setOurWorkTrayOpen(true) }
               onMouseOut={ () => setOurWorkTrayOpen(false) }
+              onClick={ () => setOurWorkTrayOpen(false) }
             >
-              <span className={ style.menuItemLink }>
+              <Link to="/our-work" className={ style.menuItemLink }>
                 Our Work &nbsp; <Icon icon="chevron-down" size={ 16 } fill="#333" />
-              </span>
+              </Link>
               <OurWorkTray
                 open={ ourWorkTrayOpen }
-                onClick={ () => setOurWorkTrayOpen(false) }
                 researchGroups={ researchGroups }
                 collaborations={ collaborations }
                 teams={ teams }
