@@ -33,19 +33,19 @@ export const Layout = ({ children }) => {
             alignItems: 'stretch',
             height: '100%',
           }}>
-            <Box
-              component={ Link }
-              to="/"
-              sx={{
-                width: '120px',
-                height: '100%',
-                maxWidth: '120px',
-                backgroundImage: `url(${ renciLogo.src })`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '50% 50%',
-              }}
-            />
+            <Link to="/">
+              <Box
+                sx={{
+                  width: '120px',
+                  height: '100%',
+                  maxWidth: '120px',
+                  backgroundImage: `url(${ renciLogo.src })`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: '50% 50%',
+                }}
+              />
+            </Link>
             <Menu />
           </Toolbar>
         </Container>
