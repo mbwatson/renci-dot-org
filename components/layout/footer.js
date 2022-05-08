@@ -14,7 +14,6 @@ export const Footer = () => {
           paddingTop: '1rem',
         },
         '& .link-list': {
-          border: '2px dashed blue',
           padding: 0,
           listStyleType: 'none',
           '& li': {
@@ -24,12 +23,7 @@ export const Footer = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container sx={{
-          border: '1px dashed crimson',
-          '& *': {
-            border: '1px dotted purple'
-          }
-        }}>
+        <Grid container>
           <Grid item xs={ 12 } md={ 12 } lg={ 6 }>
             <Box>
               <Box component="span" sx={{
