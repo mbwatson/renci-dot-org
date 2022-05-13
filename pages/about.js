@@ -2,10 +2,16 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { Link, Page, Section } from '../components'
+import { Link, Page, Section, List } from '../components'
 import heroImage from '../images/racks.jpg'
 
 export default function Home() {
+  const listItems = [
+    'Home',
+    'Test',
+    'List Item'
+  ]
+
   return (
     <Page
       title="About"
@@ -65,6 +71,10 @@ export default function Home() {
       <Typography variant="h4">The quick brown fox</Typography><br />
       <Typography variant="h5">The quick brown fox</Typography><br />
       <Typography variant="h6">The quick brown fox</Typography><br />
+
+      <br /><br /><br /><br />
+
+      <List items={listItems} bullets={'none'} inline={false} />
     </Page>
   )
 }
