@@ -4,6 +4,7 @@ import { Box, Card, CardHeader, CardContent, Grid, Typography } from '@mui/mater
 import { fetchPeopleForPeopleView } from '../../lib/contentful'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { PersonCard } from '../../components/person-card'
 
 // this provides data for the vertical menu
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -30,6 +31,7 @@ export default function People({ people }) {
       description="RENCI is comprised of people who contribute to research groups, operational units, and collaborations."
     >
       <Typography paragraph>
+        RENCI is comprised of people who contribute to research groups, operational units, and collaborations. 
         Laborum consequat voluptate culpa non non consectetur ut minim consectetur minim duis enim laboris elit consectetur ut.
         Reprehenderit aliqua eu qui quis ut veniam elit adipisicing minim veniam exercitation culpa sit sit est reprehenderit culpa.
         Exercitation laboris consectetur irure aliquip deserunt sint dolore mollit labore adipisicing eu.
@@ -45,17 +47,7 @@ export default function People({ people }) {
       }}>
         {
           people.ood.map(person => (
-            <Card key={ person.slug } sx={{ height: '100%' }} elevation={ 0 }>
-              <CardContent>
-                <Pre>
-                  { JSON.stringify(person, null, 2) }
-                </Pre>
-                <Link to={ `/people/${ person.slug }` }>
-                  { person.firstName } { person.lastName }
-                </Link>
-                <Typography>{ person.title }</Typography>
-              </CardContent>
-            </Card>
+            <PersonCard key={ person.slug } person={ person } />
           ))
         }
       </Box>
