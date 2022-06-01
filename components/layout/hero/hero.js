@@ -25,7 +25,7 @@ export const Hero = ({
 }
 
 Hero.propTypes = {
-  backgroundImage: PropTypes.object,
+  backgroundImage: PropTypes.string,
   backgroundColor: PropTypes.string.isRequired,
   children: PropTypes.node,
 }
