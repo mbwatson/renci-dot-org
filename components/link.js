@@ -45,7 +45,7 @@ const ExternalLink = ({ href, children, ...props }) => {
       >
         { children }
       </a>
-      <ExternalLinkIcon size={ 10 } style={{ marginLeft: '4px' }} { ...props }/>
+      <ExternalLinkIcon size={ 10 } style={{ marginLeft: '4px' }} { ...props } />
     </Fragment>
   )
 }
