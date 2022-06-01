@@ -70,7 +70,7 @@ export const Footer = () => {
               <li><Link to="https://dashboard.renci.org/">RENCI Dashboard</Link></li>
             </ul>
           </Grid>
-          <Grid item xs={ 12 } style={{ textAlign: 'center' }}>
+          <Grid item xs={ 12 } style={{ textAlign: 'center', padding: '1rem' }}>
             &copy; { new Date().getFullYear() }
           </Grid>
         </Grid>
