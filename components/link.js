@@ -45,7 +45,7 @@ const ExternalLink = ({ href, children, ...props }) => {
       >
         { children }
       </a>
-      <ExternalLinkIcon size={ 10 } style={{ marginLeft: '4px' }} />
+      <ExternalLinkIcon size={ 10 } style={{ marginLeft: '4px' }} { ...props }/>
     </Fragment>
   )
 }
@@ -77,3 +77,4 @@ Link.defaultProps = {
 }
 
 ExternalLink.propTypes = Link.propTypes
+ExternalLink.defaultProps = Link.defaultProps
