@@ -27,6 +27,11 @@ export const PersonCard = ({ person }) => {
 }
 
 PersonCard.propTypes = {
-  person: PropTypes.object.isRequired,
+  person: PropTypes.shape({
+    slug: PropTypes.string,
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    title: PropTypes.string,
+    photo: PropTypes.object,
+  }),
 }
-// todo: denote the prop type/shape
