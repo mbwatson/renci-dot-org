@@ -81,17 +81,7 @@ export default function People({ people }) {
         }}>
           {
             people.rest.map(person => (
-              <Card key={ person.slug } sx={{ height: '100%' }} elevation={ 0 } name={ person.lastName[0] }>
-                <CardContent>
-                  <Pre>
-                    { JSON.stringify(person, null, 2) }
-                  </Pre>
-                  <Link to={ `/people/${ person.slug }` }>
-                    { person.firstName } { person.lastName }
-                  </Link>
-                  <Typography>{ person.title }</Typography>
-                </CardContent>
-              </Card>
+              <PersonCard key={ person.slug } person={ person } />
             ))
           }
         </Box>
