@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Card, CardHeader, CardMedia, CardContent, Grid, Typography } from '@mui/material'
 import { Link } from './link'
+import avatar from '../images/generic-avatar.png'
 
 export const PersonCard = ({ person, showTitle }) => {
   return (
@@ -10,7 +11,7 @@ export const PersonCard = ({ person, showTitle }) => {
           <CardMedia
             component='img'
             height='300'
-            image={person.photo?.url}
+            image={ person.photo ? person.photo.url : avatar.src}
             alt={`${person.firstName} ${person.lastName} photo`}
           />
 
