@@ -5,6 +5,7 @@ import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { PersonCard } from '../../components/person-card'
+import { Section } from '../../components/layout'
 
 export default function ResearchGroup() {
   const router = useRouter()
@@ -30,17 +31,21 @@ export default function ResearchGroup() {
     >
       <Typography paragraph>{team.description}</Typography>
       <br/>
-      <Box sx={{
-          flex: 1,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        }}>
-        {
-          team.teamMembersCollection.items.map(person => (
-            <PersonCard key={ person.slug } person={ person } showTitle={true}/>
-          ))
-        }
-      </Box>
+      
+      <Section title="Team Members">
+        <Box sx={{
+            flex: 1,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          }}>
+          {
+            team.teamMembersCollection.items.map(person => (
+              <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+            ))
+          }
+        </Box>
+      </Section>
+
     </Page>
   )
 }

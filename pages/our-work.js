@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Link } from '../components'
 import { Typography } from '@mui/material'
 import { Page } from '../components'
+import { Section } from '../components/layout'
 
 export default function OurWork() {
   return (
@@ -19,6 +20,18 @@ export default function OurWork() {
         Veniam dolor non excepteur fugiat ex consequat nulla deserunt laboris.
         Et elit qui proident dolore culpa est et sed nisi.
       </Typography>
+
+      <Section title="Research Groups">
+        Coming Soon...
+      </Section>
+
+      <Section title="Collaborations">
+        Coming Soon...
+      </Section>
+
+      <Section title="Operations">
+        Coming Soon...
+      </Section>
     </Page>
   )
 }
