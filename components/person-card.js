@@ -34,6 +34,6 @@ PersonCard.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    photo: PropTypes.object.isRequired,
+    photo: PropTypes.object,
   }),
 }
