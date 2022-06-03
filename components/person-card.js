@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import { Box, Card, CardHeader, CardMedia, CardContent, Grid, Typography } from '@mui/material'
 import { Link } from './link'
 
-import { Link, Page } from './link'
-
 export const PersonCard = ({ person, showTitle }) => {
   return (
     <Fragment>
