@@ -31,10 +31,10 @@ export const PersonCard = ({ person, showTitle }) => {
 
 PersonCard.propTypes = {
   person: PropTypes.shape({
-    slug: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    title: PropTypes.string,
-    photo: PropTypes.object,
+    slug: PropTypes.string.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    photo: PropTypes.object.isRequired,
   }),
 }
