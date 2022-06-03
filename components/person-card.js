@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Box, Card, CardHeader, CardMedia, CardContent, Grid, Typography } from '@mui/material'
+import { Link } from './link'
 
 import { Link, Page } from './link'
 
@@ -19,7 +20,9 @@ export const PersonCard = ({ person, showTitle }) => {
             <Link to={ `/people/${ person.slug }` }>
               { person.firstName } { person.lastName }
             </Link>
+            { showTitle && (
               <Typography>{ person.title }</Typography>
+            )}
           </CardContent>
         </Card>
     </Fragment>
