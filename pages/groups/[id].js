@@ -37,7 +37,7 @@ export default function ResearchGroup() {
         }}>
         {
           researchGroup.groupMembersCollection.items.map(person => (
-            <PersonCard key={ person.slug } person={ person } />
+            <PersonCard key={ person.slug } person={ person } showTitle={false}/>
           ))
         }
       </Box>
