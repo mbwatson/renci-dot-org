@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
 import { fetchPerson } from '../../lib/contentful'
 import { Page } from '../../components'
+import Image from 'next/image'
 
 export default function Person() {
   const router = useRouter()
@@ -15,6 +16,8 @@ export default function Person() {
     }
     fetchData()
   }, [router.query.slug])
+
+  console.log(person)
 
   if (!person) {
     return 'Loading...'
