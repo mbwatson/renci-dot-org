@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Grid, Typography } from '@mui/material'
 import { fetchPerson } from '../../lib/contentful'
-import { Link, LinkList, Page, Pre, Section } from '../../components'
+import { Link, LinkTray, Page, Pre, Section } from '../../components'
 export default function Person() {
   const router = useRouter()
   const [person, setPerson] = useState(null)
@@ -43,18 +43,23 @@ export default function Person() {
             </Link>
           </Typography>
           <Typography paragraph>{ person.phoneNumber || '---' }</Typography>
-          <LinkList items={ ['url1', 'url2', 'url3'] } />
+          <LinkTray urls={ [
+            'https://facebook.com/cillum',
+            'https://instagram.com/lorem',
+            'https://example.com/irure.',
+            'https://github.com/amet.',
+          ] } />
         </Grid>
       </Grid>
-      
+
       <Section title="Groups">
         <Pre>{ JSON.stringify(person.groups) }</Pre>
       </Section>
-      
+
       <Section title="Current Projects">
         <Pre>{ JSON.stringify(person.projects) }</Pre>
       </Section>
-      
+
       <Section title="Biography">
         <Pre>{ JSON.stringify(person.biography) }</Pre>
       </Section>
