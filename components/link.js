@@ -1,7 +1,6 @@
 import { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import NextLink from 'next/link'
-import { ArrowForward as ArrowIcon } from '@mui/icons-material'
 
 const InternalLink = ({ children, className, ...props }) => {
   return (
@@ -52,7 +51,7 @@ const ExternalLink = ({ href, children, ...props }) => {
 
 //
 
-export const Link = ({ to, arrow, children, ...props }) => {
+export const Link = ({ to, children, ...props }) => {
   const mailtoPattern = new RegExp(/^mailto:/)
   const externalUrlPattern = new RegExp(/^https?:\/\//)
   const externalUrlMatch = externalUrlPattern.exec(to)
@@ -61,19 +60,13 @@ export const Link = ({ to, arrow, children, ...props }) => {
   return (
     <LinkComponent href={ to } to={ to } { ...props }>
       { children }
-      { arrow && <ArrowIcon fontSize="6" sx={{ marginLeft: '2px' }} /> }
     </LinkComponent>
   )
 }
 
 Link.propTypes = {
   to: PropTypes.string.isRequired,
-  arrow: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
-}
-
-Link.defaultProps = {
-  arrow: false,
 }
 
 ExternalLink.propTypes = Link.propTypes
