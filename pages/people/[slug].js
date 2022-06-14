@@ -23,19 +23,20 @@ export default function Person() {
   }
 
   return (
-    <Page
-      title={ `${ person.firstName } ${ person.lastName }` }
-      description={ person.bio }
-    >
-      <Grid container spacing={ 2 }>
-        <Grid item xs={ 12 } sm={ 4 }>
+    <Page>
+      <Grid container spacing={ 2 } columns={ 8 }>
+        <Grid item xs={ 8 } sm={ 3 }>
           <Image
             src={ person.photo.url }
-            width={ 250 }
-            height={ 250 }
+            width={ 400 }
+            height={ 400 }
+            layout="responsive"
           />
         </Grid>
-        <Grid item xs={ 12 } sm={ 8 }>
+        <Grid item xs={ 8 } sm={ 5 }>
+          <Typography variant="h1">
+            { person.firstName } { person.lastName }
+          </Typography>
           <Typography paragraph>{ person.title }</Typography>
           <Typography paragraph>
             <Link to={ `mailto:${ person.email }` }>
