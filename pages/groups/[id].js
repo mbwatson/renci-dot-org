@@ -4,7 +4,7 @@ import { Typography, Box } from '@mui/material'
 import { fetchResearchGroup } from '../../lib/contentful'
 import { Page } from '../../components'
 import { Section } from '../../components/layout'
-import { PersonCard } from '../../components/person-card'
+import { PersonCard, PersonGrid } from '../../components/people/'
 
 export default function ResearchGroup() {
   const router = useRouter()
@@ -37,17 +37,13 @@ export default function ResearchGroup() {
       </Section>
 
       <Section title="Contributors">
-        <Box sx={{
-            flex: 1,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          }}>
+        <PersonGrid>
           {
             researchGroup.groupMembersCollection.items.map(person => (
               <PersonCard key={ person.slug } person={ person } />
             ))
           }
-        </Box>
+        </PersonGrid>
       </Section>
 
     </Page>

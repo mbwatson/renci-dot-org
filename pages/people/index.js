@@ -3,8 +3,7 @@ import Image from 'next/image'
 import { Box, Card, CardHeader, CardContent, Grid, Typography } from '@mui/material'
 import { fetchPeopleForPeopleView } from '../../lib/contentful'
 import { Link, Page } from '../../components'
-import { Pre } from '../../components/pre'
-import { PersonCard } from '../../components/person-card'
+import { PersonCard, PersonGrid } from '../../components/people/'
 
 // this provides data for the vertical menu
 const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
@@ -39,18 +38,13 @@ export default function People({ people }) {
       </Typography>
 
       <Typography variant="h2">Office of the Director</Typography>
-
-      <Box sx={{
-        flex: 1,
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-      }}>
-        {
+      <PersonGrid>
+         {
           people.ood.map(person => (
             <PersonCard key={ person.slug } person={ person } showTitle={true}/>
           ))
         }
-      </Box>
+      </PersonGrid>
 
       <Typography variant="h2">Everyone Else</Typography>
 
@@ -74,17 +68,13 @@ export default function People({ people }) {
             ))
           }
         </Box>
-        <Box sx={{
-          flex: 1,
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-        }}>
+        <PersonGrid>
           {
             people.rest.map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }
-        </Box>
+        </PersonGrid>
       </Box>
 
     </Page>
