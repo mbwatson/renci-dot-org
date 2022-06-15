@@ -5,7 +5,6 @@ import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
 import { PersonCard, PersonGrid } from '../../components/people/'
 import { Section } from '../../components/layout'
-import { PersonCard } from '../../components/person-card'
 
 export default function ResearchGroup() {
   const router = useRouter()
