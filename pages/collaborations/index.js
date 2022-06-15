@@ -13,10 +13,21 @@ export default function ResearchGroups({ collaborations }) {
       description="RENCI's collaborations..."
     >
       <Typography paragraph>
-        Sunt in officia anim aute occaecat sed dolor sit nulla pariatur dolor duis velit veniam.
-        Lorem ipsum cupidatat fugiat adipisicing dolore elit duis reprehenderit anim incididunt in incididunt deserunt sunt culpa fugiat eu minim veniam.
-        Veniam laborum mollit commodo labore excepteur ut sunt dolore dolor in minim enim officia sit occaecat in cillum ullamco.
-        Lorem ipsum ad tempor ea elit anim aliqua nulla exercitation veniam id non elit in in deserunt magna.
+        RENCI’s expertise in leading and coordinating large and complex team
+        science projects is recognized at the national scale, and our growing
+        outreach and engagement expertise has landed us funding on multiple
+        new federal projects. Though we have well-established and recognized
+        expertise in many domain-specific areas, we know that our potential for
+        success and impact on society is far greater when we combine our
+        expertise and resources with other teams, and we strive to continuously
+        and intentionally embody the spirit of collaboration.
+      </Typography>
+
+      <Typography paragraph>
+        The vast majority of RENCI projects employ some form of collaboration.
+        By clicking the links below, you can learn more about RENCI’s projects
+        that exist explicitly to bring people together around important
+        data science initiatives.
       </Typography>
 
       {
