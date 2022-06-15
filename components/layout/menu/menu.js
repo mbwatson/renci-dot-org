@@ -3,21 +3,26 @@ import PropTypes from 'prop-types'
 import {
   Box, Fade, Grid, IconButton, Menu as MuiMenu, MenuItem, Paper, useMediaQuery
 } from '@mui/material'
-import { Menu as MenuIcon } from '@mui/icons-material'
+import {
+  Menu as MenuIcon,
+  Close as CloseIcon,
+} from '@mui/icons-material'
 import { OurWorkTray } from './our-work-tray'
 import { Link } from '../../'
 import { Icon } from '../../'
 import style from './menu.module.css'
+import { MobileMenu } from './mobile-menu'
 import { fetchOurWorkTrayItems } from '../../../lib/contentful'
 
 //
 
 export const Menu = ({ menuItems }) => {
-  const mobile = useMediaQuery('(max-width: 600px)')
+  const mobile = useMediaQuery('(max-width: 680px)')
   const [ourWorkTrayOpen, setOurWorkTrayOpen] = useState(false)
   const [researchGroups, setResearchGroups] = useState(null)
   const [collaborations, setCollaborations] = useState(null)
   const [teams, setTeams] = useState(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,14 +35,24 @@ export const Menu = ({ menuItems }) => {
     fetchData()
   }, [])
 
+  useEffect(() => {
+    if (!mobile) {
+      setMobileMenuOpen(false)
+    }
+  }, [mobile])
+
   return (
     <nav className={ style.menuContainer }>
       {
         mobile ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <IconButton size="large">
-              <MenuIcon />
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9 }}>
+            <IconButton size="large" onClick={ () => setMobileMenuOpen(!mobileMenuOpen) }>
+              { mobileMenuOpen ? <CloseIcon /> : <MenuIcon /> }
             </IconButton>
+            <MobileMenu
+              closeHandler={ () => setMobileMenuOpen(false) }
+              open={ mobileMenuOpen }
+            />
           </Box>
         ) : (
           <ul className={ style.menu }>
