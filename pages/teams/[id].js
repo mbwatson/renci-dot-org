@@ -29,11 +29,14 @@ export default function ResearchGroup() {
       description={ team.description }
       heroImage={ team.featuredImage ? team.featuredImage.url : null }
     >
+      <Typography paragraph>{team.description}</Typography>
+      <br/>
+      
       <Section title="Team Members">
         <PersonGrid>
           {
             team.teamMembersCollection.items.map(person => (
-              <PersonCard key={ person.slug } person={ person } />
+              <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }
         </PersonGrid>

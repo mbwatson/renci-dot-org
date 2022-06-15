@@ -28,6 +28,10 @@ export default function ResearchGroup() {
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
+    
+      <Typography paragraph>{researchGroup.description}</Typography>
+      <br/>
+            
       <Section title="News">
         Coming soon...
       </Section>
@@ -40,7 +44,7 @@ export default function ResearchGroup() {
         <PersonGrid>
           {
             researchGroup.groupMembersCollection.items.map(person => (
-              <PersonCard key={ person.slug } person={ person } />
+              <PersonCard key={ person.slug } person={ person } showTitle={false}/>
             ))
           }
         </PersonGrid>
