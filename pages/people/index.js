@@ -41,7 +41,7 @@ export default function People({ people }) {
       <PersonGrid>
          {
           people.ood.map(person => (
-            <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+            <PersonCard key={ person.slug } person={ person } />
           ))
         }
       </PersonGrid>
