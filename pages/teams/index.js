@@ -28,18 +28,17 @@ export default function Teams({ teams }) {
         Learn more about RENCI's Operations teams below.
       </Typography>
 
-      {
-        teams.map(team => (
-          <Fragment key={ team.id }>
-            <Link to={ `/teams/${ team.id }` }>
-              { team.name }
-            </Link>
-            <Pre>
-              { JSON.stringify(team, null, 2) }
-            </Pre>
-          </Fragment>
-        ))
-      }
+      <ul>
+        {
+          teams.map(team => (
+            <li key={ `link-to-${ team.id }` }>
+              <Link to={ `/teams/${ team.id }` }>
+                { team.name }
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
 
     </Page>
   )

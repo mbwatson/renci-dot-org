@@ -30,21 +30,17 @@ export default function ResearchGroups({ collaborations }) {
         data science initiatives.
       </Typography>
 
-      {
-        collaborations.map(collaboration => (
-          <Fragment key={ collaboration.id }>
-            <Link to={ `/collaborations/${ collaboration.id }` }>
-              { collaboration.name }
-            </Link>
-            <Typography paragraph>
-              { collaboration.description }
-            </Typography>
-            <Pre>
-              { JSON.stringify(collaboration, null, 2) }
-            </Pre>
-          </Fragment>
-        ))
-      }
+      <ul>
+        {
+          collaborations.map(collaboration => (
+            <li key={ `link-to-${ collaboration.id }` }>
+              <Link to={ `/collaborations/${ collaboration.id }` }>
+                { collaboration.name }
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
 
     </Page>
   )

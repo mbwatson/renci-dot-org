@@ -23,18 +23,17 @@ export default function ResearchGroups({ researchGroups }) {
         Learn more about each research group at RENCI below. 
       </Typography>
 
-      {
-        researchGroups.map(group => (
-          <Fragment key={ group.id }>
-            <Link to={ `/groups/${ group.id }` }>
-              { group.name }
-            </Link>
-            <Pre>
-              { JSON.stringify(group, null, 2) }
-            </Pre>
-          </Fragment>
-        ))
-      }
+      <ul>
+        {
+          researchGroups.map(group => (
+            <li key={ `link-to-${ group.id }` }>
+              <Link to={ `/groups/${ group.id }` }>
+                { group.name }
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
 
     </Page>
   )
