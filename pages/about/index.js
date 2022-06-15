@@ -2,8 +2,8 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { Link, Page, Section } from '../components'
-import heroImage from '../images/racks.jpg'
+import { Link, Page, Section } from '../../components'
+import heroImage from '../../images/racks.jpg'
 
 export default function Home() {
   return (
@@ -92,9 +92,9 @@ export default function Home() {
         <ul>
           <li><Link to="/our-work">Our Work</Link></li>
           <li>Strategic Plan</li>
-          <li><Link to="/careers">Careers at RENCI</Link></li>
-          <li><Link to="/facilities">Facilities</Link></li>
-          <li><Link to="/branding">Using our logo</Link></li>
+          <li><Link to="/about/careers">Careers at RENCI</Link></li>
+          <li><Link to="/about/facilities">Facilities</Link></li>
+          <li><Link to="/about/branding">Using our logo</Link></li>
         </ul>
       </Section>
 

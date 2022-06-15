@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { Page } from '../components'
+import { Page } from '../../components'
 
 export default function Careers() {
   return (
