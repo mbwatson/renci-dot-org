@@ -47,7 +47,7 @@ export default function People({ people }) {
       }}>
         {
           people.ood.map(person => (
-            <PersonCard key={ person.slug } person={ person } />
+            <PersonCard key={ person.slug } person={ person } showTitle={true}/>
           ))
         }
       </Box>
@@ -81,7 +81,7 @@ export default function People({ people }) {
         }}>
           {
             people.rest.map(person => (
-              <PersonCard key={ person.slug } person={ person } />
+              <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }
         </Box>

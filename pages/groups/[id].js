@@ -4,7 +4,6 @@ import { Typography, Box } from '@mui/material'
 import { fetchResearchGroup } from '../../lib/contentful'
 import { Page } from '../../components'
 import { Section } from '../../components/layout'
-import { Pre } from '../../components/pre'
 import { PersonCard } from '../../components/person-card'
 
 export default function ResearchGroup() {

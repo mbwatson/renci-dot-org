@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { Typography, Box } from '@mui/material'
 import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
-import { Pre } from '../../components/pre'
 import { Section } from '../../components/layout'
 import { PersonCard } from '../../components/person-card'
 
