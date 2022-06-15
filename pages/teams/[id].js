@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { Section } from '../../components/layout'
+import { PersonCard } from '../../components/person-card'
 
 export default function ResearchGroup() {
   const router = useRouter()
@@ -29,12 +30,18 @@ export default function ResearchGroup() {
       heroImage={ team.featuredImage ? team.featuredImage.url : null }
     >
       <Section title="Team Members">
-        Coming soon...
+        <Box sx={{
+            flex: 1,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          }}>
+          {
+            team.teamMembersCollection.items.map(person => (
+              <PersonCard key={ person.slug } person={ person } />
+            ))
+          }
+        </Box>
       </Section>
-
-      <Pre>
-        { JSON.stringify(team, null, 2) }
-      </Pre>
 
     </Page>
   )
