@@ -19,52 +19,85 @@ export default function Home() {
         Elit exercitation veniam nisi minim magna minim minim in consequat nulla magna fugiat labore anim nulla commodo incididunt.
       </Typography>
 
-      <Section title="Nostrud sed velit">
+      <Section title="We Do Data Science">
         <Typography paragraph>
-          Magna enim incididunt exercitation anim est dolor tempor sint consequat minim laborum ut nisi.
-          Eu anim deserunt ut in sed eu incididunt dolor aliquip dolor nulla ut mollit.
+          A research institute of the University of North Carolina at Chapel
+          Hill since 2004, the Renaissance Computing Institute (RENCI) is a hub
+          for innovation that fosters data science expertise, advances software
+          development tools and techniques, develops effective
+          cross-disciplinary and cross-sector engagement strategies, and
+          establishes sustainable business models for software and services. 
         </Typography>
         <Typography paragraph>
-          Esse labore dolore reprehenderit ex voluptate ut qui in dolor.
-          Proident dolor in labore nulla duis pariatur culpa nostrud fugiat amet dolor do aliqua aliquip cillum pariatur ut.
-          Sunt cillum sunt dolor aute laboris cupidatat laboris excepteur ut consequat aute aliquip aliquip labore exercitation ut.
-        </Typography>
-        <Typography paragraph>
-          Deserunt sint dolore aliquip reprehenderit in ullamco dolor commodo consectetur laborum.
-          Reprehenderit ut commodo dolore laboris in anim deserunt exercitation elit dolor do culpa commodo cillum aliquip deserunt nisi dolor.
-          Qui veniam dolore amet ex aliquip do qui mollit.
-          Nostrud excepteur sunt adipisicing in in culpa incididunt dolor consectetur sed ut aliqua tempor irure eiusmod esse do aliquip.
-          Sit aute sint ut proident ad ex mollit fugiat laborum anim nulla.
-          Labore qui amet non ex fugiat exercitation laborum quis eiusmod ex.
-          Dolore culpa magna sint elit deserunt do dolore adipisicing consectetur ut enim sed laboris est ullamco laboris dolor in.
-        </Typography>
-      </Section>
-
-      <Section title="Lorem ipsum aute">
-        <Typography paragraph>
-          Esse labore dolore reprehenderit ex voluptate ut qui in dolor.
-          Proident dolor in labore nulla duis pariatur culpa nostrud fugiat amet dolor do aliqua aliquip cillum pariatur ut.
-          Sunt cillum sunt dolor aute laboris cupidatat laboris excepteur ut consequat aute aliquip aliquip labore exercitation ut.
-        </Typography>
-        <Typography paragraph>
-          Magna enim incididunt exercitation anim est dolor tempor sint consequat minim laborum ut nisi.
-          Eu anim deserunt ut in sed eu incididunt dolor aliquip dolor nulla ut mollit.
-        </Typography>
-        <Typography paragraph>
-          Deserunt sint dolore aliquip reprehenderit in ullamco dolor commodo consectetur laborum.
-          Reprehenderit ut commodo dolore laboris in anim deserunt exercitation elit dolor do culpa commodo cillum aliquip deserunt nisi dolor.
-          Dolore culpa magna sint elit deserunt do dolore adipisicing consectetur ut enim sed laboris est ullamco laboris dolor in.
+          With data now produced at unprecedented rates, every sector of
+          society is undergoing a historic transformation driven by the
+          challenges associated with ‘big data.’ RENCI is committed to
+          tackling these challenges and transforming data into discoveries
+          by partnering with leading universities, non-profits, government, and
+          the private sector to create tools and technologies to effectively
+          and efficiently maximize the value of big data to drive discoveries,
+          innovate, make informed decisions, and spur economic development.
         </Typography>
       </Section>
 
-      <br /><br /><br /><br />
+      <Section title="How We Do It">
+        <Typography paragraph>
+          What makes us so "renaissance?" Our work isn’t just about solving
+          known problems. It’s about unlocking human potential. 
+        </Typography>
+        <ul>
+          <li>
+            We build communities of domain scientists, data scientists, technology practitioners, and end users who apply data to catalyze innovation and knowledge discovery.
+          </li>
+          <li>
+            We relentlessly improve our competencies in data science and cyberinfrastructure development and deployment, including the entire stack of resources and cloud services known as research cyberinfrastructure.
+          </li>
+          <li>
+            We develop models of collaboration that translate our work into scientific, social, and economic innovations.
+          </li>
+          <li>
+            We document and share our findings through research publications and educational materials.
+          </li>
+          <li>
+            We accelerate research. We help overcome barriers to make research faster, stronger, and more creative.
+          </li>
+          <li>
+            We advance the state-of-the-art. Not just in what machines can do, but what people can do with machines.
+          </li>
+          <li>
+            We transcend boundaries. We foster inclusivity, promote diversity, and collaborate across disciplines to enhance science, engineering, art, the humanities, and commerce.
+          </li>
+        </ul>
+      </Section>
 
-      <Typography variant="h1">The quick brown fox</Typography><br />
-      <Typography variant="h2">The quick brown fox</Typography><br />
-      <Typography variant="h3">The quick brown fox</Typography><br />
-      <Typography variant="h4">The quick brown fox</Typography><br />
-      <Typography variant="h5">The quick brown fox</Typography><br />
-      <Typography variant="h6">The quick brown fox</Typography><br />
+      <Section title="Collaboration">
+        <Typography paragraph>
+          RENCI projects are researched, developed, and funded through
+          collaborations with more than 150 organizations. The force-directed graph
+          below illustrates how research groups and projects are linked by their
+          collaborating and funding organizations.
+        </Typography>
+
+        <Typography paragraph>
+          [insert force-directed graph]
+        </Typography>
+
+        <Typography paragraph>
+          [insert commercial]
+        </Typography>
+
+      </Section>
+
+      <Section title="For More Information">
+        <ul>
+          <li>Our Work</li>
+          <li>Strategic Plan</li>
+          <li>Careers at RENCI</li>
+          <li>Facilities</li>
+          <li>Using our logo</li>
+        </ul>
+      </Section>
+
     </Page>
   )
 }
