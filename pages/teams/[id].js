@@ -3,8 +3,7 @@ import { useRouter } from 'next/router'
 import { Typography, Box } from '@mui/material'
 import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
-import { Pre } from '../../components/pre'
-import { PersonCard } from '../../components/person-card'
+import { PersonCard, PersonGrid } from '../../components/people/'
 import { Section } from '../../components/layout'
 
 export default function ResearchGroup() {
@@ -33,17 +32,13 @@ export default function ResearchGroup() {
       <br/>
       
       <Section title="Team Members">
-        <Box sx={{
-            flex: 1,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          }}>
+        <PersonGrid>
           {
             team.teamMembersCollection.items.map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }
-        </Box>
+        </PersonGrid>
       </Section>
 
     </Page>
