@@ -90,11 +90,11 @@ export default function Home() {
 
       <Section title="For More Information">
         <ul>
-          <li>Our Work</li>
+          <li><Link to="/our-work">Our Work</Link></li>
           <li>Strategic Plan</li>
-          <li>Careers at RENCI</li>
-          <li>Facilities</li>
-          <li>Using our logo</li>
+          <li><Link to="/careers">Careers at RENCI</Link></li>
+          <li><Link to="/facilities">Facilities</Link></li>
+          <li><Link to="/branding">Using our logo</Link></li>
         </ul>
       </Section>
 
