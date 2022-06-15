@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Card, CardHeader, CardMedia, CardContent, Grid, Typography } from '@mui/material'
+import { Card, CardMedia, CardContent, Typography } from '@mui/material'
 import { Link } from '../link'
 import avatar from '../../images/generic-avatar.png'
 
