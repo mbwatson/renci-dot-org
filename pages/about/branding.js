@@ -7,7 +7,7 @@ export default function Branding() {
       title="Branding"
     >
       <Typography>
-        [insert broad information about using RENCI's branding materials]
+        [insert broad information about using RENCI branding materials]
       </Typography>
 
       <Section title="Style">

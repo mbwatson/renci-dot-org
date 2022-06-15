@@ -27,7 +27,7 @@ export default function Covid19() {
           RENCI serves as the Program Management Team on the NIH RADx Data Hub
           project. This project is under the umbrella of the Rapid Acceleration
           of Diagnostics (RADx®) initiative, a nationwide effort to advance
-          COVID-19 testing and accessibility. RENCI’s role involves coordinating
+          COVID-19 testing and accessibility. RENCI&apos;s role involves coordinating
           and developing processes and policies around RADx data, specifically
           ensuring adherence to FAIR data standards. 
         </Typography>
@@ -61,17 +61,29 @@ export default function Covid19() {
         </ul>
 
         <Typography variant="h4">
-          ICEES+ COVID-19 Open Infrastructure to Democratize and Accelerate Cross-institutional Clinical Data Sharing, Research, and Surveillance
+          ICEES+ COVID-19 Open Infrastructure to Democratize and Accelerate
+          Cross-institutional Clinical Data Sharing, Research, and Surveillance
         </Typography>
         <Typography paragraph>
-          With funding from NCATS, RENCI was granted a CTSA Program administrative supplement through NC TraCS to address COVID-19 public health needs. This award funds the development of an 'ICEES+ COVID-19 OpenAPI' designed to openly expose binned, de-identified data on patients who have tested positive for COVID-19 at UNC Health and matched controls. Electronic health record data are captured on elements of direct relevance to coronavirus infection and recovery, including treatments, interventions, comorbidities, and disposition. The data are integrated with public environmental exposures data to support research on environmental determinants of morbidity, recovery, and long-term outcomes. The ICEES+ COVID-19 OpenAPI will be freely available for both public health surveillance and research.
+          With funding from NCATS, RENCI was granted a CTSA Program
+          administrative supplement through NC TraCS to address COVID-19 public
+          health needs. This award funds the development of an &apos;ICEES+ COVID-19
+          OpenAPI&apos; designed to openly expose binned, de-identified data on
+          patients who have tested positive for COVID-19 at UNC Health and
+          matched controls. Electronic health record data are captured on
+          elements of direct relevance to coronavirus infection and recovery,
+          including treatments, interventions, comorbidities, and disposition.
+          The data are integrated with public environmental exposures data to
+          support research on environmental determinants of morbidity, recovery,
+          and long-term outcomes. The ICEES+ COVID-19 OpenAPI will be freely
+          available for both public health surveillance and research.
         </Typography>
 
         <Typography variant="h4">
           BDC3: COVID-19 Data and Infrastructure Research
         </Typography>
         <Typography paragraph>
-          A supplement to RENCI’s existing BioData Catalyst Coordinating Center
+          A supplement to RENCI&apos;s existing BioData Catalyst Coordinating Center
           (BDC3) award, this project serves to fund the BioData Catalyst
           efforts focused on ingesting and making COVID-19 data sets available
           for research throughout the ecosystem, as well as to provide NIH with
@@ -106,7 +118,7 @@ export default function Covid19() {
           to advance the analysis of COVID-19 data and encourage data sharing
           on an unprecedented scale, ultimately leading to new discoveries for
           COVID-19 treatment and prevention. The Informatics and Data Science
-          (IDSci) team at NC TraCS, UNC’s CTSA program, serves as the Chief
+          (IDSci) team at NC TraCS, UNC&apos;s CTSA program, serves as the Chief
           Architect for developing the repository. Given our partnership with
           NC TraCS, RENCI has committed to providing resources and personnel to
           help with this effort.
@@ -136,10 +148,10 @@ export default function Covid19() {
         <Typography paragraph>
           Funded by the NC Policy Collaboratory, RENCI led a qualitative
           research study in 2020 to better understand and document the
-          evolution of North Carolina’s COVID-19 response, with a focus on
+          evolution of North Carolina&apos;s COVID-19 response, with a focus on
           COVID-19 data sources; data collection and reporting protocols and
           objectives; data uses and dissemination; data aggregation and
-          centralization; COVID-19 testing; and North Carolina’s response in
+          centralization; COVID-19 testing; and North Carolina&apos;s response in
           comparison with surrounding states. The research team conducted
           qualitative interviews with key informants to piece together how
           COVID-19 data flows throughout the state. The data collected was then
@@ -156,12 +168,12 @@ export default function Covid19() {
           effort including the Gillings School of Public Health, UNC ITS, the
           High Throughput Sequencing Facility, TraCS, The UNC Viral Genomics
           Core and other groups to develop the ReCCAP analytics environment.
-          The effort leveraged RENCI's HeLx data science platform to support
+          The effort leveraged RENCI&apos;s HeLx data science platform to support
           the campus effort to surveil selected UNC researchers for COVID-19 as
           they returned to campus in June 2020. ReCCAP provided technical
           interfaces to the High Throughput Sequencing Facility (HTFS), the
           TraCS RedCAP clinical data instance used to manage the study, and to
-          UNC ITS services. HeLx leveraged the UNC ITS' Carolina CloudApps for
+          UNC ITS services. HeLx leveraged the UNC ITS&apos; Carolina CloudApps for
           the effort, which ultimately allowed timely data collection and
           analytics of COVID-19 screenings for researchers returning to campus.
         </Typography>

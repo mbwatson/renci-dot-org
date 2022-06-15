@@ -31,7 +31,7 @@ export default function Home() {
         <Typography paragraph>
           With data now produced at unprecedented rates, every sector of
           society is undergoing a historic transformation driven by the
-          challenges associated with ‘big data.’ RENCI is committed to
+          challenges associated with &apos;big data.&apos; RENCI is committed to
           tackling these challenges and transforming data into discoveries
           by partnering with leading universities, non-profits, government, and
           the private sector to create tools and technologies to effectively
@@ -42,7 +42,7 @@ export default function Home() {
 
       <Section title="How We Do It">
         <Typography paragraph>
-          What makes us so "renaissance?" Our work isn’t just about solving
+          What makes us so &apos;renaissance?&apos; Our work isn’t just about solving
           known problems. It’s about unlocking human potential. 
         </Typography>
         <ul>

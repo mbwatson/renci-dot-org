@@ -13,19 +13,19 @@ export default function Teams({ teams }) {
       description="RENCI's operational teams..."
     >
       <Typography paragraph>
-        Given RENCI's agile an fast-paced environment, the operations teams are
-        essential to keeping things running smoothly and efficiently.
-        Each of these teams plays a vital role in developing RENCI's processes,
-        projects, and overall functionality. From our premier project
-        management group organizing many complex and high-profile projects to
-        our finance team diligently managing budgets and submitting proposals,
-        RENCI has a robust and respected team of stagg members that streamline
-        the foundational requirements of creating andsharing quality data
-        science research.
+        Given RENCI&apos;s agile an fast-paced environment, the operations
+        teams are essential to keeping things running smoothly and efficiently.
+        Each of these teams plays a vital role in developing RENCI&apos;s
+        processes, projects, and overall functionality. From our premier
+        project management group organizing many complex and high-profile
+        projects to our finance team diligently managing budgets and submitting
+        proposals, RENCI has a robust and respected team of stagg members that
+        streamline the foundational requirements of creating andsharing quality
+        data science research.
       </Typography>
 
       <Typography paragraph>
-        Learn more about RENCI's Operations teams below.
+        Learn more about RENCI&apos;s Operations teams below.
       </Typography>
 
       <ul>
