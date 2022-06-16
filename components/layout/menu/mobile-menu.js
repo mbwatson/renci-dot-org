@@ -65,15 +65,21 @@ export const MobileMenu = ({ closeHandler, open }) => {
         </ListItem>
 
         <Box className="sublist" onClick={ closeHandler }>
-          <ListItemButton component={ Link } to="/groups">
-            <ListItemText primary="Research Groups" />
-          </ListItemButton>
-          <ListItemButton component={ Link } to="/collaborations">
-            <ListItemText primary="Collaborations" />
-          </ListItemButton>
-          <ListItemButton component={ Link } to="/teams">
-            <ListItemText primary="Teams" />
-          </ListItemButton>
+          <ListItem disablePadding>
+            <ListItemButton component={ Link } to="/groups">
+              <ListItemText primary="Research Groups" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={ Link } to="/collaborations">
+              <ListItemText primary="Collaborations" />
+            </ListItemButton>
+            </ListItem>
+          <ListItem disablePadding divider>
+            <ListItemButton component={ Link } to="/teams">
+              <ListItemText primary="Teams" />
+            </ListItemButton>
+          </ListItem>
         </Box>
 
         <ListItem disablePadding onClick={ closeHandler } divider>
