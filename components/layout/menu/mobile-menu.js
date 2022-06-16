@@ -33,7 +33,10 @@ export const MobileMenu = ({ closeHandler, open }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         '& .MuiListItemButton-root': { padding: '1rem' },
-        '& .sublist .MuiListItemButton-root': { paddingLeft: '2rem' },
+        '& .sublist': {
+          backgroundColor: '#d3d9df',
+          '& .MuiListItemButton-root': { paddingLeft: '2rem' },
+        },
         '& .footer': {
           display: 'flex',
           alignItems: 'center',
@@ -61,7 +64,7 @@ export const MobileMenu = ({ closeHandler, open }) => {
           </ListItemButton>
         </ListItem>
         <Divider />
-        <Box sx={{ backgroundColor: '#d3d9df' }} className="sublist" onClick={ closeHandler }>
+        <Box className="sublist" onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/groups">
             <ListItemText primary="Research Groups" />
           </ListItemButton>
