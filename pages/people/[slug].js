@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import { Grid, Typography } from '@mui/material'
+import { Divider, Grid, Typography } from '@mui/material'
 import { fetchPerson } from '../../lib/contentful'
 import { Link, LinkTray, Page, Pre, Section } from '../../components'
+
 export default function Person() {
   const router = useRouter()
   const [person, setPerson] = useState(null)
@@ -11,22 +12,23 @@ export default function Person() {
   useEffect(() => {
     const fetchData = async () => {
       const person = await fetchPerson(router.query.slug)
+      if (!person) { return }
       setPerson(person)
     }
     fetchData()
   }, [router.query.slug])
 
-  console.log(person)
 
   if (!person) {
     return 'Loading...'
   }
 
   return (
-    <Page>
-      <Grid container spacing={ 2 } columns={ 8 }>
+    <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
+      <Grid container spacing={ 2 } columns={ 8 } sx={{ border: '1px dashed crimson'}}>
         <Grid item xs={ 8 } sm={ 3 }>
           <Image
+            priority
             src={ person.photo.url }
             width={ 400 }
             height={ 400 }
@@ -53,17 +55,36 @@ export default function Person() {
         </Grid>
       </Grid>
 
-      <Section title="Groups">
-        <Pre>{ JSON.stringify(person.groups) }</Pre>
-      </Section>
+      <br /><br />
+      <Divider />
+      <br /><br />
 
-      <Section title="Current Projects">
-        <Pre>{ JSON.stringify(person.projects) }</Pre>
-      </Section>
+      {
+        person?.contributions && (
+          <Section title="Contributions">
+            <ul>
+              {
+                person.contributions.map(item => (
+                  <li key={ `${ person.firstName }-${ item.name }`}>
+                    <Link to={ `/${ item.type }s/${ item.id }` }>{ item.name }</Link>
+                  </li>
+                ))
+              }
+            </ul>
+          </Section>
+        )
+      }
 
-      <Section title="Biography">
-        <Pre>{ JSON.stringify(person.biography) }</Pre>
-      </Section>
+      {
+        person?.biography && (
+          <Section title="Biography">
+            <Typography paragraph>
+              { person.biography }
+            </Typography>
+          </Section>
+        )
+      }
+
     </Page>
   )
 }
