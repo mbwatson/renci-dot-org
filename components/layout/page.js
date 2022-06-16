@@ -29,13 +29,19 @@ export const Page = ({
 
       <br /><br />
 
-      <Typography variant="h1">
-        { title }
-      </Typography>
+      {
+        !!title && (
+          <Fragment>
+            <Typography variant="h1">
+              { title }
+            </Typography>
+            <br /><br />
+            <Divider />
+            <br /><br />
+          </Fragment>
+        )
+      }
 
-      <br /><br />
-      <Divider />
-      <br /><br />
 
       { children }
       
