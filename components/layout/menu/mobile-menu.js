@@ -43,19 +43,19 @@ export const MobileMenu = ({ closeHandler, open }) => {
       } }}
     >
       <List>
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/" onClick={ closeHandler }>
             <ListItemText primary="Home" />
           </ListItemButton>
         </ListItem>
         <Divider />
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/about" onClick={ closeHandler }>
             <ListItemText primary="About" />
           </ListItemButton>
         </ListItem>
         <Divider />
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/our-work" onClick={ closeHandler }>
             <ListItemText primary="Our Work" />
           </ListItemButton>
@@ -71,13 +71,13 @@ export const MobileMenu = ({ closeHandler, open }) => {
           }
         </Box>
         <Divider />
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/people" onClick={ closeHandler }>
             <ListItemText primary="People" />
           </ListItemButton>
         </ListItem>
         <Divider />
-        <ListItem disablePadding>
+        <ListItem disablePadding onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/news" onClick={ closeHandler }>
             <ListItemText primary="News" />
           </ListItemButton>
@@ -96,6 +96,7 @@ export const MobileMenu = ({ closeHandler, open }) => {
           direction="row"
           spacing={ 2 }
           justifyContent="center"
+          onClick={ closeHandler }
         >
           <IconButton size="large" component={ Link } to="#"><FacebookIcon /></IconButton>
           <IconButton size="large" component={ Link } to="#"><TwitterIcon /></IconButton>
