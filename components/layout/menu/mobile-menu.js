@@ -1,6 +1,6 @@
 import { forwardRef, useState } from 'react'
 import {
-  Box, Dialog, Divider, IconButton,
+  Box, Dialog, IconButton,
   List, ListItem, ListItemButton, ListItemText,
   Slide, Stack, Typography,
 } from '@mui/material'
@@ -46,24 +46,24 @@ export const MobileMenu = ({ closeHandler, open }) => {
       } }}
     >
       <List>
-        <ListItem disablePadding onClick={ closeHandler }>
+        <ListItem disablePadding onClick={ closeHandler } divider>
           <ListItemButton component={ Link } to="/">
             <ListItemText primary="Home" />
           </ListItemButton>
         </ListItem>
-        <Divider />
-        <ListItem disablePadding onClick={ closeHandler }>
+
+        <ListItem disablePadding onClick={ closeHandler } divider>
           <ListItemButton component={ Link } to="/about">
             <ListItemText primary="About" />
           </ListItemButton>
         </ListItem>
-        <Divider />
-        <ListItem disablePadding onClick={ closeHandler }>
+
+        <ListItem disablePadding onClick={ closeHandler } divider>
           <ListItemButton component={ Link } to="/our-work">
             <ListItemText primary="Our Work" />
           </ListItemButton>
         </ListItem>
-        <Divider />
+
         <Box className="sublist" onClick={ closeHandler }>
           <ListItemButton component={ Link } to="/groups">
             <ListItemText primary="Research Groups" />
@@ -75,19 +75,19 @@ export const MobileMenu = ({ closeHandler, open }) => {
             <ListItemText primary="Teams" />
           </ListItemButton>
         </Box>
-        <Divider />
-        <ListItem disablePadding onClick={ closeHandler }>
+
+        <ListItem disablePadding onClick={ closeHandler } divider>
           <ListItemButton component={ Link } to="/people">
             <ListItemText primary="People" />
           </ListItemButton>
         </ListItem>
-        <Divider />
-        <ListItem disablePadding onClick={ closeHandler }>
+
+        <ListItem disablePadding onClick={ closeHandler } divider>
           <ListItemButton component={ Link } to="/news">
             <ListItemText primary="News" />
           </ListItemButton>
         </ListItem>
-        <Divider />
+
       </List>
 
       <Box sx={{ flex: 1 }} />
