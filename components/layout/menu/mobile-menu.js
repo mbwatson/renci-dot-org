@@ -47,19 +47,19 @@ export const MobileMenu = ({ closeHandler, open }) => {
     >
       <List>
         <ListItem disablePadding onClick={ closeHandler }>
-          <ListItemButton component={ Link } to="/" onClick={ closeHandler }>
+          <ListItemButton component={ Link } to="/">
             <ListItemText primary="Home" />
           </ListItemButton>
         </ListItem>
         <Divider />
         <ListItem disablePadding onClick={ closeHandler }>
-          <ListItemButton component={ Link } to="/about" onClick={ closeHandler }>
+          <ListItemButton component={ Link } to="/about">
             <ListItemText primary="About" />
           </ListItemButton>
         </ListItem>
         <Divider />
         <ListItem disablePadding onClick={ closeHandler }>
-          <ListItemButton component={ Link } to="/our-work" onClick={ closeHandler }>
+          <ListItemButton component={ Link } to="/our-work">
             <ListItemText primary="Our Work" />
           </ListItemButton>
         </ListItem>
@@ -77,13 +77,13 @@ export const MobileMenu = ({ closeHandler, open }) => {
         </Box>
         <Divider />
         <ListItem disablePadding onClick={ closeHandler }>
-          <ListItemButton component={ Link } to="/people" onClick={ closeHandler }>
+          <ListItemButton component={ Link } to="/people">
             <ListItemText primary="People" />
           </ListItemButton>
         </ListItem>
         <Divider />
         <ListItem disablePadding onClick={ closeHandler }>
-          <ListItemButton component={ Link } to="/news" onClick={ closeHandler }>
+          <ListItemButton component={ Link } to="/news">
             <ListItemText primary="News" />
           </ListItemButton>
         </ListItem>
