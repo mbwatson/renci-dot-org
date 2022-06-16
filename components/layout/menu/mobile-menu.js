@@ -61,14 +61,16 @@ export const MobileMenu = ({ closeHandler, open }) => {
           </ListItemButton>
         </ListItem>
         <Divider />
-        <Box sx={{ backgroundColor: '#d3d9df' }} className="sublist">
-          {
-            ['Research Groups', 'Collaborations', 'Operations'].map(item => (
-              <ListItemButton key={ item } onClick={ closeHandler }>
-                <ListItemText primary={ item } />
-              </ListItemButton>
-            ))
-          }
+        <Box sx={{ backgroundColor: '#d3d9df' }} className="sublist" onClick={ closeHandler }>
+          <ListItemButton component={ Link } to="/groups">
+            <ListItemText primary="Research Groups" />
+          </ListItemButton>
+          <ListItemButton component={ Link } to="/collaborations">
+            <ListItemText primary="Collaborations" />
+          </ListItemButton>
+          <ListItemButton component={ Link } to="/teams">
+            <ListItemText primary="Teams" />
+          </ListItemButton>
         </Box>
         <Divider />
         <ListItem disablePadding onClick={ closeHandler }>
