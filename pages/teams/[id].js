@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 import { fetchTeam } from '../../lib/contentful'
 import { Page } from '../../components'
-import { Pre } from '../../components/pre'
+import { PersonCard, PersonGrid } from '../../components/people/'
 import { Section } from '../../components/layout'
 
 export default function ResearchGroup() {
@@ -28,13 +28,18 @@ export default function ResearchGroup() {
       description={ team.description }
       heroImage={ team.featuredImage ? team.featuredImage.url : null }
     >
+      <Typography paragraph>{team.description}</Typography>
+      <br/>
+      
       <Section title="Team Members">
-        Coming soon...
+        <PersonGrid>
+          {
+            team.teamMembersCollection.items.map(person => (
+              <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+            ))
+          }
+        </PersonGrid>
       </Section>
-
-      <Pre>
-        { JSON.stringify(team, null, 2) }
-      </Pre>
 
     </Page>
   )
