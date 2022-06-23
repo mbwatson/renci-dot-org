@@ -25,7 +25,7 @@ export default function Person() {
 
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
-      <Grid container spacing={ 2 } columns={ 8 } sx={{ padding: '2rem' }}>
+      <Grid container spacing={ 2 } columns={ 8 }>
         <Grid item xs={ 8 } sm={ 3 }>
           <Image
             priority
