@@ -69,7 +69,9 @@ export default function Person() {
               {
                 person.contributions.map(item => (
                   <li key={ `${ person.firstName }-${ item.name }`}>
-                    <Link to={ `/${ item.type }s/${ item.id }` }>{ item.name }</Link>
+                    <Link to={ `/${ item.type }s/${ item.id }` }>
+                      { item.name }
+                    </Link>
                   </li>
                 ))
               }
