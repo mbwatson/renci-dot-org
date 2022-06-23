@@ -45,13 +45,16 @@ export default function Person() {
               { person.email }
             </Link>
           </Typography>
-          <Typography paragraph>{ person.phoneNumber || '---' }</Typography>
-          <LinkTray urls={ [
-            'https://facebook.com/cillum',
-            'https://instagram.com/lorem',
-            'https://example.com/irure.',
-            'https://github.com/amet.',
-          ] } />
+          {
+            person.phoneNumber && (
+              <Typography paragraph>{ person.phoneNumber }</Typography>
+            )
+          }
+          {/*
+            Will need to add to the content
+            model to be able to use this.
+            <LinkTray urls={  } />
+          */}
         </Grid>
       </Grid>
 
