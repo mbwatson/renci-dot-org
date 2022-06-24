@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography, Box } from '@mui/material'
 import { fetchResearchGroup } from '../../lib/contentful'
-import { Page } from '../../components'
+import { Page, Pre } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from '../../components/people/'
 
@@ -31,13 +31,19 @@ export default function ResearchGroup() {
     
       <Typography paragraph>{researchGroup.description}</Typography>
       <br/>
-            
-      <Section title="News">
-        Coming soon...
-      </Section>
-
+      
       <Section title="Current Projects">
-        Coming soon...
+        <ul>
+          {
+            researchGroup.projectsCollection.items
+              .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+              .map(project => (
+                <li key={ `${ researchGroup.name }-${ project.name }` }>
+                  { project.name }
+                </li>
+              ))
+          }
+        </ul>
       </Section>
 
       <Section title="Contributors">
