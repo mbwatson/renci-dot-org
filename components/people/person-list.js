@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box, Card, CardContent, CardMedia, Divider, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { PersonCard } from './'
 import { Link } from '../'
 import avatar from '../../images/generic-avatar.png'
@@ -14,9 +14,13 @@ export const PersonList = ({ people, showTitles }) => {
       '& .profile-card': {
         flex: '1 1 200px',
         '& .photo': {
+          margin: 'auto',
           width: '200px',
           height: '200px',
-        }
+        },
+        '& .name-and-title': {
+          textAlign: 'center',
+        },
       },
     }}>
       {
@@ -32,8 +36,7 @@ export const PersonList = ({ people, showTitles }) => {
               alt={ `${ person.firstName } ${ person.lastName } headshot` }
               className="photo"
             />
-            <Divider />
-            <CardContent>
+            <CardContent className="name-and-title">
               <Link to={ `/people/${ person.slug }` }>
                 { person.firstName } { person.lastName }
               </Link>
