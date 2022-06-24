@@ -41,7 +41,7 @@ export const PersonList = ({ people, showTitles }) => {
               className="photo"
             />
             <CardContent className="name-and-title">
-              { person.firstName } { person.lastName }
+              <Typography>{ person.firstName } { person.lastName }</Typography>
               { showTitles && (
                 <Typography>{ person.title }</Typography>
               )}
