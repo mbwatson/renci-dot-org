@@ -29,6 +29,8 @@ export const PersonList = ({ people, showTitles }) => {
         people.map(person => (
           <Card
             key={ `${ person.slug }-card` }
+            component={ Link }
+            to={ `/people/${ person.slug }` }
             className="profile-card"
             elevation={ 0 }
           >
@@ -39,9 +41,7 @@ export const PersonList = ({ people, showTitles }) => {
               className="photo"
             />
             <CardContent className="name-and-title">
-              <Link to={ `/people/${ person.slug }` }>
-                { person.firstName } { person.lastName }
-              </Link>
+              { person.firstName } { person.lastName }
               { showTitles && (
                 <Typography>{ person.title }</Typography>
               )}
