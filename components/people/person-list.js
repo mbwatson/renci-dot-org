@@ -54,11 +54,12 @@ export const PersonList = ({ people, showTitles }) => {
 }
 
 PersonList.propTypes = {
-  children: PropTypes.node.isRequired,
+  people: PropTypes.array.isRequired,
   showTitles: PropTypes.bool.isRequired,
 }
 
 PersonList.defaultProps = {
+  people: [],
   showTitles: false,
 }
 
