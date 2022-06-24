@@ -10,9 +10,11 @@ export const PersonList = ({ people, showTitles }) => {
     <Box sx={{
       display: 'flex',
       flexWrap: 'wrap',
+      justifyContent: 'flex-start',
       gap: '1rem',
       '& .profile-card': {
         flex: '1 1 200px',
+        maxWidth: '250px',
         '& .photo': {
           margin: 'auto',
           width: '200px',
