@@ -37,6 +37,7 @@ export const OurWorkTray = ({
                 sx={{ padding: 0, margin: '2rem' }}
                 subheader={
                   <ListSubheader sx={{
+                    position: 'static',
                     backgroundColor: 'transparent',
                     fontSize: '150%',
                     padding: '0 0.5rem',
@@ -61,6 +62,7 @@ export const OurWorkTray = ({
                 sx={{ padding: 0, margin: '2rem' }}
                 subheader={
                   <ListSubheader sx={{
+                    position: 'static',
                     backgroundColor: 'transparent',
                     fontSize: '150%',
                     padding: '0 0.5rem',
@@ -85,6 +87,7 @@ export const OurWorkTray = ({
                 sx={{ padding: 0, margin: '2rem' }}
                 subheader={
                   <ListSubheader sx={{
+                    position: 'static',
                     backgroundColor: 'transparent',
                     fontSize: '150%',
                     padding: '0 0.5rem',
