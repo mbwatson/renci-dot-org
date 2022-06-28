@@ -1,23 +1,38 @@
 import PropTypes from 'prop-types'
-import { Box, Typography } from '@mui/material'
-import style from './section.module.css'
+import { Box, Grid, Typography } from '@mui/material'
 
 export const Section = ({ title, children }) => {
   return (
-    <Box className={ style.section }>
-      {
-        title && (
-          <Box className={ style.titleContainer }>
-            <Typography variant="h3" className={ style.title }>
-              { title }
-            </Typography>
-          </Box>
-        )
-      }
-      <Box className={ style.content }>
-        { children }
-      </Box>
-    </Box>
+    <Grid
+      container
+      columns={ 8 }
+      columnSpacing={{ xs: 0, md: 2 }}
+      rowSpacing={{ xs: 2, md: 10 }}
+      sx={{
+        margin: '3rem 0',
+        '& .title': {
+          xs: { textAlign: 'left' },
+          md: { textAlign: 'right' },
+        },
+      }}
+    >
+      <Grid item xs={ 8 } md={ 3 }>
+        {
+          title && (
+            <Box>
+              <Typography variant="h3" className="title">
+                { title }
+              </Typography>
+            </Box>
+          )
+        }
+      </Grid>
+      <Grid item xs={ 8 } md={ 5 }>
+        <Box>
+          { children }
+        </Box>
+      </Grid>
+    </Grid>
   )
 }
 

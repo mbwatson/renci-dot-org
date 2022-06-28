@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import Image from 'next/image'
+import { Divider, Grid, Typography } from '@mui/material'
 import { fetchPerson } from '../../lib/contentful'
-import { Page } from '../../components'
-import { Pre } from '../../components/pre'
+import { Link, LinkTray, Page, Pre, Section } from '../../components'
 
 export default function Person() {
   const router = useRouter()
@@ -11,25 +11,84 @@ export default function Person() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(router.query.slug)
       const person = await fetchPerson(router.query.slug)
+      if (!person) { return }
       setPerson(person)
     }
     fetchData()
   }, [router.query.slug])
+
 
   if (!person) {
     return 'Loading...'
   }
 
   return (
-    <Page
-      title={ `${ person.firstName } ${ person.lastName }` }
-      description={ person.bio }
-    >
-      <Pre>
-        { JSON.stringify(person, null, 2) }
-      </Pre>
+    <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
+      <Grid container spacing={ 2 } columns={ 8 }>
+        <Grid item xs={ 8 } sm={ 3 }>
+          <Image
+            priority
+            src={ person.photo.url }
+            width={ 400 }
+            height={ 400 }
+            layout="responsive"
+          />
+        </Grid>
+        <Grid item xs={ 8 } sm={ 5 }>
+          <Typography variant="h1">
+            { person.firstName } { person.lastName }
+          </Typography>
+          <Typography paragraph>{ person.title }</Typography>
+          <Typography paragraph>
+            <Link to={ `mailto:${ person.email }` }>
+              { person.email }
+            </Link>
+          </Typography>
+          {
+            person.phoneNumber && (
+              <Typography paragraph>{ person.phoneNumber }</Typography>
+            )
+          }
+          {/*
+            Will need to add to the content
+            model to be able to use this.
+            <LinkTray urls={  } />
+          */}
+        </Grid>
+      </Grid>
+
+      <br /><br />
+      <Divider />
+      <br /><br />
+
+      {
+        person?.contributions && (
+          <Section title="Contributions">
+            <ul>
+              {
+                person.contributions.map(item => (
+                  <li key={ `${ person.firstName }-${ item.name }`}>
+                    <Link to={ `/${ item.type }s/${ item.id }` }>
+                      { item.name }
+                    </Link>
+                  </li>
+                ))
+              }
+            </ul>
+          </Section>
+        )
+      }
+
+      {
+        person?.biography && (
+          <Section title="Biography">
+            <Typography paragraph>
+              { person.biography }
+            </Typography>
+          </Section>
+        )
+      }
 
     </Page>
   )
