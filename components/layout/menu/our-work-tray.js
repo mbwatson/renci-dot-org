@@ -29,9 +29,7 @@ export const OurWorkTray = ({
         },
       }} { ...props }>
         <Container maxWidth={ config.width }>
-          <Grid container spacing={ 0 } sx={{
-            '& *': { border: '1px dashed crimson' }
-          }}>
+          <Grid container spacing={ 0 }>
             <Grid item xs={ 12 } sm={ 4 } className={ style.trayColumn }>
               <List
                 sx={{ padding: 0, margin: '2rem' }}
