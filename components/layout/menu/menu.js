@@ -18,7 +18,7 @@ import { fetchOurWorkTrayItems } from '../../../lib/contentful'
 
 export const Menu = ({ menuItems }) => {
   const mobile = useMediaQuery('(max-width: 680px)')
-  const [ourWorkTrayOpen, setOurWorkTrayOpen] = useState(true)
+  const [ourWorkTrayOpen, setOurWorkTrayOpen] = useState(false)
   const [researchGroups, setResearchGroups] = useState(null)
   const [collaborations, setCollaborations] = useState(null)
   const [teams, setTeams] = useState(null)
@@ -65,8 +65,8 @@ export const Menu = ({ menuItems }) => {
             <li
               className={ style.menuItem }
               onMouseOver={ () => setOurWorkTrayOpen(true) }
-              onMouseOut={ () => setOurWorkTrayOpen(true) }
-              onClick={ () => setOurWorkTrayOpen(true) }
+              onMouseOut={ () => setOurWorkTrayOpen(false) }
+              onClick={ () => setOurWorkTrayOpen(false) }
             >
               <Link to="/our-work" className={ style.menuItemLink }>
                 Our Work &nbsp; <Icon icon="chevron-down" size={ 16 } fill="#333" />
