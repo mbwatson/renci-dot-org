@@ -16,6 +16,7 @@ export default function App(props) {
     <React.Fragment>
       <Head>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel={ fontCss } />
       </Head>
       <ConfigProvider>
