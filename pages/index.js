@@ -3,12 +3,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page } from '../components'
+import homeHero from '../images/racks.jpg'
 
 export default function Home() {
   return (
     <Page
       title="Home"
       description="Welcome to RENCI.org"
+      heroImage={ homeHero.src }
     >
       <Typography paragraph>
         Lorem ipsum dolor eiusmod quis excepteur mollit sit elit labore non aliqua.
