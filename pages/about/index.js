@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page, Section } from '../../components'
 import heroImage from '../../images/racks.jpg'
+import { Graph } from '../../components/graph'
 
 export default function Home() {
   return (
@@ -78,9 +79,7 @@ export default function Home() {
           collaborating and funding organizations.
         </Typography>
 
-        <Typography paragraph>
-          [insert force-directed graph]
-        </Typography>
+        <Graph />
 
         <Typography paragraph>
           [insert commercial]
