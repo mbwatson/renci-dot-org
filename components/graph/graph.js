@@ -1,6 +1,6 @@
 import loadable from '@loadable/component'
 import { Box } from '@mui/material'
-import { SizeMe } from 'react-sizeme'
+import ReactResizeDetector from 'react-resize-detector'
 
 const ForceGraph2D = loadable(() => import('./graph-import'))
 
@@ -18,15 +18,15 @@ export const Graph = () => {
         },
       },
     }}>
-      <SizeMe>{
-        ({ size }) => (
+      <ReactResizeDetector handleWidth>{
+        ({ width }) => (
           <ForceGraph2D
-            height={ 400 }
-            width={ size.width }
+            height={ 500 }
+            width={ width }
             graphData={ graphData }
           />
         )
-      }</SizeMe>
+      }</ReactResizeDetector>
     </Box>
   )
 }
