@@ -1,5 +1,6 @@
 import loadable from '@loadable/component'
 import { Box } from '@mui/material'
+import { SizeMe } from 'react-sizeme'
 
 const ForceGraph2D = loadable(() => import('./graph-import'))
 
@@ -11,19 +12,21 @@ export const Graph = () => {
 
   return (
     <Box sx={{
-      border: '1px solid #ddd',
       '& .force-graph-container': {
-        border: '1px solid #ddd',
+        backgroundColor: '#eee',
         '& canvas': {
-          border: '1px solid #dd0',
         },
       },
     }}>
-      <ForceGraph2D
-        height={ 400 }
-        width={ 400 }
-        graphData={ graphData }
-      />
+      <SizeMe>{
+        ({ size }) => (
+          <ForceGraph2D
+            height={ 400 }
+            width={ size.width }
+            graphData={ graphData }
+          />
+        )
+      }</SizeMe>
     </Box>
   )
 }
