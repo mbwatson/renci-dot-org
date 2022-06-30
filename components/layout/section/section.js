@@ -7,20 +7,20 @@ export const Section = ({ title, children }) => {
     <Grid
       container
       columns={ 8 }
-      rowSpacing={{ xs: 2, md: 10 }}
+      rowSpacing={{ xs: 3, md: 10 }}
       sx={{
         margin: '3rem 0',
         '& .title-container': {
-          borderRight: `1px solid ${ theme.palette.grey[200] }`,
           height: '100%',
-          paddingRight: '1rem',
+          paddingRight: '2rem',
           '& .title': {
             xs: { textAlign: 'left' },
             md: { textAlign: 'right' },
           },
         },
         '& .content-container': {
-          paddingLeft: '1rem',
+          borderLeft: { sm: 0, md: `1px solid ${ theme.palette.grey[200] }` },
+          paddingLeft: { sm: 0, md: '2rem' },
         },
       }}
     >
