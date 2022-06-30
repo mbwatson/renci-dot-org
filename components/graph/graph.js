@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types'
 import loadable from '@loadable/component'
 import { Box } from '@mui/material'
-import ReactResizeDetector from 'react-resize-detector'
 
 const ForceGraph2D = loadable(() => import('./graph-import'))
 
-export const Graph = () => {
+export const Graph = ({ width, height }) => {
   const graphData = {
     nodes: [{ id: 1 }, { id: 2 }],
     links: [{ source: 1, target: 2 }]
@@ -18,15 +18,16 @@ export const Graph = () => {
         },
       },
     }}>
-      <ReactResizeDetector handleWidth>{
-        ({ width }) => (
-          <ForceGraph2D
-            height={ 500 }
-            width={ width }
-            graphData={ graphData }
-          />
-        )
-      }</ReactResizeDetector>
+      <ForceGraph2D
+        height={ height }
+        width={ width }
+        graphData={ graphData }
+      />
     </Box>
   )
+}
+
+Graph.propTypes = {
+  height: PropTypes.number.isRequired,
+  width: PropTypes.number.isRequired,
 }

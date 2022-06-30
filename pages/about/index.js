@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page, Section } from '../../components'
 import heroImage from '../../images/racks.jpg'
+import ReactResizeDetector from 'react-resize-detector'
 import { Graph } from '../../components/graph'
 
 export default function Home() {
@@ -79,7 +80,15 @@ export default function Home() {
           collaborating and funding organizations.
         </Typography>
 
-        <Graph />
+        <ReactResizeDetector handleWidth>
+          {
+            ({ width }) => (
+              <Graph height={ 500 } width={ width } />
+            )
+          }
+        </ReactResizeDetector>
+
+        <br /><br /><br />
 
         <Typography paragraph>
           [insert commercial]
