@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea } from '@mui/material'
+import { Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, ButtonBase } from '@mui/material'
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
+import LinesEllipsis from 'react-lines-ellipsis'
 
 export  const Spotlight = ({ projects }) => {
   const theme = useTheme()
@@ -15,7 +16,8 @@ export  const Spotlight = ({ projects }) => {
       gap: theme.spacing.medium,
       width: '100%',
       // maxWidth: '1000px',
-      marginBottom: '2rem'
+      margin: '2rem 5rem',
+      padding: '0 5rem'
     },
     project: {
       flex: '1',
@@ -25,6 +27,43 @@ export  const Spotlight = ({ projects }) => {
       padding: theme.spacing.medium,
       borderRadius: '10px',
       margin: '10px',
+      maxWidth: '250px',
+      maxHeight: '300px',
+      position: 'relative',
+    },
+    cardContent: {
+      padding: '1rem',
+
+      '& p': {
+        fontSize: '85%',
+        WebkitBoxOrient: 'vertical',
+        WebkitLineClamp: 3,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+  
+      }
+    },
+    cardMedia: {
+      height: '125px',
+
+    },
+    textOverlay: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      height: "100%",
+      width: "100%",
+      color: 'white',
+      backgroundColor: 'rgba(1,1,1,0.65)',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '& h6': {
+        fontWeight: '500',
+        padding: '0 1rem',
+        letterSpacing: '0.5px',
+        fontSize: '120%',
+      },
     }
   }
 
@@ -45,7 +84,7 @@ export  const Spotlight = ({ projects }) => {
 
   return (
     <Fragment>
-      <Typography variant='h3' style={{marginBottom: '2rem'}}>Spotlight</Typography>
+      <Typography variant='h3' style={{margin: '2rem 0'}}>Spotlight</Typography>
 
       {selectedProjects && (
         <Box sx={styles.wrapper}>
@@ -54,18 +93,34 @@ export  const Spotlight = ({ projects }) => {
           <Card sx={styles.project} key={project.id}>
             <CardActionArea component={Link} to={ `/projects/${ project.id }` }>
                 { project.featuredImage && (
-                  <CardMedia component='img' src={project.featuredImage.url}/>
+                  <Box>
+                    <CardMedia component='img' src={project.featuredImage.url} sx={styles.cardMedia} />
+                    <Box sx={styles.textOverlay}>
+                      <Typography variant='h6'>{project.name}</Typography>
+                    </Box>
+                  </Box>
                 ) }
 
-                <CardHeader title={project.name}/>
-
-                <hr />
-
-                <CardContent>
-                  { project.description ? project.description : null }
-                </CardContent>
-
             </CardActionArea>
+            {!project.featuredImage && (
+              <Fragment>
+                <CardHeader title={project.name}/>
+                <hr/>
+              </Fragment>
+            )}
+                <CardContent sx={styles.cardContent}>
+                  <Typography paragraph>
+                    <LinesEllipsis 
+                      text={ project.description ? project.description : null }
+                      maxLine='4'
+                      ellipsis=' ...'
+                      trimRight
+                      basedOn='words'
+                    />
+                    <br/>
+                    <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More...</Link>
+                  </Typography>
+                </CardContent>
           </Card>
           ))
         }
