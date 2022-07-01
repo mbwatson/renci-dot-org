@@ -33,14 +33,8 @@ export  const Spotlight = ({ projects }) => {
     },
     cardContent: {
       padding: '1rem',
-
       '& p': {
-        fontSize: '85%',
-        WebkitBoxOrient: 'vertical',
-        WebkitLineClamp: 3,
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-  
+        fontSize: '85%',  
       }
     },
     cardMedia: {
