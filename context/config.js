@@ -31,7 +31,7 @@ export const ConfigProvider = ({ children }) => {
   }), [mode, width])
 
   const changeMode = newMode => () => {
-    if (!newMode in MODES) {
+    if (!(newMode in MODES)) {
       return
     }
     setMode(MODES[newMode])
