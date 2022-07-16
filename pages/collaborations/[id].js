@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
 import { fetchCollaboration } from '../../lib/contentful'
-import { Page } from '../../components'
-import { Pre } from '../../components/pre'
-import { Section } from '../../components/layout'
+import {
+  Link, Page, PersonCard, PersonGrid, Pre, Section,
+} from '../../components'
 
 export default function Collaboration() {
   const router = useRouter()
@@ -22,36 +22,77 @@ export default function Collaboration() {
     return 'Loading...'
   }
 
+  console.log(collaboration)
+
   return (
     <Page
       title={ `${ collaboration.name }` }
       description={ collaboration.description }
       heroImage={ collaboration.featuredImage ? collaboration.featuredImage.url : null }
     >
-      <Section title="News">
-        Coming soon...
-      </Section>
-
       <Section title="RENCI's Role">
-        Coming soon...
+        { collaboration.role }
       </Section>
 
       <Section title="Projects">
-        Coming soon...
-      </Section>
-
-      <Section title="RENCI's Role">
-        Coming soon...
+        <ul>
+          {
+            collaboration.projectsCollection.items
+              .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+              .map(project => (
+                <li key={ `${ collaboration.name }-${ project.name }` }>
+                  { project.name }
+                </li>
+              ))
+          }
+        </ul>
       </Section>
 
       <Section title="Contributors">
-        Coming soon...
-        (members, partners, funders)
-      </Section>
+        <h3>People</h3>
+        <PersonGrid>
+          {
+            collaboration.contributorsCollection.items.map(person => (
+              <PersonCard key={ person.slug } person={ person } showTitle={false}/>
+            ))
+          }
+        </PersonGrid>
 
-      <Pre>
-        { JSON.stringify(collaboration, null, 2) }
-      </Pre>
+        {
+          collaboration.fundingCollection.items.length > 0 && (
+            <Fragment>
+              <h3>Funders</h3>
+              <ul>
+                {
+                  collaboration.fundingCollection.items
+                    .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                    .map(org => (
+                      <li key={ `${ collaboration.id }-${ org.id }` }><Link to={ org.url }>{ org.name }</Link></li>
+                    ))
+                }
+              </ul>
+            </Fragment>
+          )
+        }
+
+        {
+          collaboration.partnersCollection.items.length > 0 && (
+            <Fragment>
+              <h3>Partners</h3>
+              <ul>
+                {
+                  collaboration.partnersCollection.items
+                    .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                    .map(org => (
+                      <li key={ `${ collaboration.id }-${ org.id }` }><Link to={ org.url }>{ org.name }</Link></li>
+                    ))
+                }
+              </ul>
+            </Fragment>
+          )
+        }
+
+      </Section>
 
     </Page>
   )
