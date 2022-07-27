@@ -4,14 +4,14 @@ import { Card, CardMedia, CardContent, Typography } from '@mui/material'
 import { Link } from '../link'
 import avatar from '../../images/generic-avatar.png'
 
-export const PersonCard = ({ person, showTitle }) => {
+export const PersonCard = ({ person, showTitle, anchorName }) => {
   return (
-      <Card sx={{ margin: '0 1.5rem' }} elevation={ 0 } >
+      <Card elevation={ 0 } name={ anchorName }>
         <CardMedia
-          component='img'
-          height='300'
-          image={ person.photo ? person.photo.url : avatar.src}
-          alt={`${person.firstName} ${person.lastName} photo`}
+          component="img"
+          height="250"
+          image={ person.photo ? person.photo.url : avatar.src }
+          alt={ `${person.firstName} ${person.lastName} photo` }
         />
 
         <CardContent>
@@ -27,6 +27,7 @@ export const PersonCard = ({ person, showTitle }) => {
 }
 
 PersonCard.propTypes = {
+  anchorName: PropTypes.string,
   person: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
@@ -35,4 +36,8 @@ PersonCard.propTypes = {
     photo: PropTypes.object,
     showTitle: PropTypes.bool.isRequired
   }),
+}
+
+PersonCard.defaultProps = {
+  anchorName: '',
 }

@@ -71,7 +71,12 @@ export default function People({ people }) {
         <PersonGrid>
           {
             people.rest.map(person => (
-              <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+              <PersonCard
+                key={ person.slug }
+                person={ person }
+                showTitle 
+                anchorName={ person.lastName[0] }
+              />
             ))
           }
         </PersonGrid>
