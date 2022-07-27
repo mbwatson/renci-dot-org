@@ -1,46 +1,29 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, ButtonBase } from '@mui/material'
+import { Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, ButtonBase, Grid, useMediaQuery } from '@mui/material'
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
 import LinesEllipsis from 'react-lines-ellipsis'
+import homeHero from '../images/racks.jpg'
 
-export  const Spotlight = ({ projects }) => {
-  const theme = useTheme()
+const SpotlightCard = ({project}) => {
   const styles = {
-    wrapper: {
-      display: 'flex',
-      width: '100%',
-      justifyContent: 'space-between',
-      gap: theme.spacing.medium,
-      width: '100%',
-      // maxWidth: '1000px',
-      margin: '2rem 5rem',
-      padding: '0 5rem'
-    },
     project: {
       flex: '1',
-      justifyContent: 'center',
-      alignItems: 'center',
       textAlign: 'center',
-      padding: theme.spacing.medium,
-      borderRadius: '10px',
-      margin: '10px',
-      maxWidth: '250px',
-      maxHeight: '320px',
+      // maxHeight: '320px',
+      // minWidth: '160px',
       position: 'relative',
     },
     cardContent: {
-      padding: '1rem',
       '& p': {
         fontSize: '85%',  
       }
     },
     cardMedia: {
-      height: '150px',
-      
-
+      minHeight: '150px',
+      maxHeight: '150px'
     },
     textOverlay: {
       position: 'absolute',
@@ -53,22 +36,59 @@ export  const Spotlight = ({ projects }) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      transition: 'width 4s ease-in 1s',
+      transition: 'background-color 750ms ease-out',
       backdropFilter: 'blur(2px)',
       '& h6': {
         fontWeight: '500',
         padding: '0 1rem',
         letterSpacing: '0.5px',
         fontSize: '120%',
+        transition: 'color 200ms',
       },
       '&:hover': {
         color: 'black',
         backgroundColor: 'rgba(255,255,255,0.65)',
         backdropFilter: 'none',
-      // transition: 'width 4s ease-in 1s'
       }
-
     }
+  }
+  return (
+    <Card sx={styles.project}>
+      <CardActionArea component={Link} to={ `/projects/${ project.id }` }>
+        {/* find a way to make this one component and make sure the height stays the same whether there is an image or not */}    
+          <CardMedia component={'img'} src={ project.featuredImage ? project.featuredImage.url : homeHero.src } sx={styles.cardMedia} />
+          <Box sx={styles.textOverlay}>
+            <Typography variant='h6'>{project.name}</Typography>
+          </Box>
+      </CardActionArea>
+      <CardContent sx={styles.cardContent}>
+        <Typography paragraph>
+        { project.description ? project.description : null }
+          {/* <LinesEllipsis 
+            text={ project.description ? project.description : null }
+            maxLine='4'
+            ellipsis=' ...'
+            trimRight
+            basedOn='words'
+          /> */}
+          <br/>
+          <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More...</Link>
+        </Typography>
+      </CardContent>
+    </Card>
+  )
+}
+
+export  const Spotlight = ({ projects }) => {
+  const mobile = useMediaQuery('(max-width: 680px)')
+
+  const theme = useTheme()
+  const styles = {
+    wrapper: {
+      width: '100%',
+      justifyContent: 'space-around',
+      margin: '2rem auto',
+    },
   }
 
   const [selectedProjects, setSelectedProjects] = useState([])
@@ -89,51 +109,15 @@ export  const Spotlight = ({ projects }) => {
   return (
     <Fragment>
       <Typography variant='h3' style={{margin: '2rem 0'}}>Spotlight</Typography>
-
-      {selectedProjects && (
-        <Box sx={styles.wrapper}>
-        {
-          selectedProjects.map(project => (
-          <Card sx={styles.project} key={project.id}>
-            <CardActionArea component={Link} to={ `/projects/${ project.id }` }>
-              {
-                project.featuredImage && (
-                  <Box>
-                    <CardMedia component='img' src={project.featuredImage.url} sx={styles.cardMedia} />
-                    <Box sx={styles.textOverlay}>
-                      <Typography variant='h6'>{project.name}</Typography>
-                    </Box>
-                  </Box>
-                )
-              }
-              {
-                !project.featuredImage && (
-                  <Fragment>
-                    <CardHeader title={project.name}/>
-                    <hr/>
-                  </Fragment>
-                )
-              }
-            </CardActionArea>
-                <CardContent sx={styles.cardContent}>
-                  <Typography paragraph>
-                    <LinesEllipsis 
-                      text={ project.description ? project.description : null }
-                      maxLine='4'
-                      ellipsis=' ...'
-                      trimRight
-                      basedOn='words'
-                    />
-                    <br/>
-                    <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More...</Link>
-                  </Typography>
-                </CardContent>
-          </Card>
-          ))
-        }
-        </Box>
-      )
-      }
+        <Grid container sx={styles.wrapper}>
+          {
+            selectedProjects.map(project => (
+              <Grid item xs={12} sm={3} key={project.id}>
+                <SpotlightCard project={project}/>
+              </Grid>
+            ))
+          }
+        </Grid>
     </Fragment>
   )
 }
