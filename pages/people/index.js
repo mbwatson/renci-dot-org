@@ -38,6 +38,9 @@ export default function People({ people }) {
       </Typography>
 
       <Typography variant="h2">Office of the Director</Typography>
+
+      <br /><br />
+
       <PersonGrid>
          {
           people.ood.map(person => (
@@ -45,8 +48,12 @@ export default function People({ people }) {
           ))
         }
       </PersonGrid>
+      
+      <br /><br />
 
       <Typography variant="h2">Everyone Else</Typography>
+
+      <br /><br />
 
       <Box sx={{ display: 'flex', gap: '1rem' }}>
         <Box component="nav" sx={{
