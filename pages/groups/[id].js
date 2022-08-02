@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography, Box } from '@mui/material'
 import { fetchResearchGroup } from '../../lib/contentful'
-import { Page, Pre } from '../../components'
+import { Link, Page, Pre } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from '../../components/people/'
 
@@ -39,7 +39,7 @@ export default function ResearchGroup() {
               .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
               .map(project => (
                 <li key={ `${ researchGroup.name }-${ project.name }` }>
-                  { project.name }
+                  <Link to={ `/projects/${ project.id }` }>{ project.name }</Link>
                 </li>
               ))
           }
