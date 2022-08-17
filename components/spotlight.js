@@ -12,7 +12,7 @@ const SpotlightCard = ({project}) => {
     project: {
       flex: '1',
       textAlign: 'center',
-      // maxHeight: '320px',
+      // maxHeight: '450px',
       // minWidth: '160px',
       position: 'relative',
     },
@@ -63,14 +63,7 @@ const SpotlightCard = ({project}) => {
       </CardActionArea>
       <CardContent sx={styles.cardContent}>
         <Typography paragraph>
-        { project.description ? project.description : null }
-          {/* <LinesEllipsis 
-            text={ project.description ? project.description : null }
-            maxLine='4'
-            ellipsis=' ...'
-            trimRight
-            basedOn='words'
-          /> */}
+        { project.snippet ? project.snippet : null }
           <br/>
           <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More...</Link>
         </Typography>
@@ -90,6 +83,15 @@ export  const Spotlight = ({ projects }) => {
       margin: '2rem auto',
     },
   }
+  const trimDescription = (description) => {
+    const wordCount = 32
+    //split the description into an array of words
+    const snippetArray = description.split(' ')
+    //grab the first X number of words as defined by the wordCount above
+    const trimmedSnippetArray = snippetArray.slice(0, wordCount)
+    //if the number of words in the description is longer than the wordcount, return a string that has an ellipsis at the end. if not, return a string that just joins the words from the trimmed array
+    return snippetArray.length >= wordCount ? `${trimmedSnippetArray.join(' ')} ...` : trimmedSnippetArray.join(' ')
+  }
 
   const [selectedProjects, setSelectedProjects] = useState([])
 
@@ -100,7 +102,11 @@ export  const Spotlight = ({ projects }) => {
     for (let i = 0; i < 3; i += 1) {
       const randomIndex = Math.floor(Math.random() * projectsCopy.length)
       const randomProject = projectsCopy.splice(randomIndex, 1)[0]
-      projectSelection.push(randomProject)
+      //add a property that is a snippet of the original description before pushing to the array
+      projectSelection.push({
+        ...randomProject,
+        snippet: trimDescription(randomProject.description)
+      })
     }
     // map those indices to projects
     setSelectedProjects(projectSelection)
