@@ -16,14 +16,17 @@ const SpotlightCard = ({project}) => {
       // minWidth: '160px',
       position: 'relative',
     },
-    cardContent: {
-      '& p': {
-        fontSize: '85%',  
-      }
-    },
     cardMedia: {
       minHeight: '150px',
       maxHeight: '150px'
+    },
+    cardContent: {
+      minHeight: '210px',
+      display: 'flex',
+      flexDirection: 'column',
+      '& p': {
+        fontSize: '85%',  
+      }
     },
     textOverlay: {
       position: 'absolute',
@@ -62,11 +65,9 @@ const SpotlightCard = ({project}) => {
           </Box>
       </CardActionArea>
       <CardContent sx={styles.cardContent}>
-        <Typography paragraph>
-        { project.snippet ? project.snippet : null }
+        <Typography paragraph sx={{flex: '1'}}>{ project.snippet ? project.snippet : null }</Typography>
           <br/>
-          <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More...</Link>
-        </Typography>
+        <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More</Link>
       </CardContent>
     </Card>
   )
@@ -83,12 +84,13 @@ export  const Spotlight = ({ projects }) => {
       margin: '2rem auto',
     },
   }
-  const trimDescription = (description) => {
-    const wordCount = 32
+  const trimText = (description, wordCount = 23) => {
     //split the description into an array of words
     const snippetArray = description.split(' ')
+
     //grab the first X number of words as defined by the wordCount above
     const trimmedSnippetArray = snippetArray.slice(0, wordCount)
+    
     //if the number of words in the description is longer than the wordcount, return a string that has an ellipsis at the end. if not, return a string that just joins the words from the trimmed array
     return snippetArray.length >= wordCount ? `${trimmedSnippetArray.join(' ')} ...` : trimmedSnippetArray.join(' ')
   }
@@ -105,7 +107,7 @@ export  const Spotlight = ({ projects }) => {
       //add a property that is a snippet of the original description before pushing to the array
       projectSelection.push({
         ...randomProject,
-        snippet: trimDescription(randomProject.description)
+        snippet: trimText(randomProject.description)
       })
     }
     // map those indices to projects
