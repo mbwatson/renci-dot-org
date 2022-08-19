@@ -21,7 +21,6 @@ export default function Person() {
   if (!person) {
     return 'Loading...'
   }
-
   return (
     <Page
       title={ `${ person.firstName } ${ person.lastName }` }
