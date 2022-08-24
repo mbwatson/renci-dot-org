@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { fetchPeopleForPeopleView } from "../../lib/contentful";
+import { fetchPeopleAndTeams } from "../../lib/strapi";
 import { Link, Page } from "../../components";
 import { PersonCard, PersonGrid } from "../../components/people/";
 import { useEffect, useState } from "react";
@@ -18,43 +18,25 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 /*
  * people are coming into this component from
- * fetchPeopleForPeopleView with this shape:
+ * fetchPeopleAndTeams with this shape:
  * {
  *   ood: […],
- *   rest: […],
+ *   people: […],
  * }
  */
 export default function People({ people }) {
-  const [people2, setPeople2] = useState([]);
   const [oodPids, setOodPids] = useState([]);
-  const [ood, setOod] = useState([]);
+
   useEffect(() => {
-    fetch(
-      "http://api.renci.org:1337/api/people?populate=*&pagination[page]=1&pagination[pageSize]=150"
-    )
-      .then((response) => response.json())
-      .then((data) => setPeople2(data.data));
-    fetch("http://api.renci.org:1337/api/teams?populate=members")
-      .then((response) => response.json())
-      .then((data) => {
-        data.data.forEach((team) => {
-          if (team.attributes.slug === "ood") {
-            setOod(team.attributes.members.data);
-          }
-        });
-        return ood;
-      })
-      .then((ood) => {
-        let oodPid = ood.map((member) => {
-          return member.attributes.pid;
-        });
-        setOodPids(oodPid);
-      });
+    let oodPid = people.ood.map((member) => {
+      return member.attributes.pid;
+    });
+    setOodPids(oodPid);
   }, []);
   // this variable will track which letters in the vertical menu will be links
   // use a Link component for letter X if we have someone whose last name begins with X.
   const linkedLetters = letters.reduce((chars, char) => {
-    const index = people2.findIndex(
+    const index = people.people.findIndex(
       (person) => person.attributes.lastName[0] === char
     );
     return index > -1 ? [...chars, char] : chars;
@@ -78,7 +60,7 @@ export default function People({ people }) {
 
       <Typography variant="h2">Office of the Director</Typography>
       <PersonGrid>
-        {ood.map((person) => (
+        {people.ood.map((person) => (
           <PersonCard
             key={person.attributes.slug}
             person={person.attributes}
@@ -121,7 +103,7 @@ export default function People({ people }) {
           )}
         </Box>
         <PersonGrid>
-          {people2
+          {people.people
             .filter((person) => {
               return !oodPids.includes(person.attributes.pid);
             })
@@ -139,7 +121,8 @@ export default function People({ people }) {
 }
 
 export async function getStaticProps(context) {
-  const people = await fetchPeopleForPeopleView();
+  const people = await fetchPeopleAndTeams("ood");
+
   return {
     props: { people },
   };
