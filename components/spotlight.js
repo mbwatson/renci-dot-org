@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, ButtonBase, Grid, useMediaQuery } from '@mui/material'
+import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, ButtonBase, useMediaQuery } from '@mui/material'
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
@@ -12,8 +12,6 @@ const SpotlightCard = ({project}) => {
     project: {
       flex: '1',
       textAlign: 'center',
-      // maxHeight: '450px',
-      // minWidth: '160px',
       position: 'relative',
     },
     cardMedia: {
@@ -21,7 +19,6 @@ const SpotlightCard = ({project}) => {
       maxHeight: '150px'
     },
     cardContent: {
-      minHeight: '210px',
       display: 'flex',
       flexDirection: 'column',
       '& p': {
@@ -58,14 +55,13 @@ const SpotlightCard = ({project}) => {
   return (
     <Card sx={styles.project}>
       <CardActionArea component={Link} to={ `/projects/${ project.id }` }>
-        {/* find a way to make this one component and make sure the height stays the same whether there is an image or not */}    
           <CardMedia component={'img'} src={ project.featuredImage ? project.featuredImage.url : homeHero.src } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
             <Typography variant='h6'>{project.name}</Typography>
           </Box>
       </CardActionArea>
       <CardContent sx={styles.cardContent}>
-        <Typography paragraph sx={{flex: '1'}}>{ project.snippet ? project.snippet : null }</Typography>
+        <Typography paragraph sx={{flex: '1', marginTop: '1rem'}}>{ project.snippet }</Typography>
           <br/>
         <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More</Link>
       </CardContent>
@@ -117,15 +113,18 @@ export  const Spotlight = ({ projects }) => {
   return (
     <Fragment>
       <Typography variant='h3' style={{margin: '2rem 0'}}>Spotlight</Typography>
-        <Grid container sx={styles.wrapper}>
-          {
-            selectedProjects.map(project => (
-              <Grid item xs={12} sm={3} key={project.id}>
-                <SpotlightCard project={project}/>
-              </Grid>
-            ))
-          }
-        </Grid>
+      <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+        sx={styles.wrapper}
+      >
+        {
+          selectedProjects.map(project => (
+            <SpotlightCard project={project} key={project.id}/>
+
+          ))
+        }
+      </Stack>
     </Fragment>
   )
 }
