@@ -10,7 +10,7 @@ export const PersonCard = ({ person, showTitle }) => {
         <CardMedia
           component='img'
           height='300'
-          image={ person.photo ? person.photo.url : avatar.src}
+          image={ person.photo.data == null ? avatar.src : person.photo.data[0].attributes.url}
           alt={`${person.firstName} ${person.lastName} photo`}
         />
 

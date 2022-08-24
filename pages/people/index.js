@@ -42,6 +42,8 @@ export default function People({ people }) {
     return index > -1 ? [...chars, char] : chars;
   }, []);
 
+  console.log(people)
+
   return (
     <Page
       title="People"
