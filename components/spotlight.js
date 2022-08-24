@@ -84,7 +84,7 @@ export  const Spotlight = ({ projects }) => {
       margin: '2rem auto',
     },
   }
-  const trimText = (description, wordCount = 23) => {
+  const trimText = (description = "Click to read more", wordCount = 27) => {
     //split the description into an array of words
     const snippetArray = description.split(' ')
 
