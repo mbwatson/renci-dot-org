@@ -10,20 +10,30 @@ import homeHero from '../images/racks.jpg'
 const SpotlightCard = ({project}) => {
   const styles = {
     project: {
-      flex: '1',
       textAlign: 'center',
       position: 'relative',
+      display: 'flex',
+      flex: '1',
+      flexDirection: 'column',
     },
     cardMedia: {
       minHeight: '150px',
       maxHeight: '150px'
     },
-    cardContent: {
-      display: 'flex',
+    description: {
+      flex: '1',
+      alignItems: 'space-between',
       flexDirection: 'column',
+      marginTop: '1rem',
       '& p': {
         fontSize: '85%',  
-      }
+      },
+    },
+    noSnippet: {
+      flex: '1',
+      flexDirection: 'column',
+      verticalAlign: 'middle', 
+      marginTop: '2.5rem',
     },
     textOverlay: {
       position: 'absolute',
@@ -36,7 +46,7 @@ const SpotlightCard = ({project}) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      transition: 'background-color 750ms ease-out',
+      transition: 'background-color 500ms ease-out',
       backdropFilter: 'blur(2px)',
       '& h6': {
         fontWeight: '500',
@@ -60,9 +70,10 @@ const SpotlightCard = ({project}) => {
             <Typography variant='h6'>{project.name}</Typography>
           </Box>
       </CardActionArea>
-      <CardContent sx={styles.cardContent}>
-        <Typography paragraph sx={{flex: '1', marginTop: '1rem'}}>{ project.snippet }</Typography>
-          <br/>
+      <CardContent sx={project.description ? styles.description : styles.noSnippet}>
+        <Typography paragraph >{ project.snippet }</Typography>
+      </CardContent>
+      <CardContent>
         <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More</Link>
       </CardContent>
     </Card>
@@ -81,8 +92,9 @@ export  const Spotlight = ({ projects }) => {
     },
   }
   const trimText = (description = "Click to read more", wordCount = 27) => {
+    const description1 = description ? description : "Click to read more"
     //split the description into an array of words
-    const snippetArray = description.split(' ')
+    const snippetArray = description1.split(' ')
 
     //grab the first X number of words as defined by the wordCount above
     const trimmedSnippetArray = snippetArray.slice(0, wordCount)
@@ -112,7 +124,7 @@ export  const Spotlight = ({ projects }) => {
 
   return (
     <Fragment>
-      <Typography variant='h3' style={{margin: '2rem 0'}}>Spotlight</Typography>
+      <Typography variant='h3' style={{margin: '2rem 0'}}>Project Spotlight</Typography>
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -121,7 +133,6 @@ export  const Spotlight = ({ projects }) => {
         {
           selectedProjects.map(project => (
             <SpotlightCard project={project} key={project.id}/>
-
           ))
         }
       </Stack>
