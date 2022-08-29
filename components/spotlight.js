@@ -91,10 +91,9 @@ export  const Spotlight = ({ projects }) => {
       margin: '2rem auto',
     },
   }
-  const trimText = (description = "Click to read more", wordCount = 27) => {
-    const description1 = description ? description : "Click to read more"
+  const trimText = (description, wordCount = 27) => {
     //split the description into an array of words
-    const snippetArray = description1.split(' ')
+    const snippetArray = (description || 'Click to read more').split(' ')
 
     //grab the first X number of words as defined by the wordCount above
     const trimmedSnippetArray = snippetArray.slice(0, wordCount)
