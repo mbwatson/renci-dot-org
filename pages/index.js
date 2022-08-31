@@ -4,8 +4,10 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
+import { Spotlight } from '../components/spotlight'
+import { fetchProjects } from '../lib/contentful'
 
-export default function Home() {
+export default function Home({ projects}) {
   return (
     <Page
       title="Home"
@@ -20,6 +22,14 @@ export default function Home() {
         Occaecat irure irure anim quis sit velit nulla ut tempor non aliqua sed nulla nostrud excepteur magna.
         Esse incididunt ex ea pariatur nisi sit quis est anim incididunt in culpa laboris.
       </Typography>
+      <Spotlight projects={projects}/>
     </Page>
   )
+}
+
+export async function getStaticProps(context) {
+  const projects = await fetchProjects()
+  return {
+    props: { projects },
+  }
 }
