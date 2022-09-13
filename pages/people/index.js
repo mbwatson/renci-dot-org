@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { fetchPeopleAndTeams } from "../../lib/strapi";
 import { Link, Page } from "../../components";
-import { PersonCard, PersonGrid } from "../../components/people/";
+import { PersonCardStrapi, PersonGrid } from "../../components/people/";
 import { useEffect, useState } from "react";
 
 // this provides data for the vertical menu
@@ -42,8 +42,6 @@ export default function People({ people }) {
     return index > -1 ? [...chars, char] : chars;
   }, []);
 
-  console.log(people)
-
   return (
     <Page
       title="People"
@@ -63,7 +61,7 @@ export default function People({ people }) {
       <Typography variant="h2">Office of the Director</Typography>
       <PersonGrid>
         {people.ood.map((person) => (
-          <PersonCard
+          <PersonCardStrapi
             key={person.attributes.slug}
             person={person.attributes}
             showTitle={true}
@@ -110,7 +108,7 @@ export default function People({ people }) {
               return !oodPids.includes(person.attributes.pid);
             })
             .map((person) => (
-              <PersonCard
+              <PersonCardStrapi
                 key={person.attributes.email}
                 person={person.attributes}
                 showTitle={true}
