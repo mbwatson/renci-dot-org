@@ -11,7 +11,6 @@ export default function Person() {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(router.query.slug)
       const person = await fetchPerson(router.query.slug)
       setPerson(person)
     }

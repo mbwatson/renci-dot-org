@@ -1,14 +1,16 @@
 import { useRouter } from "next/router"
 import RichText from "./sections/rich-text"
+import { TitleAndBody } from "./sections/title-and-body"
 
 
 // Map Strapi sections to section components
 const sectionComponents = {
   "sections.rich-text": RichText,
+  "sections.title-and-body-section": TitleAndBody,
 }
 
 // Display a section individually
-const Section = ({ sectionData, eventData, token, glossary }) => {
+const Section = ({ sectionData }) => {
   // Prepare the component
   const SectionComponent = sectionComponents[sectionData.__component]
   if (!SectionComponent) {
@@ -18,10 +20,7 @@ const Section = ({ sectionData, eventData, token, glossary }) => {
   // Display the section
   return (
     <SectionComponent
-      glossary={glossary}
       data={sectionData}
-      eventData={eventData}
-      token={token}
     />
   )
 }
@@ -48,7 +47,7 @@ const PreviewModeBanner = () => {
 }
 
 // Display the list of sections
-const Sections = ({ sections, preview, eventData, token, glossary }) => {
+const Sections = ({ sections, preview }) => {
   return (
     <div className="flex flex-col">
       {/* Show a banner if preview mode is on */}
@@ -57,10 +56,6 @@ const Sections = ({ sections, preview, eventData, token, glossary }) => {
       {sections.map((section) => (
         <Section
           sectionData={section}
-          eventData={eventData}
-          key={`${section.__component}${section.id}`}
-          token={token}
-          glossary={glossary}
         />
       ))}
     </div>

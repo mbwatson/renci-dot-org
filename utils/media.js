@@ -10,6 +10,6 @@ export function getStrapiMedia(url) {
 
   // Otherwise prepend the URL path with the Strapi URL
   return `${
-    process.env.NEXT_PUBLIC_STRAPI_API_URL || "https://api.healdatafair.org"
+    process.env.NEXT_PUBLIC_STRAPI_API_URL || "https://api.renci.org"
   }${url}`;
 }

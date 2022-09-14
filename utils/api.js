@@ -35,14 +35,13 @@ export async function getPageData(params, locale, preview) {
   const slug = params.slug.join("/");
   // Find the pages that match this slug
   const pagesData = await fetchAPI(
-    `/api/pages?filters[slug]=${slug}&populate=%2A`
+    `/api/pages?filters[slug]=${slug}&populate[contentSections][populate]=*`
   );
 
   // Make sure we found something, otherwise return null
   if (pagesData == null || pagesData.length === 0) {
     return null;
   }
-
   // Return the first item since there should only be one result per slug
   return pagesData.data[0].attributes;
 }
