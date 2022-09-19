@@ -1,15 +1,12 @@
-import { Fragment } from 'react'
+import { Fragment } from "react";
 // import PropTypes from 'prop-types'
-import { Divider, Typography } from '@mui/material'
-import Markdown from "react-markdown"
+import { Divider, Typography } from "@mui/material";
+import Markdown from "react-markdown";
 // import { Hero } from './hero'
 
-export const PageTitle = ({
-  data
-}) => {
+export const PageTitle = ({ data }) => {
   return (
     <Fragment>
-
       {/* {
         !!heroImage && (
           <Hero
@@ -19,19 +16,20 @@ export const PageTitle = ({
         )
       } */}
 
-      <br /><br />
+      <br />
+      <br />
 
-      <Typography variant="h1">
-        { data.title }
-      </Typography>
+      <Typography variant="h1">{data.title}</Typography>
 
-      <br /><br />
+      <br />
+      <br />
       <Divider />
-      <br /><br />
+      <br />
+      <br />
       <Markdown linkTarget="_blank">{data.optionalDescription}</Markdown>
     </Fragment>
-  )
-}
+  );
+};
 
 // Page.propTypes = {
 //   children: PropTypes.node,
