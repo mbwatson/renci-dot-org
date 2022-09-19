@@ -6,7 +6,6 @@ import { mediaPropTypes } from "utils/types"
 const Seo = ({ metadata }) => {
   // Prevent errors if no metadata was set
   if (!metadata) return null
-
   return (
     <NextSeo
       title={metadata.metaTitle}
@@ -18,11 +17,11 @@ const Seo = ({ metadata }) => {
         // Only include OG image if we have it
         // Careful: if you disable image optimization in Strapi, this will break
         ...(metadata.shareImage && {
-          images: Object.values(metadata.shareImage.formats).map((image) => {
+          images: Object.values(metadata.shareImage.data).map((image) => {
             return {
-              url: getStrapiMedia(image.url),
-              width: image.width,
-              height: image.height,
+              url: getStrapiMedia(image.attributes.url),
+              width: image.attributes.width,
+              height: image.attributes.height,
             }
           }),
         }),

@@ -1,7 +1,7 @@
 import ErrorPage from "next/error"
 import { getPageData, fetchAPI, getGlobalData } from "../utils/api"
 import Sections from "../components/sections"
-// import Seo from "@/components/elements/seo"
+import Seo from "@/components/elements/seo"
 import { useRouter } from "next/router"
 import Layout from "../components/layout"
 import { getLocalizedPaths } from "utils/localize"
@@ -12,7 +12,7 @@ import { getLocalizedPaths } from "utils/localize"
 
 const DynamicPage = ({
   sections,
-  // metadata,
+  metadata,
   preview,
   global,
   pageContext
@@ -32,7 +32,7 @@ const DynamicPage = ({
   return (
     <div>
       {/* Add meta tags for SEO*/}
-      {/* <Seo metadata={metadata} /> */}
+      <Seo metadata={metadata} />
       {/* Display content sections */}
       <Sections
         sections={sections}
@@ -68,6 +68,7 @@ export async function getStaticProps(context) {
   const { params, locale, locales, defaultLocale, preview = null } = context
 
   const globalLocale = await getGlobalData(locale)
+  
   // Fetch pages. Include drafts if preview mode is on
   const pageData = await getPageData(
     { slug: !params.slug ? [""] : params.slug },
@@ -95,7 +96,7 @@ export async function getStaticProps(context) {
     props: {
       preview,
       sections: contentSections,
-      // metadata,
+      metadata: pageData.metaData,
       global: globalLocale,
       pageContext: {
         ...pageContext,

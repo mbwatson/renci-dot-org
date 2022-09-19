@@ -35,7 +35,7 @@ export async function getPageData(params, locale, preview) {
   const slug = params.slug.join("/");
   // Find the pages that match this slug
   const pagesData = await fetchAPI(
-    `/api/pages?filters[slug]=${slug}&populate[contentSections][populate]=*`
+    `/api/pages?filters[slug]=${slug}&populate[contentSections][populate]=*&populate[metaData][populate]=*`
   );
 
   // Make sure we found something, otherwise return null
@@ -48,7 +48,7 @@ export async function getPageData(params, locale, preview) {
 
 // Get site data from Strapi (metadata, navbar, footer...)
 export async function getGlobalData(locale) {
-  const global = await fetchAPI(`/api/global`);
+  const global = await fetchAPI(`/api/global?populate[metaData][populate]=*&populate[navBar][populate]=*&populate[favicon][populate]=*`);
   return global;
 }
 
