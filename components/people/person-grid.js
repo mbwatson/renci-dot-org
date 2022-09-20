@@ -6,6 +6,7 @@ export const PersonGrid = ({ children }) => {
   return (
     <Box sx={{
       flex: 1,
+      marginTop: '3rem',
       display: 'grid',
       gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
     }}>
