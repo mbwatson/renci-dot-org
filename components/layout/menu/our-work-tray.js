@@ -39,6 +39,7 @@ export const OurWorkTray = ({
                     fontSize: '150%',
                     padding: '0 0.5rem',
                     fontWeight: 'normal',
+                    position: 'static'
                   }}>
                     <Link to="/groups">Research Groups</Link>
                   </ListSubheader>
@@ -63,6 +64,7 @@ export const OurWorkTray = ({
                     fontSize: '150%',
                     padding: '0 0.5rem',
                     fontWeight: 'normal',
+                    position: 'static'
                   }}>
                     <Link to="/collaborations">Collaborations</Link>
                   </ListSubheader>
@@ -87,6 +89,7 @@ export const OurWorkTray = ({
                     fontSize: '150%',
                     padding: '0 0.5rem',
                     fontWeight: 'normal',
+                    position: 'static'
                   }}>
                     <Link to="/teams">Operations</Link>
                   </ListSubheader>
