@@ -2,6 +2,7 @@ import { useRouter } from "next/router"
 import RichText from "./sections/rich-text"
 import { TitleAndBody } from "./sections/title-and-body"
 import { PageTitle } from "./sections/page-title"
+import { Hero } from "./sections/hero"
 
 
 // Map Strapi sections to section components
@@ -9,6 +10,7 @@ const sectionComponents = {
   "sections.rich-text": RichText,
   "sections.title-and-body-section": TitleAndBody,
   "sections.page-title": PageTitle,
+  "sections.hero": Hero,
 }
 
 // Display a section individually

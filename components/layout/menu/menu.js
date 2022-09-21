@@ -60,7 +60,7 @@ export const Menu = ({ menuItems }) => {
               <Link to="/" className={ style.menuItemLink }>Home</Link>
             </li>
             <li className={ style.menuItem }>
-              <Link to="/about" className={ style.menuItemLink }>About</Link>
+              <Link to="/about-renci" className={ style.menuItemLink }>About</Link>
             </li>
             <li
               className={ style.menuItem }
@@ -80,9 +80,6 @@ export const Menu = ({ menuItems }) => {
             </li>
             <li className={ style.menuItem }>
               <Link to="/people" className={ style.menuItemLink }>People</Link>
-            </li>
-            <li className={ style.menuItem }>
-              <Link to="/news" className={ style.menuItemLink }>News</Link>
             </li>
           </ul>
         )
