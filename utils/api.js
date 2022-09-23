@@ -39,9 +39,10 @@ export async function getPageData(params, locale, preview) {
   );
 
   // Make sure we found something, otherwise return null
-  if (pagesData == null || pagesData.length === 0) {
+  if (pagesData == null || pagesData.length === 0 || pagesData.data.length === 0) {
     return null;
   }
+
   // Return the first item since there should only be one result per slug
   return pagesData.data[0].attributes;
 }
