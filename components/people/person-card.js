@@ -37,7 +37,3 @@ PersonCard.propTypes = {
     showTitle: PropTypes.bool.isRequired
   }),
 }
-
-PersonCard.defaultProps = {
-  anchorName: '',
-}

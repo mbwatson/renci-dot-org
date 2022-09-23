@@ -22,7 +22,6 @@ export default function Person() {
   if (!person) {
     return 'Loading...'
   }
-
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <Grid container spacing={ 2 } columns={ 8 }>
