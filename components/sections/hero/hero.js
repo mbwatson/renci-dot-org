@@ -4,8 +4,6 @@ import style from "./hero.module.css";
 import { useScrollPosition } from "../../../hooks";
 
 export const Hero = ({ data }) => {
-  console.log(data)
-  console.log("data")
   const { scrollPosition } = useScrollPosition();
 
   return (
