@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchResearchGroups } from '../../lib/contentful'
+import { fetchResearchGroups } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -25,10 +25,10 @@ export default function ResearchGroups({ researchGroups }) {
 
       <ul>
         {
-          researchGroups.map(group => (
-            <li key={ `link-to-${ group.id }` }>
-              <Link to={ `/groups/${ group.id }` }>
-                { group.name }
+          researchGroups.groups.map(group => (
+            <li key={ `link-to-${ group.attributes.name }` }>
+              <Link to={ `/groups/${ group.attributes.name }` }>
+                { group.attributes.name }
               </Link>
             </li>
           ))

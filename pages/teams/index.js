@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchTeams } from '../../lib/contentful'
+import { fetchTeams } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -30,10 +30,10 @@ export default function Teams({ teams }) {
 
       <ul>
         {
-          teams.map(team => (
-            <li key={ `link-to-${ team.id }` }>
-              <Link to={ `/teams/${ team.id }` }>
-                { team.name }
+          teams.teams.map(team => (
+            <li key={ `link-to-${ team.attributes.name }` }>
+              <Link to={ `/teams/${ team.attributes.name }` }>
+                { team.attributes.name }
               </Link>
             </li>
           ))
@@ -46,6 +46,7 @@ export default function Teams({ teams }) {
 
 export async function getStaticProps(context) {
   const teams = await fetchTeams()
+
   return {
     props: { teams },
   }
