@@ -4,7 +4,6 @@ import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardA
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
-import LinesEllipsis from 'react-lines-ellipsis'
 import homeHero from '../images/racks.jpg'
 
 const SpotlightCard = ({project}) => {
@@ -62,10 +61,11 @@ const SpotlightCard = ({project}) => {
       }
     }
   }
+  const featuredImage = project.featured_image.data?.attributes?.url ? project.featured_image.data.attributes.url : homeHero.src
   return (
-    <Card sx={styles.project}>
-      <CardActionArea component={Link} to={ `/projects/${ project.id }` }>
-          <CardMedia component={'img'} src={ project.featuredImage ? project.featuredImage.url : homeHero.src } sx={styles.cardMedia} />
+    <Card sx={styles.project} key={project.project_id}>
+      <CardActionArea component={Link} to={ `/projects/${ project.project_id }` }>
+          <CardMedia component={'img'} src={ featuredImage  } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
             <Typography variant='h6'>{project.name}</Typography>
           </Box>
@@ -74,7 +74,7 @@ const SpotlightCard = ({project}) => {
         <Typography paragraph >{ project.snippet }</Typography>
       </CardContent>
       <CardContent>
-        <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More</Link>
+        <Link to={ `/projects/${ project.project_id }` } style={{textAlign: 'right'}}>Read More</Link>
       </CardContent>
     </Card>
   )
@@ -113,8 +113,8 @@ export  const Spotlight = ({ projects }) => {
       const randomProject = projectsCopy.splice(randomIndex, 1)[0]
       //add a property that is a snippet of the original description before pushing to the array
       projectSelection.push({
-        ...randomProject,
-        snippet: trimText(randomProject.description)
+        ...randomProject.attributes,
+        snippet: trimText(randomProject.attributes.description)
       })
     }
     // map those indices to projects

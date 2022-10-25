@@ -6,6 +6,7 @@ import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { Spotlight } from '../components/spotlight'
 import { fetchProjects } from '../lib/contentful'
+import { fetchStrapiProjects } from '../lib/strapi'
 
 export default function Home({ projects}) {
   return (
@@ -28,7 +29,7 @@ export default function Home({ projects}) {
 }
 
 export async function getStaticProps(context) {
-  const projects = await fetchProjects()
+  const projects = await fetchStrapiProjects()
   return {
     props: { projects },
   }
