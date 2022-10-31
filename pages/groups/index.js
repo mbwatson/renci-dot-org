@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchResearchGroups } from '../../lib/strapi'
+import { fetchStrapiGroups } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -25,10 +25,10 @@ export default function ResearchGroups({ researchGroups }) {
 
       <ul>
         {
-          researchGroups.groups.map(group => (
-            <li key={ `link-to-${ group.attributes.name }` }>
-              <Link to={ `/groups/${ group.attributes.name }` }>
-                { group.attributes.name }
+          researchGroups.map(group => (
+            <li key={ `link-to-${ group.name }` }>
+              <Link to={ `/groups/${ group.slug }` }>
+                { group.name }
               </Link>
             </li>
           ))
@@ -40,7 +40,7 @@ export default function ResearchGroups({ researchGroups }) {
 }
 
 export async function getStaticProps(context) {
-  const researchGroups = await fetchResearchGroups()
+  const researchGroups = await fetchStrapiGroups()
   return {
     props: { researchGroups },
   }
