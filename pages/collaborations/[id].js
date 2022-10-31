@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
-import { fetchCollaboration } from '../../lib/contentful'
+import { fetchStrapiCollaboration } from '../../lib/strapi'
 import {
   Link, Page, PersonCard, PersonGrid, Pre, Section,
 } from '../../components'
@@ -12,7 +12,7 @@ export default function Collaboration() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const collab = await fetchCollaboration(router.query.id)
+      const collab = await fetchStrapiCollaboration(router.query.id)
       setCollaboration(collab)
     }
     fetchData()
@@ -30,18 +30,18 @@ export default function Collaboration() {
       description={ collaboration.description }
       heroImage={ collaboration.featuredImage ? collaboration.featuredImage.url : null }
     >
-      <Section title="RENCI's Role">
+       <Section title="RENCI's Role">
         { collaboration.role }
       </Section>
 
       <Section title="Projects">
         <ul>
           {
-            collaboration.projectsCollection.items
+            collaboration.projects
               .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
               .map(project => (
                 <li key={ `${ collaboration.name }-${ project.name }` }>
-                  { project.name }
+                  <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
                 </li>
               ))
           }
@@ -52,22 +52,22 @@ export default function Collaboration() {
         <h3>People</h3>
         <PersonGrid>
           {
-            collaboration.contributorsCollection.items.map(person => (
+            collaboration.members.map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={false}/>
             ))
           }
         </PersonGrid>
 
         {
-          collaboration.fundingCollection.items.length > 0 && (
+          collaboration.partners.length > 0 && (
             <Fragment>
-              <h3>Funders</h3>
+              <h3>Partners</h3>
               <ul>
                 {
-                  collaboration.fundingCollection.items
+                  collaboration.partners
                     .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                     .map(org => (
-                      <li key={ `${ collaboration.id }-${ org.id }` }><Link to={ org.url }>{ org.name }</Link></li>
+                      <li key={ `${ collaboration.id }-${ org.slug }` }><Link to={ org.orgURL }>{ org.name }</Link></li>
                     ))
                 }
               </ul>
@@ -76,15 +76,15 @@ export default function Collaboration() {
         }
 
         {
-          collaboration.partnersCollection.items.length > 0 && (
+          collaboration.funding.length > 0 && (
             <Fragment>
-              <h3>Partners</h3>
+              <h3>Funders</h3>
               <ul>
                 {
-                  collaboration.partnersCollection.items
+                  collaboration.funding
                     .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                     .map(org => (
-                      <li key={ `${ collaboration.id }-${ org.id }` }><Link to={ org.url }>{ org.name }</Link></li>
+                      <li key={ `${ collaboration.id }-${ org.slug }` }><Link to={ org.orgURL }>{ org.name }</Link></li>
                     ))
                 }
               </ul>
