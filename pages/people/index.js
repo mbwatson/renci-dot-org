@@ -27,7 +27,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 export default function People({ people }) {
   const [oodPids, setOodPids] = useState([]);
 
-  useEffect(() => {
+  useEffect((people) => {
     let oodPid = people.ood.map((member) => {
       return member.pid;
     });

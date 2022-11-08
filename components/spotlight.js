@@ -104,7 +104,7 @@ export  const Spotlight = ({ projects }) => {
 
   const [selectedProjects, setSelectedProjects] = useState([])
 
-  useEffect(() => {
+  useEffect((projects) => {
     // select three random project indices
     let projectsCopy = [...projects]
     let projectSelection = []
