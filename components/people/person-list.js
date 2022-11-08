@@ -36,7 +36,7 @@ export const PersonList = ({ people, showTitles }) => {
           >
             <CardMedia
               component="img"
-              image={ person.photo ? person.photo.url : avatar.src }
+              image={ person.photoURL ? person.photoURL : avatar.src }
               alt={ `${ person.firstName } ${ person.lastName } headshot` }
               className="photo"
             />

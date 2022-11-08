@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Divider, Grid, Typography } from '@mui/material'
-import { fetchPerson } from '../../lib/contentful'
+import { fetchStrapiPerson } from "../../lib/strapi";
 import { Link, LinkTray, Page, Pre, Section } from '../../components'
 
 export default function Person() {
@@ -11,7 +11,7 @@ export default function Person() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const person = await fetchPerson(router.query.slug)
+      const person = await fetchStrapiPerson(router.query.slug)
       if (!person) { return }
       setPerson(person)
     }
@@ -28,7 +28,7 @@ export default function Person() {
         <Grid item xs={ 8 } sm={ 3 }>
           <Image
             priority
-            src={ person.photo.url }
+            src={ person.photoURL }
             width={ 400 }
             height={ 400 }
             layout="responsive"

@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { fetchStrapiPeople } from "../../lib/strapi";
 import { Link, Page } from "../../components";
-import { PersonCardStrapi, PersonGrid } from "../../components/people/";
+import { PersonGrid, PersonCard } from "../../components/people/";
 import { useEffect, useState } from "react";
 
 // this provides data for the vertical menu
@@ -29,7 +29,7 @@ export default function People({ people }) {
 
   useEffect(() => {
     let oodPid = people.ood.map((member) => {
-      return member.attributes.pid;
+      return member.pid;
     });
     setOodPids(oodPid);
   }, []);
@@ -37,7 +37,7 @@ export default function People({ people }) {
   // use a Link component for letter X if we have someone whose last name begins with X.
   const linkedLetters = letters.reduce((chars, char) => {
     const index = people.people.findIndex(
-      (person) => person.attributes.lastName[0] === char
+      (person) => person.lastName[0] === char
     );
     return index > -1 ? [...chars, char] : chars;
   }, []);
@@ -64,14 +64,14 @@ export default function People({ people }) {
 
       <PersonGrid>
         {people.ood.map((person) => (
-          <PersonCardStrapi
-            key={person.attributes.slug}
-            person={person.attributes}
+          <PersonCard
+            key={person.slug}
+            person={person}
             showTitle={true}
           />
         ))}
       </PersonGrid>
-      
+
       <br /><br />
 
       <Typography variant="h2">Everyone Else</Typography>
@@ -109,13 +109,10 @@ export default function People({ people }) {
         </Box>
         <PersonGrid>
           {people.people
-            .filter((person) => {
-              return !oodPids.includes(person.attributes.pid);
-            })
             .map((person) => (
-              <PersonCardStrapi
-                key={person.attributes.email}
-                person={person.attributes}
+              <PersonCard
+                key={person.email}
+                person={person}
                 showTitle={true}
               />
             ))}
