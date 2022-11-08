@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { fetchPeopleAndTeams } from "../../lib/strapi";
+import { fetchStrapiPeople } from "../../lib/strapi";
 import { Link, Page } from "../../components";
 import { PersonCardStrapi, PersonGrid } from "../../components/people/";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 /*
  * people are coming into this component from
- * fetchPeopleAndTeams with this shape:
+ * fetchStrapiPeople with this shape:
  * {
  *   ood: […],
  *   people: […],
@@ -126,7 +126,7 @@ export default function People({ people }) {
 }
 
 export async function getStaticProps(context) {
-  const people = await fetchPeopleAndTeams("ood");
+  const people = await fetchStrapiPeople();
 
   return {
     props: { people },
