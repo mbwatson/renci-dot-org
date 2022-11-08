@@ -40,7 +40,7 @@ export default function Project() {
     <div>
       <h2>Project Members</h2>
       {project.members && project.members.map((member)=> {
-        return <img width="200px" src={member.photoURL}/>
+        return <img width="200px" src={member.photoURL} key={member.id} alt={`${member.slug}-photo`}/>
       })}
     </div>
 

@@ -32,6 +32,7 @@ export default function Person() {
             width={ 400 }
             height={ 400 }
             layout="responsive"
+            alt={`${person.slug}-photo`}
           />
         </Grid>
         <Grid item xs={ 8 } sm={ 5 }>
