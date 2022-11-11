@@ -27,7 +27,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 export default function People({ people }) {
   const [oodPids, setOodPids] = useState([]);
 
-  useEffect((people) => {
+  useEffect(() => {
     let oodPid = people.ood.map((member) => {
       return member.pid;
     });
@@ -40,7 +40,7 @@ export default function People({ people }) {
       (person) => person.lastName[0] === char
     );
     return index > -1 ? [...chars, char] : chars;
-  }, []);
+  }, [people]);
 
   return (
     <Page

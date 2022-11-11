@@ -104,7 +104,7 @@ export  const Spotlight = ({ projects }) => {
 
   const [selectedProjects, setSelectedProjects] = useState([])
 
-  useEffect((projects) => {
+  useEffect(() => {
     // select three random project indices
     let projectsCopy = [...projects]
     let projectSelection = []
@@ -119,7 +119,7 @@ export  const Spotlight = ({ projects }) => {
     }
     // map those indices to projects
     setSelectedProjects(projectSelection)
-  }, [])
+  }, [projects])
 
   return (
     <Fragment>
