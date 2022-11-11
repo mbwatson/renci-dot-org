@@ -18,7 +18,7 @@ export const PersonCard = ({ person, showTitle, anchorName }) => {
           <Link to={ `/people/${ person.slug }` }>
             { person.firstName } { person.lastName }
           </Link>
-          { showTitle && (
+          { showTitle && person.title && (
             <Typography>{ person.title }</Typography>
           )}
         </CardContent>
