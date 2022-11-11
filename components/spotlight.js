@@ -131,7 +131,7 @@ export  const Spotlight = ({ projects }) => {
       >
         {
           selectedProjects.map(project => (
-            <SpotlightCard project={project} key={project.id}/>
+            <SpotlightCard project={project} key={`spotlight-${project.project_id}`}/>
           ))
         }
       </Stack>

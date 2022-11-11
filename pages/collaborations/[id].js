@@ -67,7 +67,7 @@ export default function Collaboration() {
                   collaboration.partners
                     .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                     .map(org => (
-                      <li key={ `${ collaboration.id }-${ org.slug }` }><Link to={ org.orgURL }>{ org.name }</Link></li>
+                      <li key={ `${ collaboration.id }-${ org.slug }-partner` }><Link to={ org.orgURL }>{ org.name }</Link></li>
                     ))
                 }
               </ul>
@@ -84,7 +84,7 @@ export default function Collaboration() {
                   collaboration.funding
                     .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                     .map(org => (
-                      <li key={ `${ collaboration.id }-${ org.slug }` }><Link to={ org.orgURL }>{ org.name }</Link></li>
+                      <li key={ `${ collaboration.id }-${ org.slug }-funder` }><Link to={ org.orgURL }>{ org.name }</Link></li>
                     ))
                 }
               </ul>

@@ -111,7 +111,7 @@ export default function People({ people }) {
           {people.people
             .map((person) => (
               <PersonCard
-                key={person.email}
+                key={person.slug}
                 person={person}
                 showTitle={true}
               />
