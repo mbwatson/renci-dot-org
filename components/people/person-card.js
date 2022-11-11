@@ -4,7 +4,7 @@ import { Card, CardMedia, CardContent, Typography } from '@mui/material'
 import { Link } from '../link'
 import avatar from '../../images/generic-avatar.png'
 
-export const PersonCard = ({ person, showTitle, anchorName }) => {
+export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   return (
       <Card elevation={ 0 } name={ anchorName }>
         <CardMedia
@@ -28,12 +28,12 @@ export const PersonCard = ({ person, showTitle, anchorName }) => {
 
 PersonCard.propTypes = {
   anchorName: PropTypes.string,
+  showTitle: PropTypes.bool.isRequired,
   person: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     photo: PropTypes.object,
-    showTitle: PropTypes.bool.isRequired
   }),
 }
