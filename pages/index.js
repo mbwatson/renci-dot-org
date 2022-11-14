@@ -5,7 +5,6 @@ import { Typography } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { Spotlight } from '../components/spotlight'
-import { fetchProjects } from '../lib/contentful'
 import { fetchStrapiProjects } from '../lib/strapi'
 
 export default function Home({ projects}) {
