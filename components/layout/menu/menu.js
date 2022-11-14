@@ -12,7 +12,7 @@ import { Link } from '../../'
 import { Icon } from '../../'
 import style from './menu.module.css'
 import { MobileMenu } from './mobile-menu'
-import { fetchOurWorkTrayItems } from '../../../lib/contentful'
+import { fetchOurWorkTrayItems } from '../../../lib/strapi'
 
 //
 
@@ -88,14 +88,14 @@ export const Menu = ({ menuItems }) => {
   )
 }
 
-Menu.propTypes = {
-  menuItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.node,
-      path: PropTypes.string.isRequired,
-    })
-  ),
-}
+// Menu.propTypes = {
+//   menuItems: PropTypes.arrayOf(
+//     PropTypes.shape({
+//       text: PropTypes.node,
+//       path: PropTypes.string.isRequired,
+//     })
+//   ),
+// }
 
 //
 
