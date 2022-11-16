@@ -2,9 +2,9 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import {
-  fetchResearchGroups,
-  fetchCollaborations,
-  fetchTeams,
+  fetchStrapiGroups,
+  fetchStrapiCollaborations,
+  fetchStrapiTeams,
 } from '../lib/strapi'
 import { Link, Pre } from '../components'
 import { Typography } from '@mui/material'
@@ -162,9 +162,9 @@ export default function OurWork({ researchGroups, collaborations, teams }) {
 }
 
 export async function getStaticProps(context) {
-  const researchGroups = await fetchResearchGroups()
-  const collaborations = await fetchCollaborations()
-  const teams = await fetchTeams()
+  const researchGroups = await fetchStrapiGroups()
+  const collaborations = await fetchStrapiCollaborations()
+  const teams = await fetchStrapiTeams()
   return {
     props: { researchGroups, collaborations, teams },
   }
