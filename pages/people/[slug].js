@@ -4,6 +4,8 @@ import Image from 'next/image'
 import { Divider, Grid, Typography } from '@mui/material'
 import { fetchStrapiPerson } from "../../lib/strapi";
 import { Link, LinkTray, Page, Pre, Section } from '../../components'
+import Collaboration from 'pages/collaborations/[id]';
+import { NearMeDisabled } from '@mui/icons-material';
 
 export default function Person() {
   const router = useRouter()
@@ -22,6 +24,21 @@ export default function Person() {
   if (!person) {
     return 'Loading...'
   }
+  const testContributions = [
+    {
+      type: "collaborations",
+      firstName: "John",
+      name: "BioData Catalyst",
+      id: "bdc"
+    },
+    {
+      type: "teams",
+      firstName: "John",
+      name: "communications",
+      id: "comms"
+    },
+
+  ]
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <Grid container spacing={ 2 } columns={ 8 }>
@@ -62,7 +79,22 @@ export default function Person() {
       <Divider />
       <br /><br />
 
-      {
+          <Section title="Contributions">
+            <ul>
+              {
+                testContributions.map(item => (
+                  <li key={ `${ person.firstName }-${ item.name }`}>
+                    <Link to={ `/${ item.type }s/${ item.id }` }>
+                      { item.name }
+                    </Link>
+                  </li>
+                ))
+              }
+            </ul>
+          </Section>
+
+
+      {/* {
         person?.contributions && (
           <Section title="Contributions">
             <ul>
@@ -78,7 +110,7 @@ export default function Person() {
             </ul>
           </Section>
         )
-      }
+      } */}
 
       {
         person?.biography && (
