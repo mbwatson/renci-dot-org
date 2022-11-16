@@ -4,7 +4,6 @@ import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardA
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
-import homeHero from '../images/racks.jpg'
 
 const SpotlightCard = ({project}) => {
   const styles = {
@@ -61,11 +60,10 @@ const SpotlightCard = ({project}) => {
       }
     }
   }
-  const featuredImage = project.featured_image.data?.attributes?.url ? project.featured_image.data.attributes.url : homeHero.src
   return (
-    <Card sx={styles.project} key={project.project_id}>
-      <CardActionArea component={Link} to={ `/projects/${ project.project_id }` }>
-          <CardMedia component={'img'} src={ featuredImage  } sx={styles.cardMedia} />
+    <Card sx={styles.project} key={project.slug}>
+      <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
+          <CardMedia component={'img'} src={ project.featuredImage  } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
             <Typography variant='h6'>{project.name}</Typography>
           </Box>
@@ -74,7 +72,7 @@ const SpotlightCard = ({project}) => {
         <Typography paragraph >{ project.snippet }</Typography>
       </CardContent>
       <CardContent>
-        <Link to={ `/projects/${ project.project_id }` } style={{textAlign: 'right'}}>Read More</Link>
+        <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
       </CardContent>
     </Card>
   )
@@ -113,8 +111,8 @@ export  const Spotlight = ({ projects }) => {
       const randomProject = projectsCopy.splice(randomIndex, 1)[0]
       //add a property that is a snippet of the original description before pushing to the array
       projectSelection.push({
-        ...randomProject.attributes,
-        snippet: trimText(randomProject.attributes.description)
+        ...randomProject,
+        snippet: trimText(randomProject.description)
       })
     }
     // map those indices to projects
@@ -131,7 +129,7 @@ export  const Spotlight = ({ projects }) => {
       >
         {
           selectedProjects.map(project => (
-            <SpotlightCard project={project} key={`spotlight-${project.project_id}`}/>
+            <SpotlightCard project={project} key={`spotlight-${project.slug}`}/>
           ))
         }
       </Stack>

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
-import { fetchProjects } from "../../lib/strapi";
+import { fetchStrapiProjects } from "../../lib/strapi";
 
 export default function Projects({ projects }) {
   return (
@@ -20,13 +20,13 @@ export default function Projects({ projects }) {
       </Typography>
 
       {
-        projects.projects.map(project => (
-          <Fragment key={ project.attributes.name }>
-            <Link to={ `/projects/${ project.attributes.name }` }>
-              { project.attributes.name }
+        projects.map(project => (
+          <Fragment key={ project.slug }>
+            <Link to={ `/projects/${ project.slug }` }>
+              { project.name }
             </Link>
             <Pre>
-              { JSON.stringify(project.attributes, null, 2) }
+              { JSON.stringify(project, null, 2) }
             </Pre>
           </Fragment>
         ))
@@ -37,7 +37,7 @@ export default function Projects({ projects }) {
 }
 
 export async function getStaticProps(context) {
-  const projects = await fetchProjects();
+  const projects = await fetchStrapiProjects();
 
   return {
     props: { projects },
