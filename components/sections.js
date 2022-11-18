@@ -57,9 +57,10 @@ const Sections = ({ sections, preview }) => {
       {/* Show a banner if preview mode is on */}
       {preview && <PreviewModeBanner />}
       {/* Show the actual sections */}
-      {sections.map((section) => (
+      {sections.map((section, sectionId) => (
         <Section
           sectionData={section}
+          key={sectionId}
         />
       ))}
     </div>

@@ -4,8 +4,6 @@ import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardA
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
-import LinesEllipsis from 'react-lines-ellipsis'
-import homeHero from '../images/racks.jpg'
 
 const SpotlightCard = ({project}) => {
   const styles = {
@@ -63,9 +61,9 @@ const SpotlightCard = ({project}) => {
     }
   }
   return (
-    <Card sx={styles.project}>
-      <CardActionArea component={Link} to={ `/projects/${ project.id }` }>
-          <CardMedia component={'img'} src={ project.featuredImage ? project.featuredImage.url : homeHero.src } sx={styles.cardMedia} />
+    <Card sx={styles.project} key={project.slug}>
+      <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
+          <CardMedia component={'img'} src={ project.featuredImage  } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
             <Typography variant='h6'>{project.name}</Typography>
           </Box>
@@ -74,7 +72,7 @@ const SpotlightCard = ({project}) => {
         <Typography paragraph >{ project.snippet }</Typography>
       </CardContent>
       <CardContent>
-        <Link to={ `/projects/${ project.id }` } style={{textAlign: 'right'}}>Read More</Link>
+        <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
       </CardContent>
     </Card>
   )
@@ -119,7 +117,7 @@ export  const Spotlight = ({ projects }) => {
     }
     // map those indices to projects
     setSelectedProjects(projectSelection)
-  }, [])
+  }, [projects])
 
   return (
     <Fragment>
@@ -131,7 +129,7 @@ export  const Spotlight = ({ projects }) => {
       >
         {
           selectedProjects.map(project => (
-            <SpotlightCard project={project} key={project.id}/>
+            <SpotlightCard project={project} key={`spotlight-${project.slug}`}/>
           ))
         }
       </Stack>

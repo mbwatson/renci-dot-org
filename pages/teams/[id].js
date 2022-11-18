@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography, Box } from '@mui/material'
-import { fetchTeam } from '../../lib/contentful'
+import { fetchStrapiTeam } from '../../lib/strapi'
 import { Page } from '../../components'
-import { PersonCard, PersonGrid } from '../../components/people/'
+import { PersonCard, PersonGrid } from "../../components/people/";
 import { Section } from '../../components/layout'
 
 export default function ResearchGroup() {
@@ -12,7 +12,7 @@ export default function ResearchGroup() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const group = await fetchTeam(router.query.id)
+      const group = await fetchStrapiTeam(router.query.id)
       setTeam(group)
     }
     fetchData()
@@ -30,11 +30,10 @@ export default function ResearchGroup() {
     >
       <Typography paragraph>{team.description}</Typography>
       <br/>
-      
       <Section title="Team Members">
-        <PersonGrid>
+       <PersonGrid>
           {
-            team.teamMembersCollection.items.map(person => (
+            team.members.map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography, Box } from '@mui/material'
-import { fetchResearchGroup } from '../../lib/contentful'
+import { fetchStrapiGroup } from '../../lib/strapi'
 import { Link, Page, Pre } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonList } from '../../components/people/'
@@ -12,7 +12,7 @@ export default function ResearchGroup() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const group = await fetchResearchGroup(router.query.id)
+      const group = await fetchStrapiGroup(router.query.id)
       setResearchGroup(group)
     }
     fetchData()
@@ -35,11 +35,11 @@ export default function ResearchGroup() {
       <Section title="Current Projects">
         <ul>
           {
-            researchGroup.projectsCollection.items
+            researchGroup.projects
               .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
               .map(project => (
                 <li key={ `${ researchGroup.name }-${ project.name }` }>
-                  <Link to={ `/projects/${ project.id }` }>{ project.name }</Link>
+                  <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
                 </li>
               ))
           }
@@ -47,7 +47,7 @@ export default function ResearchGroup() {
       </Section>
 
       <Section title="Contributors">
-        <PersonList people={ researchGroup.groupMembersCollection.items } />
+        <PersonList people={ researchGroup.members } />
       </Section>
 
     </Page>

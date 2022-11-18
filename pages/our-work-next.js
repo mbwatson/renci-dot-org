@@ -2,10 +2,10 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import {
-  fetchResearchGroups,
-  fetchCollaborations,
-  fetchTeams,
-} from '../lib/contentful'
+  fetchStrapiGroups,
+  fetchStrapiCollaborations,
+  fetchStrapiTeams,
+} from '../lib/strapi'
 import { Link, Pre } from '../components'
 import { Typography } from '@mui/material'
 import { Page } from '../components'
@@ -108,8 +108,8 @@ export default function OurWork({ researchGroups, collaborations, teams }) {
         <ul>
           {
             researchGroups.map(group => (
-              <li key={ `link-to-${ group.id }` }>
-                <Link to={ `/groups/${ group.id }` }>
+              <li key={ `link-to-${ group.slug }` }>
+                <Link to={ `/groups/${ group.slug }` }>
                   { group.name }
                 </Link>
               </li>
@@ -122,8 +122,8 @@ export default function OurWork({ researchGroups, collaborations, teams }) {
         <ul>
           {
             collaborations.map(collaboration => (
-              <li key={ `link-to-${ collaboration.id }` }>
-                <Link to={ `/collaborations/${ collaboration.id }` }>
+              <li key={ `link-to-${ collaboration.slug }` }>
+                <Link to={ `/collaborations/${ collaboration.slug }` }>
                   { collaboration.name }
                 </Link>
               </li>
@@ -136,8 +136,8 @@ export default function OurWork({ researchGroups, collaborations, teams }) {
         <ul>
           {
             teams.map(team => (
-              <li key={ `link-to-${ team.id }` }>
-                <Link to={ `/teams/${ team.id }` }>
+              <li key={ `link-to-${ team.slug }` }>
+                <Link to={ `/teams/${ team.slug }` }>
                   { team.name }
                 </Link>
               </li>
@@ -162,9 +162,9 @@ export default function OurWork({ researchGroups, collaborations, teams }) {
 }
 
 export async function getStaticProps(context) {
-  const researchGroups = await fetchResearchGroups()
-  const collaborations = await fetchCollaborations()
-  const teams = await fetchTeams()
+  const researchGroups = await fetchStrapiGroups()
+  const collaborations = await fetchStrapiCollaborations()
+  const teams = await fetchStrapiTeams()
   return {
     props: { researchGroups, collaborations, teams },
   }

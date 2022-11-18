@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchCollaborations } from '../../lib/contentful'
+import { fetchStrapiCollaborations } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -33,8 +33,8 @@ export default function ResearchGroups({ collaborations }) {
       <ul>
         {
           collaborations.map(collaboration => (
-            <li key={ `link-to-${ collaboration.id }` }>
-              <Link to={ `/collaborations/${ collaboration.id }` }>
+            <li key={ `link-to-${ collaboration.slug }` }>
+              <Link to={ `/collaborations/${ collaboration.slug }` }>
                 { collaboration.name }
               </Link>
             </li>
@@ -47,7 +47,7 @@ export default function ResearchGroups({ collaborations }) {
 }
 
 export async function getStaticProps(context) {
-  const collaborations = await fetchCollaborations()
+  const collaborations = await fetchStrapiCollaborations()
   return {
     props: { collaborations },
   }

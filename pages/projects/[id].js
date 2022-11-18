@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
-import { fetchProject } from '../../lib/contentful'
+import { fetchStrapiProject } from '../../lib/strapi'
 import { Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -9,17 +9,24 @@ export default function Project() {
   const router = useRouter()
   const [project, setProject] = useState(null)
 
-  useEffect(() => {
+  try {
+    useEffect(() => {
     const fetchData = async () => {
-      const project = await fetchProject(router.query.id)
+      const project = await fetchStrapiProject(router.query.id)
       setProject(project)
     }
     fetchData()
+    .catch(console.error)
   }, [router.query.id])
 
   if (!project) {
     return 'Loading...'
   }
+} catch (error) {
+  console.log(error.response)
+}
+
+
 
   return (
     <Page
@@ -30,6 +37,12 @@ export default function Project() {
       <Pre>
         { JSON.stringify(project, null, 2) }
       </Pre>
+    <div>
+      <h2>Project Members</h2>
+      {project.members && project.members.map((member)=> {
+        return <img width="200px" src={member.photoURL} key={member.id} alt={`${member.slug}-photo`}/>
+      })}
+    </div>
 
     </Page>
   )

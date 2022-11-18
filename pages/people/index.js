@@ -8,9 +8,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { fetchPeopleAndTeams } from "../../lib/strapi";
+import { fetchStrapiPeople } from "../../lib/strapi";
 import { Link, Page } from "../../components";
-import { PersonCardStrapi, PersonGrid } from "../../components/people/";
+import { PersonGrid, PersonCard } from "../../components/people/";
 import { useEffect, useState } from "react";
 
 // this provides data for the vertical menu
@@ -18,7 +18,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 /*
  * people are coming into this component from
- * fetchPeopleAndTeams with this shape:
+ * fetchStrapiPeople with this shape:
  * {
  *   ood: […],
  *   people: […],
@@ -29,15 +29,15 @@ export default function People({ people }) {
 
   useEffect(() => {
     let oodPid = people.ood.map((member) => {
-      return member.attributes.pid;
+      return member.pid;
     });
     setOodPids(oodPid);
-  }, []);
+  }, [people]);
   // this variable will track which letters in the vertical menu will be links
   // use a Link component for letter X if we have someone whose last name begins with X.
   const linkedLetters = letters.reduce((chars, char) => {
     const index = people.people.findIndex(
-      (person) => person.attributes.lastName[0] === char
+      (person) => person.lastName[0] === char
     );
     return index > -1 ? [...chars, char] : chars;
   }, []);
@@ -64,14 +64,14 @@ export default function People({ people }) {
 
       <PersonGrid>
         {people.ood.map((person) => (
-          <PersonCardStrapi
-            key={person.attributes.slug}
-            person={person.attributes}
+          <PersonCard
+            key={person.slug}
+            person={person}
             showTitle={true}
           />
         ))}
       </PersonGrid>
-      
+
       <br /><br />
 
       <Typography variant="h2">Everyone Else</Typography>
@@ -109,13 +109,10 @@ export default function People({ people }) {
         </Box>
         <PersonGrid>
           {people.people
-            .filter((person) => {
-              return !oodPids.includes(person.attributes.pid);
-            })
             .map((person) => (
-              <PersonCardStrapi
-                key={person.attributes.email}
-                person={person.attributes}
+              <PersonCard
+                key={person.slug}
+                person={person}
                 showTitle={true}
               />
             ))}
@@ -126,7 +123,7 @@ export default function People({ people }) {
 }
 
 export async function getStaticProps(context) {
-  const people = await fetchPeopleAndTeams("ood");
+  const people = await fetchStrapiPeople();
 
   return {
     props: { people },
