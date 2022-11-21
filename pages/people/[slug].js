@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { Divider, Grid, Typography } from '@mui/material'
@@ -65,24 +65,70 @@ export default function Person() {
       <Divider />
       <br /><br />
 
-      {/* {
-        person?.contributions && (
-          <Section title="Contributions">
-            <ul>
-              {
-                person.contributions.map(item => (
-                  <li key={ `${ person.firstName }-${ item.name }`}>
-                    <Link to={ `/${ item.type }s/${ item.id }` }>
-                      { item.name }
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
-          </Section>
+      {
+        person.team && (
+          <Fragment>
+            <Section title="Team">
+              <Link to={ `/teams/${ person.team.slug }` }>
+                { person.team.name }
+              </Link>
+            </Section>
+            <Divider/>
+            <br /><br />
+          </Fragment>
         )
-      } */}
-
+      }
+      {
+        person.researchGroup && (
+          <Fragment>
+            <Section title="Research Group">
+              <Link to={ `/groups/${ person.researchGroup.slug }` }>
+                { person.researchGroup.name }
+              </Link>
+            </Section>
+            <Divider/>
+            <br /><br />
+          </Fragment>
+        )
+      }
+      {
+        person.projects && (
+          <Fragment>
+            <Section title="Projects">
+              <ul style={{marginTop: 0, marginBottom: 0}}>
+                {
+                  person.projects.map(project => (
+                    <li key={ `${ project.name }` }>
+                      <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                    </li>
+                  ))
+                }
+              </ul>
+            </Section>
+            <Divider/>
+            <br /><br />
+          </Fragment>
+        )
+      }
+      {
+        person.collaborations && (
+          <Fragment>
+            <Section title="Collaborations">
+              <ul>
+                {
+                  person.collaborations.map(project => (
+                    <li key={ `${ project.name }` }>
+                      <Link to={ `/collaborations/${ project.slug }` }>{ project.name }</Link>
+                    </li>
+                  ))
+                }
+              </ul>
+            </Section>      
+            <Divider/>
+            <br /><br />
+          </Fragment>
+        )
+      }
       {
         person?.biography && (
           <Section title="Biography">
