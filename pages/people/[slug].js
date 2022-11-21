@@ -24,21 +24,7 @@ export default function Person() {
   if (!person) {
     return 'Loading...'
   }
-  const testContributions = [
-    {
-      type: "collaborations",
-      firstName: "John",
-      name: "BioData Catalyst",
-      id: "bdc"
-    },
-    {
-      type: "teams",
-      firstName: "John",
-      name: "communications",
-      id: "comms"
-    },
 
-  ]
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <Grid container spacing={ 2 } columns={ 8 }>
@@ -78,21 +64,6 @@ export default function Person() {
       <br /><br />
       <Divider />
       <br /><br />
-
-          <Section title="Contributions">
-            <ul>
-              {
-                testContributions.map(item => (
-                  <li key={ `${ person.firstName }-${ item.name }`}>
-                    <Link to={ `/${ item.type }s/${ item.id }` }>
-                      { item.name }
-                    </Link>
-                  </li>
-                ))
-              }
-            </ul>
-          </Section>
-
 
       {/* {
         person?.contributions && (
