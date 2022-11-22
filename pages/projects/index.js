@@ -19,6 +19,22 @@ export default function Projects({ projects }) {
         Lorem ipsum ad tempor ea elit anim aliqua nulla exercitation veniam id non elit in in deserunt magna.
       </Typography>
 
+      <Typography paragraph>
+        Learn more about each project at RENCI below. 
+      </Typography>
+
+      <ul>
+        {
+          researchGroups.map(group => (
+            <li key={ `link-to-${ group.name }` }>
+              <Link to={ `/groups/${ group.slug }` }>
+                { group.name }
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
+
       {
         projects.map(project => (
           <Fragment key={ project.slug }>
