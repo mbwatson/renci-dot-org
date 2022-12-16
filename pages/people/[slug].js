@@ -43,6 +43,16 @@ export default function Person() {
             { person.firstName } { person.lastName }
           </Typography>
           <Typography paragraph>{ person.title }</Typography>
+          {
+            person.team && (
+              <Typography paragraph>{ person.team }</Typography>
+            )
+          }
+          {
+            person.researchGroup && (
+              <Typography paragraph>{ person.researchGroup }</Typography>
+            )
+          }
           <Typography paragraph>
             <Link to={ `mailto:${ person.email }` }>
               { person.email }
@@ -60,7 +70,7 @@ export default function Person() {
           */}
         </Grid>
       </Grid>
-
+{console.log(person)}
       <br /><br />
       <Divider />
       <br /><br />
