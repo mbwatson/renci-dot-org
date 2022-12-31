@@ -4,8 +4,6 @@ import Image from 'next/image'
 import { Divider, Grid, Typography } from '@mui/material'
 import { fetchStrapiPerson } from "../../lib/strapi";
 import { Link, LinkTray, Page, Pre, Section } from '../../components'
-import Collaboration from 'pages/collaborations/[id]';
-import { NearMeDisabled } from '@mui/icons-material';
 
 export default function Person() {
   const router = useRouter()
@@ -27,7 +25,7 @@ export default function Person() {
 
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
-      <Grid container spacing={ 2 } columns={ 8 }>
+      <Grid container spacing={ 6 } columns={ 8 }>
         <Grid item xs={ 8 } sm={ 3 }>
           <Image
             priority
@@ -40,24 +38,36 @@ export default function Person() {
         </Grid>
         <Grid item xs={ 8 } sm={ 5 }>
           <Typography variant="h1">
-            { person.firstName } { person.lastName }
+            { person.fullName }
           </Typography>
           <Typography paragraph>{ person.title }</Typography>
           {
             person.team && (
-              <Typography paragraph>{ person.team }</Typography>
+              <Typography paragraph sx={{ fontWeight: 500 }}>
+                <Link to={ `/teams/${ person.team.slug }` }> 
+                  { person.team.name } Operational Team
+                </Link>
+              </Typography>
             )
           }
           {
             person.researchGroup && (
-              <Typography paragraph>{ person.researchGroup }</Typography>
+              <Typography paragraph sx={{ fontWeight: 500 }}>
+                <Link to={ `/groups/${ person.researchGroup.slug }` }>
+                  { person.researchGroup.name } Research Group
+                </Link> 
+              </Typography>
             )
           }
-          <Typography paragraph>
-            <Link to={ `mailto:${ person.email }` }>
-              { person.email }
-            </Link>
-          </Typography>
+          {
+            person.email && (
+              <Typography paragraph>
+                <Link to={ `mailto:${ person.email }` }>
+                  { person.email }
+                </Link>
+              </Typography>
+            )
+          }
           {
             person.phoneNumber && (
               <Typography paragraph>{ person.phoneNumber }</Typography>
@@ -70,82 +80,60 @@ export default function Person() {
           */}
         </Grid>
       </Grid>
-{console.log(person)}
       <br /><br />
-      <Divider />
-      <br /><br />
-
       {
-        person.team && (
+        person.contributions && (
           <Fragment>
-            <Section title="Team">
-              <Link to={ `/teams/${ person.team.slug }` }>
-                { person.team.name }
-              </Link>
+            <Divider />
+            <br /><br />
+            <Section title="Contributions">
+              {
+                person.contributions.projects && (
+                  <Fragment>
+                    <h3>Projects</h3>
+                    <ul style={{marginTop: 0, marginBottom: 0}}>
+                      {
+                        person.contributions.projects.map(project => (
+                          <li key={ `${ project.name }` }>
+                            <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </Fragment>
+                )
+              }
+              {
+                person.contributions.collaborations && (
+                  <Fragment>
+                    <h3>Collaborations</h3>
+                    <ul style={{marginTop: 0, marginBottom: 0}}>
+                      {
+                        person.contributions.collaborations.map(project => (
+                          <li key={ `${ project.name }` }>
+                            <Link to={ `/collaborations/${ project.slug }` }>{ project.name }</Link>
+                          </li>
+                        ))
+                      }
+                    </ul>
+                  </Fragment>
+                )
+              }
             </Section>
-            <Divider/>
-            <br /><br />
-          </Fragment>
-        )
-      }
-      {
-        person.researchGroup && (
-          <Fragment>
-            <Section title="Research Group">
-              <Link to={ `/groups/${ person.researchGroup.slug }` }>
-                { person.researchGroup.name }
-              </Link>
-            </Section>
-            <Divider/>
-            <br /><br />
-          </Fragment>
-        )
-      }
-      {
-        person.projects && (
-          <Fragment>
-            <Section title="Projects">
-              <ul style={{marginTop: 0, marginBottom: 0}}>
-                {
-                  person.projects.map(project => (
-                    <li key={ `${ project.name }` }>
-                      <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
-                    </li>
-                  ))
-                }
-              </ul>
-            </Section>
-            <Divider/>
-            <br /><br />
-          </Fragment>
-        )
-      }
-      {
-        person.collaborations && (
-          <Fragment>
-            <Section title="Collaborations">
-              <ul>
-                {
-                  person.collaborations.map(project => (
-                    <li key={ `${ project.name }` }>
-                      <Link to={ `/collaborations/${ project.slug }` }>{ project.name }</Link>
-                    </li>
-                  ))
-                }
-              </ul>
-            </Section>      
-            <Divider/>
-            <br /><br />
           </Fragment>
         )
       }
       {
         person?.biography && (
-          <Section title="Biography">
-            <Typography paragraph>
-              { person.biography }
-            </Typography>
-          </Section>
+          <Fragment>
+            <Divider />
+            <br /><br />
+            <Section title="Biography">
+              <Typography paragraph>
+                { person.biography }
+              </Typography>
+            </Section>
+          </Fragment>
         )
       }
 
