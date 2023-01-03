@@ -47,7 +47,7 @@ export default function Person() {
                 {
                   person.team.map(group => (
                     <Typography paragraph sx={{ fontWeight: 500 }}>
-                      <Link to={ `/teams/${ person.team.slug }` }> 
+                      <Link to={ `/teams/${ group.slug }` }> 
                         { group.name } Operational Team
                       </Link> 
                     </Typography>
