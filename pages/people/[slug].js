@@ -43,20 +43,32 @@ export default function Person() {
           <Typography paragraph>{ person.title }</Typography>
           {
             person.team && (
-              <Typography paragraph sx={{ fontWeight: 500 }}>
-                <Link to={ `/teams/${ person.team.slug }` }> 
-                  { person.team.name } Operational Team
-                </Link>
-              </Typography>
+              <Fragment>
+                {
+                  person.team.map(group => (
+                    <Typography paragraph sx={{ fontWeight: 500 }}>
+                      <Link to={ `/teams/${ person.team.slug }` }> 
+                        { group.name } Operational Team
+                      </Link> 
+                    </Typography>
+                  ))
+                }
+              </Fragment>
             )
           }
           {
             person.researchGroup && (
-              <Typography paragraph sx={{ fontWeight: 500 }}>
-                <Link to={ `/groups/${ person.researchGroup.slug }` }>
-                  { person.researchGroup.name } Research Group
-                </Link> 
-              </Typography>
+              <Fragment>
+                {
+                  person.researchGroup.map(group => (
+                    <Typography paragraph sx={{ fontWeight: 500 }}>
+                    <Link to={ `/groups/${ group.slug }` }>
+                      { group.name } Research Group
+                    </Link> 
+                  </Typography>
+                      ))
+                }
+              </Fragment>
             )
           }
           {
