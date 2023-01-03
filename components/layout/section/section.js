@@ -6,8 +6,8 @@ export const Section = ({ title, children }) => {
     <Grid
       container
       columns={ 8 }
-      columnSpacing={{ xs: 0, md: 2 }}
-      rowSpacing={{ xs: 2, md: 10 }}
+      columnSpacing={{ xs: 0, md: 6 }}
+      rowSpacing={{ xs: 2, md: 0 }}
       sx={{
         margin: '3rem 0',
         '& .title': {
@@ -20,7 +20,7 @@ export const Section = ({ title, children }) => {
         {
           title && (
             <Box>
-              <Typography variant="h3" className="title">
+              <Typography variant="h3" className="title" sx={{ fontSize: "1.75rem" }}>
                 { title }
               </Typography>
             </Box>
@@ -28,7 +28,7 @@ export const Section = ({ title, children }) => {
         }
       </Grid>
       <Grid item xs={ 8 } md={ 5 }>
-        <Box>
+        <Box sx={{marginTop: "0"}}>
           { children }
         </Box>
       </Grid>

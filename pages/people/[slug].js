@@ -37,7 +37,7 @@ export default function Person() {
           />
         </Grid>
         <Grid item xs={ 8 } sm={ 5 }>
-          <Typography variant="h1">
+          <Typography variant="h1" sx={{ fontSize: "2rem" }}>
             { person.fullName }
           </Typography>
           <Typography paragraph>{ person.title }</Typography>
@@ -102,7 +102,7 @@ export default function Person() {
               {
                 person.contributions.projects && (
                   <Fragment>
-                    <h3>Projects</h3>
+                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem'}}>Projects</Typography>
                     <ul style={{marginTop: 0, marginBottom: 0}}>
                       {
                         person.contributions.projects.map(project => (
@@ -118,7 +118,7 @@ export default function Person() {
               {
                 person.contributions.collaborations && (
                   <Fragment>
-                    <h3>Collaborations</h3>
+                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem', paddingTop: '1.5rem'}}>Collaborations</Typography>
                     <ul style={{marginTop: 0, marginBottom: 0}}>
                       {
                         person.contributions.collaborations.map(project => (
