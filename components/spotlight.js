@@ -5,7 +5,7 @@ import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
 
-const SpotlightCard = ({project}) => {
+export const SpotlightCard = ({project, snippet}) => {
   const styles = {
     project: {
       textAlign: 'center',
@@ -69,7 +69,7 @@ const SpotlightCard = ({project}) => {
           </Box>
       </CardActionArea>
       <CardContent sx={project.description ? styles.description : styles.noSnippet}>
-        <Typography paragraph >{ project.snippet }</Typography>
+        <Typography paragraph >{ snippet ? snippet : project.snippet }</Typography>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
@@ -78,7 +78,7 @@ const SpotlightCard = ({project}) => {
   )
 }
 
-export  const Spotlight = ({ projects }) => {
+export const Spotlight = ({ projects }) => {
   const mobile = useMediaQuery('(max-width: 680px)')
 
   const theme = useTheme()

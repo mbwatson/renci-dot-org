@@ -2,9 +2,11 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
-import { fetchStrapiProjects } from "../../lib/strapi";
+import { fetchStrapiProjects } from "../../lib/strapi"
+import { SpotlightCard } from '../../components/spotlight'
 
 export default function Projects({ projects }) {
   return (
@@ -23,31 +25,29 @@ export default function Projects({ projects }) {
         Learn more about each project at RENCI below. 
       </Typography>
 
-      <ul>
+      <Box sx={{
+        flex: 1,
+        marginTop: '3rem',
+        display: 'grid',
+        gap: '2rem',
+        gridTemplateColumns: 'repeat(auto-fit, 250px)',
+      }}>
         {
-          researchGroups.map(group => (
-            <li key={ `link-to-${ group.name }` }>
-              <Link to={ `/groups/${ group.slug }` }>
-                { group.name }
-              </Link>
-            </li>
-          ))
+          projects.map((project) => {
+            const trimText = (description, wordCount = 27) => {
+              const snippetArray = (description || 'Click to read more').split(' ')
+              const trimmedSnippetArray = snippetArray.slice(0, wordCount)
+              return snippetArray.length >= wordCount ? `${trimmedSnippetArray.join(' ')} ...` : trimmedSnippetArray.join(' ')
+            }
+            const snippet = trimText(project.description)
+
+            return (
+              <SpotlightCard project={project} key={`spotlight-${project.slug}`} snippet={snippet}/>
+            )
+          })
         }
-      </ul>
-
-      {
-        projects.map(project => (
-          <Fragment key={ project.slug }>
-            <Link to={ `/projects/${ project.slug }` }>
-              { project.name }
-            </Link>
-            <Pre>
-              { JSON.stringify(project, null, 2) }
-            </Pre>
-          </Fragment>
-        ))
-      }
-
+      </Box>
+      <br/>
     </Page>
   )
 }
