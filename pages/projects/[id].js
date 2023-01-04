@@ -4,6 +4,8 @@ import { Typography } from '@mui/material'
 import { fetchStrapiProject } from '../../lib/strapi'
 import { Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { Section } from '../../components/layout'
+import { PersonList } from '../../components/people/'
 
 export default function Project() {
   const router = useRouter()
@@ -34,16 +36,13 @@ export default function Project() {
       description={ project.description }
       heroImage={ project.featuredImage ? project.featuredImage.url : null }
     >
-      <Pre>
-        { JSON.stringify(project, null, 2) }
-      </Pre>
-    <div>
-      <h2>Project Members</h2>
-      {project.members && project.members.map((member)=> {
-        return <img width="200px" src={member.photoURL} key={member.id} alt={`${member.slug}-photo`}/>
-      })}
-    </div>
+      
+      <Typography paragraph>{project.description}</Typography>
+      <br/>
 
+    <Section title="Contributors">
+        <PersonList people={ project.members } />
+      </Section>
     </Page>
   )
 }
