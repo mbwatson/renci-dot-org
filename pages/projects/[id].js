@@ -39,10 +39,14 @@ export default function Project() {
       
       <Typography paragraph>{project.description}</Typography>
       <br/>
-
-    <Section title="Contributors">
-        <PersonList people={ project.members } />
-      </Section>
+      
+      {
+        project.members && (
+          <Section title="Contributors">
+            <PersonList people={ project.members } />
+          </Section>
+        )
+      }
     </Page>
   )
 }
