@@ -5,7 +5,7 @@ import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
 
-export const SpotlightCard = ({project, snippet}) => {
+export const ProjectCard = ({project, snippet}) => {
   const styles = {
     project: {
       textAlign: 'center',
@@ -129,7 +129,7 @@ export const Spotlight = ({ projects }) => {
       >
         {
           selectedProjects.map(project => (
-            <SpotlightCard project={project} key={`spotlight-${project.slug}`}/>
+            <ProjectCard project={project} key={`spotlight-${project.slug}`}/>
           ))
         }
       </Stack>

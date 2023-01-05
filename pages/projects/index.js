@@ -6,7 +6,7 @@ import { Box } from '@mui/material'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { fetchStrapiProjects } from "../../lib/strapi"
-import { SpotlightCard } from '../../components/spotlight'
+import { ProjectCard } from '../../components/spotlight'
 
 export default function Projects({ projects }) {
   return (
@@ -42,7 +42,7 @@ export default function Projects({ projects }) {
             const snippet = trimText(project.description)
 
             return (
-              <SpotlightCard project={project} key={`spotlight-${project.slug}`} snippet={snippet}/>
+              <ProjectCard project={project} key={`spotlight-${project.slug}`} snippet={snippet}/>
             )
           })
         }
