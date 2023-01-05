@@ -46,7 +46,7 @@ export default function Person() {
               <Fragment>
                 {
                   person.team.map(group => (
-                    <Typography paragraph sx={{ fontWeight: 500 }}>
+                    <Typography paragraph sx={{ fontWeight: 500 }} key={group.name}>
                       <Link to={ `/teams/${ group.slug }` }> 
                         { group.name } Operational Team
                       </Link> 
@@ -61,7 +61,7 @@ export default function Person() {
               <Fragment>
                 {
                   person.researchGroup.map(group => (
-                    <Typography paragraph sx={{ fontWeight: 500 }}>
+                    <Typography paragraph sx={{ fontWeight: 500 }} key={group.name}>
                     <Link to={ `/groups/${ group.slug }` }>
                       { group.name } Research Group
                     </Link> 
