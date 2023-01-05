@@ -34,15 +34,8 @@ export default function Projects({ projects }) {
       }}>
         {
           projects.map((project) => {
-            const trimText = (description, wordCount = 27) => {
-              const snippetArray = (description || 'Click to read more').split(' ')
-              const trimmedSnippetArray = snippetArray.slice(0, wordCount)
-              return snippetArray.length >= wordCount ? `${trimmedSnippetArray.join(' ')} ...` : trimmedSnippetArray.join(' ')
-            }
-            const snippet = trimText(project.description)
-
             return (
-              <ProjectCard project={project} key={`spotlight-${project.slug}`} snippet={snippet}/>
+              <ProjectCard project={project} key={`project-${project.slug}`}/>
             )
           })
         }

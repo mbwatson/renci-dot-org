@@ -5,7 +5,7 @@ import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
 
-export const ProjectCard = ({project, snippet}) => {
+export const ProjectCard = ({project}) => {
   const styles = {
     project: {
       textAlign: 'center',
@@ -69,7 +69,7 @@ export const ProjectCard = ({project, snippet}) => {
           </Box>
       </CardActionArea>
       <CardContent sx={project.description ? styles.description : styles.noSnippet}>
-        <Typography paragraph >{ snippet ? snippet : project.snippet }</Typography>
+        <Typography paragraph >{ project.snippet }</Typography>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
@@ -89,16 +89,6 @@ export const Spotlight = ({ projects }) => {
       margin: '2rem auto',
     },
   }
-  const trimText = (description, wordCount = 27) => {
-    //split the description into an array of words
-    const snippetArray = (description || 'Click to read more').split(' ')
-
-    //grab the first X number of words as defined by the wordCount above
-    const trimmedSnippetArray = snippetArray.slice(0, wordCount)
-    
-    //if the number of words in the description is longer than the wordcount, return a string that has an ellipsis at the end. if not, return a string that just joins the words from the trimmed array
-    return snippetArray.length >= wordCount ? `${trimmedSnippetArray.join(' ')} ...` : trimmedSnippetArray.join(' ')
-  }
 
   const [selectedProjects, setSelectedProjects] = useState([])
 
@@ -112,7 +102,6 @@ export const Spotlight = ({ projects }) => {
       //add a property that is a snippet of the original description before pushing to the array
       projectSelection.push({
         ...randomProject,
-        snippet: trimText(randomProject.description)
       })
     }
     // map those indices to projects
