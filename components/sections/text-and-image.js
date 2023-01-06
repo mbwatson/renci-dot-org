@@ -16,8 +16,8 @@ export const TextAndImage = ({ data }) => {
                 layout="responsive"
              />
         </Grid>
-        <Grid item xs={8} sm={6}>
-            <Markdown className={style.chiefScientistBio} linkTarget="_blank">{data.Text}</Markdown>
+        <Grid item xs={8} sm={6} >
+            <Markdown linkTarget="_blank">{data.Text}</Markdown>
         </Grid>
     </Grid>
   );

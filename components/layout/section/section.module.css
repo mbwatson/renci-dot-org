@@ -16,10 +16,6 @@
   flex: 1;
 }
 
-.chiefScientistBio p:first-of-type {
-  margin: 0
-}
-
 @media screen and (min-width: 976px) {
   .section {
     flex-direction: row;
