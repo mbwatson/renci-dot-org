@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { fetchStrapiPeople } from "../../lib/strapi";
 import { Link, Page } from "../../components";
-import { PersonGrid, PersonCard } from "../../components/people/";
+import { PersonGrid, PersonCard } from "../../components/people";
 import { useEffect, useState } from "react";
 
 // this provides data for the vertical menu
@@ -26,6 +26,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
  */
 export default function People({ people }) {
   const [oodPids, setOodPids] = useState([]);
+  let previousLetter, currentLetter = '?' // used for adding name attrs for vertical letters nav menu
 
   useEffect(() => {
     let oodPid = people.ood.map((member) => {
@@ -33,6 +34,7 @@ export default function People({ people }) {
     });
     setOodPids(oodPid);
   }, [people]);
+
   // this variable will track which letters in the vertical menu will be links
   // use a Link component for letter X if we have someone whose last name begins with X.
   const linkedLetters = letters.reduce((chars, char) => {
@@ -108,14 +110,27 @@ export default function People({ people }) {
           )}
         </Box>
         <PersonGrid>
-          {people.people
-            .map((person) => (
-              <PersonCard
-                key={person.slug}
-                person={person}
-                showTitle={true}
-              />
-            ))}
+          {
+            people.people
+              .map(person => {
+                // here, we add a name attribute, as necessary, to support the vertical side letters menu.
+                // the first person whose last name starts with 'A' gets a name attr,
+                // the first person whose last name starts with 'B' gets a name attr,
+                // etc.
+                previousLetter = currentLetter;
+                currentLetter = person.lastName[0].toLowerCase();
+
+                return (
+                  <PersonCard
+                    key={person.slug}
+                    person={person}
+                    showTitle={true}
+                    anchorName={ currentLetter !== previousLetter ? currentLetter.toUpperCase() : null }
+                  />
+                )
+              }
+            )
+          }
         </PersonGrid>
       </Box>
     </Page>
