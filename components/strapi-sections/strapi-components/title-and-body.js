@@ -1,6 +1,6 @@
 // import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
-import style from "../layout/section/section.module.css";
+import style from "./strapi-components.module.css";
 import Markdown from "react-markdown";
 
 export const TitleAndBody = ({ data }) => {
