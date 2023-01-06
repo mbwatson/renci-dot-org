@@ -7,7 +7,7 @@ import Image from "next/image";
 export const TextAndImage = ({ data }) => {
   return (
     <Grid container spacing={2} columns={8} marginBottom='3rem' marginTop='3rem'>
-        <Grid item xs={8} sm={3}>
+        <Grid item xs={8} sm={2}>
             <Image
                 priority
                 src={data.Image.data.attributes.url}
@@ -16,8 +16,8 @@ export const TextAndImage = ({ data }) => {
                 layout="responsive"
              />
         </Grid>
-        <Grid item xs={8} sm={5}>
-            <Markdown className={style.chiefScientistBio} linkTarget="_blank" style={{margin: 0}}>{data.Text}</Markdown>
+        <Grid item xs={8} sm={6}>
+            <Markdown className={style.chiefScientistBio} linkTarget="_blank">{data.Text}</Markdown>
         </Grid>
     </Grid>
   );
