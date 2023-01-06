@@ -1,6 +1,4 @@
-// import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
-import style from "./strapi-components.module.css";
 import Markdown from "react-markdown";
 import Image from "next/image";
 
