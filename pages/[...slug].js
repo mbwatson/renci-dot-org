@@ -1,6 +1,6 @@
 import ErrorPage from "next/error"
 import { getPageData, fetchAPI, getGlobalData } from "../utils/api"
-import Sections from "../components/sections"
+import Sections from "../components/strapi-sections/sections"
 import Seo from "@/components/elements/seo"
 import { useRouter } from "next/router"
 import Layout from "../components/layout"

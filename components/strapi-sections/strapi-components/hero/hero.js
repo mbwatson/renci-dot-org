@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Box } from "@mui/material";
 import style from "./hero.module.css";
-import { useScrollPosition } from "../../../hooks";
+import { useScrollPosition } from "../../../../hooks";
 
 export const Hero = ({ data }) => {
   const { scrollPosition } = useScrollPosition();
