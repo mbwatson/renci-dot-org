@@ -25,8 +25,8 @@ export default function Person() {
 
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
-      <Grid container spacing={ 6 } columns={ 8 }>
-        <Grid item xs={ 8 } sm={ 3 }>
+      <Grid container spacing={ 6 } columns={ 8 } sx={{marginLeft: '3rem', marginRight: '3rem'}}>
+        <Grid item xs={ 8 } sm={ 2 }>
           <Image
             priority
             src={ person.photoURL }
@@ -36,8 +36,8 @@ export default function Person() {
             alt={`${person.slug}-photo`}
           />
         </Grid>
-        <Grid item xs={ 8 } sm={ 5 }>
-          <Typography variant="h1" sx={{ fontSize: "2rem" }}>
+        <Grid item xs={ 8 } sm={ 6}>
+          <Typography variant="h1" >
             { person.fullName }
           </Typography>
           <Typography paragraph>{ person.title }</Typography>
@@ -115,10 +115,11 @@ export default function Person() {
                   </Fragment>
                 )
               }
+              { person.contributions.projects && person.contributions.collaborations && <br/>}
               {
                 person.contributions.collaborations && (
                   <Fragment>
-                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem', paddingTop: '1.5rem'}}>Collaborations</Typography>
+                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem'}}>Collaborations</Typography>
                     <ul style={{marginTop: 0, marginBottom: 0}}>
                       {
                         person.contributions.collaborations.map(project => (

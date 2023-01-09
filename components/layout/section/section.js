@@ -9,25 +9,25 @@ export const Section = ({ title, children }) => {
       columnSpacing={{ xs: 0, md: 6 }}
       rowSpacing={{ xs: 2, md: 0 }}
       sx={{
-        margin: '3rem 0',
+        margin: '3rem 3rem',
         '& .title': {
           xs: { textAlign: 'left' },
           md: { textAlign: 'right' },
         },
       }}
     >
-      <Grid item xs={ 8 } md={ 3 }>
+      <Grid item xs={ 8 } md={ 2 }>
         {
           title && (
             <Box>
-              <Typography variant="h3" className="title" sx={{ fontSize: "1.75rem" }}>
+              <Typography variant="h2" className="title">
                 { title }
               </Typography>
             </Box>
           )
         }
       </Grid>
-      <Grid item xs={ 8 } md={ 5 }>
+      <Grid item xs={ 8 } md={ 6 }>
         <Box sx={{marginTop: "0"}}>
           { children }
         </Box>
