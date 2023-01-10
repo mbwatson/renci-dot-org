@@ -97,7 +97,6 @@ export default function Person() {
         person.contributions && (
           <Fragment>
             <Divider />
-            <br /><br />
             <Section title="Contributions">
               {
                 person.contributions.projects && (
@@ -140,7 +139,6 @@ export default function Person() {
         person?.biography && (
           <Fragment>
             <Divider />
-            <br /><br />
             <Section title="Biography">
               <Typography paragraph>
                 { person.biography }
