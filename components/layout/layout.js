@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { AppBar, Box, Container, IconButton, Paper, Toolbar } from '@mui/material'
 import { Menu as MenuIcon } from '@mui/icons-material'
 import { Menu } from './menu'
+import { Footer } from './footer'
 import renciLogo from '../../images/renci.png'
 import { useConfig } from '../../context'
 import { Link } from '../link'
@@ -33,19 +34,19 @@ export const Layout = ({ children }) => {
             alignItems: 'stretch',
             height: '100%',
           }}>
-            <Box
-              component={ Link }
-              to="/"
-              sx={{
-                width: '120px',
-                height: '100%',
-                maxWidth: '120px',
-                backgroundImage: `url(${ renciLogo.src })`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: '50% 50%',
-              }}
-            />
+            <Link to="/">
+              <Box
+                sx={{
+                  width: '120px',
+                  height: '100%',
+                  maxWidth: '120px',
+                  backgroundImage: `url(${ renciLogo.src })`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: '50% 50%',
+                }}
+              />
+            </Link>
             <Menu />
           </Toolbar>
         </Container>
@@ -56,13 +57,7 @@ export const Layout = ({ children }) => {
         </Container>
       </main>
       <footer>
-        <Box sx={{
-          backgroundColor: 'transparent',
-          padding: '1rem',
-          textAlign: 'center',
-        }}>
-          &copy; { new Date().getFullYear() }
-        </Box>
+        <Footer />
       </footer>
     </Fragment>
   )

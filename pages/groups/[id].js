@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
-import { fetchResearchGroup } from '../../lib/contentful'
-import { Page } from '../../components'
-import { Pre } from '../../components/pre'
+import { Typography, Box } from '@mui/material'
+import { fetchStrapiGroup } from '../../lib/strapi'
+import { Link, Page, Pre } from '../../components'
+import { Section } from '../../components/layout'
+import { PersonList } from '../../components/people/'
 
 export default function ResearchGroup() {
   const router = useRouter()
@@ -11,7 +12,7 @@ export default function ResearchGroup() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const group = await fetchResearchGroup(router.query.id)
+      const group = await fetchStrapiGroup(router.query.id)
       setResearchGroup(group)
     }
     fetchData()
@@ -27,9 +28,27 @@ export default function ResearchGroup() {
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
-      <Pre>
-        { JSON.stringify(researchGroup, null, 2) }
-      </Pre>
+    
+      <Typography paragraph>{researchGroup.description}</Typography>
+      <br/>
+      
+      <Section title="Current Projects">
+        <ul>
+          {
+            researchGroup.projects
+              .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+              .map(project => (
+                <li key={ `${ researchGroup.name }-${ project.name }` }>
+                  <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                </li>
+              ))
+          }
+        </ul>
+      </Section>
+
+      <Section title="Contributors">
+        <PersonList people={ researchGroup.members } />
+      </Section>
 
     </Page>
   )

@@ -6,6 +6,7 @@ import { Hero } from './hero'
 
 export const Page = ({
   title,
+  hideTitle,
   description,
   children,
   heroImage,
@@ -29,13 +30,19 @@ export const Page = ({
 
       <br /><br />
 
-      <Typography variant="h1">
-        { title }
-      </Typography>
+      {
+        !hideTitle && (
+          <Fragment>
+            <Typography variant="h1">
+              { title }
+            </Typography>
+            <br /><br />
+            <Divider />
+            <br /><br />
+          </Fragment>
+        )
+      }
 
-      <br /><br />
-      <Divider />
-      <br /><br />
 
       { children }
       
@@ -45,6 +52,11 @@ export const Page = ({
 
 Page.propTypes = {
   children: PropTypes.node,
-  title: PropTypes.string,
-  description: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  hideTitle: PropTypes.bool.isRequired,
+  description: PropTypes.string,  
+}
+
+Page.defaultProps = {
+  hideTitle: false,
 }

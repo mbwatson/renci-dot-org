@@ -35,10 +35,12 @@ export const OurWorkTray = ({
                 sx={{ padding: 0, margin: '2rem' }}
                 subheader={
                   <ListSubheader sx={{
+                    position: 'static',
                     backgroundColor: 'transparent',
                     fontSize: '150%',
                     padding: '0 0.5rem',
                     fontWeight: 'normal',
+                    position: 'static'
                   }}>
                     <Link to="/groups">Research Groups</Link>
                   </ListSubheader>
@@ -46,8 +48,8 @@ export const OurWorkTray = ({
               >
                 {
                   researchGroups?.length && researchGroups.map(group => (
-                    <ListItem key={ group.id } sx={{ padding: '0.5rem' }}>
-                      <Link to={ `/groups/${ group.id }` }>{ group.name }</Link>
+                    <ListItem key={ group.slug } sx={{ padding: '0.5rem' }}>
+                      <Link to={ `/groups/${ group.slug }` }>{ group.name }</Link>
                     </ListItem>
                   ))
                 }
@@ -59,10 +61,12 @@ export const OurWorkTray = ({
                 sx={{ padding: 0, margin: '2rem' }}
                 subheader={
                   <ListSubheader sx={{
+                    position: 'static',
                     backgroundColor: 'transparent',
                     fontSize: '150%',
                     padding: '0 0.5rem',
                     fontWeight: 'normal',
+                    position: 'static'
                   }}>
                     <Link to="/collaborations">Collaborations</Link>
                   </ListSubheader>
@@ -70,8 +74,8 @@ export const OurWorkTray = ({
               >
                 {
                   collaborations?.length && collaborations.map(collaboration => (
-                    <ListItem key={ collaboration.id } sx={{ padding: '0.5rem' }}>
-                      <Link to={ `/collaborations/${ collaboration.id }` }>{ collaboration.name }</Link>
+                    <ListItem key={ collaboration.slug } sx={{ padding: '0.5rem' }}>
+                      <Link to={ `/collaborations/${ collaboration.slug }` }>{ collaboration.name }</Link>
                     </ListItem>
                   ))
                 }
@@ -83,10 +87,12 @@ export const OurWorkTray = ({
                 sx={{ padding: 0, margin: '2rem' }}
                 subheader={
                   <ListSubheader sx={{
+                    position: 'static',
                     backgroundColor: 'transparent',
                     fontSize: '150%',
                     padding: '0 0.5rem',
                     fontWeight: 'normal',
+                    position: 'static'
                   }}>
                     <Link to="/teams">Operations</Link>
                   </ListSubheader>
@@ -94,8 +100,8 @@ export const OurWorkTray = ({
               >
                 {
                   teams?.length && teams.map(team => (
-                    <ListItem key={ team.id } sx={{ padding: '0.5rem' }}>
-                      <Link to={ `/teams/${ team.id }` }>{ team.name }</Link>
+                    <ListItem key={ team.slug } sx={{ padding: '0.5rem' }}>
+                      <Link to={ `/teams/${ team.slug }` }>{ team.name }</Link>
                     </ListItem>
                   ))
                 }

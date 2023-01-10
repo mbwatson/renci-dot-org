@@ -1,15 +1,14 @@
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import NextLink from 'next/link'
-import { ArrowForward as ArrowIcon } from '@mui/icons-material'
 
-const InternalLink = ({ children, className, ...props }) => {
+const InternalLink = React.forwardRef(function InternalLink({ children, className, ...props }, ref) {
   return (
     <NextLink { ...props }>
-      <a className={ className }>{ children }</a>
+      <a className={ className } ref={ ref }>{ children }</a>
     </NextLink>
   )
-}
+})
 
 export const ExternalLinkIcon = ({ size, ...rest }) => {
   return (
@@ -45,35 +44,30 @@ const ExternalLink = ({ href, children, ...props }) => {
       >
         { children }
       </a>
-      <ExternalLinkIcon size={ 10 } style={{ marginLeft: '4px' }} />
+      <ExternalLinkIcon size={ 10 } style={{ marginLeft: '4px' }} { ...props } />
     </Fragment>
   )
 }
 
 //
 
-export const Link = ({ to, arrow, children, ...props }) => {
+export const Link = React.forwardRef(function Link({ to, children, ...props }, ref) {
   const mailtoPattern = new RegExp(/^mailto:/)
   const externalUrlPattern = new RegExp(/^https?:\/\//)
   const externalUrlMatch = externalUrlPattern.exec(to)
   const mailtoMatch = mailtoPattern.exec(to)
   const LinkComponent = externalUrlMatch || mailtoMatch ? ExternalLink : InternalLink
   return (
-    <LinkComponent href={ to } to={ to } { ...props }>
+    <LinkComponent href={ to } to={ to } ref={ ref } { ...props }>
       { children }
-      { arrow && <ArrowIcon fontSize="6" sx={{ marginLeft: '2px' }} /> }
     </LinkComponent>
   )
-}
+})
 
 Link.propTypes = {
   to: PropTypes.string.isRequired,
-  arrow: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
 }
 
-Link.defaultProps = {
-  arrow: false,
-}
-
 ExternalLink.propTypes = Link.propTypes
+ExternalLink.defaultProps = Link.defaultProps

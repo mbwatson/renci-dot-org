@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchResearchGroups } from '../../lib/contentful'
+import { fetchStrapiGroups } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -13,31 +13,34 @@ export default function ResearchGroups({ researchGroups }) {
       description="RENCI's research groups..."
     >
       <Typography paragraph>
-        Sunt in officia anim aute occaecat sed dolor sit nulla pariatur dolor duis velit veniam.
-        Lorem ipsum cupidatat fugiat adipisicing dolore elit duis reprehenderit anim incididunt in incididunt deserunt sunt culpa fugiat eu minim veniam.
-        Veniam laborum mollit commodo labore excepteur ut sunt dolore dolor in minim enim officia sit occaecat in cillum ullamco.
-        Lorem ipsum ad tempor ea elit anim aliqua nulla exercitation veniam id non elit in in deserunt magna.
+        Research is the heart of the work we do at RENCI.
+        Centered around data science, each domain-specific group offers
+        scientific and technical expertise to advance discovery within
+        their field.
       </Typography>
 
-      {
-        researchGroups.map(group => (
-          <Fragment key={ group.id }>
-            <Link to={ `/groups/${ group.id }` }>
-              { group.name }
-            </Link>
-            <Pre>
-              { JSON.stringify(group, null, 2) }
-            </Pre>
-          </Fragment>
-        ))
-      }
+      <Typography paragraph>
+        Learn more about each research group at RENCI below. 
+      </Typography>
+
+      <ul>
+        {
+          researchGroups.map(group => (
+            <li key={ `link-to-${ group.name }` }>
+              <Link to={ `/groups/${ group.slug }` }>
+                { group.name }
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
 
     </Page>
   )
 }
 
 export async function getStaticProps(context) {
-  const researchGroups = await fetchResearchGroups()
+  const researchGroups = await fetchStrapiGroups()
   return {
     props: { researchGroups },
   }

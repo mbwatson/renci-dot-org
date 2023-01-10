@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchTeams } from '../../lib/contentful'
+import { fetchStrapiTeams } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 
@@ -13,31 +13,40 @@ export default function Teams({ teams }) {
       description="RENCI's operational teams..."
     >
       <Typography paragraph>
-        Aliquip labore elit sunt aliqua sit esse adipisicing mollit commodo ut.
-        Quis ea dolore commodo irure aute tempor ut tempor dolor reprehenderit est.
-        Quis cillum exercitation nulla ex laborum minim incididunt dolor laborum incididunt ut.
-        Sint sunt cupidatat mollit consequat culpa deserunt fugiat non proident id.
+        Given RENCI&apos;s agile an fast-paced environment, the operations
+        teams are essential to keeping things running smoothly and efficiently.
+        Each of these teams plays a vital role in developing RENCI&apos;s
+        processes, projects, and overall functionality. From our premier
+        project management group organizing many complex and high-profile
+        projects to our finance team diligently managing budgets and submitting
+        proposals, RENCI has a robust and respected team of stagg members that
+        streamline the foundational requirements of creating andsharing quality
+        data science research.
       </Typography>
 
-      {
-        teams.map(team => (
-          <Fragment key={ team.id }>
-            <Link to={ `/teams/${ team.id }` }>
-              { team.name }
-            </Link>
-            <Pre>
-              { JSON.stringify(team, null, 2) }
-            </Pre>
-          </Fragment>
-        ))
-      }
+      <Typography paragraph>
+        Learn more about RENCI&apos;s Operations teams below.
+      </Typography>
+
+      <ul>
+        {
+          teams.map(team => (
+            <li key={ `link-to-${ team.name }` }>
+              <Link to={ `/teams/${ team.slug }` }>
+                { team.name }
+              </Link>
+            </li>
+          ))
+        }
+      </ul>
 
     </Page>
   )
 }
 
 export async function getStaticProps(context) {
-  const teams = await fetchTeams()
+  const teams = await fetchStrapiTeams()
+
   return {
     props: { teams },
   }

@@ -3,12 +3,16 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page } from '../components'
+import homeHero from '../images/racks.jpg'
+import { Spotlight } from '../components/spotlight'
+import { fetchStrapiProjects } from '../lib/strapi'
 
-export default function Home() {
+export default function Home({ projects}) {
   return (
     <Page
       title="Home"
       description="Welcome to RENCI.org"
+      heroImage={ homeHero.src }
     >
       <Typography paragraph>
         Lorem ipsum dolor eiusmod quis excepteur mollit sit elit labore non aliqua.
@@ -18,6 +22,14 @@ export default function Home() {
         Occaecat irure irure anim quis sit velit nulla ut tempor non aliqua sed nulla nostrud excepteur magna.
         Esse incididunt ex ea pariatur nisi sit quis est anim incididunt in culpa laboris.
       </Typography>
+      <Spotlight projects={projects}/>
     </Page>
   )
+}
+
+export async function getStaticProps(context) {
+  const projects = await fetchStrapiProjects()
+  return {
+    props: { projects },
+  }
 }

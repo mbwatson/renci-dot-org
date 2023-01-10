@@ -2,9 +2,9 @@ import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
-import { fetchProjects } from '../../lib/contentful'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { fetchStrapiProjects } from "../../lib/strapi";
 
 export default function Projects({ projects }) {
   return (
@@ -21,8 +21,8 @@ export default function Projects({ projects }) {
 
       {
         projects.map(project => (
-          <Fragment key={ project.id }>
-            <Link to={ `/projects/${ project.id }` }>
+          <Fragment key={ project.slug }>
+            <Link to={ `/projects/${ project.slug }` }>
               { project.name }
             </Link>
             <Pre>
@@ -37,8 +37,9 @@ export default function Projects({ projects }) {
 }
 
 export async function getStaticProps(context) {
-  const projects = await fetchProjects()
+  const projects = await fetchStrapiProjects();
+
   return {
     props: { projects },
-  }
+  };
 }
