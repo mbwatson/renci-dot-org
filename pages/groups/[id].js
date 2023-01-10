@@ -5,6 +5,7 @@ import { fetchStrapiGroup } from '../../lib/strapi'
 import { Link, Page, Pre } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonList } from '../../components/people/'
+import { PersonCard, PersonGrid } from "../../components/people/";
 
 export default function ResearchGroup() {
   const router = useRouter()
@@ -46,8 +47,17 @@ export default function ResearchGroup() {
         </ul>
       </Section>
 
-      <Section title="Contributors">
+      {/* <Section title="Contributors">
         <PersonList people={ researchGroup.members } />
+      </Section> */}
+      <Section title="Team Members">
+       <PersonGrid>
+          {
+            researchGroup.members.map(person => (
+              <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+            ))
+          }
+        </PersonGrid>
       </Section>
 
     </Page>
