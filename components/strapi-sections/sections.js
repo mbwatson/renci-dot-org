@@ -1,6 +1,7 @@
 import { useRouter } from "next/router"
 import {
-  TitleAndBody, 
+  TitleAndBody,
+  TextAndImage, 
   PageTitle, 
   RichText, 
   Hero } from "./strapi-components"
@@ -9,6 +10,7 @@ import {
 const sectionComponents = {
   "sections.rich-text": RichText,
   "sections.title-and-body-section": TitleAndBody,
+  "sections.text-and-image": TextAndImage,
   "sections.page-title": PageTitle,
   "sections.hero": Hero,
 }
