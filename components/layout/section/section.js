@@ -1,38 +1,32 @@
 import PropTypes from 'prop-types'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Typography, Stack } from '@mui/material'
 
 export const Section = ({ title, children }) => {
   return (
-    <Grid
-      container
-      columns={ 8 }
-      columnSpacing={{ xs: 0, md: 6 }}
-      rowSpacing={{ xs: 2, md: 0 }}
+    <Stack
+      direction="row"
+      spacing={6}
       sx={{
-        margin: '3rem 3rem',
+        margin: '3rem 6rem',
         '& .title': {
           xs: { textAlign: 'left' },
           md: { textAlign: 'right' },
         },
       }}
     >
-      <Grid item xs={ 8 } md={ 2 }>
+      <Box sx={{ flex: '1 200px' }}>
         {
           title && (
-            <Box>
-              <Typography variant="h2" className="title">
-                { title }
-              </Typography>
-            </Box>
+            <Typography variant="h2" className="title">
+              { title }
+            </Typography>
           )
         }
-      </Grid>
-      <Grid item xs={ 8 } md={ 6 }>
-        <Box sx={{marginTop: "0"}}>
+      </Box>
+      <Box sx={{ flex: '4' }}>
           { children }
-        </Box>
-      </Grid>
-    </Grid>
+      </Box>
+    </Stack>
   )
 }
 
