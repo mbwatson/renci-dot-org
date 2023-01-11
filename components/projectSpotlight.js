@@ -78,7 +78,7 @@ export const ProjectCard = ({project}) => {
   )
 }
 
-export const Spotlight = ({ projects }) => {
+export const ProjectSpotlight = ({ projects }) => {
   const mobile = useMediaQuery('(max-width: 680px)')
 
   const theme = useTheme()

@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
-import { Spotlight } from '../components/spotlight'
+import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchStrapiProjects } from '../lib/strapi'
 
 export default function Home({ projects}) {
@@ -22,7 +22,8 @@ export default function Home({ projects}) {
         Occaecat irure irure anim quis sit velit nulla ut tempor non aliqua sed nulla nostrud excepteur magna.
         Esse incididunt ex ea pariatur nisi sit quis est anim incididunt in culpa laboris.
       </Typography>
-      <Spotlight projects={projects}/>
+      
+      <ProjectSpotlight projects={projects}/>
     </Page>
   )
 }

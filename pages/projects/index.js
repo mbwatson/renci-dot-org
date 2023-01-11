@@ -6,7 +6,7 @@ import { Box } from '@mui/material'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { fetchStrapiProjects } from "../../lib/strapi"
-import { ProjectCard } from '../../components/spotlight'
+import { ProjectCard } from '../../components/projectSpotlight'
 
 export default function Projects({ projects }) {
   return (
