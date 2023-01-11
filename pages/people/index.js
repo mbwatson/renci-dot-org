@@ -82,15 +82,19 @@ export default function People({ people }) {
         <Box
           component="nav"
           sx={{
+            '--distance-from-top': '10rem',
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "flex-start",
             gap: "4px",
             position: "sticky",
-            top: "10rem",
+            overflowY: "auto",
+            top: "var(--distance-from-top)",
+            maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
             marginTop: "2rem",
             alignSelf: "flex-start",
+            paddingRight: '8px',
           }}
         >
           {letters.map((letter) =>
