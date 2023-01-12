@@ -1,4 +1,4 @@
-import Markdown from "react-markdown";
+import { Markdown } from '../../markdown'
 import { TextImageSection } from "../../layout";
 
 export const TextAndImage = ({ data }) => {
