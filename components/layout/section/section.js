@@ -4,9 +4,9 @@ import { Box, Typography, Stack } from '@mui/material'
 export const Section = ({ title, children }) => {
   return (
     <Stack
-      direction="row"
-      spacing={6}
-      sx={{
+    direction={{ sm: 'column', md: 'row' }}
+    spacing={{ sm: 2, md: 6 }}
+    sx={{
         margin: '3rem 6rem',
         '& .title': {
           xs: { textAlign: 'left' },
@@ -14,7 +14,12 @@ export const Section = ({ title, children }) => {
         },
       }}
     >
-      <Box sx={{ flex: '1 200px' }}>
+      <Box sx={{
+        flex: {
+          sm: '1',
+          md: '1 200px'
+        }
+      }}>
         {
           title && (
             <Typography variant="h2" className="title">
