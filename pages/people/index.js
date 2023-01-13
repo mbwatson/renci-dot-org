@@ -95,8 +95,8 @@ export default function People({ people }) {
             maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
             marginTop: "2rem",
             alignSelf: "flex-start",
-            paddingRight: '4px',
-            scrollbarWidth: "none",
+            paddingX: '6px',
+            scrollbarWidth: "thin",
 
             "&::-webkit-scrollbar": {
               width: "4px",
