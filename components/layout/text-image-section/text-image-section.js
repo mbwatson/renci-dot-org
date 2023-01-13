@@ -1,11 +1,22 @@
-import { Grid } from '@mui/material'
+import { Box, Stack } from '@mui/material'
 import Image from 'next/image'
 import PropTypes from 'prop-types'
-import styles from './image-text-section.module.css'
 
 export const TextImageSection = ({ imageUrl, imageHeight, imageWidth, children }) => (
-  <Grid container spacing={2} columns={8} marginBottom='3rem' marginTop='3rem'>
-    {imageUrl && <Grid item xs={8} sm={2}>
+  <Stack
+    direction={{ sm: 'column', md: 'row' }}
+    spacing={ 2 }
+    sx={{
+      marginY: '2rem',
+      gap: '2rem',
+    }}
+  >
+    {imageUrl && <Box sx={{
+      flex: {
+        sm: '1',
+        md: '1'
+      },
+    }}>
       <Image
         priority
         src={imageUrl}
@@ -13,11 +24,11 @@ export const TextImageSection = ({ imageUrl, imageHeight, imageWidth, children }
         height={imageHeight}
         layout="responsive"
       />
-    </Grid>}
-    <Grid item xs={8} sm={imageUrl ? 6 : 8} className={styles.textSection}>
+    </Box>}
+    <Box sx={{ flex: '3' }}>
       {children}
-    </Grid>
-  </Grid>
+    </Box>
+  </Stack>
 )
 
 TextImageSection.propTypes = {
