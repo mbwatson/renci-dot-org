@@ -28,7 +28,7 @@ export const Section = ({ title, children }) => {
           )
         }
       </Box>
-      <Box sx={{ flex: '4' }}>
+      <Box sx={{ flex: '4' , wordWrap: 'break-word'}} >
           { children }
       </Box>
     </Stack>
