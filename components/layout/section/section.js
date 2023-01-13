@@ -16,8 +16,8 @@ export const Section = ({ title, children }) => {
     >
       <Box sx={{
         flex: {
-          sm: '1',
-          md: '1 200px'
+          sm: '0 0',
+          md: '0 0 200px'
         }
       }}>
         {
