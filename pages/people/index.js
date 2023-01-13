@@ -82,15 +82,36 @@ export default function People({ people }) {
         <Box
           component="nav"
           sx={{
+            '--distance-from-top': '10rem',
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "flex-start",
             gap: "4px",
             position: "sticky",
-            top: "10rem",
+            overflowY: "auto",
+            overflowX: "hidden",
+            top: "var(--distance-from-top)",
+            maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
             marginTop: "2rem",
             alignSelf: "flex-start",
+            paddingX: '6px',
+            scrollbarWidth: "thin",
+
+            "&::-webkit-scrollbar": {
+              width: "4px",
+            },
+            "&::-webkit-scrollbar-track": {
+              backgroundColor: "transparent",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              backgroundColor: "transparent",
+              borderRadius: "2px",
+            },
+            "&:hover::-webkit-scrollbar-thumb": {
+              backgroundColor: "rgba(0, 0, 0, 0.3)",
+            }
+
           }}
         >
           {letters.map((letter) =>
