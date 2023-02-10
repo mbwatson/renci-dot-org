@@ -47,13 +47,10 @@ export default function ResearchGroup() {
         </ul>
       </Section>
 
-      {/* <Section title="Contributors">
-        <PersonList people={ researchGroup.members } />
-      </Section> */}
       <Section title="Team Members">
        <PersonGrid>
           {
-            researchGroup.members.map(person => (
+            researchGroup.members.filter(person => person.active).map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }
