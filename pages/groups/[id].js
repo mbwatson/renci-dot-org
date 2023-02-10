@@ -60,6 +60,22 @@ export default function ResearchGroup() {
         </PersonGrid>
       </Section>
 
+      {researchGroup.partners.length > 0 && 
+        <Section title="Partners">
+          <ul>
+            {
+              researchGroup.partners
+                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                .map(partner => (
+                  <li key={ `${ researchGroup.name }-${ partner.name }` }>
+                    <Link to={ partner.url }>{ partner.name }</Link>
+                  </li>
+                ))
+            }
+          </ul>
+        </Section>
+      }
+
       {researchGroup.projects.some(project => project.active === false) && 
         <Section title="Past Projects">
           <ul>
