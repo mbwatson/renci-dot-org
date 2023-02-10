@@ -38,7 +38,7 @@ export default function ResearchGroup() {
           {
             researchGroup.projects
               .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-              .filter(project => !project.active)
+              .filter(project => project.active === true || 'null')
               .map(project => (
                 <li key={ `${ researchGroup.name }-${ project.name }` }>
                   <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
@@ -58,6 +58,22 @@ export default function ResearchGroup() {
         </PersonGrid>
       </Section>
 
+      {researchGroup.projects.some(project => project.active === false) && 
+        <Section title="Past Projects">
+          <ul>
+            {
+              researchGroup.projects
+                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                .filter(project => project.active === false)
+                .map(project => (
+                  <li key={ `${ researchGroup.name }-${ project.name }` }>
+                    <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                  </li>
+                ))
+            }
+          </ul>
+        </Section>
+      }
     </Page>
   )
 }
