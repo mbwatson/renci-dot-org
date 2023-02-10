@@ -33,33 +33,65 @@ export default function ResearchGroup() {
       <Typography paragraph>{researchGroup.description}</Typography>
       <br/>
       
-      <Section title="Current Projects">
-        <ul>
-          {
-            researchGroup.projects
-              .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-              .map(project => (
-                <li key={ `${ researchGroup.name }-${ project.name }` }>
-                  <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
-                </li>
-              ))
-          }
-        </ul>
-      </Section>
+      {researchGroup.projects.some(project => project.active === true || 'null') &&
+        <Section title="Current Projects">
+          <ul>
+            {
+              researchGroup.projects
+                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                .filter(project => project.active === true || 'null')
+                .map(project => (
+                  <li key={ `${ researchGroup.name }-${ project.name }` }>
+                    <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                  </li>
+                ))
+            }
+          </ul>
+        </Section>
+      }
 
-      {/* <Section title="Contributors">
-        <PersonList people={ researchGroup.members } />
-      </Section> */}
       <Section title="Team Members">
        <PersonGrid>
           {
-            researchGroup.members.map(person => (
+            researchGroup.members.filter(person => person.active).map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>
             ))
           }
         </PersonGrid>
       </Section>
 
+      {researchGroup.partners.length > 0 && 
+        <Section title="Partners">
+          <ul>
+            {
+              researchGroup.partners
+                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                .map(partner => (
+                  <li key={ `${ researchGroup.name }-${ partner.name }` }>
+                    <Link to={ partner.url }>{ partner.name }</Link>
+                  </li>
+                ))
+            }
+          </ul>
+        </Section>
+      }
+
+      {researchGroup.projects.some(project => project.active === false) && 
+        <Section title="Past Projects">
+          <ul>
+            {
+              researchGroup.projects
+                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                .filter(project => project.active === false)
+                .map(project => (
+                  <li key={ `${ researchGroup.name }-${ project.name }` }>
+                    <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                  </li>
+                ))
+            }
+          </ul>
+        </Section>
+      }
     </Page>
   )
 }
