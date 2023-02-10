@@ -33,20 +33,22 @@ export default function ResearchGroup() {
       <Typography paragraph>{researchGroup.description}</Typography>
       <br/>
       
-      <Section title="Current Projects">
-        <ul>
-          {
-            researchGroup.projects
-              .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-              .filter(project => project.active === true || 'null')
-              .map(project => (
-                <li key={ `${ researchGroup.name }-${ project.name }` }>
-                  <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
-                </li>
-              ))
-          }
-        </ul>
-      </Section>
+      {researchGroup.projects.some(project => project.active === true || 'null') &&
+        <Section title="Current Projects">
+          <ul>
+            {
+              researchGroup.projects
+                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                .filter(project => project.active === true || 'null')
+                .map(project => (
+                  <li key={ `${ researchGroup.name }-${ project.name }` }>
+                    <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                  </li>
+                ))
+            }
+          </ul>
+        </Section>
+      }
 
       <Section title="Team Members">
        <PersonGrid>
