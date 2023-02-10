@@ -38,6 +38,7 @@ export default function ResearchGroup() {
           {
             researchGroup.projects
               .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+              .filter(project => !project.active)
               .map(project => (
                 <li key={ `${ researchGroup.name }-${ project.name }` }>
                   <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
