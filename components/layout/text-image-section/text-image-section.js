@@ -5,16 +5,15 @@ import PropTypes from 'prop-types'
 export const TextImageSection = ({ imageUrl, imageHeight, imageWidth, children }) => (
   <Stack
     direction={{ sm: 'column', md: 'row' }}
-    spacing={ 2 }
+    spacing={{ sm: 2, md: 6 }}
     sx={{
-      marginY: '2rem',
-      gap: '2rem',
+      marginY: '3rem',
     }}
   >
     {imageUrl && <Box sx={{
       flex: {
-        sm: '1',
-        md: '1'
+        sm: '0 0',
+        md: `0 0 ${255 / 16}rem`
       },
     }}>
       <Image
@@ -25,7 +24,7 @@ export const TextImageSection = ({ imageUrl, imageHeight, imageWidth, children }
         layout="responsive"
       />
     </Box>}
-    <Box sx={{ flex: '3' }}>
+    <Box sx={{ flex: '1' }}>
       {children}
     </Box>
   </Stack>

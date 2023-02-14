@@ -7,7 +7,7 @@ export const Section = ({ title, children }) => {
     direction={{ sm: 'column', md: 'row' }}
     spacing={{ sm: 2, md: 6 }}
     sx={{
-        margin: '3rem 0',
+        marginY: '3rem',
         '& .title': {
           xs: { textAlign: 'left' },
           md: { textAlign: 'right' },
@@ -22,7 +22,7 @@ export const Section = ({ title, children }) => {
       }}>
         {
           title && (
-            <Typography variant="h2" className="title" textAlign="right" >
+            <Typography variant="h2" className="title" >
               { title }
             </Typography>
           )
