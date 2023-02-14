@@ -9,17 +9,16 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
       <Card elevation={ 0 } name={ anchorName }>
         <CardMedia
           component="img"
-          height="250"
           image={ person.photoURL ? person.photoURL : avatar.src }
           alt={ `${person.firstName} ${person.lastName} photo` }
         />
 
-        <CardContent>
+        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
           <Link to={ `/people/${ person.slug }` }>
             { person.firstName } { person.lastName }
           </Link>
           { showTitle && person.title && (
-            <Typography>{ person.title }</Typography>
+            <Typography variant='caption'>{ person.title }</Typography>
           )}
         </CardContent>
       </Card>

@@ -62,23 +62,21 @@ export default function People({ people }) {
 
       <Typography variant="h2">Office of the Director</Typography>
 
-      <br /><br />
-
-      <PersonGrid>
-        {people.ood.map((person) => (
-          <PersonCard
-            key={person.slug}
-            person={person}
-            showTitle={true}
-          />
-        ))}
-      </PersonGrid>
-
-      <br /><br />
+      <Box my='2rem'>
+        <PersonGrid size='large'>
+          {people.ood.map((person) => (
+            <PersonCard
+              key={person.slug}
+              person={person}
+              showTitle={true}
+            />
+          ))}
+        </PersonGrid>
+      </Box>
 
       <Typography variant="h2">Everyone Else</Typography>
 
-      <Box sx={{ display: "flex", gap: "1rem" }}>
+      <Box sx={{ display: "flex", gap: "1rem", my: '2rem' }}>
         <Box
           component="nav"
           sx={{
@@ -93,7 +91,6 @@ export default function People({ people }) {
             overflowX: "hidden",
             top: "var(--distance-from-top)",
             maxHeight: 'calc(100vh - var(--distance-from-top) - 2rem)',
-            marginTop: "2rem",
             alignSelf: "flex-start",
             paddingX: '6px',
             scrollbarWidth: "thin",
@@ -130,7 +127,7 @@ export default function People({ people }) {
             )
           )}
         </Box>
-        <PersonGrid>
+        <PersonGrid size='small'>
           {
             people.people
               .map(person => {

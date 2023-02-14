@@ -2,14 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
 
-export const PersonGrid = ({ children }) => {
+export const PersonGrid = ({ children, size }) => {
   return (
     <Box sx={{
       flex: 1,
-      marginTop: '3rem',
       display: 'grid',
-      gap: '2rem',
-      gridTemplateColumns: 'repeat(auto-fit, 250px)',
+      gap: '3rem',
+      gridTemplateColumns: `repeat(${size === 'small' ? 5 : 4}, 1fr)`,
     }}>
       { children }
     </Box>
@@ -18,4 +17,5 @@ export const PersonGrid = ({ children }) => {
 
 PersonGrid.propTypes = {
   children: PropTypes.node.isRequired,
+  size: PropTypes.oneOf(['small', 'large'])
 }
