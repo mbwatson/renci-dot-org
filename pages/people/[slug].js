@@ -79,7 +79,6 @@ export default function Person() {
           }
       </TextImageSection>
 
-      <br /><br />
       {
         person.contributions && (
           <Fragment>
