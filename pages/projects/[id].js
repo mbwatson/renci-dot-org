@@ -66,7 +66,7 @@ export default function Project() {
       {
         project.partners.length > 0 && 
         <Section title="Partners">
-          <ul>
+          <ul style={{ margin: 0 }}>
             {
               project.partners
                 .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
@@ -82,7 +82,7 @@ export default function Project() {
       {
         project.funding.length > 0 && 
           <Section title="Funding">
-            <ul>
+            <ul style={{ margin: 0 }}>
               {
                 project.funding
                   .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)

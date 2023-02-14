@@ -35,7 +35,7 @@ export default function Collaboration() {
       </Section>
 
       <Section title="Projects">
-        <ul>
+        <ul style={{ margin: 0 }}>
           {
             collaboration.projects
               .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)

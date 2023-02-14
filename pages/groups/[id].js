@@ -35,7 +35,7 @@ export default function ResearchGroup() {
       
       {researchGroup.projects.some(project => project.active === true || 'null') &&
         <Section title="Current Projects">
-          <ul>
+          <ul style={{ margin: 0 }}>
             {
               researchGroup.projects
                 .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
@@ -62,7 +62,7 @@ export default function ResearchGroup() {
 
       {researchGroup.partners.length > 0 && 
         <Section title="Partners">
-          <ul>
+          <ul style={{ margin: 0 }}>
             {
               researchGroup.partners
                 .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
@@ -78,7 +78,7 @@ export default function ResearchGroup() {
 
       {researchGroup.projects.some(project => project.active === false) && 
         <Section title="Past Projects">
-          <ul>
+          <ul style={{ margin: 0 }}>
             {
               researchGroup.projects
                 .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
