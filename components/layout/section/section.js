@@ -7,7 +7,7 @@ export const Section = ({ title, children }) => {
     direction={{ sm: 'column', md: 'row' }}
     spacing={{ sm: 2, md: 6 }}
     sx={{
-        margin: '3rem 6rem',
+        margin: '3rem 0',
         '& .title': {
           xs: { textAlign: 'left' },
           md: { textAlign: 'right' },
@@ -17,18 +17,18 @@ export const Section = ({ title, children }) => {
       <Box sx={{
         flex: {
           sm: '0 0',
-          md: '0 0 200px'
+          md: `0 0 ${255 / 16}rem`
         }
       }}>
         {
           title && (
-            <Typography variant="h2" className="title">
+            <Typography variant="h2" className="title" textAlign="right" >
               { title }
             </Typography>
           )
         }
       </Box>
-      <Box sx={{ flex: '4' , wordWrap: 'break-word'}} >
+      <Box sx={{ flex: '1' , wordWrap: 'break-word'}} >
           { children }
       </Box>
     </Stack>
