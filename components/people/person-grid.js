@@ -2,13 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
 
-export const PersonGrid = ({ children, size }) => {
+export const PersonGrid = ({ children }) => {
   return (
     <Box sx={{
       flex: 1,
       display: 'grid',
-      gap: '3rem',
-      gridTemplateColumns: `repeat(auto-fit, ${size === 'small' ? '175px' : '285px'})`,
+      gap: '2rem',
+      gridTemplateColumns: `repeat(auto-fit, 250px)`,
     }}>
       { children }
     </Box>

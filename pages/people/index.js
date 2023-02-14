@@ -63,7 +63,7 @@ export default function People({ people }) {
       <Typography variant="h2">Office of the Director</Typography>
 
       <Box my='2rem'>
-        <PersonGrid size='large'>
+        <PersonGrid>
           {people.ood.map((person) => (
             <PersonCard
               key={person.slug}
@@ -127,7 +127,7 @@ export default function People({ people }) {
             )
           )}
         </Box>
-        <PersonGrid size='small'>
+        <PersonGrid>
           {
             people.people
               .map(person => {
