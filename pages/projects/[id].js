@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 import { fetchStrapiProject } from '../../lib/strapi'
-import { Page } from '../../components'
+import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { Section } from '../../components/layout'
 import { PersonList } from '../../components/people/'
+import { PersonCard, PersonGrid } from "../../components/people/";
 
 export default function Project() {
   const router = useRouter()
@@ -34,19 +35,78 @@ export default function Project() {
     <Page
       title={ `${ project.name }` }
       description={ project.description }
-      heroImage={ project.featuredImage ? project.featuredImage.url : null }
+      heroImage={ project.featuredImage ? project.featuredImage : null }
     >
-      
-      <Typography paragraph>{project.description}</Typography>
-      <br/>
-      
       {
-        project.members && (
-          <Section title="Contributors">
-            <PersonList people={ project.members } />
-          </Section>
+        project.description && (
+          <Typography paragraph>{project.description}</Typography>
         )
       }
+      <br/>
+      {
+        project.renciRole && (
+          <>
+            <Divider />
+            <Section title="RENCI's Role">
+              <Typography paragraph>{project.renciRole}</Typography>
+            </Section>
+          </>
+        )
+      }
+      {
+        project.members.length > 0 && (
+          <>
+            <Divider />
+            <Section title="Team Members">
+              <PersonGrid>
+                {
+                  project.members.filter(person => person.active).map(person => (
+                    <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+                  ))
+                }
+              </PersonGrid>
+            </Section>
+          </>
+        )
+      }
+      {
+        project.partners.length > 0 && 
+        <>
+          <Divider />
+          <Section title="Partners">
+            <ul style={{ margin: 0 }}>
+              {
+                project.partners
+                  .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                  .map(partner => (
+                    <li key={ `${ project.name }-${ partner.name }` }>
+                      <Link to={ partner.url }>{ partner.name }</Link>
+                    </li>
+                  ))
+              }
+            </ul>
+          </Section>
+        </>
+      }
+      {
+        project.funding.length > 0 && 
+          <>
+            <Divider />
+            <Section title="Funding">
+              <ul style={{ margin: 0 }}>
+                {
+                  project.funding
+                    .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                    .map(partner => (
+                      <li key={ `${ project.name }-${ partner.name }` }>
+                        <Link to={ partner.url }>{ partner.name }</Link>
+                      </li>
+                    ))
+                }
+              </ul>
+            </Section>
+          </>
+        }
     </Page>
   )
 }
