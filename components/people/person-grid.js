@@ -6,10 +6,9 @@ export const PersonGrid = ({ children }) => {
   return (
     <Box sx={{
       flex: 1,
-      marginTop: '3rem',
       display: 'grid',
       gap: '2rem',
-      gridTemplateColumns: 'repeat(auto-fit, 250px)',
+      gridTemplateColumns: `repeat(auto-fit, 250px)`,
     }}>
       { children }
     </Box>
@@ -18,4 +17,5 @@ export const PersonGrid = ({ children }) => {
 
 PersonGrid.propTypes = {
   children: PropTypes.node.isRequired,
+  size: PropTypes.oneOf(['small', 'large'])
 }
