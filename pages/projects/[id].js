@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 import { fetchStrapiProject } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
@@ -45,46 +45,38 @@ export default function Project() {
       <br/>
       {
         project.renciRole && (
-          <Section title="RENCI's Role">
-            <Typography paragraph>{project.renciRole}</Typography>
-          </Section>
+          <>
+            <Divider />
+            <Section title="RENCI's Role">
+              <Typography paragraph>{project.renciRole}</Typography>
+            </Section>
+          </>
         )
       }
       {
         project.members.length > 0 && (
-          <Section title="Team Members">
-            <PersonGrid>
-              {
-                project.members.filter(person => person.active).map(person => (
-                  <PersonCard key={ person.slug } person={ person } showTitle={true}/>
-                ))
-              }
-            </PersonGrid>
-          </Section>
+          <>
+            <Divider />
+            <Section title="Team Members">
+              <PersonGrid>
+                {
+                  project.members.filter(person => person.active).map(person => (
+                    <PersonCard key={ person.slug } person={ person } showTitle={true}/>
+                  ))
+                }
+              </PersonGrid>
+            </Section>
+          </>
         )
       }
       {
         project.partners.length > 0 && 
-        <Section title="Partners">
-          <ul style={{ margin: 0 }}>
-            {
-              project.partners
-                .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-                .map(partner => (
-                  <li key={ `${ project.name }-${ partner.name }` }>
-                    <Link to={ partner.url }>{ partner.name }</Link>
-                  </li>
-                ))
-            }
-          </ul>
-        </Section>
-      }
-      {
-        project.funding.length > 0 && 
-          <Section title="Funding">
+        <>
+          <Divider />
+          <Section title="Partners">
             <ul style={{ margin: 0 }}>
               {
-                project.funding
+                project.partners
                   .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
                   .map(partner => (
                     <li key={ `${ project.name }-${ partner.name }` }>
@@ -94,6 +86,26 @@ export default function Project() {
               }
             </ul>
           </Section>
+        </>
+      }
+      {
+        project.funding.length > 0 && 
+          <>
+            <Divider />
+            <Section title="Funding">
+              <ul style={{ margin: 0 }}>
+                {
+                  project.funding
+                    .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                    .map(partner => (
+                      <li key={ `${ project.name }-${ partner.name }` }>
+                        <Link to={ partner.url }>{ partner.name }</Link>
+                      </li>
+                    ))
+                }
+              </ul>
+            </Section>
+          </>
         }
     </Page>
   )
