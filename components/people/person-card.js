@@ -9,7 +9,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
       <Card elevation={ 0 } name={ anchorName }>
         <CardMedia
           component="img"
-          height='250px'
+          sx={{ aspectRatio: '1 / 1', borderRadius: '50%' }}
           image={ person.photoURL ? person.photoURL : avatar.src }
           alt={ `${person.firstName} ${person.lastName} photo` }
         />
