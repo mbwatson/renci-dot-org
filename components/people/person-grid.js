@@ -8,7 +8,7 @@ export const PersonGrid = ({ children }) => {
       flex: 1,
       display: 'grid',
       gap: '2rem',
-      gridTemplateColumns: `repeat(auto-fit, 250px)`,
+      gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))`,
     }}>
       { children }
     </Box>
