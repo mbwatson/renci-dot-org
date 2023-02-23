@@ -31,7 +31,7 @@ export default function ResearchGroup() {
       <Typography paragraph>{team.description}</Typography>
       <br/>
       <Section title="Team Members">
-       <PersonGrid>
+       <PersonGrid size="small">
           {
             team.members.map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>

@@ -55,7 +55,7 @@ export default function ResearchGroup() {
 
       <Divider />
       <Section title="Team Members">
-       <PersonGrid>
+       <PersonGrid size="small">
           {
             researchGroup.members.filter(person => person.active).map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>

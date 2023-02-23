@@ -2,7 +2,20 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box } from '@mui/material'
 
-export const PersonGrid = ({ children }) => {
+export const PersonGrid = ({ children, size = 'medium' }) => {
+  let minWidth;
+  switch (size) {
+    case 'small':
+      minWidth = 150;
+      break;
+    case 'medium':
+    default: 
+      minWidth = 175;
+      break;
+    case 'large':
+      minWidth = 250;
+  }
+
   return (
     <Box sx={{
       flex: 1,

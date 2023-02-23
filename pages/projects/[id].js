@@ -58,7 +58,7 @@ export default function Project() {
           <>
             <Divider />
             <Section title="Team Members">
-              <PersonGrid>
+              <PersonGrid size="small">
                 {
                   project.members.filter(person => person.active).map(person => (
                     <PersonCard key={ person.slug } person={ person } showTitle={true}/>
