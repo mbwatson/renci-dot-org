@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
 import { PersonCard } from './'
 import { Link } from '../'
-import avatar from '../../images/generic-avatar.png'
+import avatar from '../../images/generic-avatar.svg'
 
 export const PersonList = ({ people, showTitles }) => {
   return (

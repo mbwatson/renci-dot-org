@@ -2,14 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { Link } from "../link";
-import avatar from "../../images/generic-avatar.png";
+import avatar from "../../images/generic-avatar.svg";
 
 export const PersonCardStrapi = ({ person, showTitle }) => {
   return (
     <Card sx={{ margin: "0 1.5rem" }} elevation={0}>
       <CardMedia
         component="img"
-        // height='250'
         style={{
           width: "200px",
           height: "200px",

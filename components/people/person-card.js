@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, CardMedia, CardContent, Typography } from '@mui/material'
 import { Link } from '../link'
-import avatar from '../../images/generic-avatar.png'
+import avatar from '../../images/generic-avatar.svg'
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   return (
