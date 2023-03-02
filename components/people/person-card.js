@@ -3,13 +3,31 @@ import PropTypes from 'prop-types'
 import { Card, CardMedia, CardContent, Typography } from '@mui/material'
 import { Link } from '../link'
 import avatar from '../../images/generic-avatar.svg'
+import { useTheme } from '@emotion/react'
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
+  const theme = useTheme();
+  
   return (
-      <Card elevation={ 0 } name={ anchorName }>
+      <Card elevation={ 0 } name={ anchorName } sx={{ 
+        display: 'flex',
+        flexDirection: 'column',
+
+        [theme.breakpoints.down('sm')]: {
+          flexDirection: 'row',
+          alignItems: 'center'
+        }
+      }}>
         <CardMedia
           component="img"
-          sx={{ aspectRatio: '1 / 1', borderRadius: '50%' }}
+          sx={{ 
+            aspectRatio: '1 / 1',
+            borderRadius: '50%',
+
+            [theme.breakpoints.down('sm')]: {
+              width: 100,
+            }
+          }}
           image={ person.photoURL ? person.photoURL : avatar.src }
           alt={ `${person.firstName} ${person.lastName} photo` }
         />

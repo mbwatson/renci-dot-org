@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Box } from '@mui/material'
+import { Box, useTheme } from '@mui/material'
 
 export const PersonGrid = ({ children, size = 'medium' }) => {
+  const theme = useTheme();  
+  
   let minWidth;
   switch (size) {
     case 'small':
@@ -22,6 +24,10 @@ export const PersonGrid = ({ children, size = 'medium' }) => {
       display: 'grid',
       gap: '2rem',
       gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))`,
+
+      [theme.breakpoints.down('sm')]: {
+        gridTemplateColumns: '1fr',
+      }
     }}>
       { children }
     </Box>
