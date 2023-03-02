@@ -50,7 +50,7 @@ export default function Collaboration() {
 
       <Section title="Contributors">
         <h3>People</h3>
-        <PersonGrid>
+        <PersonGrid size="small">
           {
             collaboration.members.map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={false}/>
