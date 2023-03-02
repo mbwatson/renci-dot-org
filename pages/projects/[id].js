@@ -5,7 +5,6 @@ import { fetchStrapiProject } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { Section } from '../../components/layout'
-import { PersonList } from '../../components/people/'
 import { PersonCard, PersonGrid } from "../../components/people/";
 
 export default function Project() {
@@ -58,7 +57,7 @@ export default function Project() {
           <>
             <Divider />
             <Section title="Team Members">
-              <PersonGrid>
+              <PersonGrid size="small">
                 {
                   project.members.filter(person => person.active).map(person => (
                     <PersonCard key={ person.slug } person={ person } showTitle={true}/>

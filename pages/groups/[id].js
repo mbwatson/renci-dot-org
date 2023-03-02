@@ -4,7 +4,6 @@ import { Typography, Box, Divider } from '@mui/material'
 import { fetchStrapiGroup } from '../../lib/strapi'
 import { Link, Page, Pre } from '../../components'
 import { Section } from '../../components/layout'
-import { PersonList } from '../../components/people/'
 import { PersonCard, PersonGrid } from "../../components/people/";
 
 export default function ResearchGroup() {
@@ -55,7 +54,7 @@ export default function ResearchGroup() {
 
       <Divider />
       <Section title="Team Members">
-       <PersonGrid>
+       <PersonGrid size="small">
           {
             researchGroup.members.filter(person => person.active).map(person => (
               <PersonCard key={ person.slug } person={ person } showTitle={true}/>
