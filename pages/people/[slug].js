@@ -26,8 +26,8 @@ export default function Person() {
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <TextImageSection 
         imageUrl={ person.photoURL }
-        imageWidth={ '400px' }
-        imageHeight={ '400px' }
+        imageWidth={400}
+        imageHeight={400}
         >
           <Typography variant="h1" >
             { person.fullName }

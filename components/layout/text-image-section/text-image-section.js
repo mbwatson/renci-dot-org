@@ -22,6 +22,7 @@ export const TextImageSection = ({ imageUrl, imageHeight, imageWidth, children }
         width={imageWidth}
         height={imageHeight}
         layout="responsive"
+        objectFit='contain'
       />
     </Box>}
     <Box sx={{ flex: '1' }}>
