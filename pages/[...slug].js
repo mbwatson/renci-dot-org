@@ -43,6 +43,11 @@ const DynamicPage = ({
 }
 
 export async function getServerSideProps(context) {
+  context.res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+
   const { params, locale, locales, defaultLocale, preview = null } = context
 
   const globalLocale = await getGlobalData(locale)
