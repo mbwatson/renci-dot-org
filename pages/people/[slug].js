@@ -1,27 +1,9 @@
-import { useEffect, useState, Fragment } from 'react'
-import { useRouter } from 'next/router'
+import { Fragment } from 'react'
 import { Divider, Typography } from '@mui/material'
 import { fetchStrapiPerson } from "../../lib/strapi";
 import { Link, Page, Section, TextImageSection } from '../../components'
 
-export default function Person() {
-  const router = useRouter()
-  const [person, setPerson] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const person = await fetchStrapiPerson(router.query.slug)
-      if (!person) { return }
-      setPerson(person)
-    }
-    fetchData()
-  }, [router.query.slug])
-
-
-  if (!person) {
-    return 'Loading...'
-  }
-
+export default function Person({ person }) {
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <TextImageSection 
@@ -136,4 +118,15 @@ export default function Person() {
 
     </Page>
   )
+}
+
+export async function getServerSideProps({ params, res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
+  const person = await fetchStrapiPerson(params.slug)
+
+  return { props: { person: JSON.parse(JSON.stringify(person)) } }
 }

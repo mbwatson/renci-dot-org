@@ -1,35 +1,10 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { Divider, Typography } from '@mui/material'
 import { fetchStrapiProject } from '../../lib/strapi'
 import { Link, Page } from '../../components'
-import { Pre } from '../../components/pre'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
 
-export default function Project() {
-  const router = useRouter()
-  const [project, setProject] = useState(null)
-
-  try {
-    useEffect(() => {
-    const fetchData = async () => {
-      const project = await fetchStrapiProject(router.query.id)
-      setProject(project)
-    }
-    fetchData()
-    .catch(console.error)
-  }, [router.query.id])
-
-  if (!project) {
-    return 'Loading...'
-  }
-} catch (error) {
-  console.log(error.response)
-}
-
-
-
+export default function Project({ project }) {
   return (
     <Page
       title={ `${ project.name }` }
@@ -108,4 +83,15 @@ export default function Project() {
         }
     </Page>
   )
+}
+
+export async function getServerSideProps({ params, res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
+  const project = await fetchStrapiProject(params.id)
+
+  return { props: { project: JSON.parse(JSON.stringify(project)) } }
 }

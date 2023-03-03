@@ -1,34 +1,16 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Typography, Box, Divider } from '@mui/material'
+import { Typography, Divider } from '@mui/material'
 import { fetchStrapiGroup } from '../../lib/strapi'
-import { Link, Page, Pre } from '../../components'
+import { Link, Page } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
 
-export default function ResearchGroup() {
-  const router = useRouter()
-  const [researchGroup, setResearchGroup] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const group = await fetchStrapiGroup(router.query.id)
-      setResearchGroup(group)
-    }
-    fetchData()
-  }, [router.query.id])
-
-  if (!researchGroup) {
-    return 'Loading...'
-  }
-
+export default function ResearchGroup({ researchGroup }) {
   return (
     <Page
       title={ `${ researchGroup.name }` }
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
-    
       <Typography paragraph>{researchGroup.description}</Typography>
       <br/>
       
@@ -103,4 +85,15 @@ export default function ResearchGroup() {
       }
     </Page>
   )
+}
+
+export async function getServerSideProps({ params, res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
+  const researchGroup = await fetchStrapiGroup(params.id)
+
+  return { props: { researchGroup: JSON.parse(JSON.stringify(researchGroup)) } }
 }

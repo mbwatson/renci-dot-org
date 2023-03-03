@@ -1,29 +1,10 @@
-import { Fragment, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import { Fragment } from 'react'
 import { fetchStrapiCollaboration } from '../../lib/strapi'
 import {
-  Link, Page, PersonCard, PersonGrid, Pre, Section,
+  Link, Page, PersonCard, PersonGrid, Section,
 } from '../../components'
 
-export default function Collaboration() {
-  const router = useRouter()
-  const [collaboration, setCollaboration] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const collab = await fetchStrapiCollaboration(router.query.id)
-      setCollaboration(collab)
-    }
-    fetchData()
-  }, [router.query.id])
-
-  if (!collaboration) {
-    return 'Loading...'
-  }
-
-  console.log(collaboration)
-
+export default function Collaboration({ collaboration }) {
   return (
     <Page
       title={ `${ collaboration.name }` }
@@ -96,4 +77,15 @@ export default function Collaboration() {
 
     </Page>
   )
+}
+
+export async function getServerSideProps({ params, res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
+  const collaboration = await fetchStrapiCollaboration(params.id)
+
+  return { props: { collaboration: JSON.parse(JSON.stringify(collaboration)) } }
 }
