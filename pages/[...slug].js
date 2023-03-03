@@ -42,29 +42,12 @@ const DynamicPage = ({
   )
 }
 
-export async function getStaticPaths(context) {
-  // Get all pages from Strapi
-  const allPages = context.locales.map(async (locale) => {
-    const localePages = await fetchAPI(`/api/pages`)
-    return localePages
-  })
+export async function getServerSideProps(context) {
+  context.res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
 
-  const pages = await (await Promise.all(allPages)).flat()
-
-  const paths = pages.map((page) => {
-    // Decompose the slug that was saved in Strapi
-    // const slugArray = !page.data[0].attributes.slug ? false : page.data[0].attributes.slug.split("/")
-    return {
-      params: { slug: [page.data[0].attributes.slug] },
-      // Specify the locale to render
-      locale: page.locale,
-    }
-  })
-
-  return { paths, fallback: true }
-}
-
-export async function getStaticProps(context) {
   const { params, locale, locales, defaultLocale, preview = null } = context
 
   const globalLocale = await getGlobalData(locale)

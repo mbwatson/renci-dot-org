@@ -1,27 +1,10 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Typography, Box } from '@mui/material'
+import { Typography } from '@mui/material'
 import { fetchStrapiTeam } from '../../lib/strapi'
 import { Page } from '../../components'
 import { PersonCard, PersonGrid } from "../../components/people/";
 import { Section } from '../../components/layout'
 
-export default function ResearchGroup() {
-  const router = useRouter()
-  const [team, setTeam] = useState(null)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const group = await fetchStrapiTeam(router.query.id)
-      setTeam(group)
-    }
-    fetchData()
-  }, [router.query.id])
-
-  if (!team) {
-    return 'Loading...'
-  }
-
+export default function ResearchGroup({ team }) {
   return (
     <Page
       title={ `${ team.name }` }
@@ -42,4 +25,15 @@ export default function ResearchGroup() {
 
     </Page>
   )
+}
+
+export async function getServerSideProps({ params, res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
+  const team = await fetchStrapiTeam(params.id)
+
+  return { props: { team: JSON.parse(JSON.stringify(team)) } }
 }
