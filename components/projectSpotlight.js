@@ -4,6 +4,7 @@ import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardA
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
+import { Markdown } from './markdown'
 
 export const ProjectCard = ({project}) => {
   const styles = {
@@ -69,7 +70,7 @@ export const ProjectCard = ({project}) => {
           </Box>
       </CardActionArea>
       <CardContent sx={project.description ? styles.description : styles.noSnippet}>
-        <Typography paragraph >{ project.snippet }</Typography>
+        <Markdown paragraph >{ project.snippet }</Markdown>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
