@@ -5,7 +5,7 @@ import { Typography } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
-import { fetchStrapiProjects } from '../lib/strapi'
+import { fetchActiveStrapiProjects } from '../lib/strapi'
 
 export default function Home({ projects}) {
   return (
@@ -29,7 +29,7 @@ export default function Home({ projects}) {
 }
 
 export async function getStaticProps(context) {
-  const projects = await fetchStrapiProjects()
+  const projects = await fetchActiveStrapiProjects()
   return {
     props: { projects },
   }
