@@ -16,8 +16,8 @@ export const ProjectCard = ({project}) => {
       flexDirection: 'column',
     },
     cardMedia: {
-      minHeight: '150px',
-      maxHeight: '150px'
+      minHeight: '180px',
+      maxHeight: '180px'
     },
     description: {
       flex: '1',
@@ -48,10 +48,10 @@ export const ProjectCard = ({project}) => {
       transition: 'background-color 500ms ease-out',
       backdropFilter: 'blur(2px)',
       '& h6': {
-        fontWeight: '500',
+        fontWeight: '600',
         padding: '0 1rem',
         letterSpacing: '0.5px',
-        fontSize: '120%',
+        fontSize: '110%',
         transition: 'color 200ms',
       },
       '&:hover': {
@@ -66,7 +66,7 @@ export const ProjectCard = ({project}) => {
       <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
           <CardMedia component={'img'} src={ project.featuredImage  } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
-            <Typography variant='h6'>{project.name}</Typography>
+            <Typography variant='h6'>{project.shortTitle ? project.shortTitle : project.name}</Typography>
           </Box>
       </CardActionArea>
       <CardContent sx={project.description ? styles.description : styles.noSnippet}>
