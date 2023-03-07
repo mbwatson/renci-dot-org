@@ -16,8 +16,8 @@ export const ProjectCard = ({project}) => {
       flexDirection: 'column',
     },
     cardMedia: {
-      minHeight: '180px',
-      maxHeight: '180px'
+      minHeight: '190px',
+      maxHeight: '190px'
     },
     description: {
       flex: '1',
@@ -51,7 +51,7 @@ export const ProjectCard = ({project}) => {
         fontWeight: '600',
         padding: '0 1rem',
         letterSpacing: '0.5px',
-        fontSize: '130%',
+        fontSize: '120%',
         transition: 'color 200ms',
       },
       '&:hover': {
@@ -113,7 +113,7 @@ export const ProjectSpotlight = ({ projects }) => {
     <Fragment>
       <Typography variant='h3' style={{margin: '2rem 0'}}>Project Spotlight</Typography>
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ sm: 'column', md: 'row' }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
         sx={styles.wrapper}
       >
