@@ -41,7 +41,7 @@ export const ProjectCard = ({project}) => {
       height: "100%",
       width: "100%",
       color: 'white',
-      backgroundColor: 'rgba(1,1,1,0.25)',
+      backgroundColor: 'rgba(1,1,1,0.5)',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -51,7 +51,7 @@ export const ProjectCard = ({project}) => {
         fontWeight: '600',
         padding: '0 1rem',
         letterSpacing: '0.5px',
-        fontSize: '110%',
+        fontSize: '130%',
         transition: 'color 200ms',
       },
       '&:hover': {
