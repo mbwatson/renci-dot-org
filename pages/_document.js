@@ -23,6 +23,9 @@ export default class MyDocument extends Document {
           `,
             }}
           /> */}
+
+          {/* Prevent all pages from showing in search results */}
+          <meta name="robots" content="noindex" />
         </Head>
         <body>
           <Main />
