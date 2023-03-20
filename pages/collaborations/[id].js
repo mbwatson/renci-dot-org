@@ -12,6 +12,15 @@ export default function Collaboration({ collaboration }) {
       heroImage={ collaboration.featuredImage ? collaboration.featuredImage.url : null }
     >
       {
+        collaboration.description && (
+          <Section title="Description">
+            <Markdown>
+              {collaboration.description}
+            </Markdown>
+          </Section>
+        )
+      }
+      {
         collaboration.role && (
           <Section title="RENCI's Role">
             <Markdown>
