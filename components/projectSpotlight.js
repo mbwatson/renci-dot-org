@@ -4,7 +4,7 @@ import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardA
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
-import { Markdown } from './markdown'
+import { MarkdownLess } from './markdown'
 
 export const ProjectCard = ({project}) => {
   const styles = {
@@ -16,8 +16,8 @@ export const ProjectCard = ({project}) => {
       flexDirection: 'column',
     },
     cardMedia: {
-      minHeight: '190px',
-      maxHeight: '190px'
+      minHeight: '200px',
+      maxHeight: '200px'
     },
     description: {
       flex: '1',
@@ -48,10 +48,10 @@ export const ProjectCard = ({project}) => {
       transition: 'background-color 500ms ease-out',
       backdropFilter: 'blur(2px)',
       '& h6': {
-        fontWeight: '600',
+        fontWeight: '500',
         padding: '0 1rem',
         letterSpacing: '0.5px',
-        fontSize: '120%',
+        fontSize: '115%',
         transition: 'color 200ms',
       },
       '&:hover': {
@@ -70,7 +70,7 @@ export const ProjectCard = ({project}) => {
           </Box>
       </CardActionArea>
       <CardContent sx={project.description ? styles.description : styles.noSnippet}>
-        <Markdown paragraph >{ project.snippet }</Markdown>
+        <MarkdownLess paragraph >{ project.snippet }</MarkdownLess>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
