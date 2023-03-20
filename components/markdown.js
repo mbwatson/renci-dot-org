@@ -39,3 +39,38 @@ export const Markdown = ({ children }) => {
     </ReactMarkdown>
   )
 }
+
+// this component map removes markdown styling to 
+// replace it with spans while keeping the content
+const markdownlessMap = {
+  a: ({ node, href, ...props }) => (
+    <span />
+  ),
+  p: ({ node, children, ...props })=>(
+    <span paragraph {...props}>{children}</span>
+  ),
+  h1: ({ node, children, ...props }) => (
+    <span variant="h3" {...props}>{children}</span>
+  ),
+  h2: ({ node, children, ...props }) => (
+    <span variant="h4" {...props}>{children}</span>
+  ),
+  h3: ({ node, children, ...props }) => (
+    <span variant="h5" {...props}>{children}</span>
+  ),
+  ul: ({ node, children, ...props }) => (
+    <span {...props}>{children}</span>
+  ),
+  li: ({ node, children, ...props }) => (
+    <span {...props}>{children}</span>
+  )
+}
+
+
+export const MarkdownLess = ({children}) => {
+  return (
+    <ReactMarkdown components={ markdownlessMap }>
+      { children }
+    </ReactMarkdown>
+  )
+}
