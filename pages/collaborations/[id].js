@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { fetchStrapiCollaboration } from '../../lib/strapi'
 import {
-  Link, Page, PersonCard, PersonGrid, Section,
+  Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
 
 export default function Collaboration({ collaboration }) {
@@ -11,9 +11,24 @@ export default function Collaboration({ collaboration }) {
       description={ collaboration.description }
       heroImage={ collaboration.featuredImage ? collaboration.featuredImage.url : null }
     >
-       <Section title="RENCI's Role">
-        { collaboration.role }
-      </Section>
+      {
+        collaboration.description && (
+          <Section title="Description">
+            <Markdown>
+              {collaboration.description}
+            </Markdown>
+          </Section>
+        )
+      }
+      {
+        collaboration.role && (
+          <Section title="RENCI's Role">
+            <Markdown>
+              {collaboration.role}
+            </Markdown>
+          </Section>
+        )
+      }
 
       <Section title="Projects">
         <ul style={{ margin: 0 }}>
