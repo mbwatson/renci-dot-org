@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material'
 import ReactMarkdown from 'react-markdown'
 import { Link } from './link'
+import { Fragment } from 'react'
 
 // this object defines a map:
 //    DOM elements --> React components.
@@ -43,26 +44,26 @@ export const Markdown = ({ children }) => {
 // this component map removes markdown styling to 
 // replace it with spans while keeping the content
 const markdownlessMap = {
-  a: ({ node, href, children}) => (
-    <span>{children}</span>
+  a: ({ node, children}) => (
+    <Fragment>{children}</Fragment>
   ),
   p: ({ node, children})=>(
-    <span>{children}</span>
+    <Fragment>{children}</Fragment>
   ),
   h1: ({ node, children}) => (
-    <span>{children}</span>
+    <Fragment>{children}</Fragment>
   ),
   h2: ({ node, children}) => (
-    <span>{children}</span>
+    <Fragment>{children}</Fragment>
   ),
   h3: ({ node, children}) => (
-    <span>{children}</span>
+    <Fragment>{children}</Fragment>
   ),
   ul: ({ node, children}) => (
-    <span>{children}</span>
+    <Fragment>{children}</Fragment>
   ),
   li: ({ node, children}) => (
-    <span>{children}</span>
+    <Fragment>{children}</Fragment>
   )
 }
 
