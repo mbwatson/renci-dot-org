@@ -3,6 +3,7 @@ import { fetchStrapiProject } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
+import { Markdown } from '../../components/markdown'
 
 export default function Project({ project }) {
   return (
@@ -13,7 +14,7 @@ export default function Project({ project }) {
     >
       {
         project.description && (
-          <Typography paragraph>{project.description}</Typography>
+          <Markdown paragraph>{project.description}</Markdown>
         )
       }
       <br/>
@@ -22,7 +23,7 @@ export default function Project({ project }) {
           <>
             <Divider />
             <Section title="RENCI's Role">
-              <Typography paragraph>{project.renciRole}</Typography>
+              <Markdown paragraph>{project.renciRole}</Markdown>
             </Section>
           </>
         )

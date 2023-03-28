@@ -1,14 +1,28 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Typography } from '@mui/material'
-import { Box } from '@mui/material'
+import { Typography, Box, useTheme } from '@mui/material'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
-import { fetchStrapiProjects } from "../../lib/strapi"
+import { fetchAllStrapiProjects } from "../../lib/strapi"
 import { ProjectCard } from '../../components/projectSpotlight'
 
-export default function Projects({ projects }) {
+export default function Projects({ projects, size = 'medium' }) {
+  const theme = useTheme();  
+
+  let minWidth;
+  switch (size) {
+    case 'small':
+      minWidth = 350;
+      break;
+    case 'medium':
+    default: 
+      minWidth = 350;
+      break;
+    case 'large':
+      minWidth = 300;
+  }
+
   return (
     <Page
       title="Projects"
@@ -30,7 +44,11 @@ export default function Projects({ projects }) {
         marginTop: '3rem',
         display: 'grid',
         gap: '2rem',
-        gridTemplateColumns: 'repeat(auto-fit, 250px)',
+        gridTemplateColumns: `repeat(auto-fill, minmax(${minWidth}px, 1fr))`,
+        [theme.breakpoints.down('sm')]: {
+          gridTemplateColumns: '1fr',
+        }
+  
       }}>
         {
           projects.map((project) => {
@@ -46,7 +64,7 @@ export default function Projects({ projects }) {
 }
 
 export async function getStaticProps(context) {
-  const projects = await fetchStrapiProjects();
+  const projects = await fetchAllStrapiProjects();
 
   return {
     props: { projects },

@@ -4,6 +4,7 @@ import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardA
 import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
+import { MarkdownLess } from './markdown'
 
 export const ProjectCard = ({project}) => {
   const styles = {
@@ -15,8 +16,8 @@ export const ProjectCard = ({project}) => {
       flexDirection: 'column',
     },
     cardMedia: {
-      minHeight: '150px',
-      maxHeight: '150px'
+      minHeight: '200px',
+      maxHeight: '200px'
     },
     description: {
       flex: '1',
@@ -40,7 +41,7 @@ export const ProjectCard = ({project}) => {
       height: "100%",
       width: "100%",
       color: 'white',
-      backgroundColor: 'rgba(1,1,1,0.25)',
+      backgroundColor: 'rgba(1,1,1,0.5)',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -50,7 +51,7 @@ export const ProjectCard = ({project}) => {
         fontWeight: '500',
         padding: '0 1rem',
         letterSpacing: '0.5px',
-        fontSize: '120%',
+        fontSize: '115%',
         transition: 'color 200ms',
       },
       '&:hover': {
@@ -65,11 +66,11 @@ export const ProjectCard = ({project}) => {
       <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
           <CardMedia component={'img'} src={ project.featuredImage  } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
-            <Typography variant='h6'>{project.name}</Typography>
+            <Typography variant='h6'>{project.shortTitle ? project.shortTitle : project.name}</Typography>
           </Box>
       </CardActionArea>
       <CardContent sx={project.description ? styles.description : styles.noSnippet}>
-        <Typography paragraph >{ project.snippet }</Typography>
+        <MarkdownLess paragraph >{ project.snippet }</MarkdownLess>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
@@ -112,7 +113,7 @@ export const ProjectSpotlight = ({ projects }) => {
     <Fragment>
       <Typography variant='h3' style={{margin: '2rem 0'}}>Project Spotlight</Typography>
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ sm: 'column', md: 'row' }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
         sx={styles.wrapper}
       >
