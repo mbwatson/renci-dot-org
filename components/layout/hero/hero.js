@@ -12,8 +12,9 @@ const HeroTitle = styled(({children, ...props}) => (
   maxWidth: '500px',
   lineHeight: 'calc(1.25em + (2 * 5px))',
   '& span': {
+    boxDecorationBreak: 'clone',
     backgroundColor: 'var(--highlight-color)',
-    padding: '5px 0',
+    padding: '5px 10px',
   }
 }));
 
