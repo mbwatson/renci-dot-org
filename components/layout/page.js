@@ -24,6 +24,7 @@ export const Page = ({
           <Hero
             backgroundImage={ heroImage }
             backgroundColor="lightgrey"
+            title={ title }
           />
         )
       }
@@ -31,7 +32,7 @@ export const Page = ({
       <br /><br />
 
       {
-        !hideTitle && (
+        !!heroImage || !hideTitle && (
           <Fragment>
             <Typography variant="h1">
               { title }
