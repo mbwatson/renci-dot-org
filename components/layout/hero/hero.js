@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Box, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { useScrollPosition } from "../../../hooks";
 import { styled } from "@mui/system";
 
@@ -8,8 +8,10 @@ const HeroTitle = styled(({children, ...props}) => (
 ))(({ theme }) => ({
   '--highlight-color': 'rgba(255 255 255 / 0.8)',
   color: 'black',
-  maxWidth: '500px',
+  maxWidth: '600px',
   lineHeight: 'calc(1.25em + (2 * 5px))',
+  padding: 0,
+  
   '& span': {
     boxDecorationBreak: 'clone',
     backgroundColor: 'var(--highlight-color)',
@@ -20,34 +22,25 @@ const HeroTitle = styled(({children, ...props}) => (
 export const Hero = ({ backgroundImage, backgroundColor, title, children }) => {
   const { scrollPosition } = useScrollPosition();
   return (
-    <Box>
-      <Box
-        sx={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundColor,
-          backgroundPosition: `0 ${scrollPosition / 2}px`,
-          minHeight: '300px',
-          backgroundPosition: '50% 50%',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-      />
-      <Box
-        sx={{
-          zIndex: 100,
-          minHeight: '300px',
-          width: '100%',
-          position: "relative",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
+    <Box
+      sx={{
+        width: '100vw',
+        paddingY: '4rem',
+        minHeight: '300px',
+        marginLeft: 'calc(50% - 50vw)',
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundColor,
+        backgroundPosition: `0 ${scrollPosition / 2}px`,
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
+      <Container>
         <HeroTitle><span>{title}</span></HeroTitle>
-      </Box>
+      </Container>
     </Box>
   );
 };
