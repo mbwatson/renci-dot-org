@@ -46,9 +46,14 @@ export default function ResearchGroups({ collaborations }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps({ res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
   const collaborations = await fetchStrapiCollaborations()
   return {
-    props: { collaborations },
+    props: { collaborations: JSON.parse(JSON.stringify(collaborations)) },
   }
 }
