@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
-import style from "./hero.module.css";
 import { useScrollPosition } from "../../../hooks";
 import { styled } from "@mui/system";
 
@@ -23,17 +22,24 @@ export const Hero = ({ backgroundImage, backgroundColor, title, children }) => {
   return (
     <Box>
       <Box
-        className={style.bg}
-        style={{
+        sx={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
           backgroundImage: `url(${backgroundImage})`,
           backgroundColor,
           backgroundPosition: `0 ${scrollPosition / 2}px`,
+          minHeight: '300px',
+          backgroundPosition: '50% 50%',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
         }}
       />
       <Box
-        className={style.placeholder}
         sx={{
           zIndex: 100,
+          minHeight: '300px',
+          width: '100%',
           position: "relative",
           display: "flex",
           flexDirection: "column",
