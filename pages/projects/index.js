@@ -63,10 +63,15 @@ export default function Projects({ projects, size = 'medium' }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps({ res }) {
+  res.setHeader(
+    'Cache-Control',
+    'no-cache, no-store, must-revalidate'
+  )
+  
   const projects = await fetchAllStrapiProjects();
 
   return {
-    props: { projects },
+    props: { projects: JSON.parse(JSON.stringify(projects)) },
   };
 }
