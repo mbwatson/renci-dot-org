@@ -9,6 +9,8 @@ export async function fetchAPI(path, options = {}) {
   const defaultOptions = {
     headers: {
       "Content-Type": "application/json",
+      Authorization:
+          `Bearer ${process.env.ACCESS_TOKEN}`,
     },
   };
   const mergedOptions = {
