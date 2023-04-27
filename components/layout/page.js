@@ -25,6 +25,7 @@ export const Page = ({
             backgroundImage={ heroImage }
             backgroundColor="lightgrey"
             title={ title }
+            description={ description }
           />
         )
       }

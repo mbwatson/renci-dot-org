@@ -13,15 +13,16 @@ export default function Project({ project }) {
       heroImage={ project.featuredImage ? project.featuredImage : null }
     >
       {
-        project.description && (
-          <Markdown paragraph>{project.description}</Markdown>
+        !project.featuredImage && project.description && (
+          <>
+            <Markdown paragraph>{project.description}</Markdown>
+            <Divider />
+          </>
         )
       }
-      <br/>
       {
         project.renciRole && (
           <>
-            <Divider />
             <Section title="RENCI's Role">
               <Markdown paragraph>{project.renciRole}</Markdown>
             </Section>

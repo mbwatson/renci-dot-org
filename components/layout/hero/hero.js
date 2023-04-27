@@ -1,45 +1,52 @@
 import PropTypes from "prop-types";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Divider, Typography } from "@mui/material";
 import { useScrollPosition } from "../../../hooks";
 import { styled } from "@mui/system";
 
-const HeroTitle = styled(({children, ...props}) => (
-  <Typography variant="h1" component="h1" {...props}>{children}</Typography>
-))(({ theme }) => ({
-  '--highlight-color': 'rgba(255 255 255 / 0.8)',
-  color: 'black',
-  maxWidth: '600px',
-  lineHeight: 'calc(1.25em + (2 * 5px))',
-  padding: 0,
-  
-  '& span': {
-    boxDecorationBreak: 'clone',
-    backgroundColor: 'var(--highlight-color)',
-    padding: '5px 10px',
-  }
+const HeroContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: "rgba(255 255 255 / 0.75)",
+  backdropFilter: "blur(10px)",
+  color: "black",
+  maxWidth: "700px",
+  padding: theme.spacing(3),
+  margin: `calc(-1 * ${theme.spacing(2)})`,
 }));
 
-export const Hero = ({ backgroundImage, backgroundColor, title, children }) => {
+export const Hero = ({
+  backgroundImage,
+  backgroundColor,
+  title,
+  description,
+  children,
+}) => {
   const { scrollPosition } = useScrollPosition();
   return (
     <Box
       sx={{
-        width: '100vw',
-        paddingY: '4rem',
-        minHeight: '300px',
-        marginLeft: 'calc(50% - 50vw)',
+        width: "100vw",
+        paddingY: {
+          md: 12,
+          sm: 12,
+          xs: 2,
+        },
+        minHeight: "300px",
+        marginLeft: "calc(50% - 50vw)",
         backgroundImage: `url(${backgroundImage})`,
         backgroundColor,
         backgroundPosition: `0 ${scrollPosition / 2}px`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
       <Container>
-        <HeroTitle><span>{title}</span></HeroTitle>
+        <HeroContainer>
+          <Typography variant="h1">{title}</Typography>
+          <Divider sx={{ my: 2, transform: "translateY(-2px)" }} />
+          <Typography>{description}</Typography>
+        </HeroContainer>
       </Container>
     </Box>
   );
@@ -49,6 +56,7 @@ Hero.propTypes = {
   backgroundImage: PropTypes.string,
   backgroundColor: PropTypes.string.isRequired,
   title: PropTypes.string,
+  description: PropTypes.string,
   children: PropTypes.node,
 };
 
