@@ -9,20 +9,18 @@ export default function Project({ project }) {
   return (
     <Page
       title={ `${ project.name }` }
-      description={ project.description }
+      description={ null } // project descriptions are too long, don't include in hero
       heroImage={ project.featuredImage ? project.featuredImage : null }
     >
       {
-        !project.featuredImage && project.description && (
-          <>
-            <Markdown paragraph>{project.description}</Markdown>
-            <Divider />
-          </>
-        )
+        project.description && <Section title="Description">
+          <Markdown paragraph>{project.description}</Markdown>
+        </Section>
       }
       {
         project.renciRole && (
           <>
+            <Divider />
             <Section title="RENCI's Role">
               <Markdown paragraph>{project.renciRole}</Markdown>
             </Section>
