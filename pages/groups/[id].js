@@ -38,10 +38,10 @@ export default function ResearchGroup({ researchGroup }) {
               }
             </ul>
           </Section>
+          <Divider />
         </>
       }
 
-      <Divider />
       <Section title="Team Members">
        <PersonGrid size="small">
           {
