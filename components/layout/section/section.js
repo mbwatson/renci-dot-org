@@ -5,7 +5,7 @@ export const Section = ({ title, children }) => {
   return (
     <Stack
     direction={{ sm: 'column', md: 'row' }}
-    spacing={{ sm: 2, md: 6 }}
+    spacing={{ xs: 2, sm: 2, md: 6 }}
     sx={{
         marginY: '3rem',
         '& .title': {
@@ -18,11 +18,12 @@ export const Section = ({ title, children }) => {
         flex: {
           sm: '0 0',
           md: `0 0 ${255 / 16}rem`
-        }
+        },
+        position: 'relative',
       }}>
         {
           title && (
-            <Typography variant="h2" className="title" >
+            <Typography variant="h2" className="title" sx={{ position: 'sticky', top: '150px' }}>
               { title }
             </Typography>
           )
