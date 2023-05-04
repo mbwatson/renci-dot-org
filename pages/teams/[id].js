@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 import { fetchStrapiTeam } from '../../lib/strapi'
-import { Page } from '../../components'
+import { Markdown, Page } from '../../components'
 import { PersonCard, PersonGrid } from "../../components/people/";
 import { Section } from '../../components/layout'
 
@@ -11,8 +11,12 @@ export default function ResearchGroup({ team }) {
       description={ team.description }
       heroImage={ team.featuredImage ? team.featuredImage.url : null }
     >
-      <Typography paragraph>{team.description}</Typography>
-      <br/>
+      {
+        !team.featuredImage && team.description && <>
+          <Markdown>{team.description}</Markdown>
+          <br/>
+        </>
+      }
       <Section title="Team Members">
        <PersonGrid size="small">
           {
