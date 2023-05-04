@@ -36,5 +36,5 @@ export const PersonGrid = ({ children, size = 'medium' }) => {
 
 PersonGrid.propTypes = {
   children: PropTypes.node.isRequired,
-  size: PropTypes.oneOf(['small', 'large'])
+  size: PropTypes.oneOf(['small', 'medium', 'large'])
 }
