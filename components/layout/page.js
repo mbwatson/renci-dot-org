@@ -7,6 +7,8 @@ import { Hero } from './hero'
 export const Page = ({
   title,
   hideTitle,
+  superheader,
+  superheaderUrl,
   description,
   children,
   heroImage,
@@ -25,6 +27,8 @@ export const Page = ({
             backgroundImage={ heroImage }
             backgroundColor="lightgrey"
             title={ title }
+            superheader={ superheader }
+            superheaderUrl={ superheaderUrl }
             description={ description }
           />
         )
@@ -55,6 +59,8 @@ export const Page = ({
 Page.propTypes = {
   children: PropTypes.node,
   title: PropTypes.string.isRequired,
+  superheader: PropTypes.string,
+  superheader: PropTypes.string,
   hideTitle: PropTypes.bool.isRequired,
   description: PropTypes.string,  
 }
