@@ -1,45 +1,89 @@
 import PropTypes from "prop-types";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Divider, Typography } from "@mui/material";
 import { useScrollPosition } from "../../../hooks";
 import { styled } from "@mui/system";
+import { Link, Markdown } from "../..";
 
-const HeroTitle = styled(({children, ...props}) => (
-  <Typography variant="h1" component="h1" {...props}>{children}</Typography>
-))(({ theme }) => ({
-  '--highlight-color': 'rgba(255 255 255 / 0.8)',
-  color: 'black',
-  maxWidth: '600px',
-  lineHeight: 'calc(1.25em + (2 * 5px))',
-  padding: 0,
-  
-  '& span': {
-    boxDecorationBreak: 'clone',
-    backgroundColor: 'var(--highlight-color)',
-    padding: '5px 10px',
-  }
+const HeroContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: "rgba(255 255 255 / 0.8)",
+  backdropFilter: "blur(10px)",
+  color: "black",
+  maxWidth: "700px",
+  padding: theme.spacing(3),
+  margin: `calc(-1 * ${theme.spacing(2)})`,
 }));
 
-export const Hero = ({ backgroundImage, backgroundColor, title, children }) => {
+const Superheader = styled((props) => (
+  <Typography variant="h6" as="h2" {...props}>
+    {props.children}
+  </Typography>
+))(() => ({
+  color: "rgb(0 0 0 / 0.45)",
+  marginBottom: "0.5rem",
+  textTransform: "uppercase",
+
+  "& a": {
+    textDecoration: "none",
+  },
+}));
+
+export const Hero = ({
+  backgroundImage,
+  backgroundColor,
+  title,
+  superheader,
+  superheaderUrl,
+  description,
+  children,
+}) => {
   const { scrollPosition } = useScrollPosition();
   return (
     <Box
       sx={{
-        width: '100vw',
-        paddingY: '4rem',
-        minHeight: '300px',
-        marginLeft: 'calc(50% - 50vw)',
+        width: "100vw",
+        paddingY: {
+          md: 12,
+          sm: 12,
+          xs: 2,
+        },
+        minHeight: "500px",
+        marginLeft: "calc(50% - 50vw)",
         backgroundImage: `url(${backgroundImage})`,
         backgroundColor,
         backgroundPosition: `0 ${scrollPosition / 2}px`,
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
       }}
     >
-      <Container>
-        <HeroTitle><span>{title}</span></HeroTitle>
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+          justifyContent: "center",
+        }}
+      >
+        <HeroContainer>
+          {Boolean(superheader) && (
+            <Superheader>
+              {superheaderUrl ? (
+                <Link to={superheaderUrl}>{superheader}</Link>
+              ) : (
+                superheader
+              )}
+            </Superheader>
+          )}
+          <Typography variant="h1">{title}</Typography>
+          {Boolean(description) && (
+            <>
+              <Divider sx={{ my: 2, transform: "translateY(-2px)" }} />
+              <Markdown>{description}</Markdown>
+            </>
+          )}
+        </HeroContainer>
       </Container>
     </Box>
   );
@@ -49,6 +93,9 @@ Hero.propTypes = {
   backgroundImage: PropTypes.string,
   backgroundColor: PropTypes.string.isRequired,
   title: PropTypes.string,
+  superheader: PropTypes.string,
+  superheaderUrl: PropTypes.string,
+  description: PropTypes.string,
   children: PropTypes.node,
 };
 

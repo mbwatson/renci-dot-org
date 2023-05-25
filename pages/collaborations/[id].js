@@ -12,7 +12,7 @@ export default function Collaboration({ collaboration }) {
       heroImage={ collaboration.featuredImage ? collaboration.featuredImage.url : null }
     >
       {
-        collaboration.description && (
+        !collaboration.featuredImage && collaboration.description && (
           <Section title="Description">
             <Markdown>
               {collaboration.description}

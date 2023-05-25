@@ -17,7 +17,7 @@ const componentMap = {
     />
   ),
   p: ({ node, children, ...props })=>(
-    <Typography paragraph {...props}>{children}</Typography>
+    <Typography paragraph {...props} sx={{ '&:last-of-type': { mb: 0 }}}>{children}</Typography>
   ),
   h1: ({ node, children, ...props }) => (
     <Typography variant="h3" {...props}>{children}</Typography>

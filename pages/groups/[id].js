@@ -11,12 +11,19 @@ export default function ResearchGroup({ researchGroup }) {
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
-      <Typography paragraph>{researchGroup.description}</Typography>
-      <br/>
+
+      {
+        !researchGroup.featuredImage && (
+          <>
+            <Typography paragraph>{researchGroup.description}</Typography>
+            <br/>
+            <Divider />
+          </>
+        )
+      }
       
       {researchGroup.projects.some(project => project.active === true || 'null') &&
         <>
-          <Divider />
           <Section title="Current Projects">
             <ul style={{ margin: 0 }}>
               {
@@ -31,10 +38,10 @@ export default function ResearchGroup({ researchGroup }) {
               }
             </ul>
           </Section>
+          <Divider />
         </>
       }
 
-      <Divider />
       <Section title="Team Members">
        <PersonGrid size="small">
           {

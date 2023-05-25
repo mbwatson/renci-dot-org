@@ -9,15 +9,16 @@ export default function Project({ project }) {
   return (
     <Page
       title={ `${ project.name }` }
-      description={ project.description }
+      description={ null } // project descriptions are too long, don't include in hero
       heroImage={ project.featuredImage ? project.featuredImage : null }
+      superheader={ project.researchGroup?.name }
+      superheaderUrl={ `/groups/${project.researchGroup?.slug}` }
     >
       {
-        project.description && (
+        project.description && <Section title="Description">
           <Markdown paragraph>{project.description}</Markdown>
-        )
+        </Section>
       }
-      <br/>
       {
         project.renciRole && (
           <>
