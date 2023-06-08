@@ -3,6 +3,7 @@ import { fetchStrapiCollaboration } from '../../lib/strapi'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
+import { Divider } from '@mui/material'
 
 export default function Collaboration({ collaboration }) {
   return (
@@ -13,36 +14,49 @@ export default function Collaboration({ collaboration }) {
     >
       {
         !collaboration.featuredImage && collaboration.description && (
-          <Section title="Description">
-            <Markdown>
-              {collaboration.description}
-            </Markdown>
-          </Section>
+          <>
+            <Section title="Description">
+              <Markdown>
+                {collaboration.description}
+              </Markdown>
+            </Section>
+            <Divider />
+          </>
         )
       }
       {
         collaboration.role && (
-          <Section title="RENCI's Role">
-            <Markdown>
-              {collaboration.role}
-            </Markdown>
-          </Section>
+          <>
+            <Section title="RENCI's Role">
+              <Markdown>
+                {collaboration.role}
+              </Markdown>
+            </Section>
+            <Divider />
+          </>
         )
       }
 
-      <Section title="Projects">
-        <ul style={{ margin: 0 }}>
-          {
-            collaboration.projects
-              .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-              .map(project => (
-                <li key={ `${ collaboration.name }-${ project.name }` }>
-                  <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
-                </li>
-              ))
-          }
-        </ul>
-      </Section>
+      {
+        collaboration.projects?.length !== 0 && (
+          <>
+            <Section title="Projects">
+              <ul style={{ margin: 0 }}>
+                {
+                  collaboration.projects
+                    .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
+                    .map(project => (
+                      <li key={ `${ collaboration.name }-${ project.name }` }>
+                        <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
+                      </li>
+                    ))
+                }
+              </ul>
+            </Section>
+            <Divider />
+          </>
+        )
+      }
 
       <Section title="Contributors">
         <h3>People</h3>
