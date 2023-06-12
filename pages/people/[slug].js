@@ -10,6 +10,9 @@ export default function Person({ person }) {
         imageUrl={ person.photoURL }
         imageWidth={400}
         imageHeight={400}
+        imageAspectRatio={"1 / 1"}
+        imageAlt={ `Photo of ${ person.firstName } ${ person.lastName }` }
+        rounded={true}
         >
           <Typography variant="h1" >
             { person.fullName }

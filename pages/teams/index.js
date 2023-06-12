@@ -28,7 +28,7 @@ export default function Teams({ teams }) {
         Learn more about RENCI&apos;s Operations teams below.
       </Typography>
 
-      <ul style={{ margin: 0 }}>
+      <ul>
         {
           teams.map(team => (
             <li key={ `link-to-${ team.name }` }>

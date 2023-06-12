@@ -1,48 +1,60 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Card, CardMedia, CardContent, Typography } from '@mui/material'
-import { Link } from '../link'
-import avatar from '../../images/generic-avatar.svg'
-import { useTheme } from '@emotion/react'
+import React from "react";
+import PropTypes from "prop-types";
+import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
+import { Link } from "../link";
+import avatar from "../../images/generic-avatar.svg";
+import { useTheme } from "@emotion/react";
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
-  
+
   return (
-      <Card elevation={ 0 } name={ anchorName } sx={{ 
-        display: 'flex',
-        flexDirection: 'column',
+    <Card
+      elevation={0}
+      name={anchorName}
+      sx={{
+        "& a": { textDecoration: "none" },
+      }}
+    >
+      <Link to={`/people/${person.slug}`}>
+        <Box sx={{
+          display: "flex",
+          flexDirection: "column",
+          [theme.breakpoints.down("sm")]: {
+            flexDirection: "row",
+            alignItems: "center",
+          },
+        }}>
+          <CardMedia
+            component="img"
+            sx={{
+              aspectRatio: "1 / 1",
+              borderRadius: "50%",
 
-        [theme.breakpoints.down('sm')]: {
-          flexDirection: 'row',
-          alignItems: 'center'
-        }
-      }}>
-        <CardMedia
-          component="img"
-          sx={{ 
-            aspectRatio: '1 / 1',
-            borderRadius: '50%',
+              [theme.breakpoints.down("sm")]: {
+                width: 100,
+              },
+            }}
+            image={person.photoURL ? person.photoURL : avatar.src}
+            alt={`${person.firstName} ${person.lastName} photo`}
+          />
 
-            [theme.breakpoints.down('sm')]: {
-              width: 100,
-            }
-          }}
-          image={ person.photoURL ? person.photoURL : avatar.src }
-          alt={ `${person.firstName} ${person.lastName} photo` }
-        />
+          <CardContent sx={{ display: "flex", flexDirection: "column" }}>
+            <Typography mb={0.5} sx={{ textDecoration: "underline" }}>
+              {person.firstName} {person.lastName}
+            </Typography>
 
-        <CardContent sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Link to={ `/people/${ person.slug }` }>
-            { person.firstName } { person.lastName }
-          </Link>
-          { showTitle && person.title && (
-            <Typography variant='caption'>{ person.title }</Typography>
-          )}
-        </CardContent>
-      </Card>
-  )
-}
+            {showTitle && person.title && (
+              <Typography variant="caption" sx={{ lineHeight: 1.4 }}>
+                {person.title}
+              </Typography>
+            )}
+          </CardContent>
+        </Box>
+      </Link>
+    </Card>
+  );
+};
 
 PersonCard.propTypes = {
   anchorName: PropTypes.string,
@@ -54,4 +66,4 @@ PersonCard.propTypes = {
     title: PropTypes.string,
     photo: PropTypes.object,
   }),
-}
+};
