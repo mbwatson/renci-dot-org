@@ -5,7 +5,7 @@ image:
   tag: latest
 
 env:
-  - name: NEXT_PUBLIC_ACCESS_TOKEN
+  - name: STRAPI_ACCESS_TOKEN
     valueFrom:
       secretKeyRef:
         name: renci-dot-org-api
