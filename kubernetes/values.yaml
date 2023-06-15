@@ -4,6 +4,13 @@ image:
   repository: containers.renci.org/renci-dot-org/frontend
   tag: latest
 
+env:
+  - name: NEXT_PUBLIC_ACCESS_TOKEN
+    valueFrom:
+      secretKeyRef:
+        name: renci-dot-org-api
+        key: token
+
 resources:
   limits:
     cpu: 250m
@@ -18,4 +25,3 @@ service:
 
 ingress:
   host: new-rdo.apps.renci.org
-
