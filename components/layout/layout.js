@@ -10,7 +10,7 @@ import renciLogo from '../../images/renci.png'
 import { useConfig } from '../../context'
 import { Link } from '../link'
 
-export const Layout = ({ children }) => {
+export const Layout = ({ children, ourWorkTrayItems }) => {
   const { config } = useConfig()
 
   return (
@@ -47,7 +47,9 @@ export const Layout = ({ children }) => {
                 }}
               />
             </Link>
-            <Menu />
+            <Menu 
+              ourWorkTrayItems={ourWorkTrayItems}
+            />
           </Toolbar>
         </Container>
       </AppBar>
