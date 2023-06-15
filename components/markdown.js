@@ -1,7 +1,8 @@
-import { Typography } from '@mui/material'
+import { List, ListItem, ListItemText, ListItemAvatar, Typography } from '@mui/material'
 import ReactMarkdown from 'react-markdown'
 import { Link } from './link'
 import { Fragment } from 'react'
+import { Icon } from './icon'
 
 // this object defines a map:
 //    DOM elements --> React components.
@@ -29,8 +30,18 @@ const componentMap = {
     <Typography variant="h5" {...props}>{children}</Typography>
   ),
   ul: ({ node, children, ...props }) => (
-    <ul style={{marginTop: 0, lineHeight: '1.8'}} {...props}>{children}</ul>
+    <List {...props}>{children}</List>
   ),
+  li: ({ node, children, ...props }) => (
+    <ListItem dense>
+      <ListItemAvatar sx={{ minWidth: '32px', padding: 0 }}>
+        <Icon icon="renci-dash" fill="#00788d" size="14" />
+      </ListItemAvatar>
+      <ListItemText>
+        { children }
+      </ListItemText>
+    </ListItem>
+  )
 }
 
 export const Markdown = ({ children }) => {
