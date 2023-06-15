@@ -3,13 +3,7 @@ kind: Service
 metadata:
   name: {{ .Chart.Name }}
   labels:
-    # Selector Labels
-    app.kubernetes.io/name: {{ .Chart.Name }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-
-    # Helm Labels
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-    helm.sh/chart: {{ printf "%s-%s" .Chart.Name .Chart.Version }}
+    {{- include "labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
