@@ -7,7 +7,7 @@ import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchActiveStrapiProjects } from '../lib/strapi'
 
-export default function Home({ projects}) {
+export default function Home({ selectedProjects}) {
   return (
     <Page
       title="Home"
@@ -23,7 +23,7 @@ export default function Home({ projects}) {
         Esse incididunt ex ea pariatur nisi sit quis est anim incididunt in culpa laboris.
       </Typography>
       
-      <ProjectSpotlight projects={projects}/>
+      <ProjectSpotlight selectedProjects={selectedProjects}/>
     </Page>
   )
 }
@@ -35,7 +35,19 @@ export async function getServerSideProps({ res }) {
   )
   
   const projects = await fetchActiveStrapiProjects()
+
+  let projectsCopy = [...projects]
+  let projectSelection = []
+  for (let i = 0; i < 3; i += 1) {
+    const randomIndex = Math.floor(Math.random() * projectsCopy.length)
+    const randomProject = projectsCopy.splice(randomIndex, 1)[0]
+    //add a property that is a snippet of the original description before pushing to the array
+    projectSelection.push({
+      ...randomProject,
+    })
+  }
+
   return {
-    props: { projects: JSON.parse(JSON.stringify(projects)) },
+    props: { selectedProjects: JSON.parse(JSON.stringify(projectSelection)) },
   }
 }
