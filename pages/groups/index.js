@@ -1,10 +1,19 @@
 import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Typography } from '@mui/material'
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
+import ListSubheader from '@mui/material/ListSubheader';
+import IconButton from '@mui/material/IconButton';
+import InfoIcon from '@mui/icons-material/Info';
+
+import { Typography, Grid } from '@mui/material'
 import { fetchStrapiGroups } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import { ListItemCard } from '../../components/card'
+
 
 export default function ResearchGroups({ researchGroups }) {
   return (
@@ -22,19 +31,15 @@ export default function ResearchGroups({ researchGroups }) {
       <Typography paragraph>
         Learn more about each research group at RENCI below. 
       </Typography>
-
-      <ul>
-        {
-          researchGroups.map(group => (
-            <li key={ `link-to-${ group.name }` }>
-              <Link to={ `/groups/${ group.slug }` }>
-                { group.name }
-              </Link>
-            </li>
-          ))
-        }
-      </ul>
-
+      <ImageList gap={10} sx={{width: 1000,  margin: 'auto'}}>
+      {
+        researchGroups.map(group => (
+          <ListItemCard group={group}/>
+        ))
+      }
+      </ImageList>
+<br/>
+<br/>
     </Page>
   )
 }

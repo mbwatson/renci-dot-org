@@ -5,6 +5,8 @@ import { Typography } from '@mui/material'
 import { fetchStrapiTeams } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import ImageList from '@mui/material/ImageList';
+import { ListItemCard } from '../../components/card'
 
 export default function Teams({ teams }) {
   return (
@@ -28,18 +30,15 @@ export default function Teams({ teams }) {
         Learn more about RENCI&apos;s Operations teams below.
       </Typography>
 
-      <ul>
-        {
-          teams.map(team => (
-            <li key={ `link-to-${ team.name }` }>
-              <Link to={ `/teams/${ team.slug }` }>
-                { team.name }
-              </Link>
-            </li>
-          ))
-        }
-      </ul>
-
+      <ImageList gap={10} sx={{width: 1000,  margin: 'auto'}}>
+      {
+        teams.map(group => (
+          <ListItemCard group={group}/>
+        ))
+      }
+      </ImageList>
+      <br/>
+      <br/>
     </Page>
   )
 }

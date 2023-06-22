@@ -5,6 +5,8 @@ import { Typography } from '@mui/material'
 import { fetchStrapiCollaborations } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
+import ImageList from '@mui/material/ImageList';
+import { ListItemCard } from '../../components/card'
 
 export default function ResearchGroups({ collaborations }) {
   return (
@@ -30,17 +32,15 @@ export default function ResearchGroups({ collaborations }) {
         data science initiatives.
       </Typography>
 
-      <ul>
-        {
-          collaborations.map(collaboration => (
-            <li key={ `link-to-${ collaboration.slug }` }>
-              <Link to={ `/collaborations/${ collaboration.slug }` }>
-                { collaboration.name }
-              </Link>
-            </li>
-          ))
-        }
-      </ul>
+      <ImageList gap={10} sx={{width: 1000,  margin: 'auto'}}>
+      {
+        collaborations.map(group => (
+          <ListItemCard group={group}/>
+        ))
+      }
+      </ImageList>
+<br/>
+<br/>
 
     </Page>
   )
