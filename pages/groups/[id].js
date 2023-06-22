@@ -22,14 +22,14 @@ export default function ResearchGroup({ researchGroup }) {
         )
       }
       
-      {researchGroup.projects.some(project => project.active === true || 'null') &&
+      {researchGroup.projects.some(project => project.active) &&
         <>
           <Section title="Current Projects">
             <ul style={{ margin: 0 }}>
               {
                 researchGroup.projects
                   .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-                  .filter(project => project.active === true || 'null')
+                  .filter(project => project.active)
                   .map(project => (
                     <li key={ `${ researchGroup.name }-${ project.name }` }>
                       <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
@@ -71,7 +71,7 @@ export default function ResearchGroup({ researchGroup }) {
         </>
       }
 
-      {researchGroup.projects.some(project => project.active === false) && 
+      {researchGroup.projects.some(project => !project.active) && 
         <>
           <Divider />
           <Section title="Past Projects">
@@ -79,7 +79,7 @@ export default function ResearchGroup({ researchGroup }) {
               {
                 researchGroup.projects
                   .sort((p, q) => p.name.toLowerCase() < q.name.toLowerCase() ? -1 : 1)
-                  .filter(project => project.active === false)
+                  .filter(project => !project.active)
                   .map(project => (
                     <li key={ `${ researchGroup.name }-${ project.name }` }>
                       <Link to={ `/projects/${ project.slug }` }>{ project.name }</Link>
