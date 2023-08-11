@@ -79,6 +79,9 @@ export const Menu = ({ menuItems }) => {
               />
             </li>
             <li className={ style.menuItem }>
+              <Link to="/news" className={ style.menuItemLink }>News</Link>
+            </li>
+            <li className={ style.menuItem }>
               <Link to="/people" className={ style.menuItemLink }>People</Link>
             </li>
           </ul>
