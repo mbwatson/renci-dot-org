@@ -1,9 +1,10 @@
 import { Page } from "@/components/layout";
 import { fetchAllNewsAppearances } from "@/lib/strapi/newsAppearancesGraphQL";
-import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineOppositeContent, TimelineSeparator } from "@mui/lab";
+import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineOppositeContent, TimelineSeparator, timelineContentClasses } from "@mui/lab";
 import { Box, Collapse, Typography } from "@mui/material";
 import { timelineOppositeContentClasses, timelineItemClasses, timelineDotClasses  } from "@mui/lab";
 import { useState } from "react";
+import { ArrowDropDown } from "@mui/icons-material";
 
 /**
  *  YYYY-MM-DD to MM/YY
@@ -19,26 +20,27 @@ const NewsAppearanceItem = ({ event }) => {
 
   const ButtonOrLink = ({event, hasMultipleArticles}) => {
     if(hasMultipleArticles) return (
-      <span>
-        <span style={{ paddingRight: '8px' }}>{isOpen ? '▼' : '►'}</span>
+      <Typography sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <ArrowDropDown fontSize="small" sx={{ transform: `rotate(${isOpen ? '0' : '-90'}deg)`}} />
         <a onClick={() => setIsOpen(!isOpen)} style={{ cursor: 'pointer' }}>
           {event.title}
         </a>
-      </span>
+      </Typography>
     )
     
-    return (
+    return <Typography sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <span style={{ width: '20px' }}></span>
       <a href={event.articles[0].url} target="_blank" rel="noopener noreferrer">
         {event.title}
       </a>
-    )
+    </Typography>
   }
 
   return <Box sx={{ display: 'flex', flexDirection: 'column' }}>
     <ButtonOrLink event={event} hasMultipleArticles={hasMultipleArticles} />
     {
       hasMultipleArticles && <Collapse in={isOpen}>
-        <ul style={{ marginTop: '0.5rem', paddingLeft: '20px' }}>
+        <ul style={{ marginTop: '0.5rem', paddingLeft: '40px' }}>
           {event.articles.map((article, i) => (
             <li key={i}>
               <a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a>
@@ -72,6 +74,9 @@ export default function NewsAppearances({ appearances }) {
             flex: 'auto 0 0',
             minWidth: '85px',
             filter: 'opacity(0.7)',
+          },
+          [`& .${timelineContentClasses.root}`]: {
+            paddingLeft: '4px',
           },
           [`& .${timelineItemClasses.root}`]: {
             minHeight: '40px',
