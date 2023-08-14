@@ -2,7 +2,7 @@ import { Page } from "@/components/layout";
 import { fetchAllNewsAppearances } from "@/lib/strapi/newsAppearancesGraphQL";
 import { Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineOppositeContent, TimelineSeparator } from "@mui/lab";
 import { Box, Collapse, Typography } from "@mui/material";
-import { timelineOppositeContentClasses, timelineItemClasses  } from "@mui/lab";
+import { timelineOppositeContentClasses, timelineItemClasses, timelineDotClasses  } from "@mui/lab";
 import { useState } from "react";
 
 /**
@@ -74,8 +74,14 @@ export default function NewsAppearances({ appearances }) {
             filter: 'opacity(0.7)',
           },
           [`& .${timelineItemClasses.root}`]: {
-            minHeight: '60px',
-          }
+            minHeight: '40px',
+          },
+          [`& .${timelineDotClasses.root}`]: {
+            margin: 0,
+          },
+          [`& .${timelineItemClasses.root}:first-of-type .${timelineDotClasses.root}`]: {
+            margin: '11.5px 0px 0px 0px',
+          },
         }}
       >
         {
@@ -84,9 +90,12 @@ export default function NewsAppearances({ appearances }) {
               {dateFormatter(event.date)}
             </TimelineOppositeContent>
             <TimelineSeparator>
+              {i === 0 ? null : (
+                <TimelineConnector sx={{ height: '5px', flexGrow: '0', height: '11.5px' }} />
+              )}
               <TimelineDot />
               {i === appearances.length - 1 ? null : (
-                <TimelineConnector sx={{height: 5}} />
+                <TimelineConnector />
               )}
             </TimelineSeparator>
             <TimelineContent>
