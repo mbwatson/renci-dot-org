@@ -39,3 +39,9 @@ Generate a new one if not:
 kubectl create secret generic renci-dot-org-api \
   --from-literal=token=YOUR_API_TOKEN_HERE
 ```
+
+If it already exists, you can update the secret by editing the `token` field in the yaml file:
+```bash
+kubectl edit secret renci-dot-org-api
+```
+Note that is it needs to be base64 encoded, so translate the token with `echo "YOUR_TOKEN" | base64` before copying it into the yaml file.
