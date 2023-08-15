@@ -16,24 +16,14 @@ import { fetchOurWorkTrayItems } from '../../../lib/strapi'
 
 //
 
-export const Menu = ({ menuItems }) => {
+export const Menu = ({ ourWorkTrayItems }) => {
   const mobile = useMediaQuery('(max-width: 680px)')
   const [ourWorkTrayOpen, setOurWorkTrayOpen] = useState(false)
-  const [researchGroups, setResearchGroups] = useState(null)
-  const [collaborations, setCollaborations] = useState(null)
-  const [teams, setTeams] = useState(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await fetchOurWorkTrayItems().then(data => {
-        setResearchGroups(data.researchGroupCollection)
-        setCollaborations(data.collaborationCollection)
-        setTeams(data.teamCollection)
-      })
-    }
-    fetchData()
-  }, [])
+  const researchGroups = ourWorkTrayItems.researchGroupCollection;
+  const collaborations = ourWorkTrayItems.collaborationCollection;
+  const teams = ourWorkTrayItems.teamCollection;
 
   useEffect(() => {
     if (!mobile) {

@@ -11,6 +11,7 @@ import fontCss from "../fonts/atlas-grotesk/fonts.css";
 import App from "next/app";
 import { getGlobalData } from "utils/api";
 import { DefaultSeo } from "next-seo";
+import { fetchOurWorkTrayItems } from "../lib/strapi";
 
 const MyApp = (props) => {
   const { Component, pageProps } = props;
@@ -39,7 +40,7 @@ const MyApp = (props) => {
       <ConfigProvider>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Layout>
+          <Layout ourWorkTrayItems={pageProps.ourWorkTrayItems}>
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
@@ -125,9 +126,11 @@ MyApp.getInitialProps = async (appContext) => {
   const appProps = await App.getInitialProps(appContext);
   const globalLocale = await getGlobalData();
 
+  const ourWorkTrayItems = await fetchOurWorkTrayItems();
+
   return {
     ...appProps,
-    pageProps: { globalLocale },
+    pageProps: { globalLocale, ourWorkTrayItems },
   };
 };
 
