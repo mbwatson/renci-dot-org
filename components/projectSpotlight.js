@@ -79,7 +79,7 @@ export const ProjectCard = ({project}) => {
   )
 }
 
-export const ProjectSpotlight = ({ projects }) => {
+export const ProjectSpotlight = ({ selectedProjects }) => {
   const mobile = useMediaQuery('(max-width: 680px)')
 
   const theme = useTheme()
@@ -90,24 +90,6 @@ export const ProjectSpotlight = ({ projects }) => {
       margin: '2rem auto',
     },
   }
-
-  const [selectedProjects, setSelectedProjects] = useState([])
-
-  useEffect(() => {
-    // select three random project indices
-    let projectsCopy = [...projects]
-    let projectSelection = []
-    for (let i = 0; i < 3; i += 1) {
-      const randomIndex = Math.floor(Math.random() * projectsCopy.length)
-      const randomProject = projectsCopy.splice(randomIndex, 1)[0]
-      //add a property that is a snippet of the original description before pushing to the array
-      projectSelection.push({
-        ...randomProject,
-      })
-    }
-    // map those indices to projects
-    setSelectedProjects(projectSelection)
-  }, [projects])
 
   return (
     <Fragment>
