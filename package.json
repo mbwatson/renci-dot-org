@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "next lint"
   },
   "dependencies": {
     "@emotion/react": "^11.8.1",
@@ -25,6 +26,7 @@
   },
   "devDependencies": {
     "eslint": "8.10.0",
-    "eslint-config-next": "12.1.0"
+    "eslint-config-next": "12.1.0",
+    "pre-commit": "^1.2.2"
   }
 }
