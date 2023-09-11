@@ -14,6 +14,7 @@ export const ArticlePreview = ({ article }) => {
       },
       '.excerpt': {
         whiteSpace: 'pre-wrap',
+        mx: 0, my: 1,
       },
     }}>
       <Stack direction="row" gap={ 1 } justifyContent="flex-start" alignItems="center">
