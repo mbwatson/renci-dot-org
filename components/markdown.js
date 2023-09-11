@@ -16,9 +16,22 @@ const componentMap = {
       { ...props }
     />
   ),
-  p: ({ node, children, ...props })=>(
-    <Typography paragraph {...props} sx={{ '&:last-of-type': { mb: 0 }}}>{children}</Typography>
-  ),
+  p: ({ node, children, ...props })=>{
+    if (node.children[0].tagName === "img") {
+      return (
+        <div style={{
+            textAlign: "center",
+            marginBottom: "1rem"
+            }}>
+          <img src={node.children[0].properties.src} style={{
+            maxWidth: "700px"
+            }}/>
+        </div>
+      )
+    }
+    return (
+    <Typography paragraph {...props} sx={{ '&:last-of-type': { mb: 0 }, lineHeight: "1.8"}}>{children}</Typography>
+  )},
   h1: ({ node, children, ...props }) => (
     <Typography variant="h3" {...props}>{children}</Typography>
   ),
@@ -26,11 +39,19 @@ const componentMap = {
     <Typography variant="h4" {...props}>{children}</Typography>
   ),
   h3: ({ node, children, ...props }) => (
-    <Typography variant="h5" {...props}>{children}</Typography>
+    <Typography variant="h5" {...props} sx={{marginBottom: '4px'}}>{children}</Typography>
   ),
   ul: ({ node, children, ...props }) => (
     <ul style={{marginTop: 0, lineHeight: '1.8'}} {...props}>{children}</ul>
   ),
+  // img: ({node, src, ...props}) => (
+  //   <img src={node.children[0].properties.src}
+  //     style={{
+  //       border: "5px solid red",
+  //       textAlign: "center",
+  //     }}
+  //   />
+  // )
 }
 
 export const Markdown = ({ children }) => {
