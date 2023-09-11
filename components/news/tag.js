@@ -1,32 +1,51 @@
+import PropTypes from 'prop-types'
+import { Chip } from '@mui/material'
 import { styled } from '@mui/system'
 
-export const Tag = styled('span')(({ theme }) => ({
-  padding: theme.spacing(0.5),
-  border: '1px solid',
-  backgroundColor: '#ccc',
-  color: '#666',
-  lineHeight: 1,
-  textTransform: 'uppercase',
-  fontSize: '65%',
-  fontWeight: 'bold',
-  letterSpacing: '1px',
-  filter: 'brightness(1.0)',
-  cursor: 'default',
-  '&:hover': {
-    filter: 'brightness(1.2)',
-  },
-}))
+//
 
-const labelColor = {
+const DEFAULT_TAG_COLOR = '#cccccc'
+
+const LABEL_COLOR = {
   blog: '#ff7f50',
   feature: '#007abc',
 }
 
+//
+
+export const Tag = ({ children, color }) => {
+  return (
+    <Chip
+      size="small"
+      label={ children }
+      sx={{
+        borderRadius: '3px',
+        border: '1px solid',
+        borderColor: color ?? DEFAULT_TAG_COLOR,
+        backgroundColor: `${ color ?? DEFAULT_TAG_COLOR }66`,
+        color: '#666',
+        lineHeight: 1,
+        textTransform: 'uppercase',
+        fontSize: '60%',
+        fontWeight: 'bold',
+        cursor: 'default',
+        filter: 'brightness(1.0)',
+        transition: 'filter 250ms',
+        '&:hover': {
+          filter: 'brightness(1.1)',
+        },
+      }}
+    />
+  )
+}
+
+
 export const Label = ({ type }) => {
   return (
-    <Tag sx={{
-      borderColor: labelColor[type],
-      backgroundColor: `${ labelColor[type] }66`,
-    }}>{ type }</Tag>
+    <Tag color={ LABEL_COLOR[type] }>{ type }</Tag>
   )
+}
+
+Label.propTypes = {
+  type: PropTypes.oneOf(Object.keys(LABEL_COLOR)),
 }

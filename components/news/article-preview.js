@@ -12,18 +12,25 @@ export const ArticlePreview = ({ article }) => {
       '.title': {
         whiteSpace: 'pre-wrap',
       },
+      '.excerpt': {
+        whiteSpace: 'pre-wrap',
+      },
     }}>
       <Stack direction="row" gap={ 1 } justifyContent="flex-start" alignItems="center">
-        <ArticleDate>{ article.publishDate }</ArticleDate>
+        <ArticleDate date={ article.publishDate } />
+        {' '}&mdash;{' '}
         <Label type={ article.type } />
         {
           article.tags.map(tag => (
-            <Tag key={ `article-${ article.slug }-tag-${ tag }` }>{ tag }</Tag>
+            <Tag key={ `${ article.slug }_${ tag }` }>{ tag }</Tag>
           ))
         }
       </Stack>
       <Typography variant="h3" className="title">
         <Link to="#">{ article.title }</Link>
+      </Typography>
+      <Typography paragraph className="excerpt">
+        { article.excerpt }
       </Typography>
     </Box>
   )

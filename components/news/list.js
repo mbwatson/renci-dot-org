@@ -9,7 +9,7 @@ export const NewsList = ({ articles }) => {
     <Stack gap={ 1 }>
       {
         articles.map(article => (
-          <ArticlePreview key={ article.id } article={ article } />
+          <ArticlePreview key={ article.slug } article={ article } />
         ))
       }
     </Stack>
