@@ -12,7 +12,7 @@ import { Typography, Grid } from '@mui/material'
 import { fetchStrapiGroups } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
-import { ListItemCard } from '../../components/card'
+import { ListItemCard } from '../../components/list-card'
 
 
 export default function ResearchGroups({ researchGroups }) {
@@ -31,10 +31,22 @@ export default function ResearchGroups({ researchGroups }) {
       <Typography paragraph>
         Learn more about each research group at RENCI below. 
       </Typography>
-      <ImageList gap={10} sx={{width: 1000,  margin: 'auto'}}>
+      <ImageList gap={10} sx={{maxWidth: 1200,  margin: 'auto', display: 'flex', flexDirection: 'column'}}>
       {
         researchGroups.map(group => (
-          <ListItemCard group={group}/>
+          <div style={{
+            display: 'flex',
+            margin: '1rem auto',
+          }}>
+            <div style={{width: '300px'}}>
+              <ListItemCard group={group} contentType='researchGroups' />
+            </div>
+            <div style={{padding: '0 2rem', maxWidth: '900px'}}>
+              <Typography variant="h2">{group.name}</Typography>
+              <br/>
+              {group.description}
+            </div>
+          </div>
         ))
       }
       </ImageList>

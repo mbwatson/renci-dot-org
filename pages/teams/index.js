@@ -6,7 +6,7 @@ import { fetchStrapiTeams } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import ImageList from '@mui/material/ImageList';
-import { ListItemCard } from '../../components/card'
+import { ListItemCard } from '../../components/list-card'
 
 export default function Teams({ teams }) {
   return (
@@ -30,7 +30,7 @@ export default function Teams({ teams }) {
         Learn more about RENCI&apos;s Operations teams below.
       </Typography>
 
-      <ImageList gap={10} sx={{width: 1000,  margin: 'auto'}}>
+      <ImageList gap={16} sx={{width: 800,  margin: 'auto'}}>
       {
         teams.map(group => (
           <ListItemCard group={group}/>

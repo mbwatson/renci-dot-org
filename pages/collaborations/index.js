@@ -6,7 +6,7 @@ import { fetchStrapiCollaborations } from '../../lib/strapi'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import ImageList from '@mui/material/ImageList';
-import { ListItemCard } from '../../components/card'
+import { ListItemCard } from '../../components/list-card'
 
 export default function ResearchGroups({ collaborations }) {
   return (
