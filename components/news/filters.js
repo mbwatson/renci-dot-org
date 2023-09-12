@@ -16,7 +16,6 @@ const TypeSelect = ({ value = '', onChange }) => {
         label="Type"
         onChange={ onChange }
       >
-        <MenuItem value="">Select Type</MenuItem>
         <MenuItem value="blog">Blog</MenuItem>
         <MenuItem value="feature">Feature</MenuItem>
       </Select>
@@ -35,12 +34,12 @@ const TagSelect = ({ value = '', onChange }) => {
         value={ value }
         onChange={ onChange }
       >
-        <MenuItem value="">Select Tag</MenuItem>
-        <MenuItem value="chris-bizon">chris-bizon</MenuItem>
-        <MenuItem value="nrig">nrig</MenuItem>
-        <MenuItem value="aerpaw">aerpaw</MenuItem>
-        <MenuItem value="flynet">flynet</MenuItem>
-        <MenuItem value="translator">translator</MenuItem>
+        <MenuItem value="chris-bizon">Chris Bizon</MenuItem>
+        <MenuItem value="nrig">NRIG</MenuItem>
+        <MenuItem value="aerpaw">AERPAW</MenuItem>
+        <MenuItem value="flynet">FLYNET</MenuItem>
+        <MenuItem value="translator">Translator</MenuItem>
+        <MenuItem value="nothing">Nonexistent Tag</MenuItem>
       </Select>
     </FormControl>
   )
