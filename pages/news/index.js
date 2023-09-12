@@ -2,7 +2,7 @@ import { Page } from "@/components/layout";
 import { Box, Typography } from "@mui/material";
 import { fetchNews } from "@/lib/strapi/newsGraphQL";
 import { Section } from "../../components/layout";
-import { NewsList } from "../../components/news";
+import { NewsList, NewsProvider } from "../../components/news";
 import Link from "next/link";
 
 //
@@ -10,24 +10,26 @@ import Link from "next/link";
 export default function News({ articles }) {
 
   return (
-    <Page
-      title="News"
-      description=""
-    >
-      <Box sx={{ float: 'right' }}>
-        <Link href="/news/appearances">News Appearances</Link>
-      </Box>
+    <NewsProvider articles={ articles }>
+      <Page
+        title="News"
+        description=""
+      >
+        <Box sx={{ float: 'right' }}>
+          <Link href="/news/appearances">News Appearances</Link>
+        </Box>
 
-      <Typography paragraph>
-        RENCI has news for you.
-      </Typography>
+        <Typography paragraph>
+          RENCI has news for you.
+        </Typography>
 
 
-      <Section title="News">
-        <NewsList articles={ articles }/>
-      </Section>
-      
-    </Page>
+        <Section title="News">
+          <NewsList articles={ articles }/>
+        </Section>
+        
+      </Page>
+    </NewsProvider>
   );
 }
 
