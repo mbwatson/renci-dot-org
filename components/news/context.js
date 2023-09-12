@@ -16,8 +16,25 @@ export const NewsProvider = ({ articles, children }) => {
     }
   }, [query])
 
+  const filteredArticles = useMemo(() => {
+    let _filteredArticles = [...articles]
+    if (filters.type) {
+      _filteredArticles = _filteredArticles
+        .filter(article => article.type === filters.type)
+    }
+    if (filters.tag.length) {
+      _filteredArticles = _filteredArticles
+        .filter(article => filters.tag.some(tag => article.tags.includes(tag) ))
+    }
+    return _filteredArticles
+  }, [filters])
+
   return (
-    <NewsContext.Provider value={{ articles, filters }}>
+    <NewsContext.Provider value={{
+      articles,
+      filters,
+      filteredArticles,
+    }}>
       { children }
     </NewsContext.Provider>
   )
