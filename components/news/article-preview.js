@@ -1,8 +1,10 @@
+import { useRouter } from 'next/router'
 import { Box, Stack, Typography } from '@mui/material'
 import { ArticleDate } from './article-date'
 import { Label, Tag } from './tag'
 import { Markdown } from '../markdown'
 import { Link } from '../link'
+import { useNews } from './context'
 
 //
 
@@ -11,6 +13,9 @@ const Separator = () => <Box component="span" sx={{
 }}>&#8226;</Box>
 
 const ArticleHeading = ({ publishDate, slug, tags, type }) => {
+  const router = useRouter()
+  const { filters } = useNews()
+
   return (
     <Stack
       direction={{      xs: 'column',     sm: 'row' }}
@@ -30,7 +35,15 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
         
         <Separator />
         
-        <Label type={ type } />
+        <Label
+          type={ type }
+          onClick={
+            () => router.push({
+              pathname: '/news',
+              query: { type }
+            })
+          }
+        />
       </Stack>
 
 
@@ -43,7 +56,15 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
       >
         {
           tags.map(tag => (
-            <Tag key={ `${ slug }_${ tag }` }>{ tag }</Tag>
+            <Tag
+              key={ `${ slug }_${ tag }` }
+              onClick={
+                () => router.push({
+                  pathname: '/news',
+                  query: { tag }
+                })
+              }
+            >{ tag }</Tag>
           ))
         }
       </Stack>

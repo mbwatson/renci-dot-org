@@ -13,7 +13,7 @@ const LABEL_COLOR = {
 
 //
 
-export const Tag = ({ children, color }) => {
+export const Tag = ({ children, color, ...props }) => {
   return (
     <Chip
       size="small"
@@ -23,26 +23,30 @@ export const Tag = ({ children, color }) => {
         border: '1px solid',
         borderColor: color ?? DEFAULT_TAG_COLOR,
         backgroundColor: `${ color ?? DEFAULT_TAG_COLOR }66`,
-        color: '#666',
+        color: '#333',
         lineHeight: 1,
         textTransform: 'uppercase',
         fontSize: '60%',
-        fontWeight: 'bold',
-        cursor: 'default',
+        cursor: 'pointer',
         filter: 'brightness(1.0)',
-        transition: 'filter 250ms',
+        transition: 'filter 2500ms',
         '&:hover': {
           filter: 'brightness(1.1)',
+          backgroundColor: `${ color ?? DEFAULT_TAG_COLOR }33`,
         },
       }}
+      { ...props }
     />
   )
 }
 
 
-export const Label = ({ type }) => {
+export const Label = ({ type, ...props }) => {
   return (
-    <Tag color={ LABEL_COLOR[type] }>{ type }</Tag>
+    <Tag
+      color={ LABEL_COLOR[type] }
+      { ...props }
+    >{ type }</Tag>
   )
 }
 
