@@ -46,6 +46,20 @@ const TagSelect = ({ value = '', onChange }) => {
   )
 }
 
+const ClearFiltersButton = () => {
+  const router = useRouter()
+
+  const handleClickClearFilters = () => {
+    router.push('/news')
+  }
+
+  return (
+    <IconButton onClick={ handleClickClearFilters }>
+      <ClearFiltersIcon />
+    </IconButton>
+  )
+}
+
 export const Filters = () => {
   const router = useRouter()
   const { filters } = useNews()
@@ -64,10 +78,6 @@ export const Filters = () => {
     })
   }
 
-  const handleClickClearFilters = () => {
-    router.push('/news')
-  }
-
   return (
     <Stack
       direction="row"
@@ -79,16 +89,20 @@ export const Filters = () => {
         },
       }}
     >
-      <Typography>Filters:</Typography>
-      <Box>
-        <TypeSelect value={ filters.type } onChange={ handleChangeType } />
-      </Box>
-      <Box>
-        <TagSelect value={ filters.tag } onChange={ handleChangeTags } />
-      </Box>
-      <IconButton onClick={ handleClickClearFilters }>
-        <ClearFiltersIcon />
-      </IconButton>
+      <Typography component="label">Filters:</Typography>
+
+      <TypeSelect
+        value={ filters.type }
+        onChange={ handleChangeType }
+      />
+
+      <TagSelect
+        value={ filters.tag }
+        onChange={ handleChangeTags }
+      />
+
+      <ClearFiltersButton />
+
     </Stack>
   )
 }

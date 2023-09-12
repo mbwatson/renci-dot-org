@@ -24,6 +24,7 @@ export const NewsList = () => {
   return (
     <Fragment>
       <Filters />
+
       <Stack gap={ 1 }>
         {
           filteredArticles.map(article => (
