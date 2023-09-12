@@ -29,7 +29,6 @@ export const Tag = ({ children, color, ...props }) => {
         fontSize: '60%',
         cursor: 'pointer',
         filter: 'brightness(1.0)',
-        transition: 'filter 2500ms',
         '&:hover': {
           filter: 'brightness(1.1)',
           backgroundColor: `${ color ?? DEFAULT_TAG_COLOR }33`,

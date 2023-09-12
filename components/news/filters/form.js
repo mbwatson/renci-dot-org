@@ -1,7 +1,7 @@
 import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material'
 import { Close as ClearFiltersIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
-import { useNews } from './context'
+import { useNews } from '../context'
 
 //
 
@@ -35,12 +35,12 @@ const TagSelect = ({ value = '', onChange }) => {
         value={ value }
         onChange={ onChange }
       >
-        <MenuItem value="chris-bizon">Chris Bizon</MenuItem>
-        <MenuItem value="nrig">NRIG</MenuItem>
-        <MenuItem value="aerpaw">AERPAW</MenuItem>
-        <MenuItem value="flynet">FLYNET</MenuItem>
-        <MenuItem value="translator">Translator</MenuItem>
-        <MenuItem value="nothing">Nonexistent Tag</MenuItem>
+        <MenuItem value="chris-bizon">chris-bizon</MenuItem>
+        <MenuItem value="nrig">nrig</MenuItem>
+        <MenuItem value="aerpaw">aerpaw</MenuItem>
+        <MenuItem value="flynet">flynet</MenuItem>
+        <MenuItem value="translator">translator</MenuItem>
+        <MenuItem value="nothing">nothing</MenuItem>
       </Select>
     </FormControl>
   )
@@ -60,7 +60,7 @@ const ClearFiltersButton = () => {
   )
 }
 
-export const Filters = () => {
+export const FiltersForm = () => {
   const router = useRouter()
   const { filters } = useNews()
 
@@ -104,5 +104,5 @@ export const Filters = () => {
       <ClearFiltersButton />
 
     </Stack>
-  )
+ )
 }

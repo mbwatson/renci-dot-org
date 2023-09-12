@@ -8,7 +8,7 @@ import { Filters } from './filters'
 //
 
 export const NewsList = () => {
-  const { filteredArticles } = useNews()
+  const { filters, filteredArticles } = useNews()
 
   return (
     <Fragment>

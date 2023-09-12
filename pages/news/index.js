@@ -1,9 +1,9 @@
-import { Page } from "@/components/layout";
-import { Box, Typography } from "@mui/material";
-import { fetchNews } from "@/lib/strapi/newsGraphQL";
-import { Section } from "../../components/layout";
-import { NewsList, NewsProvider } from "../../components/news";
-import Link from "next/link";
+import { Page } from '@/components/layout'
+import { Box, Typography } from '@mui/material'
+import { fetchNews } from '@/lib/strapi/newsGraphQL'
+import { Section } from '../../components/layout'
+import { NewsList, NewsProvider } from '../../components/news'
+import Link from 'next/link'
 
 //
 
@@ -22,7 +22,6 @@ export default function News({ articles }) {
         <Typography paragraph>
           RENCI has news for you.
         </Typography>
-
 
         <Section title="News">
           <NewsList articles={ articles }/>
