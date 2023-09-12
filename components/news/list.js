@@ -12,11 +12,13 @@ export const NewsList = () => {
 
   const filteredArticles = useMemo(() => {
     let _filteredArticles = [...articles]
-    if ('type' in filters) {
-      _filteredArticles = _filteredArticles.filter(article => article.type === filters.type)
+    if (filters.type) {
+      _filteredArticles = _filteredArticles
+        .filter(article => article.type === filters.type)
     }
-    if ('tag' in filters) {
-      _filteredArticles = _filteredArticles.filter(article => article.tags.includes(filters.tag))
+    if (filters.tag.length) {
+      _filteredArticles = _filteredArticles
+        .filter(article => filters.tag.some(tag => article.tags.includes(tag) ))
     }
     return _filteredArticles
   }, [filters])

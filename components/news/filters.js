@@ -5,7 +5,7 @@ import { useNews } from './context'
 
 //
 
-const TypeSelect = ({ value = '', onChange }) => {
+const TypeSelect = ({ value = [], onChange }) => {
   return (
     <FormControl fullWidth size="small">
       <InputLabel id="type-select-label">Type</InputLabel>
@@ -28,6 +28,7 @@ const TagSelect = ({ value = '', onChange }) => {
     <FormControl fullWidth size="small">
       <InputLabel id="tag-select-label">Tag</InputLabel>
       <Select
+        multiple
         labelId="tag-select-label"
         id="tag-select"
         label="Tag"
