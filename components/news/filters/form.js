@@ -5,16 +5,24 @@ import { useNews } from '../context'
 
 //
 
-const TypeSelect = ({ value = [], onChange }) => {
+const TypeSelect = () => {
+  const { filters, filterNews } = useNews()
+
+  const handleChange = event => {
+    filterNews({
+      ...filters,
+      type: event.target.value,
+    })
+  }
+
   return (
     <FormControl fullWidth size="small">
       <InputLabel id="type-select-label">Type</InputLabel>
       <Select
         labelId="type-select-label"
         id="type-select"
-        value={ value }
-        label="Type"
-        onChange={ onChange }
+        value={ filters.type || '' }
+        onChange={ handleChange }
       >
         <MenuItem value="blog">Blog</MenuItem>
         <MenuItem value="feature">Feature</MenuItem>
@@ -23,7 +31,16 @@ const TypeSelect = ({ value = [], onChange }) => {
   )
 }
 
-const TagSelect = ({ value = '', onChange }) => {
+const TagSelect = () => {
+  const { filters, filterNews } = useNews()
+
+  const handleChange = event => {
+    filterNews({
+      ...filters,
+      tag: event.target.value,
+    })
+  }
+
   return (
     <FormControl fullWidth size="small">
       <InputLabel id="tag-select-label">Tag</InputLabel>
@@ -32,8 +49,8 @@ const TagSelect = ({ value = '', onChange }) => {
         labelId="tag-select-label"
         id="tag-select"
         label="Tag"
-        value={ value }
-        onChange={ onChange }
+        value={ filters.tag }
+        onChange={ handleChange }
       >
         <MenuItem value="chris-bizon">chris-bizon</MenuItem>
         <MenuItem value="nrig">nrig</MenuItem>
@@ -48,9 +65,10 @@ const TagSelect = ({ value = '', onChange }) => {
 
 const ClearFiltersButton = () => {
   const router = useRouter()
+  const { filterNews } = useNews()
 
   const handleClickClearFilters = () => {
-    router.push('/news')
+    filterNews()
   }
 
   return (
@@ -61,23 +79,6 @@ const ClearFiltersButton = () => {
 }
 
 export const FiltersForm = () => {
-  const router = useRouter()
-  const { filters } = useNews()
-
-  const handleChangeType = event => {
-    router.push({
-      path: '/news',
-      query: { ...filters, type: event.target.value },
-    })
-  }
-
-  const handleChangeTags = event => {
-    router.push({
-      path: '/news',
-      query: { ...filters, tag: event.target.value },
-    })
-  }
-
   return (
     <Stack
       direction="row"
@@ -91,15 +92,9 @@ export const FiltersForm = () => {
     >
       <Typography component="label">Filters:</Typography>
 
-      <TypeSelect
-        value={ filters.type }
-        onChange={ handleChangeType }
-      />
+      <TypeSelect />
 
-      <TagSelect
-        value={ filters.tag }
-        onChange={ handleChangeTags }
-      />
+      <TagSelect />
 
       <ClearFiltersButton />
 

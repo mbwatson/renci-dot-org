@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { Collapse, Stack } from '@mui/material'
 import { useNews } from '../context'
 import { Label, Tag } from '../tag'
@@ -5,18 +6,22 @@ import { Label, Tag } from '../tag'
 //
 
 export const FiltersTray = () => {
-  const { filters } = useNews()
+  const { removeLabel, removeTag, filters } = useNews()
 
-  const handleClickDeleteTypeFilter = event => {
-    console.log(event)
+  const handleClickDeleteTypeFilter = type => () => {
+    removeLabel(type)
   }
 
-  const handleClickDeleteTagFilter = event => {
-    console.log(event)
+  const handleClickDeleteTagFilter = tag => () => {
+    removeTag(tag)
   }
+
+  const showTray = useMemo(() => {
+    return !!(filters.type || filters.tag.length)
+  }, [filters])
 
   return (
-    <Collapse in={ filters.type || filters.tag.length }>
+    <Collapse in={ showTray }>
       <Stack
         direction="row"
         alignItems="center"
@@ -27,12 +32,12 @@ export const FiltersTray = () => {
           backgroundColor: '#f3f6f9',
         }}
       >
-        { filters.type && <Label type={ filters.type } onDelete={ handleClickDeleteTypeFilter } /> }
+        { filters.type && <Label type={ filters.type } onDelete={ handleClickDeleteTypeFilter(filters.type) } /> }
         {
           filters.tag && filters.tag.map(tag => (
             <Tag
               key={ `filter-chip-${ tag }` }
-              onDelete={ handleClickDeleteTypeFilter }
+              onDelete={ handleClickDeleteTagFilter(tag) }
             >{ tag }</Tag>
           ))
         }
