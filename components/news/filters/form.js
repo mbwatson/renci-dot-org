@@ -21,6 +21,7 @@ const TypeSelect = () => {
       <Select
         labelId="type-select-label"
         id="type-select"
+        label="Type"
         value={ filters.type || '' }
         onChange={ handleChange }
       >
