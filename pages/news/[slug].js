@@ -53,14 +53,13 @@ export default function NewsArticle({ article }) {
     )
 }
 
-export async function getServerSideProps({ res }) {
+export async function getServerSideProps({ params, res }) {
   res.setHeader(
     'Cache-Control',
     'no-cache, no-store, must-revalidate'
   );
   
-  const article = await fetchNewsArticle();
-
+  const article = await fetchNewsArticle(params.slug);
   return {
     props: { article: JSON.parse(JSON.stringify(article)) },
   };
