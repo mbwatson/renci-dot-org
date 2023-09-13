@@ -17,6 +17,11 @@ const componentMap = {
     />
   ),
   p: ({ node, children, ...props })=>{
+    // consider, in the future, using the :has() css relational pseudo-class
+    // as of sept 2023, it is not available in firefox, but may become available
+    // in the future
+
+    //todo: change this to return a nextjs image instead of html img
     if (node.children[0].tagName === "img") {
       return (
         <div style={{

@@ -6,6 +6,8 @@ import { Markdown } from '../../components/markdown'
 import {ArticleDate} from '../../components/news/article-date'
 import { Label, Tag } from '../../components/news/tag'
 
+// todo: add media queries on the photo
+
 const ArticleNavigation = ({ prev, next }) => {
   return (
     <div style={{ display: "flex", margin: "1.5rem auto" }}>
@@ -59,30 +61,40 @@ export default function NewsArticle({ article }) {
   const {prev, next} = createPrevNext(sampleSlugs, article.slug)
 
   return (
-      <Page title={article.title} hideTitle>
-        <Section>
+    <Page title={article.title} hideTitle>
 
+      {/* Defines the article width, does not include next/previous article buttons */}
+      <Section>
+
+        {/* container that holds the date and label on the same line */}
         <Stack
           direction="row"
           justifyContent="space-between"
         >
           <ArticleDate date={article.publishDate}/>
+
+          {/* this div is simply a container for the Label, otherwise the label takes the width of its container*/}
           <div>
             <Label type={ article.type } />
           </div>
         </Stack>
 
         <br/>
+
+        {/*title moved down here below the date/label line*/}
         <Typography variant="h1" sx={{letterSpacing: '1.5px', lineHeight: '1.3'}}>
           { article.title }
-        </Typography>
-          <br/>
-        <Typography variant="h3" sx={{letterSpacing: '1.5px', lineHeight: '1.3'}}>
-          Five year cooperative agreement offers opprtounity to accelerate research on boundary layers of rock, soil, air, water, and living organisms
         </Typography>
         
         <br/>
         
+        {/*Subheading/subtitle if one exists*/}
+        <Typography variant="h3" sx={{letterSpacing: '1.5px', lineHeight: '1.3'}}>
+          {article.excerpt}
+        </Typography>
+        
+        <br/>
+        {/*tags line*/}
         <Stack direction="row" gap={ 1 } justifyContent="flex-start" alignItems="center">
           {
             article.tags.map(tag => (
@@ -94,7 +106,8 @@ export default function NewsArticle({ article }) {
         <br/>
         <Divider/>
         <br/>
-
+        
+        {/*article content*/}
         <Markdown>{article.content}</Markdown>
       </Section>
 
