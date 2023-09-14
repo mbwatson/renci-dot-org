@@ -7,8 +7,8 @@ import { FiltersTray } from './tray'
 export const Filters = () => {
   return (
     <Stack direction="column" gap={ 1 }>
-      <FiltersForm />
       <FiltersTray />
+      <FiltersForm />
     </Stack>
   )
 }

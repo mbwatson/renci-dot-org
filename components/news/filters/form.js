@@ -64,7 +64,7 @@ const TagSelect = () => {
   )
 }
 
-const ClearFiltersButton = () => {
+export const ClearFiltersButton = () => {
   const router = useRouter()
   const { filterNews } = useNews()
 
@@ -73,31 +73,28 @@ const ClearFiltersButton = () => {
   }
 
   return (
-    <IconButton onClick={ handleClickClearFilters }>
-      <ClearFiltersIcon />
-    </IconButton>
+    <IconButton
+      size="small"
+      onClick={ handleClickClearFilters }
+    ><ClearFiltersIcon fontSize="small" /></IconButton>
   )
 }
 
 export const FiltersForm = () => {
   return (
     <Stack
-      direction="row"
-      alignItems="center"
+      direction="column"
+      alignItems="flex-start"
       gap={ 1 }
-      sx={{
-        '& > .MuiBox-root:not(:first-child)': {
-          flex: 1,
-        },
-      }}
     >
-      <Typography component="label">Filters:</Typography>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%' }}>
+        <Typography component="label">Filters</Typography>
+        <ClearFiltersButton />
+      </Stack>
 
       <TypeSelect />
 
       <TagSelect />
-
-      <ClearFiltersButton />
 
     </Stack>
  )

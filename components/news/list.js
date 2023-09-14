@@ -3,7 +3,6 @@ import { Stack } from '@mui/material';
 import { fetchNews } from "@/lib/strapi/newsAppearancesGraphQL";
 import { ArticlePreview } from './article-preview'
 import { useNews } from './context'
-import { Filters } from './filters'
 
 //
 
@@ -12,8 +11,6 @@ export const NewsList = () => {
 
   return (
     <Fragment>
-      <Filters />
-
       <Stack gap={ 1 }>
         {
           filteredArticles.map(article => (

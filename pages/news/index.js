@@ -1,8 +1,8 @@
 import { Page } from '@/components/layout'
-import { Box, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { fetchNews } from '@/lib/strapi/newsGraphQL'
 import { Section } from '../../components/layout'
-import { NewsList, NewsProvider } from '../../components/news'
+import { FiltersForm, FiltersTray, NewsList, NewsProvider } from '../../components/news'
 import Link from 'next/link'
 
 //
@@ -12,20 +12,43 @@ export default function News({ articles }) {
   return (
     <NewsProvider articles={ articles }>
       <Page
-        title="News"
+        title="RENCI News"
         description=""
       >
-        <Box sx={{ float: 'right' }}>
-          <Link href="/news/appearances">News Appearances</Link>
-        </Box>
+        <Stack
+          direction={{ sm: 'column', md: 'row' }}
+          spacing={{ xs: 2, sm: 2, md: 6 }}
+          sx={{
+            position: 'relative',
+            '.sidebar': {
+              // position: 'sticky', alignSelf: 'flex-start',
+              // ^ this doesn't play nice with the select component.
+              top: '165px',
+              flex: { xs: 1, sm: 1 },
+            },
+            '.content': {
+              flex: 3,
+            },
+          }}
+        >
+          <Box className="sidebar">
+            <Typography paragraph>
+              RENCI has news for you.
+            </Typography>
 
-        <Typography paragraph>
-          RENCI has news for you.
-        </Typography>
+            <FiltersForm />
 
-        <Section title="News">
-          <NewsList articles={ articles }/>
-        </Section>
+            <Box sx={{ pt: 4 }}>
+              <Link href="/news/appearances">News Appearances</Link>
+            </Box>
+          </Box>
+
+          <Box className="content" >
+            <FiltersTray />
+            <NewsList articles={ articles }/>
+          </Box>
+
+        </Stack>
         
       </Page>
     </NewsProvider>
