@@ -91,7 +91,7 @@ export const ArticlePreview = ({ article }) => {
       <ArticleHeading { ...article } />
 
       <Typography variant="h3" className="title">
-        <Link to="#">{ article.title }</Link>
+        <Link to={ `/news/${ article.slug }` }>{ article.title }</Link>
       </Typography>
 
       <Typography paragraph className="excerpt">
