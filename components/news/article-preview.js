@@ -35,15 +35,7 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
         
         <Separator />
         
-        <Label
-          type={ type }
-          onClick={
-            () => router.push({
-              pathname: '/news',
-              query: { type }
-            })
-          }
-        />
+        <Label link>{ type }</Label>
       </Stack>
 
 
@@ -56,15 +48,7 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
       >
         {
           tags.map(tag => (
-            <Tag
-              key={ `${ slug }_${ tag }` }
-              onClick={
-                () => router.push({
-                  pathname: '/news',
-                  query: { tag }
-                })
-              }
-            >{ tag }</Tag>
+            <Tag link key={ `${ slug }_${ tag }` }>{ tag }</Tag>
           ))
         }
       </Stack>

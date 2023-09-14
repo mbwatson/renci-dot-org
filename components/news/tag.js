@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { Chip } from '@mui/material'
 import { styled } from '@mui/system'
+import NextLink from 'next/link'
 
 //
 
@@ -13,42 +14,86 @@ const LABEL_COLOR = {
 
 //
 
-export const Tag = ({ children, color, ...props }) => {
+export const Tag = ({
+  // `children` is expected to be a string for use as the Chip label.
+  children,
+  // the `link` prop dictates whether the Tag will be a link sending
+  // users to the news list view, filtered by this tag filter.
+  link = false,
+  // coming via Label, we can expect `color` to be set.
+  // otherwise, we must have a tag and the color is known.
+  color = DEFAULT_TAG_COLOR,
+  // if used via Label, we can expect `href` to be set.
+  // otherwise, we must have a tag and the `href` is also known.
+  href = `/news/?tag=${ children }`,
+  // pass through any additional props
+  ...props,
+}) => {
+
+  const styling = {
+    borderRadius: '3px',
+    border: '1px solid',
+    borderColor: color,
+    backgroundColor: `${ color }66`,
+    color: '#333',
+    lineHeight: 1,
+    textTransform: 'uppercase',
+    fontSize: '60%',
+    cursor: 'pointer',
+    filter: 'brightness(1.0)',
+    '&:hover': {
+      filter: 'brightness(1.1)',
+      backgroundColor: `${ color }33`,
+    },
+  }
+
+  // no `href`? render a normal Chip component
+  if (!link) {
+    return (
+      <Chip
+        size="small"
+        label={ children }
+        sx={ styling }
+        { ...props }
+      />
+    )
+  }
+  // if `href` is present we'll make the chip a link.
+  // note the weird Next.js link nesting.
   return (
-    <Chip
-      size="small"
-      label={ children }
-      sx={{
-        borderRadius: '3px',
-        border: '1px solid',
-        borderColor: color ?? DEFAULT_TAG_COLOR,
-        backgroundColor: `${ color ?? DEFAULT_TAG_COLOR }66`,
-        color: '#333',
-        lineHeight: 1,
-        textTransform: 'uppercase',
-        fontSize: '60%',
-        cursor: 'pointer',
-        filter: 'brightness(1.0)',
-        '&:hover': {
-          filter: 'brightness(1.1)',
-          backgroundColor: `${ color ?? DEFAULT_TAG_COLOR }33`,
-        },
-      }}
-      { ...props }
-    />
+    <NextLink href={ href }>
+      <Chip
+        size="small"
+        label={ children }
+        component="a"
+        sx={ styling }
+        { ...props }
+      />
+    </NextLink>
   )
 }
 
+Tag.propTypes = {
+  children: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  href: PropTypes.string,
+  link: PropTypes.bool,
+}
 
-export const Label = ({ type, ...props }) => {
+//
+
+export const Label = ({ children: articleType, link, ...props }) => {
   return (
     <Tag
-      color={ LABEL_COLOR[type] }
+      link={ link }
+      href={ `/news/?type=${ articleType }` }
+      color={ LABEL_COLOR[articleType] }
       { ...props }
-    >{ type }</Tag>
+    >{ articleType }</Tag>
   )
 }
 
 Label.propTypes = {
-  type: PropTypes.oneOf(Object.keys(LABEL_COLOR)),
+  children: PropTypes.oneOf(Object.keys(LABEL_COLOR)),
+  link: PropTypes.bool,
 }
