@@ -26,7 +26,7 @@ export default function News({ articles }) {
               top: '165px',
               flex: { xs: 1, sm: 1 },
             },
-            '.content': {
+            '.new-list-container': {
               flex: 3,
             },
           }}
@@ -43,7 +43,7 @@ export default function News({ articles }) {
             </Box>
           </Box>
 
-          <Box className="content" >
+          <Box className="new-list-container" >
             <FiltersTray />
             <NewsList articles={ articles }/>
           </Box>
