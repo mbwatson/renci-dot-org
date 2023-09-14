@@ -8,6 +8,15 @@ export const NewsProvider = ({ articles, children }) => {
   const router = useRouter()
   const { query } = router
 
+  // this is an array of all tags present in all articles.
+  // better would be to know these beforehand,
+  // so consider changing soon request all projects, groups, etc
+  // for core content type tags. we'll also need our
+  // domain-specific tags, e.g., hpc, ai, covid, etc.
+  const availableTags = useMemo(() => [...articles.reduce((acc, article) => {
+    return new Set([...acc, ...article.tags])
+  }, new Set())], [articles])
+
   // filter state for (1) type and (2) tags
   const filters = useMemo(() => {
     return {
@@ -63,6 +72,9 @@ export const NewsProvider = ({ articles, children }) => {
       articles,
       filters, filterNews,
       filteredArticles,
+      // this is an array of all tags present in all articles.
+      // better would be to know these beforehand,so consider changing to receive all projects, groups, etc....along with domain-specific tags, e.g., covid, ai, hpc, etc
+      availableTags,
       removeLabel, removeTag,
     }}>
       { children }

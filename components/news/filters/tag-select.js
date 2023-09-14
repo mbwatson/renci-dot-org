@@ -4,7 +4,7 @@ import { useNews } from '../context'
 //
 
 export const TagSelect = () => {
-  const { filters, filterNews } = useNews()
+  const { filters, filterNews, availableTags } = useNews()
 
   const handleChange = event => {
     filterNews({
@@ -24,12 +24,14 @@ export const TagSelect = () => {
         value={ filters.tag }
         onChange={ handleChange }
       >
-        <MenuItem value="chris-bizon">chris-bizon</MenuItem>
-        <MenuItem value="nrig">nrig</MenuItem>
-        <MenuItem value="aerpaw">aerpaw</MenuItem>
-        <MenuItem value="flynet">flynet</MenuItem>
-        <MenuItem value="translator">translator</MenuItem>
-        <MenuItem value="nothing">nothing</MenuItem>
+        {
+          availableTags.map(tag => (
+            <MenuItem
+              key={ `tag-option-${ tag }` }
+              value={ tag }
+            >{ tag }</MenuItem>
+          ))
+        }
       </Select>
     </FormControl>
   )
