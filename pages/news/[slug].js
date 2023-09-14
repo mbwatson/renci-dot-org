@@ -82,14 +82,14 @@ export default function NewsArticle({ article }) {
         <br/>
 
         {/*title moved down here below the date/label line*/}
-        <Typography variant="h1" sx={{letterSpacing: '1.5px', lineHeight: '1.3'}}>
+        <Typography variant="h1">
           { article.title }
         </Typography>
         
         <br/>
         
         {/*Subheading/subtitle if one exists*/}
-        <Typography variant="h3" sx={{letterSpacing: '1.5px', lineHeight: '1.3'}}>
+        <Typography variant="subtitle1">
           {article.excerpt}
         </Typography>
         

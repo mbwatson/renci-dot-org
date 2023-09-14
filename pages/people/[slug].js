@@ -72,7 +72,7 @@ export default function Person({ person }) {
               {
                 person.contributions.projects && (
                   <Fragment>
-                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem'}}>Projects</Typography>
+                    <Typography variant="subtitle2">Projects</Typography>
                     <ul style={{marginTop: 0, marginBottom: 0}}>
                       {
                         person.contributions.projects.map(project => (
