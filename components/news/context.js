@@ -8,6 +8,7 @@ export const NewsProvider = ({ articles, children }) => {
   const router = useRouter()
   const { query } = router
 
+  // filter state for (1) type and (2) tags
   const filters = useMemo(() => {
     return {
       type: query.type,
@@ -17,10 +18,18 @@ export const NewsProvider = ({ articles, children }) => {
     }
   }, [query])
 
+  /* responsible for kicking up re-rending results according to new parameters.
+   * for us, this simply means changing the query parameters in the URL.
+   * 
+   * @param {object} filters The new filters to use. Passing nothing invokes
+   *                         no filtering and thus shows all results.
+   */
   const filterNews = useCallback((filters = {}) => {
     router.push({ path: '/news', query: filters })
   }, [filters])
 
+  // memoized filtered articles.
+  // updates on changes to `filters` object
   const filteredArticles = useMemo(() => {
     let _filteredArticles = [...articles]
     if (filters.type) {
@@ -34,10 +43,12 @@ export const NewsProvider = ({ articles, children }) => {
     return _filteredArticles
   }, [filters])
 
+  // unselect type filter
   const removeLabel = id => {
     filterNews({ tag: filters.tag })
   }
 
+  // unselect tag filter
   const removeTag = id => {
     const tagindex = filters.tag.indexOf(id)
     if (tagindex < 0) {
