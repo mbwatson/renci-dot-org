@@ -18,10 +18,10 @@ export const FiltersForm = () => {
        *  responsive filter form layout
        * 
        * >= 500px available space:  Label                       (X)
-       *                            [_Select______] [_Select______]
+       *                            [[  ][  ][  ]] [_Select______]
        *
        *  < 500px available space:  Label                       (X)
-       *                            [_Select______________________]
+       *                            [[        ][        ][       ]]
        *                            [_Select______________________]
        */
       width: '100%',
