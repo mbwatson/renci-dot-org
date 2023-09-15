@@ -37,6 +37,7 @@ export const FiltersTray = () => {
           filters.tag && filters.tag.map(tag => (
             <Tag
               key={ `filter-chip-${ tag }` }
+              noLink
               onDelete={ handleClickDeleteTagFilter(tag) }
             >{ tag }</Tag>
           ))

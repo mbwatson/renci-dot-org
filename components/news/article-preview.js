@@ -35,7 +35,7 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
         
         <Separator />
         
-        <Label link>{ type }</Label>
+        <Label>{ type }</Label>
       </Stack>
 
 
@@ -48,7 +48,7 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
       >
         {
           tags.map(tag => (
-            <Tag link key={ `${ slug }_${ tag }` }>{ tag }</Tag>
+            <Tag key={ `${ slug }_${ tag }` }>{ tag }</Tag>
           ))
         }
       </Stack>

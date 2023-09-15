@@ -16,15 +16,18 @@ export const LABEL_COLOR = {
 /*
  * Tag component.
  * 
- * - basic usage: <Tag>Tag Name</Tag>
- * - as a link to news: <Tag link>Tag Name</Tag>
+ * - most common usage: <Tag>Tag Name</Tag>
+ *   will link to news
+ * - as non-link: <Tag noLink>Tag Name</Tag>
+ * 
 */
 export const Tag = ({
   // `children` is expected to be a string for use as the Chip label.
   children,
-  // the `link` prop dictates whether the Tag will be a link sending
-  // users to the news list view, filtered by this tag filter.
-  link = false,
+  // the `noLink` prop dictates whether the Tag will be a link that sends
+  // the users to the news list view, filtered by this tag filter.
+  // most uses will require a link, so `noLink` is false by default.
+  noLink = false,
   // coming via Label, we can expect `color` to be set.
   // otherwise, we must have a tag and the color is known.
   color = DEFAULT_TAG_COLOR,
@@ -44,7 +47,6 @@ export const Tag = ({
     lineHeight: 1,
     textTransform: 'uppercase',
     fontSize: '60%',
-    cursor: 'pointer',
     filter: 'brightness(1.0)',
     '&:hover': {
       filter: 'brightness(1.1)',
@@ -53,7 +55,7 @@ export const Tag = ({
   }
 
   // don't want a link? render a normal Chip component.
-  if (!link) {
+  if (noLink) {
     return (
       <Chip
         size="small"
@@ -82,11 +84,15 @@ Tag.propTypes = {
   children: PropTypes.string.isRequired,
   color: PropTypes.string,
   href: PropTypes.string,
-  link: PropTypes.bool,
+  noLink: PropTypes.bool,
 }
 
 //
 
+/*
+ * Label component
+ * Inherits Tag behavior.
+ */
 export const Label = ({ children: articleType, link, ...props }) => {
   return (
     <Tag
