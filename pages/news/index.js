@@ -1,7 +1,6 @@
 import { Page } from '@/components/layout'
 import { Box, Stack, Typography } from '@mui/material'
 import { fetchNews } from '@/lib/strapi/newsGraphQL'
-import { Section } from '../../components/layout'
 import { FiltersForm, FiltersTray, NewsList, NewsProvider } from '../../components/news'
 import Link from 'next/link'
 
@@ -26,7 +25,7 @@ export default function News({ articles }) {
               top: '165px',
               flex: { xs: 1, sm: 1 },
             },
-            '.content': {
+            '.new-list-container': {
               flex: 3,
             },
           }}
@@ -43,9 +42,9 @@ export default function News({ articles }) {
             </Box>
           </Box>
 
-          <Box className="content" >
+          <Box className="new-list-container" >
             <FiltersTray />
-            <NewsList articles={ articles }/>
+            <NewsList />
           </Box>
 
         </Stack>

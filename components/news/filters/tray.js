@@ -27,16 +27,17 @@ export const FiltersTray = () => {
         alignItems="center"
         gap={ 1 }
         sx={{
-          borderRadius: '3px',
           p: 1,
+          borderRadius: '3px',
           backgroundColor: '#f3f6f9',
         }}
       >
-        { filters.type && <Label type={ filters.type } onDelete={ handleClickDeleteTypeFilter(filters.type) } /> }
+        { filters.type && <Label onDelete={ handleClickDeleteTypeFilter(filters.type) }>{ filters.type }</Label> }
         {
           filters.tag && filters.tag.map(tag => (
             <Tag
               key={ `filter-chip-${ tag }` }
+              noLink
               onDelete={ handleClickDeleteTagFilter(tag) }
             >{ tag }</Tag>
           ))
