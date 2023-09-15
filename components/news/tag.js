@@ -35,7 +35,7 @@ export const Tag = ({
   // otherwise, we must have a tag and the `href` is also known.
   href = `/news/?tag=${ children }`,
   // pass through any additional props
-  ...props,
+  ...props
 }) => {
 
   const styling = {
@@ -68,7 +68,7 @@ export const Tag = ({
   // if `link` is true, we'll make the chip a link.
   // note the weird Next.js link nesting.
   return (
-    <NextLink href={ href }>
+    <NextLink href={ href } passHref>
       <Chip
         size="small"
         label={ children }
