@@ -17,7 +17,7 @@ export const FiltersTray = () => {
   }
 
   const showTray = useMemo(() => {
-    return !!(filters.type || filters.tag.length)
+    return !!(filters.tag.length)
   }, [filters])
 
   return (
@@ -32,7 +32,6 @@ export const FiltersTray = () => {
           backgroundColor: '#f3f6f9',
         }}
       >
-        { filters.type && <Label onDelete={ handleClickDeleteTypeFilter(filters.type) }>{ filters.type }</Label> }
         {
           filters.tag && filters.tag.map(tag => (
             <Tag

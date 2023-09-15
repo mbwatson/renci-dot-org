@@ -51,7 +51,7 @@ export const FiltersForm = () => {
         <Stack
           direction="column"
           className="select-stack"
-          gap={ 1 }
+          gap={ 2 }
         >
           <TypeSelect />
           <TagSelect />
