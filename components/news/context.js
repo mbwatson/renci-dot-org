@@ -35,7 +35,7 @@ export const NewsProvider = ({ articles, children }) => {
    */
   const filterNews = useCallback((filters = {}) => {
     router.push({ path: '/news', query: filters })
-  }, [filters])
+  }, [router])
 
   // memoized filtered articles.
   // updates on changes to `filters` object
@@ -50,7 +50,7 @@ export const NewsProvider = ({ articles, children }) => {
         .filter(article => filters.tag.some(tag => article.tags.includes(tag) ))
     }
     return _filteredArticles
-  }, [filters])
+  }, [articles, filters])
 
   // unselect type filter
   const removeLabel = id => {
