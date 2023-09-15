@@ -1,4 +1,7 @@
-import { Box, FormControl, IconButton, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material'
+import {
+  Box, FormControl, IconButton, InputLabel, MenuItem,
+  Select, Stack, ToggleButton, ToggleButtonGroup, Typography,
+} from '@mui/material'
 import { Close as ClearFiltersIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useNews } from '../context'

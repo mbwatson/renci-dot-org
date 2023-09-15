@@ -6,7 +6,7 @@ import NextLink from 'next/link'
 
 const DEFAULT_TAG_COLOR = '#cccccc'
 
-const LABEL_COLOR = {
+export const LABEL_COLOR = {
   blog: '#ff7f50',
   feature: '#007abc',
 }

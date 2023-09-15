@@ -1,31 +1,50 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { useMemo } from 'react'
+import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { useNews } from '../context'
+import { LABEL_COLOR } from '../tag'
 
 //
 
 export const TypeSelect = () => {
-  const { filters, filterNews } = useNews()
+  const { filterNews, filters } = useNews()
 
   const handleChange = event => {
-    filterNews({
-      ...filters,
-      type: event.target.value,
-    })
+    const { value } = event.target
+    if (['blog', 'feature'].includes(value) ) {
+      filterNews({ ...filters, type: value })
+      return
+    }
+    filterNews({ tag: filters.tag })
   }
 
+  const color = useMemo(() => !!filters.type
+    ? LABEL_COLOR[filters.type]
+    : '#334455', [filters.type])
+
   return (
-    <FormControl fullWidth size="small">
-      <InputLabel id="type-select-label">Type</InputLabel>
-      <Select
-        labelId="type-select-label"
-        id="type-select"
-        label="Type"
-        value={ filters.type || '' }
-        onChange={ handleChange }
-      >
-        <MenuItem value="blog">Blog</MenuItem>
-        <MenuItem value="feature">Feature</MenuItem>
-      </Select>
-    </FormControl>
+    <ToggleButtonGroup
+      fullWidth
+      size="small"
+      value={ filters.type || 'all' }
+      exclusive
+      onChange={ handleChange }
+      aria-label="article type"
+      sx={{
+        '.Mui-selected': {
+          color: color,
+          backgroundColor: `${ color }33`,
+        },
+      }}
+    >
+      <ToggleButton value="all" aria-label="all">
+        All News
+      </ToggleButton>
+      <ToggleButton value="blog" aria-label="blog">
+        Blog
+      </ToggleButton>
+      <ToggleButton value="feature" aria-label="feature">
+        Features
+      </ToggleButton>
+    </ToggleButtonGroup>
   )
 }
