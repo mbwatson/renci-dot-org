@@ -10,20 +10,50 @@ import { TagSelect } from './tag-select'
 
 export const FiltersForm = () => {
   return (
-    <Stack
-      direction="column"
-      alignItems="flex-start"
-      gap={ 1 }
-    >
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ width: '100%' }}>
-        <Typography component="label">Filters</Typography>
-        <ClearFiltersButton />
+    <Box sx={{
+      /* with container queries, we achieve a
+       *  responsive filter form layout
+       * 
+       * >= 500px available space:  Label                       (X)
+       *                            [_Select______] [_Select______]
+       *
+       *  < 500px available space:  Label                       (X)
+       *                            [_Select______________________]
+       *                            [_Select______________________]
+       */
+      width: '100%',
+      containerType: 'inline-size',
+      '.form-header': { },
+      '.select-stack': {
+        '@container (min-width: 500px)': {
+          flexDirection: 'row'
+        }
+      }
+    }}>
+      <Stack
+        direction="column"
+        alignItems="stretch"
+        gap={ 1 }
+      >
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          className="form-header"
+        >
+          <Typography component="label">Filters</Typography>
+          <ClearFiltersButton />
+        </Stack>
+
+        <Stack
+          direction="column"
+          className="select-stack"
+          gap={ 1 }
+        >
+          <TypeSelect />
+          <TagSelect />
+        </Stack>
       </Stack>
-
-      <TypeSelect />
-
-      <TagSelect />
-
-    </Stack>
+    </Box>
  )
 }

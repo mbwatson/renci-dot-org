@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { Chip } from '@mui/material'
-import { styled } from '@mui/system'
 import NextLink from 'next/link'
 
 //
@@ -14,6 +13,12 @@ const LABEL_COLOR = {
 
 //
 
+/*
+ * Tag component.
+ * 
+ * - basic usage: <Tag>Tag Name</Tag>
+ * - as a link to news: <Tag link>Tag Name</Tag>
+*/
 export const Tag = ({
   // `children` is expected to be a string for use as the Chip label.
   children,
@@ -47,7 +52,7 @@ export const Tag = ({
     },
   }
 
-  // no `href`? render a normal Chip component
+  // don't want a link? render a normal Chip component.
   if (!link) {
     return (
       <Chip
@@ -58,7 +63,7 @@ export const Tag = ({
       />
     )
   }
-  // if `href` is present we'll make the chip a link.
+  // if `link` is true, we'll make the chip a link.
   // note the weird Next.js link nesting.
   return (
     <NextLink href={ href }>
