@@ -35,7 +35,7 @@ export const Tag = ({
   // otherwise, we must have a tag and the `href` is also known.
   href = `/news/?tag=${ children }`,
   // pass through any additional props
-  ...props,
+  ...props
 }) => {
 
   const styling = {
