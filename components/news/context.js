@@ -57,6 +57,18 @@ export const NewsProvider = ({ articles, children }) => {
     filterNews({ tag: filters.tag })
   }
 
+  // select tag filter
+  const toggleTag = id => {
+    const tagindex = filters.tag.indexOf(id)
+    let newTags
+    if (tagindex < 0) {
+      newTags = [...filters.tag, id]
+    } else {
+      newTags = [...filters.tag.slice(0, tagindex), ...filters.tag.slice(tagindex + 1)]
+    }
+    filterNews({ ...filters, tag: newTags })
+  }
+
   // unselect tag filter
   const removeTag = id => {
     const tagindex = filters.tag.indexOf(id)
@@ -75,7 +87,7 @@ export const NewsProvider = ({ articles, children }) => {
       // this is an array of all tags present in all articles.
       // better would be to know these beforehand,so consider changing to receive all projects, groups, etc....along with domain-specific tags, e.g., covid, ai, hpc, etc
       availableTags,
-      removeLabel, removeTag,
+      removeLabel, removeTag, toggleTag,
     }}>
       { children }
     </NewsContext.Provider>
