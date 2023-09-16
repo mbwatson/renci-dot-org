@@ -1,10 +1,11 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
+import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import { useNews } from '../context'
+import { Tag } from '../tag'
 
 //
 
 export const TagSelect = () => {
-  const { filters, filterNews, availableTags } = useNews()
+  const { availableTags, filters, filterNews, removeTag } = useNews()
 
   const handleChange = event => {
     filterNews({
@@ -13,14 +14,18 @@ export const TagSelect = () => {
     })
   }
 
+  const handleClickDeleteTagFilter = tag => () => {
+    removeTag(tag)
+  }
+
   return (
     <FormControl fullWidth size="small">
-      <InputLabel id="tag-select-label">Tag</InputLabel>
+      <InputLabel id="tag-select-label">Tags</InputLabel>
       <Select
         multiple
         labelId="tag-select-label"
         id="tag-select"
-        label="Tag"
+        label="Tags"
         value={ filters.tag }
         onChange={ handleChange }
       >

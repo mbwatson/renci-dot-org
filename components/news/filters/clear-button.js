@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material'
+import { ButtonBase } from '@mui/material'
 import { Close as ClearFiltersIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useNews } from '../context'
@@ -14,9 +14,17 @@ export const ClearFiltersButton = () => {
   }
 
   return (
-    <IconButton
-      size="small"
+    <ButtonBase
+      disableRipple
+      disableTouchRipple
       onClick={ handleClickClearFilters }
-    ><ClearFiltersIcon fontSize="small" /></IconButton>
+      sx={{
+        transition: 'filter 250ms',
+        fontSize: '75%',
+        fontFamily: 'sans-serif',
+        filter: 'opacity(0.5) saturate(0.1)',
+        '&:hover': { filter: 'opacity(1.0) saturate(0.8)' },
+      }}
+    >× Clear all</ButtonBase>
   )
 }

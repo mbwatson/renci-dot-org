@@ -36,7 +36,6 @@ export default function News({ articles }) {
             </Typography>
 
             <FiltersForm />
-            <FiltersTray />
 
             <Box sx={{ pt: 4 }}>
               <Link href="/news/appearances">News Appearances</Link>
@@ -44,6 +43,7 @@ export default function News({ articles }) {
           </Box>
 
           <Box className="news-list-container" >
+            <FiltersTray />
             <NewsList />
           </Box>
 

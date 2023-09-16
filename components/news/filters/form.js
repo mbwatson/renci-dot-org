@@ -5,7 +5,6 @@ import {
 import { Close as ClearFiltersIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
 import { useNews } from '../context'
-import { ClearFiltersButton } from './clear-button'
 import { TypeSelect } from './type-select'
 import { TagSelect } from './tag-select'
 
@@ -36,26 +35,10 @@ export const FiltersForm = () => {
       <Stack
         direction="column"
         alignItems="stretch"
-        gap={ 1 }
+        gap={ 2 }
       >
-        <Stack
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          className="form-header"
-        >
-          <Typography component="label">Filters</Typography>
-          <ClearFiltersButton />
-        </Stack>
-
-        <Stack
-          direction="column"
-          className="select-stack"
-          gap={ 2 }
-        >
-          <TypeSelect />
-          <TagSelect />
-        </Stack>
+        <TypeSelect />
+        <TagSelect />
       </Stack>
     </Box>
  )
