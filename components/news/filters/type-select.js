@@ -49,15 +49,15 @@ export const TypeSelect = () => {
         disabled={ filters.type === 'all' }
       >All News</ToggleButton>
       <ToggleButton
-        value="blog"
-        aria-label="blog"
-        disabled={ filters.type === 'blog' }
-      >Blog</ToggleButton>
-      <ToggleButton
         value="feature"
         aria-label="feature"
         disabled={ filters.type === 'feature' }
       >Features</ToggleButton>
+      <ToggleButton
+        value="blog"
+        aria-label="blog"
+        disabled={ filters.type === 'blog' }
+      >Blog</ToggleButton>
     </ToggleButtonGroup>
   )
 }

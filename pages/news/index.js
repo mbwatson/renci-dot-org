@@ -16,17 +16,17 @@ export default function News({ articles }) {
       >
         <Stack
           direction={{ sm: 'column', md: 'row' }}
-          spacing={{ xs: 2, sm: 2, md: 6 }}
+          spacing={{ xs: 2, sm: 2, md: 3, lg: 4, }}
           sx={{
             position: 'relative',
             '.sidebar': {
               // position: 'sticky', alignSelf: 'flex-start',
               // ^ this doesn't play nice with the select component.
               top: '165px',
-              flex: { xs: 1, sm: 1 },
+              flex: { xs: 1, sm: 1, md: 1, lg: 1 },
             },
-            '.new-list-container': {
-              flex: 3,
+            '.news-list-container': {
+              flex: { xs: 1, sm: 1, md: 2, lg: 3 },
             },
           }}
         >
@@ -36,14 +36,14 @@ export default function News({ articles }) {
             </Typography>
 
             <FiltersForm />
+            <FiltersTray />
 
             <Box sx={{ pt: 4 }}>
               <Link href="/news/appearances">News Appearances</Link>
             </Box>
           </Box>
 
-          <Box className="new-list-container" >
-            <FiltersTray />
+          <Box className="news-list-container" >
             <NewsList />
           </Box>
 

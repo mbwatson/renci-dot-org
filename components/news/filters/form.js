@@ -28,7 +28,7 @@ export const FiltersForm = () => {
       containerType: 'inline-size',
       '.form-header': { },
       '.select-stack': {
-        '@container (min-width: 500px)': {
+        '@container (min-width: 600px)': {
           flexDirection: 'row'
         }
       }

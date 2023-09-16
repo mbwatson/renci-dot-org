@@ -4,10 +4,10 @@ import NextLink from 'next/link'
 
 //
 
-const DEFAULT_TAG_COLOR = '#cccccc'
+const DEFAULT_TAG_COLOR = '#456'
 
 export const LABEL_COLOR = {
-  blog: '#ff7f50',
+  blog: '#9932cc',
   feature: '#007abc',
 }
 
@@ -42,15 +42,15 @@ export const Tag = ({
     borderRadius: '3px',
     border: '1px solid',
     borderColor: color,
-    backgroundColor: `${ color }66`,
-    color: '#333',
+    backgroundColor: `${ color }33`,
+    color: color,
     lineHeight: 1,
     textTransform: 'uppercase',
     fontSize: '60%',
     filter: 'brightness(1.0)',
     '&:hover': {
       filter: 'brightness(1.1)',
-      backgroundColor: `${ color }33`,
+      backgroundColor: `${ color }22`,
     },
   }
 
