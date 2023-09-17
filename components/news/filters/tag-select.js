@@ -51,7 +51,12 @@ export const TagSelect = () => {
         '.MuiListItemIcon-root': { minWidth: '24px' },
         '.MuiCheckbox-root': { p: 0 },
         '.MuiListItemText-root': { m: 0 },
-        '.MuiListSubheader-root': { lineHeight: '24px' },
+        '.MuiListSubheader-root': {
+          lineHeight: '24px',
+          '&:not(:first-child)': {
+            mt: 2,
+          }
+        },
       }}
     >
       {

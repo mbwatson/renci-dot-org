@@ -1,7 +1,7 @@
 import { Page } from '@/components/layout'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Divider, Stack, Typography } from '@mui/material'
 import { fetchNews } from '@/lib/strapi/newsGraphQL'
-import { FiltersForm, FiltersTray, NewsList, NewsProvider } from '../../components/news'
+import { FiltersForm, FiltersTray, NewsList, NewsProvider, TagSelect, TypeSelect } from '../../components/news'
 import Link from 'next/link'
 
 //
@@ -12,8 +12,30 @@ export default function News({ articles }) {
     <NewsProvider articles={ articles }>
       <Page
         title="RENCI News"
+        hideTitle
         description=""
       >
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          alignItems={{ xs: 'stretch', sm: 'flex-start' }}
+          sx={{
+            mb: 2,
+            '.title': { flex: 1 },
+            '.type-select': { flex: { xs: 1, sm: '0 0 300px', textAlign: 'right' } },
+          }}
+        >
+          <Box className="title">
+            <Typography variant="h1">News</Typography>
+            <Typography paragraph>RENCI has news for you.</Typography>
+          </Box>
+          <Stack direction="column" justifyContent="flex-end" gap={ 2 } className="type-select">
+            <Link href="/news/appearances">News Appearances</Link>
+            <TypeSelect />
+          </Stack>
+        </Stack>
+
+        <Divider flexItem />
+
         <Stack
           direction={{ sm: 'column', md: 'row' }}
           spacing={{ xs: 2, sm: 2, md: 3, lg: 4, }}
@@ -23,23 +45,17 @@ export default function News({ articles }) {
               // position: 'sticky', alignSelf: 'flex-start',
               // ^ this doesn't play nice with the select component.
               top: '165px',
-              flex: { xs: 1, sm: 1, md: 1, lg: 1 },
+              flex: { xs: 1, md: 1, lg: 1 },
+              pt: 2,
             },
             '.news-list-container': {
-              flex: { xs: 1, sm: 1, md: 2, lg: 3 },
+              pt: 1,
+              flex: { xs: 1, md: 3, lg: 4 },
             },
           }}
         >
           <Box className="sidebar">
-            <Typography paragraph>
-              RENCI has news for you.
-            </Typography>
-
-            <FiltersForm />
-
-            <Box sx={{ pt: 4 }}>
-              <Link href="/news/appearances">News Appearances</Link>
-            </Box>
+            <TagSelect />
           </Box>
 
           <Box className="news-list-container" >
