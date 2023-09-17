@@ -10,11 +10,6 @@ const TAG_GROUPS = {
     'earth-data-science',
     'nrig',
   ],
-  'Teams': [
-    'acis',
-    'comms',
-    'hr',
-  ],
   'Collaborations': [
     'bdc3',
     'heal',
@@ -29,6 +24,11 @@ const TAG_GROUPS = {
   'People': [
     'chris-bizon',
     'stan-ahalt',
+  ],
+  'Teams': [
+    'acis',
+    'comms',
+    'hr',
   ],
 }
 
@@ -47,6 +47,12 @@ export const TagSelect = () => {
       id="tag-select"
       label="Tags"
       value={ filters.tag }
+      sx={{
+        '.MuiListItemIcon-root': { minWidth: '24px' },
+        '.MuiCheckbox-root': { p: 0 },
+        '.MuiListItemText-root': { m: 0 },
+        '.MuiListSubheader-root': { lineHeight: '24px' },
+      }}
     >
       {
         Object.keys(TAG_GROUPS).reduce((acc, tagGroup) => [
@@ -60,7 +66,7 @@ export const TagSelect = () => {
             >
               <ListItemIcon>
                 <Checkbox
-                  fontSize="small"
+                  size="small"
                   edge="start"
                   checked={ filters.tag.includes(tag) }
                   tabIndex={ -1 }
