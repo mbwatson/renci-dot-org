@@ -1,15 +1,14 @@
 import { Page } from '@/components/layout'
 import { Box, Divider, Stack, Typography } from '@mui/material'
-import { fetchNews } from '@/lib/strapi/newsGraphQL'
+import { fetchNews, fetchTags } from '@/lib/strapi/newsGraphQL'
 import { FiltersForm, FiltersTray, NewsList, NewsProvider, TagSelect, TypeSelect } from '../../components/news'
 import Link from 'next/link'
 
 //
 
-export default function News({ articles }) {
-
+export default function News({ articles, tags }) {
   return (
-    <NewsProvider articles={ articles }>
+    <NewsProvider articles={ articles } tags={ tags }>
       <Page
         title="RENCI News"
         hideTitle
@@ -78,8 +77,12 @@ export async function getServerSideProps({ res }) {
   );
   
   const articles = await fetchNews();
+  const tags = await fetchTags();
 
   return {
-    props: { articles: JSON.parse(JSON.stringify(articles)) },
+    props: {
+      articles: JSON.parse(JSON.stringify(articles)),
+      tags: JSON.parse(JSON.stringify(tags)),
+    },
   };
 }

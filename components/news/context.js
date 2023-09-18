@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 const NewsContext = createContext({ })
 export const useNews = () => useContext(NewsContext)
 
-export const NewsProvider = ({ articles, children }) => {
+export const NewsProvider = ({ articles, tags, children }) => {
   const router = useRouter()
   const { query } = router
 
@@ -86,7 +86,7 @@ export const NewsProvider = ({ articles, children }) => {
       filteredArticles,
       // this is an array of all tags present in all articles.
       // better would be to know these beforehand,so consider changing to receive all projects, groups, etc....along with domain-specific tags, e.g., covid, ai, hpc, etc
-      availableTags,
+      tags,
       removeLabel, removeTag, toggleTag,
     }}>
       { children }

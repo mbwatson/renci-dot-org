@@ -33,7 +33,9 @@ const TAG_GROUPS = {
 }
 
 export const TagSelect = () => {
-  const { availableTags, filters, filterNews, removeTag, toggleTag } = useNews()
+  const { tags, filters, filterNews, removeTag, toggleTag } = useNews()
+
+  console.log(tags)
 
   const handleClickOption = tag => () => {
     toggleTag(tag)
@@ -60,10 +62,10 @@ export const TagSelect = () => {
       }}
     >
       {
-        Object.keys(TAG_GROUPS).reduce((acc, tagGroup) => [
+        Object.keys(tags).reduce((acc, tagGroup) => [
           ...acc,
           <ListSubheader disableGutters key={ `subheader-${ tagGroup }` }>{ tagGroup }</ListSubheader>,
-          ...TAG_GROUPS[tagGroup].map((tag, i) => (
+          ...tags[tagGroup].map((tag, i) => (
             <ListItemButton
               key={ `${ tagGroup }-${ tag }` }
               value={ tag }
