@@ -67,21 +67,21 @@ export const TagSelect = () => {
           <ListSubheader disableGutters key={ `subheader-${ tagGroup }` }>{ tagGroup }</ListSubheader>,
           ...tags[tagGroup].map((tag, i) => (
             <ListItemButton
-              key={ `${ tagGroup }-${ tag }` }
-              value={ tag }
-              onClick={ handleClickOption(tag) }
+              key={ `${ tagGroup }-${ tag.name }` }
+              value={ tag.name }
+              onClick={ handleClickOption(tag.name) }
             >
               <ListItemIcon>
                 <Checkbox
                   size="small"
                   edge="start"
-                  checked={ filters.tag.includes(tag) }
+                  checked={ filters.tag.includes(tag.name) }
                   tabIndex={ -1 }
                   disableRipple
                   inputProps={{/*{ 'aria-labelledby': labelId }*/}}
                 />
               </ListItemIcon>
-              <ListItemText primary={ tag } />
+              <ListItemText primary={ `${tag.name} (${tag.numOfPosts})`} />
             </ListItemButton>
           ))
         ], [])
