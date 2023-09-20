@@ -1,33 +1,56 @@
-import { Page } from "@/components/layout";
-import { Box, Typography } from "@mui/material";
-import { fetchNews } from "@/lib/strapi/newsGraphQL";
-import { Section } from "../../components/layout";
-import { NewsList } from "../../components/news";
-import Link from "next/link";
+import { Page } from '@/components/layout'
+import { Box, Stack, Typography } from '@mui/material'
+import { fetchNews } from '@/lib/strapi/newsGraphQL'
+import { FiltersForm, FiltersTray, NewsList, NewsProvider } from '../../components/news'
+import Link from 'next/link'
 
 //
 
 export default function News({ articles }) {
 
   return (
-    <Page
-      title="News"
-      description=""
-    >
-      <Box sx={{ float: 'right' }}>
-        <Link href="/news/appearances">News Appearances</Link>
-      </Box>
+    <NewsProvider articles={ articles }>
+      <Page
+        title="RENCI News"
+        description=""
+      >
+        <Stack
+          direction={{ sm: 'column', md: 'row' }}
+          spacing={{ xs: 2, sm: 2, md: 6 }}
+          sx={{
+            position: 'relative',
+            '.sidebar': {
+              // position: 'sticky', alignSelf: 'flex-start',
+              // ^ this doesn't play nice with the select component.
+              top: '165px',
+              flex: { xs: 1, sm: 1 },
+            },
+            '.new-list-container': {
+              flex: 3,
+            },
+          }}
+        >
+          <Box className="sidebar">
+            <Typography paragraph>
+              RENCI has news for you.
+            </Typography>
 
-      <Typography paragraph>
-        RENCI has news for you.
-      </Typography>
+            <FiltersForm />
 
+            <Box sx={{ pt: 4 }}>
+              <Link href="/news/appearances">News Appearances</Link>
+            </Box>
+          </Box>
 
-      <Section title="News">
-        <NewsList articles={ articles }/>
-      </Section>
-      
-    </Page>
+          <Box className="new-list-container" >
+            <FiltersTray />
+            <NewsList />
+          </Box>
+
+        </Stack>
+        
+      </Page>
+    </NewsProvider>
   );
 }
 

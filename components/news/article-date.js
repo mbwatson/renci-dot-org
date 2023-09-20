@@ -1,10 +1,9 @@
 import { styled } from '@mui/system'
-import { formatDate } from '../../utils/date'
+import { formatDate } from '@/utils/date'
 
 export const DateSpan = styled('span')({
   fontSize: '95%',
   fontWeight: 'bold',
-  textTransform: 'uppercase',
   margin: 0,
   lineHeight: 2,
 })
