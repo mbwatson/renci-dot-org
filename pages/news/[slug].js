@@ -5,6 +5,8 @@ import { Link, Page, Section } from '../../components'
 import { Markdown } from '../../components/markdown'
 import {ArticleDate} from '../../components/news/article-date'
 import { Label, Tag } from '../../components/news/tag'
+import { fetchNewsArticleGQL } from '@/lib/strapi/newsGraphQL'
+
 
 // todo: add media queries on the photo
 
@@ -62,7 +64,7 @@ export default function NewsArticle({ article }) {
 
   return (
     <Page title={article.title} hideTitle>
-
+{console.log(article)}
       {/* Defines the article width, does not include next/previous article buttons */}
       <Section>
 
@@ -96,11 +98,11 @@ export default function NewsArticle({ article }) {
         <br/>
         {/*tags line*/}
         <Stack direction="row" gap={ 1 } justifyContent="flex-start" alignItems="center">
-          {
+          {/* {
             article.tags.map(tag => (
               <Tag key={ `${ article.slug }_${ tag }` }>{ tag }</Tag>
             ))
-          }
+          } */}
         </Stack>
 
         <br/>
@@ -108,7 +110,7 @@ export default function NewsArticle({ article }) {
         <br/>
         
         {/*article content*/}
-        <Markdown>{article.content}</Markdown>
+        {/* <Markdown>{article.content}</Markdown> */}
       </Section>
 
       <Divider/>
@@ -124,8 +126,7 @@ export async function getServerSideProps({ params, res }) {
     'Cache-Control',
     'no-cache, no-store, must-revalidate'
   );
-  
-  const article = await fetchNewsArticle(params.slug);
+  const article = await fetchNewsArticleGQL(params.slug);
   return {
     props: { article: JSON.parse(JSON.stringify(article)) },
   };
