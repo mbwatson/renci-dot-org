@@ -64,7 +64,7 @@ export default function NewsArticle({ article }) {
 
   return (
     <Page title={article.title} hideTitle>
-{console.log(article)}
+
       {/* Defines the article width, does not include next/previous article buttons */}
       <Section>
 
@@ -77,7 +77,7 @@ export default function NewsArticle({ article }) {
 
           {/* this div is simply a container for the Label, otherwise the label takes the width of its container*/}
           <div>
-            <Label type={ article.type } />
+            <Label>{article.articleType}</Label> 
           </div>
         </Stack>
 
