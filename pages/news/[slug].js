@@ -102,11 +102,11 @@ export default function NewsArticle({ article }) {
         <br/>
         {/*tags line*/}
         <Stack direction="row" gap={ 1 } justifyContent="flex-start" alignItems="center">
-          {/* {
+          {
             article.tags.map(tag => (
               <Tag key={ `${ article.slug }_${ tag }` }>{ tag }</Tag>
             ))
-          } */}
+          }
         </Stack>
 
         <br/>
