@@ -91,9 +91,13 @@ export default function NewsArticle({ article }) {
         <br/>
         
         {/*Subheading/subtitle if one exists*/}
-        <Typography variant="subtitle1">
-          {article.excerpt}
-        </Typography>
+        {
+          article.subtitle && (
+            <Typography variant="subtitle1">
+              {article.excerpt}
+            </Typography>
+          )
+        }
         
         <br/>
         {/*tags line*/}
