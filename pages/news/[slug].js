@@ -6,6 +6,7 @@ import { Markdown } from '../../components/markdown'
 import {ArticleDate} from '../../components/news/article-date'
 import { Label, Tag } from '../../components/news/tag'
 import { fetchNewsArticleGQL } from '@/lib/strapi/newsGraphQL'
+import Image from 'next/image'
 
 
 // todo: add media queries on the photo
