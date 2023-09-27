@@ -115,6 +115,22 @@ export default function NewsArticle({ article }) {
         
         {/*article content*/}
         {/* <Markdown>{article.content}</Markdown> */}
+        {
+          article.content.map((item)=> {
+           return item.type == "image" ?  <Image 
+                  priority
+                  src={item.image.url}
+                  alt={item.altText}
+                  width= {item.image.width}
+                  height={item.image.height}
+                  layout="responsive"
+                  objectFit='cover'
+                />
+             : <Markdown>{item.content}</Markdown>
+
+          })
+        }
+
       </Section>
 
       <Divider/>
