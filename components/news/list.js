@@ -7,13 +7,13 @@ import { useNews } from './context'
 //
 
 export const NewsList = () => {
-  const { filters, filteredArticles } = useNews()
+  const { newArticles } = useNews()
 
   return (
     <Fragment>
       <Stack gap={ 1 }>
         {
-          filteredArticles.map(article => (
+          newArticles.map(article => (
             <ArticlePreview
               key={ article.slug }
               article={ article }

@@ -35,8 +35,6 @@ const TAG_GROUPS = {
 export const TagSelect = () => {
   const { tags, filters, filterNews, removeTag, toggleTag } = useNews()
 
-  console.log(tags)
-
   const handleClickOption = tag => () => {
     toggleTag(tag)
   }
@@ -45,7 +43,6 @@ export const TagSelect = () => {
     <List
       dense
       multiple
-      labelId="tag-select-label"
       id="tag-select"
       label="Tags"
       value={ filters.tag }

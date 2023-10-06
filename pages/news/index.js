@@ -1,7 +1,7 @@
 import { Page } from '@/components/layout'
 import { Box, Divider, Stack, Typography } from '@mui/material'
 import { fetchNews, fetchTags } from '@/lib/strapi/newsGraphQL'
-import { FiltersForm, FiltersTray, NewsList, NewsProvider, TagSelect, TypeSelect } from '../../components/news'
+import { AutocompleteFilter, FiltersForm, FiltersTray, NewsList, NewsProvider, TagSelect, TypeSelect } from '@/components/news'
 import Link from 'next/link'
 
 //
@@ -53,11 +53,12 @@ export default function News({ articles, tags }) {
             },
           }}
         >
-          <Box className="sidebar">
+          {/* <Box className="sidebar">
             <TagSelect />
-          </Box>
+          </Box> */}
 
           <Box className="news-list-container" >
+            <AutocompleteFilter />
             <FiltersTray />
             <NewsList />
           </Box>

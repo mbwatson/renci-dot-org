@@ -8,7 +8,7 @@ const DEFAULT_TAG_COLOR = '#456'
 
 export const LABEL_COLOR = {
   blog: '#9932cc',
-  feature: '#007abc',
+  news: '#007abc',
 }
 
 //

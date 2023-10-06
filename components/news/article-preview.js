@@ -12,9 +12,28 @@ const Separator = () => <Box component="span" sx={{
   filter: 'opacity(0.75)',
 }}>&#8226;</Box>
 
-const ArticleHeading = ({ publishDate, slug, tags, type }) => {
+const ArticleHeading = ({
+  publishDate,
+  slug,
+  newsOrBlog,
+  collaborations,
+  organizations,
+  people,
+  tags,
+  projects,
+  researchGroups
+}) => {
   const router = useRouter()
   const { filters } = useNews()
+
+  const postTags = [
+    collaborations,
+    organizations,
+    people,
+    tags,
+    projects,
+    researchGroups
+  ].flat().map(({ name }) => name)
 
   return (
     <Stack
@@ -35,7 +54,7 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
         
         <Separator />
         
-        <Label>{ type }</Label>
+        <Label>{ newsOrBlog }</Label>
       </Stack>
 
 
@@ -47,8 +66,8 @@ const ArticleHeading = ({ publishDate, slug, tags, type }) => {
         className="tags"
       >
         {
-          tags.map(tag => (
-            <Tag key={ `${ slug }_${ tag }` }>{ tag }</Tag>
+          postTags.slice(0, 3).map(postTag => (
+            <Tag key={ `${ slug }_${ postTag }` }>{ postTag }</Tag>
           ))
         }
       </Stack>
@@ -79,8 +98,10 @@ export const ArticlePreview = ({ article }) => {
       </Typography>
 
       <Typography paragraph className="excerpt">
-        { article.excerpt }
+        {/* { article.excerpt } */}
+        Ex cillum commodo dolore proident ut cupidatat dolor sit exercitation ad nisi adipisicing in dolore laboris aliquip dolore adipisicing. Lorem ipsum cupidatat eu tempor esse pariatur ea non reprehenderit deserunt exercitation eiusmod occaecat incididunt dolore
       </Typography>
+
     </Box>
   )
 }

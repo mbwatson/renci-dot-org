@@ -15,13 +15,15 @@
     "@mui/icons-material": "^5.4.4",
     "@mui/lab": "^5.0.0-alpha.139",
     "@mui/material": "^5.14.4",
+    "autosuggest-highlight": "^3.3.4",
     "axios": "^0.27.2",
     "mui": "0.0.1",
     "next": "12.1.0",
     "next-seo": "^5.5.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-markdown": "^8.0.3"
+    "react-markdown": "^8.0.3",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "eslint": "8.10.0",

@@ -1,5 +1,6 @@
-import { createContext, useCallback, useContext, useMemo } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { fetchNewsArticles } from '@/lib/strapi/newsGraphQL'
 
 const NewsContext = createContext({ })
 export const useNews = () => useContext(NewsContext)
@@ -79,6 +80,41 @@ export const NewsProvider = ({ articles, tags, children }) => {
     filterNews({ ...filters, tag: newTags })
   }
 
+  const [newFilters, setNewFilters] = useState([]);
+  const [newArticles, setNewArticles] = useState([]);
+
+  const controllerRef = useRef(new AbortController());
+
+  useEffect(() => {
+    // if (newFilters.length === 0) return;
+    
+    (async () => {
+      controllerRef.current.abort("Old filter request is stale")
+      controllerRef.current = new AbortController();
+
+      try {
+        const posts = await fetchNewsArticles({
+          filters: {
+            collaborations: newFilters.filter((f) => f.type === "collaborations").map((f) => f.slug),
+            researchGroups: newFilters.filter((f) => f.type === "researchGroups").map((f) => f.slug),
+            people: newFilters.filter((f) => f.type === "people").map((f) => f.slug),
+            projects: newFilters.filter((f) => f.type === "projects").map((f) => f.slug),
+            organizations: newFilters.filter((f) => f.type === "organizations").map((f) => f.slug),
+            postTags: newFilters.filter((f) => f.type === 'postTags').map((f) => f.name),
+            freeSearch: newFilters.filter((f) => typeof f === "string"),
+            newsOrBlog: filters.type === 'feature' ? 'news' : filters.type === 'blog' ? 'blog' : undefined,
+          },
+          signal: controllerRef.current.signal
+        })
+        setNewArticles(posts);
+      } catch (e) {
+        if (e.name !== "AbortError") throw e; 
+      }
+    })()
+
+    return () => { controllerRef.current.abort("Component unmounted"); }
+  }, [newFilters, filters.type]);
+
   return (
     <NewsContext.Provider value={{
       articles,
@@ -88,6 +124,8 @@ export const NewsProvider = ({ articles, tags, children }) => {
       // better would be to know these beforehand,so consider changing to receive all projects, groups, etc....along with domain-specific tags, e.g., covid, ai, hpc, etc
       tags,
       removeLabel, removeTag, toggleTag,
+      newFilters, setNewFilters,
+      newArticles,
     }}>
       { children }
     </NewsContext.Provider>
