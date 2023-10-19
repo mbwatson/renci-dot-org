@@ -121,10 +121,13 @@ const ArticleHeading = ({
 
 export const ArticlePreview = ({ article }) => {
   return (
-    <Box component="pre" sx={{
+    <Box sx={{
       '.metadata-row': {
         py: 1,
-        '.date-and-label': {},
+        '.date-and-label': {
+          textTransform: 'uppercase',
+          fontSize: '0.75em',
+        },
         '.tags': {},
       },
       '.title': {
@@ -137,13 +140,38 @@ export const ArticlePreview = ({ article }) => {
     }}>
       <ArticleHeading { ...article } />
 
-      <Typography variant="h3" className="title">
+      <Typography variant="h3" className="title" sx={{
+        '& a': {
+          textDecoration: 'none',
+        }
+      }}>
         <Link to={ `/news/${ article.slug }` }>{ article.title }</Link>
       </Typography>
 
-      <Typography paragraph className="excerpt">
+      <Typography paragraph className="excerpt" sx={{
+        '--maxHeight': '75px',
+        '&:before': {
+          content: "''",
+          width: '100%',
+          height: '100%',
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          pointerEvents: 'none',
+          background: 'linear-gradient(transparent 0px, white calc(var(--maxHeight) - 4px ))'
+        },
+        '& > .hover-link': {
+          position: 'absolute',
+          bottom: 0,
+          right: 0,
+        },
+        position: 'relative',
+        maxHeight: 'var(--maxHeight)',
+        overflow: 'hidden',
+      }}>
         {/* { article.excerpt } */}
-        Ex cillum commodo dolore proident ut cupidatat dolor sit exercitation ad nisi adipisicing in dolore laboris aliquip dolore adipisicing. Lorem ipsum cupidatat eu tempor esse pariatur ea non reprehenderit deserunt exercitation eiusmod occaecat incididunt dolore
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae distinctio rem non soluta mollitia, deserunt excepturi amet porro corrupti expedita, vero animi incidunt accusantium quis? Nisi hic eveniet non, rerum iste beatae! Veniam dolore cupiditate assumenda fugiat inventore, molestias, sapiente ipsa, quia corporis voluptatibus doloremque optio exercitationem odit deleniti sit ab natus quas sed. Perspiciatis odio placeat esse fugit quia, commodi rem maxime nobis atque aliquam voluptatum expedita. Laudantium debitis architecto ea esse. Nemo nisi recusandae quo adipisci amet iure, at necessitatibus quia alias saepe voluptates mollitia, cumque dolorem tempore ullam, ipsum labore inventore. Deserunt veritatis accusantium culpa ratione, doloremque expedita facilis. Debitis, a reprehenderit alias voluptate libero quis natus, provident deleniti asperiores soluta corrupti temporibus doloremque saepe? Explicabo omnis beatae quia quae quis, dolorum labore corporis eligendi sunt pariatur repellendus debitis aliquid sequi unde nemo necessitatibus inventore veritatis, fugit magnam laborum quod. At ipsa saepe assumenda numquam, eum odio! Quam, praesentium tenetur at labore eos architecto impedit voluptatem fugiat nesciunt, maiores debitis, modi magni voluptatum optio officia ipsa nam fugit deserunt animi repellendus quaerat alias. Repellat sunt nihil distinctio consectetur nobis beatae? Esse ab, atque iure vitae omnis quam quo similique dolorum accusantium aperiam aspernatur maiores, consequuntur, cupiditate reprehenderit.
+        <Link to={`/news/${ article.slug }`} className='hover-link'>Read more →</Link>
       </Typography>
 
     </Box>
