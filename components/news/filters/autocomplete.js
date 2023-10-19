@@ -243,7 +243,7 @@ const FilterList = () => {
   );
 };
 
-const OptionSelector = () => {
+const TagSelector = () => {
   const {
     anchorEl,
     popupOpen,
@@ -351,7 +351,7 @@ const OptionSelector = () => {
 
 AutocompleteFilter.Input = Input;
 AutocompleteFilter.FilterList = FilterList;
-AutocompleteFilter.OptionSelector = OptionSelector;
+AutocompleteFilter.TagSelector = TagSelector;
 
 // STYLES
 

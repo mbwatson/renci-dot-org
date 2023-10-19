@@ -61,7 +61,7 @@ export default function News({ articles, tags }) {
             <AutocompleteFilter>
               <AutocompleteFilter.Input />
               <AutocompleteFilter.FilterList />
-              <AutocompleteFilter.OptionSelector />
+              <AutocompleteFilter.TagSelector />
             </AutocompleteFilter>
             <FiltersTray />
             <NewsList />
