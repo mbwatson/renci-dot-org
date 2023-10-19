@@ -1,8 +1,6 @@
 import {
   Box,
-  Chip,
   Collapse,
-  Divider,
   Grow,
   Popper,
   Typography,
@@ -10,7 +8,14 @@ import {
   useAutocomplete,
 } from "@mui/material";
 import { useNews } from "../context";
-import { forwardRef, useCallback, useMemo, useState } from "react";
+import {
+  createContext,
+  forwardRef,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { unstable_useForkRef as useForkRef } from "@mui/utils";
 import { CloseRounded } from "@mui/icons-material";
 import { TransitionGroup } from "react-transition-group";
@@ -30,7 +35,20 @@ const LABELS = {
   [FREE_SEARCH_LABEL]: "Search",
 };
 
-export const AutocompleteFilter = forwardRef(function AC(_, ref) {
+const AutocompleteFilterContext = createContext({});
+const useAutocompleteFilterContext = () => {
+  const ctx = useContext(AutocompleteFilterContext);
+  if (!ctx)
+    throw new Error(
+      "Autocomplete components must be called within AutocompleteFilter"
+    );
+  return ctx;
+};
+
+export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
+  { children },
+  ref
+) {
   const { tags, newFilters: value, setNewFilters: setValue } = useNews();
 
   const options = useMemo(
@@ -66,19 +84,19 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
       const optName = typeof opt === "string" ? opt : opt.name;
       const valName = typeof val === "string" ? val : val.name;
       return optName === valName;
-    }
+    },
   });
 
   const groupedValues = useMemo(
     () =>
       value.reduce((acc, val) => {
         if (typeof val === "string") {
-          // modify reduce fn val param if element was a freeSolo search. 
+          // modify reduce fn val param if element was a freeSolo search.
           // this is fine if the type is a string, which is passed by value
           val = {
             name: val,
-            type: FREE_SEARCH_LABEL
-          }
+            type: FREE_SEARCH_LABEL,
+          };
         }
         acc[val.type] ? acc[val.type].push(val) : (acc[val.type] = [val]);
         return acc;
@@ -86,196 +104,254 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
     [value]
   );
 
-  const deleteValue = useCallback((value) => {
-    setValue((prev) => {
-      if (value.type === FREE_SEARCH_LABEL) {
-        return prev.filter((v) => v !== value.name);
-      }
-      return prev.filter((v) => v.name !== value.name || v.type !== value.type)
-    });
-  }, [setValue])
+  const deleteValue = useCallback(
+    (value) => {
+      setValue((prev) => {
+        if (value.type === FREE_SEARCH_LABEL) {
+          return prev.filter((v) => v !== value.name);
+        }
+        return prev.filter(
+          (v) => v.name !== value.name || v.type !== value.type
+        );
+      });
+    },
+    [setValue]
+  );
 
   const rootRef = useForkRef(ref, setAnchorEl);
 
   const [collapsing, setCollapsing] = useState(false);
 
   return (
-    <>
-      <FilterRoot>
-        <StyledAutocompleteRoot
-          {...getRootProps()}
-          ref={rootRef}
-          bottomBorderRadius={value.length === 0}
-          className={focused ? "focused" : ""}
-        >
-          <StyledInput
-            {...getInputProps()}
-            placeholder="Enter filters here, e.g. iRODS, Earth Data Science..."
-          />
-        </StyledAutocompleteRoot>
-
-        {true && (
-          <Collapse
-            in={value.length > 0 && !collapsing}
-            onTransitionEnd={() => {
-              if (collapsing) {
-                setValue([]);
-                setCollapsing(false);
-              }
-            }}
-          >
-            <StyledDivider />
-            <TagContainer>
-              <ClearAllButton
-                onClick={() => {
-                  setCollapsing(true);
-                }}
-              >
-                <CloseRounded />
-                <TypeHeading>Clear All</TypeHeading>
-              </ClearAllButton>
-
-              {Object.entries(groupedValues)
-                .sort(([a], [b]) => {
-                  // sort so groups always appear on screen in same order, regardless
-                  // of the order of the `value` (and `groupedValues`) objects. Keep
-                  // `freeSearch` group always at the top of the list.
-                  if (a === FREE_SEARCH_LABEL) return -1;
-                  if (b === FREE_SEARCH_LABEL) return 1;
-                  else return a.localeCompare(b);
-                })
-                .map(([type, selectedFilters]) => (
-                  <Box key={type}>
-                    <TypeHeading>{LABELS[type]}</TypeHeading>
-                    <TagFlexWrapper>
-                      <TransitionGroup>
-                        {selectedFilters.map((filterItem) => (
-                          <Collapse
-                            key={filterItem.slug}
-                            orientation="horizontal"
-                            timeout={{ appear: 200, enter: 200, exit: 100 }}
-                          >
-                            <Tag 
-                              contents={filterItem.name}
-                              key={filterItem.slug}
-                              title={filterItem.name}
-                              type={type}
-                              onDelete={() => { deleteValue(filterItem) }}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                  deleteValue(filterItem)
-                                }
-                              }}
-                            />
-                          </Collapse>
-                        ))}
-                      </TransitionGroup>
-                    </TagFlexWrapper>
-                  </Box>
-                ))}
-            </TagContainer>
-          </Collapse>
-        )}
-      </FilterRoot>
-
-      {/* Selection list */}
-      {anchorEl && (
-        <Popper
-          open={popupOpen}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          slots={{ root: StyledPopper }}
-          sx={{ width: anchorEl.clientWidth + 32 }}
-          transition
-        >
-          {({ TransitionProps }) => (
-            <Grow
-              {...TransitionProps}
-              timeout={{ appear: 250, enter: 250, exit: 0 }}
-            >
-              <StyledListbox {...getListboxProps()}>
-                {groupedOptions.length > 0 ? (
-                  groupedOptions.map(({ group, options, key }) => (
-                    <Box key={key} sx={{ mb: "10px", isolation: "isolate" }}>
-                      <TypeHeading
-                        sx={{
-                          padding: "8px 0px",
-                          position: "sticky",
-                          top: 0,
-                          backgroundColor: "white",
-                          zIndex: 2,
-                          WebkitTransform: "translate3d(0,0,0)", // mobile safari bug https://css-tricks.com/forums/topic/safari-for-ios-z-index-ordering-bug-while-scrolling-a-page-with-a-fixed-element/
-                        }}
-                      >
-                        {LABELS[group]}
-                      </TypeHeading>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "4px",
-                          zIndex: 1,
-                        }}
-                      >
-                        {options.map((option, i) => {
-                          const matches = match(option.name, inputValue, {
-                            insideWords: true,
-                          });
-                          const parts = parse(option.name, matches);
-                          const optionProps = getOptionProps({ option, index: key + i });
-
-                          return (
-                            <StyledOption
-                              {...optionProps}
-                              key={option.slug}
-                            >
-                              <Tag
-                                contents={
-                                  <>
-                                    {parts.map((part, partIndex) => (
-                                      <span
-                                        key={partIndex}
-                                        style={{
-                                          fontWeight: part.highlight
-                                            ? 700
-                                            : 400,
-                                        }}
-                                      >
-                                        {part.text}
-                                      </span>
-                                    ))}
-                                    {option.numOfPosts > 1 ? (
-                                      <span> ({option.numOfPosts})</span>
-                                    ) : null}
-                                  </>
-                                }
-                                inverted={optionProps['aria-selected']}
-                                type={option.type}
-                              />
-                            </StyledOption>
-                          );
-                        })}
-                      </Box>
-                    </Box>
-                  ))
-                ) : (
-                  <StyledNoOptions>No results</StyledNoOptions>
-                )}
-              </StyledListbox>
-            </Grow>
-          )}
-        </Popper>
-      )}
-    </>
+    <AutocompleteFilterContext.Provider
+      value={{
+        getRootProps,
+        getInputProps,
+        getListboxProps,
+        getOptionProps,
+        groupedOptions,
+        focused,
+        popupOpen,
+        anchorEl,
+        inputValue,
+        groupedValues,
+        deleteValue,
+        rootRef,
+        collapsing,
+        setCollapsing,
+        tags,
+        value,
+        setValue,
+      }}
+    >
+      {children}
+    </AutocompleteFilterContext.Provider>
   );
 });
+
+const Input = () => {
+  const { rootRef, getRootProps, value, focused, getInputProps } =
+    useAutocompleteFilterContext();
+
+  return (
+    <StyledAutocompleteRoot
+      {...getRootProps()}
+      ref={rootRef}
+      bottomBorderRadius={value.length === 0}
+      className={focused ? "focused" : ""}
+    >
+      <StyledInput
+        {...getInputProps()}
+        placeholder="Enter filters here, e.g. iRODS, Earth Data Science..."
+      />
+    </StyledAutocompleteRoot>
+  );
+};
+
+const FilterList = () => {
+  const {
+    value,
+    collapsing,
+    setValue,
+    setCollapsing,
+    groupedValues,
+    deleteValue,
+  } = useAutocompleteFilterContext();
+
+  return (
+    <Collapse
+      in={value.length > 0 && !collapsing}
+      onTransitionEnd={() => {
+        if (collapsing) {
+          setValue([]);
+          setCollapsing(false);
+        }
+      }}
+    >
+      <TagContainer>
+        <ClearAllButton
+          onClick={() => {
+            setCollapsing(true);
+          }}
+        >
+          <CloseRounded />
+          <TypeHeading>Clear All</TypeHeading>
+        </ClearAllButton>
+
+        {Object.entries(groupedValues)
+          .sort(([a], [b]) => {
+            // sort so groups always appear on screen in same order, regardless
+            // of the order of the `value` (and `groupedValues`) objects. Keep
+            // `freeSearch` group always at the top of the list.
+            if (a === FREE_SEARCH_LABEL) return -1;
+            if (b === FREE_SEARCH_LABEL) return 1;
+            else return a.localeCompare(b);
+          })
+          .map(([type, selectedFilters]) => (
+            <Box key={type}>
+              <TypeHeading>{LABELS[type]}</TypeHeading>
+              <TagFlexWrapper>
+                <TransitionGroup>
+                  {selectedFilters.map((filterItem) => (
+                    <Collapse
+                      key={filterItem.slug}
+                      orientation="horizontal"
+                      timeout={{ appear: 200, enter: 200, exit: 100 }}
+                    >
+                      <Tag
+                        contents={filterItem.name}
+                        key={filterItem.slug}
+                        title={filterItem.name}
+                        type={type}
+                        onDelete={() => {
+                          deleteValue(filterItem);
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            deleteValue(filterItem);
+                          }
+                        }}
+                      />
+                    </Collapse>
+                  ))}
+                </TransitionGroup>
+              </TagFlexWrapper>
+            </Box>
+          ))}
+      </TagContainer>
+    </Collapse>
+  );
+};
+
+const OptionSelector = () => {
+  const {
+    anchorEl,
+    popupOpen,
+    getListboxProps,
+    getOptionProps,
+    groupedOptions,
+    inputValue,
+  } = useAutocompleteFilterContext();
+
+  if (!anchorEl) return null;
+
+  return (
+    <Popper
+      open={popupOpen}
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "center",
+      }}
+      slots={{ root: StyledPopper }}
+      sx={{ width: anchorEl.clientWidth + 32 }}
+      transition
+    >
+      {({ TransitionProps }) => (
+        <Grow
+          {...TransitionProps}
+          timeout={{ appear: 250, enter: 250, exit: 0 }}
+        >
+          <StyledListbox {...getListboxProps()}>
+            {groupedOptions.length > 0 ? (
+              groupedOptions.map(({ group, options, key }) => (
+                <Box key={key} sx={{ mb: "10px", isolation: "isolate" }}>
+                  <TypeHeading
+                    sx={{
+                      padding: "8px 0px",
+                      position: "sticky",
+                      top: 0,
+                      backgroundColor: "white",
+                      zIndex: 2,
+                      WebkitTransform: "translate3d(0,0,0)", // mobile safari bug https://css-tricks.com/forums/topic/safari-for-ios-z-index-ordering-bug-while-scrolling-a-page-with-a-fixed-element/
+                    }}
+                  >
+                    {LABELS[group]}
+                  </TypeHeading>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "4px",
+                      zIndex: 1,
+                    }}
+                  >
+                    {options.map((option, i) => {
+                      const matches = match(option.name, inputValue, {
+                        insideWords: true,
+                      });
+                      const parts = parse(option.name, matches);
+                      const optionProps = getOptionProps({
+                        option,
+                        index: key + i,
+                      });
+
+                      return (
+                        <StyledOption {...optionProps} key={option.slug}>
+                          <Tag
+                            contents={
+                              <>
+                                {parts.map((part, partIndex) => (
+                                  <span
+                                    key={partIndex}
+                                    style={{
+                                      fontWeight: part.highlight ? 700 : 400,
+                                    }}
+                                  >
+                                    {part.text}
+                                  </span>
+                                ))}
+                                {option.numOfPosts > 1 ? (
+                                  <span> ({option.numOfPosts})</span>
+                                ) : null}
+                              </>
+                            }
+                            inverted={optionProps["aria-selected"]}
+                            type={option.type}
+                          />
+                        </StyledOption>
+                      );
+                    })}
+                  </Box>
+                </Box>
+              ))
+            ) : (
+              <StyledNoOptions>No results</StyledNoOptions>
+            )}
+          </StyledListbox>
+        </Grow>
+      )}
+    </Popper>
+  );
+};
+
+AutocompleteFilter.Input = Input;
+AutocompleteFilter.FilterList = FilterList;
+AutocompleteFilter.OptionSelector = OptionSelector;
 
 // STYLES
 
@@ -291,20 +367,6 @@ const grey = {
   800: "#32383f",
   900: "#24292f",
 };
-
-const FilterRoot = styled("div")`
-  display: flex;
-  flex-direction: column;
-
-  border-radius: 8px;
-  color: ${grey[500]};
-  border: 1px solid ${grey[200]};
-  box-shadow: 0px 2px 2px ${grey[50]};
-`;
-
-const StyledDivider = styled(Divider)`
-  border-bottom: 1px solid ${grey[200]};
-`;
 
 const TagContainer = styled("div")`
   padding: 8px;
@@ -353,7 +415,7 @@ const ClearAllButton = styled("button")`
       color: ${grey[500]};
     }
   }
-  
+
   &:hover {
     p {
       color: ${grey[900]};
@@ -420,12 +482,11 @@ const StyledListbox = styled("ul")`
   background: white;
   border: 1px solid ${grey[200]};
   color: ${grey[900]};
-  box-shadow: 0px 4px 30px ${
-    grey[200]
-  };
-`
+  box-shadow: 0px 4px 30px ${grey[200]};
+`;
 
-const StyledOption = styled("li")(({ theme }) => (`
+const StyledOption = styled("li")(
+  ({ theme }) => `
   list-style: none;
   cursor: default;
   min-width: 0; /* fix "text-overflow: ellipsis" */
@@ -441,7 +502,8 @@ const StyledOption = styled("li")(({ theme }) => (`
   &.Mui-focusVisible {
     box-shadow: 0 0 0 2px ${theme.palette.primary.main}a0;
   }
-`))
+`
+);
 
 const StyledNoOptions = styled("li")`
   list-style: none;

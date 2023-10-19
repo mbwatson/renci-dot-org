@@ -24,7 +24,7 @@ const TYPES = {
     color: "#523c46",
   },
   default: {
-    bgColor: "#d8d8d8",
+    bgColor: "#ededed",
     color: "#414141",
   },
 };
@@ -68,7 +68,7 @@ export const Tag = ({
       color: !inverted ? color : bgColor,
       borderRadius: "6px",
       cursor: "revert",
-      border: `1px solid ${!inverted ? color : bgColor}90`,
+      border: `1px solid ${!inverted ? color : bgColor}80`,
       maxWidth: "35ch",
       textTransform: uppercase ? 'uppercase' : 'initial'
     }}

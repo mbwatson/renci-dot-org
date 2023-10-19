@@ -58,7 +58,11 @@ export default function News({ articles, tags }) {
           </Box> */}
 
           <Box className="news-list-container" >
-            <AutocompleteFilter />
+            <AutocompleteFilter>
+              <AutocompleteFilter.Input />
+              <AutocompleteFilter.FilterList />
+              <AutocompleteFilter.OptionSelector />
+            </AutocompleteFilter>
             <FiltersTray />
             <NewsList />
           </Box>
