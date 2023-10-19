@@ -6,6 +6,7 @@ import { Tag } from './ui-tag'
 import { Markdown } from '../markdown'
 import { Link } from '../link'
 import { useNews } from './context'
+import { useMemo } from 'react'
 
 //
 
@@ -27,14 +28,30 @@ const ArticleHeading = ({
   const router = useRouter()
   const { filters } = useNews()
 
-  const postTags = [
+  // make a flat list of tags from the props, where each tag is an obj:
+  // { name, slug, type }
+  const postTags = useMemo(() => (
+    Object.entries({
+      collaborations,
+      organizations,
+      people,
+      tags,
+      projects,
+      researchGroups
+    })
+      .filter(([, tag]) => tag.length > 0)
+      .reduce((arr, [type, tags]) => {
+        arr.push(...tags.map((t) => ({...t, type})))
+        return arr;
+      }, [])
+  ), [
     collaborations,
     organizations,
     people,
     tags,
     projects,
     researchGroups
-  ].flat().map(({ name }) => name)
+  ]);
 
   return (
     <Stack
@@ -72,8 +89,9 @@ const ArticleHeading = ({
         {
           postTags.slice(0, 3).map(postTag => (
             <Tag
-              key={postTag}
-              contents={postTag}
+              key={`${postTag.type}-${postTag.slug}`}
+              contents={postTag.name}
+              type={postTag.type}
             />
           ))
         }
