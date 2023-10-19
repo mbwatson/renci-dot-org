@@ -97,7 +97,7 @@ export const NewsProvider = ({ articles, tags, children }) => {
     }, {});
 
     router.push({ path: '/news', query })
-  }, [newFilters, router]);
+  }, [newFilters]);
 
   // update the tag state based on the query params when the component mounts
   useEffect(() => {
