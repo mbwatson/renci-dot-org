@@ -16,47 +16,19 @@ import { CloseRounded } from "@mui/icons-material";
 import { TransitionGroup } from "react-transition-group";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
+import { Tag } from "../ui-tag";
 
 const FREE_SEARCH_LABEL = "freeSearch";
 
-const getDisplayData = (type) =>
-  ({
-    researchGroups: {
-      bgColor: "#a6ffd4",
-      color: "#2d4339",
-      label: "Research Groups",
-    },
-    collaborations: {
-      bgColor: "#ffe69c",
-      color: "#473f28",
-      label: "Collaborations",
-    },
-    projects: {
-      bgColor: "#ccb7ff",
-      color: "#352f44",
-      label: "Projects",
-    },
-    organizations: {
-      bgColor: "#aaeeff",
-      color: "#2c3e43",
-      label: "Organizations",
-    },
-    people: {
-      bgColor: "#ffc0dd",
-      color: "#523c46",
-      label: "People",
-    },
-    postTags: {
-      bgColor: "#d8d8d8",
-      color: "#414141",
-      label: "Misc",
-    },
-    [FREE_SEARCH_LABEL]: {
-      bgColor: "#d8d8d8",
-      color: "#414141",
-      label: "Search",
-    }
-  }[type]);
+const LABELS = {
+  researchGroups: "Research Groups",
+  collaborations: "Collaborations",
+  projects: "Projects",
+  organizations: "Organizations",
+  people: "People",
+  postTags: "Misc",
+  [FREE_SEARCH_LABEL]: "Search",
+};
 
 export const AutocompleteFilter = forwardRef(function AC(_, ref) {
   const { tags, newFilters: value, setNewFilters: setValue } = useNews();
@@ -174,7 +146,7 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
                 })
                 .map(([type, selectedFilters]) => (
                   <Box key={type}>
-                    <TypeHeading>{getDisplayData(type).label}</TypeHeading>
+                    <TypeHeading>{LABELS[type]}</TypeHeading>
                     <TagFlexWrapper>
                       <TransitionGroup>
                         {selectedFilters.map((filterItem) => (
@@ -183,31 +155,11 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
                             orientation="horizontal"
                             timeout={{ appear: 200, enter: 200, exit: 100 }}
                           >
-                            <Chip
-                              label={filterItem.name}
+                            <Tag 
+                              contents={filterItem.name}
                               key={filterItem.slug}
-                              size="small"
                               title={filterItem.name}
-                              deleteIcon={
-                                <CloseRounded
-                                  sx={{
-                                    transform: "scale(0.8)",
-                                    transformOrigin: "center",
-                                    strokeWidth: 0,
-                                    fill: getDisplayData(type).color,
-                                  }}
-                                />
-                              }
-                              sx={{
-                                backgroundColor: getDisplayData(type).bgColor,
-                                color: getDisplayData(type).color,
-                                borderRadius: "6px",
-                                cursor: "revert",
-                                border: `1px solid ${
-                                  getDisplayData(type).color
-                                }90`,
-                                maxWidth: "35ch",
-                              }}
+                              type={type}
                               onDelete={() => { deleteValue(filterItem) }}
                               onKeyDown={(e) => {
                                 if (e.key === "Enter") {
@@ -262,7 +214,7 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
                           WebkitTransform: "translate3d(0,0,0)", // mobile safari bug https://css-tricks.com/forums/topic/safari-for-ios-z-index-ordering-bug-while-scrolling-a-page-with-a-fixed-element/
                         }}
                       >
-                        {getDisplayData(group).label}
+                        {LABELS[group]}
                       </TypeHeading>
                       <Box
                         sx={{
@@ -277,20 +229,15 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
                             insideWords: true,
                           });
                           const parts = parse(option.name, matches);
+                          const optionProps = getOptionProps({ option, index: key + i });
 
                           return (
                             <StyledOption
-                              {...getOptionProps({ option, index: key + i })}
+                              {...optionProps}
                               key={option.slug}
-                              sx={{
-                                '&[aria-selected=true] .MuiChip-root' : {
-                                  backgroundColor: getDisplayData(option.type).color,
-                                  color: getDisplayData(option.type).bgColor,
-                                }  
-                              }}
                             >
-                              <Chip
-                                label={
+                              <Tag
+                                contents={
                                   <>
                                     {parts.map((part, partIndex) => (
                                       <span
@@ -309,17 +256,8 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
                                     ) : null}
                                   </>
                                 }
-                                size="small"
-                                sx={{
-                                  backgroundColor: getDisplayData(option.type)
-                                    .bgColor,
-                                  color: getDisplayData(option.type).color,
-                                  borderRadius: "inherit",
-                                  cursor: "revert",
-                                  border: `1px solid ${
-                                    getDisplayData(option.type).color
-                                  }90`,
-                                }}
+                                inverted={optionProps['aria-selected']}
+                                type={option.type}
                               />
                             </StyledOption>
                           );
@@ -339,14 +277,7 @@ export const AutocompleteFilter = forwardRef(function AC(_, ref) {
   );
 });
 
-const blue = {
-  100: "#DAECFF",
-  200: "#99CCF3",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  900: "#003A75",
-};
+// STYLES
 
 const grey = {
   50: "#f6f8fa",
@@ -444,10 +375,6 @@ const StyledAutocompleteRoot = styled("div")(
   &.focused {
     border-color: ${theme.palette.primary.main}90;
     box-shadow: 0 0 0 3px ${theme.palette.primary.main}a0;
-  }
-
-  &:hover {
-    border-color: ${blue[400]};
   }
 
   &:focus-visible {

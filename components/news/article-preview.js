@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
 import { Box, Stack, Typography } from '@mui/material'
 import { ArticleDate } from './article-date'
-import { Label, Tag } from './tag'
+import { Label } from './tag'
+import { Tag } from './ui-tag'
 import { Markdown } from '../markdown'
 import { Link } from '../link'
 import { useNews } from './context'
@@ -54,7 +55,10 @@ const ArticleHeading = ({
         
         <Separator />
         
-        <Label>{ newsOrBlog }</Label>
+        <Tag
+          contents={newsOrBlog}
+          uppercase
+        />
       </Stack>
 
 
@@ -67,7 +71,10 @@ const ArticleHeading = ({
       >
         {
           postTags.slice(0, 3).map(postTag => (
-            <Tag key={ `${ slug }_${ postTag }` }>{ postTag }</Tag>
+            <Tag
+              key={postTag}
+              contents={postTag}
+            />
           ))
         }
       </Stack>
