@@ -43,9 +43,7 @@ export default function News({ articles, tags }) {
             '.sidebar': {
               // position: 'sticky', alignSelf: 'flex-start',
               // ^ this doesn't play nice with the select component.
-              top: '165px',
               flex: { xs: 1, md: 1, lg: 1 },
-              pt: 2,
             },
             '.news-list-container': {
               pt: 1,
@@ -53,20 +51,22 @@ export default function News({ articles, tags }) {
             },
           }}
         >
-          {/* <Box className="sidebar">
-            <TagSelect />
-          </Box> */}
-
-          <Box className="news-list-container" >
-            <AutocompleteFilter>
-              <AutocompleteFilter.Input />
+          <AutocompleteFilter>
+            
+            <Box className="sidebar">
               <AutocompleteFilter.FilterList />
-              <AutocompleteFilter.TagSelector />
-            </AutocompleteFilter>
-            <FiltersTray />
-            <NewsList />
-          </Box>
+            </Box>
 
+            <Box className="news-list-container" >
+              
+              <AutocompleteFilter.Input />
+              <AutocompleteFilter.TagSelector />
+              
+              <FiltersTray />
+              <NewsList />
+            </Box>
+
+          </AutocompleteFilter>
         </Stack>
         
       </Page>
