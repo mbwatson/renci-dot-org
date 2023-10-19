@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router'
 import { Box, Stack, Typography } from '@mui/material'
 import { ArticleDate } from './article-date'
-import { Label } from './tag'
 import { Tag } from './ui-tag'
-import { Markdown } from '../markdown'
 import { Link } from '../link'
 import { useNews } from './context'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 //
 
@@ -16,7 +14,6 @@ const Separator = () => <Box component="span" sx={{
 
 const ArticleHeading = ({
   publishDate,
-  slug,
   newsOrBlog,
   collaborations,
   organizations,
@@ -26,7 +23,7 @@ const ArticleHeading = ({
   researchGroups
 }) => {
   const router = useRouter()
-  const { filters } = useNews()
+  const { newFilters, setNewFilters } = useNews()
 
   // make a flat list of tags from the props, where each tag is an obj:
   // { name, slug, type }
@@ -52,6 +49,16 @@ const ArticleHeading = ({
     projects,
     researchGroups
   ]);
+
+  const handleAddTag = useCallback((tag) => {
+    setNewFilters(prev => [...prev, tag])
+  }, [setNewFilters]);
+
+  const handleDeleteTag = useCallback((tag) => {
+    setNewFilters(prev => prev.filter((compareTag) => (
+      compareTag.slug !== tag.slug && compareTag.type !== tag.type
+    )))
+  }, [setNewFilters]);
 
   return (
     <Stack
@@ -87,13 +94,25 @@ const ArticleHeading = ({
         className="tags"
       >
         {
-          postTags.slice(0, 3).map(postTag => (
-            <Tag
+          postTags.slice(0, 3).map(postTag => {
+            const isFiltered = newFilters.some(({ slug, type }) => postTag.slug === slug && postTag.type === type);
+            
+            return <Tag
               key={`${postTag.type}-${postTag.slug}`}
               contents={postTag.name}
               type={postTag.type}
+              onClick={
+                isFiltered
+                  ? undefined
+                  : () => handleAddTag(postTag)
+              }
+              onDelete={
+                !isFiltered
+                  ? undefined
+                  : () => handleDeleteTag(postTag)
+              }
             />
-          ))
+          })
         }
       </Stack>
     </Stack>
