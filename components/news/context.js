@@ -82,12 +82,59 @@ export const NewsProvider = ({ articles, tags, children }) => {
 
   const [newFilters, setNewFilters] = useState([]);
   const [newArticles, setNewArticles] = useState([]);
+  
+  // update the query params when the tag state changes
+  useEffect(() => {
+    const query = newFilters.reduce((acc, curr) => {
+      if (Array.isArray(acc[curr.type])) {
+        acc[curr.type].push(curr.slug);
+        return acc;
+      }
+      return ({
+        ...acc,
+        [curr.type]: [curr.slug],
+      })
+    }, {});
+
+    router.push({ path: '/news', query })
+  }, [newFilters, router]);
+
+  // update the tag state based on the query params when the component mounts
+  useEffect(() => {
+    const lookupTag = ({ type, slug }) => {
+      if (type in tags) {
+        const tagLookup = tags[type].find(t => t.slug === slug);
+        if (!tagLookup) return undefined;
+        return {
+          ...tagLookup,
+          type,
+        };
+      }
+      return undefined;
+    }
+
+    const flatTags = Object.entries(query).reduce((arr, [type, val]) => {
+      if (typeof val === "string") {
+        // get full tag data from list of tags
+        const fullTag = lookupTag({ type, slug: val });
+        fullTag && arr.push(fullTag) // only push if it exists
+      }
+
+      if (Array.isArray(val)) {
+        return [
+          ...arr,
+          val.map(t => lookupTag(t)).filter(t => t)
+        ]
+      }
+
+      return arr;
+    }, []);
+
+    setNewFilters(flatTags);
+  }, [])
 
   const controllerRef = useRef(new AbortController());
-
   useEffect(() => {
-    // if (newFilters.length === 0) return;
-    
     (async () => {
       controllerRef.current.abort("Old filter request is stale")
       controllerRef.current = new AbortController();
