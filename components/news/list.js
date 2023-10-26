@@ -7,7 +7,7 @@ import { useNews } from './context'
 //
 
 export const NewsList = () => {
-  const { newArticles } = useNews()
+  const { newArticles, loading } = useNews()
 
   return (
     <Fragment>
@@ -15,6 +15,7 @@ export const NewsList = () => {
         {
           newArticles.map(article => (
             <ArticlePreview
+              skeleton={loading}
               key={ article.slug }
               article={ article }
             />

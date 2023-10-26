@@ -82,6 +82,7 @@ export const NewsProvider = ({ articles, tags, children }) => {
 
   const [newFilters, setNewFilters] = useState([]);
   const [newArticles, setNewArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
   
   // update the query params when the tag state changes
   useEffect(() => {
@@ -139,6 +140,7 @@ export const NewsProvider = ({ articles, tags, children }) => {
       controllerRef.current.abort("Old filter request is stale")
       controllerRef.current = new AbortController();
 
+      setLoading(true)
       try {
         const posts = await fetchNewsArticles({
           filters: {
@@ -153,6 +155,7 @@ export const NewsProvider = ({ articles, tags, children }) => {
           },
           signal: controllerRef.current.signal
         })
+        setLoading(false);
         setNewArticles(posts);
       } catch (e) {
         if (e.name !== "AbortError") throw e; 
@@ -172,6 +175,7 @@ export const NewsProvider = ({ articles, tags, children }) => {
       tags,
       removeLabel, removeTag, toggleTag,
       newFilters, setNewFilters,
+      loading,
       newArticles,
     }}>
       { children }

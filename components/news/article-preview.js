@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { Box, Stack, Typography } from '@mui/material'
+import { Box, Skeleton, Stack, Typography } from '@mui/material'
 import { ArticleDate } from './article-date'
 import { Tag } from './ui-tag'
 import { Link } from '../link'
@@ -92,6 +92,7 @@ const ArticleHeading = ({
         alignItems="center"
         gap={ 1 }
         className="tags"
+        sx={{ overflowX: 'hidden' }}
       >
         {
           postTags.slice(0, 3).map(postTag => {
@@ -119,7 +120,14 @@ const ArticleHeading = ({
   )
 }
 
-export const ArticlePreview = ({ article }) => {
+export const ArticlePreview = ({ article, skeleton = false }) => {
+  if (skeleton) {
+    return (<>
+      <Typography variant="h3" width='50%'><Skeleton variant='rounded' /></Typography>
+      <Skeleton variant='rounded' height='100px' />
+    </>)
+  }
+  
   return (
     <Box sx={{
       '.metadata-row': {

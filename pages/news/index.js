@@ -56,10 +56,13 @@ export default function News({ articles, tags }) {
             <Box className="sidebar">
               <AutocompleteFilter.FilterList />
             </Box>
-
+            
             <Box className="news-list-container" >
               
-              <AutocompleteFilter.Input />
+              <Box sx={{ border: '1px solid #e4e4e4', borderRadius: '6px', my: 2 }}>
+                <AutocompleteFilter.Input />
+              </Box>
+
               <AutocompleteFilter.TagSelector />
               
               <FiltersTray />
