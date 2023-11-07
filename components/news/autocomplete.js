@@ -16,11 +16,10 @@ import {
   useState,
 } from "react";
 import { unstable_useForkRef as useForkRef } from "@mui/utils";
-import { CloseRounded } from "@mui/icons-material";
-import { TransitionGroup } from "react-transition-group";
 import match from "autosuggest-highlight/match";
 import parse from "autosuggest-highlight/parse";
 import { Tag } from "./tag";
+import { CloseRounded } from "@mui/icons-material";
 
 const FREE_SEARCH_LABEL = "freeSearch";
 
@@ -119,6 +118,10 @@ export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
 
   const [collapsing, setCollapsing] = useState(false);
 
+  const clearAll = useCallback(() => {
+    setCollapsing(true);
+  }, [setCollapsing]);
+
   return (
     <AutocompleteFilterContext.Provider
       value={{
@@ -139,6 +142,7 @@ export const AutocompleteFilter = forwardRef(function AutocompleteFilter(
         tags,
         value,
         setValue,
+        clearAll,
       }}
     >
       {children}
@@ -154,7 +158,6 @@ const Input = () => {
     <StyledAutocompleteRoot
       {...getRootProps()}
       ref={rootRef}
-      bottomBorderRadius={value.length === 0}
       className={focused ? "focused" : ""}
     >
       <StyledInput
@@ -186,15 +189,6 @@ const FilterList = () => {
       }}
     >
       <TagContainer>
-        <ClearAllButton
-          onClick={() => {
-            setCollapsing(true);
-          }}
-        >
-          <CloseRounded />
-          <TypeHeading>Clear All</TypeHeading>
-        </ClearAllButton>
-
         {Object.entries(groupedValues)
           .sort(([a], [b]) => {
             // sort so groups always appear on screen in same order, regardless
@@ -208,30 +202,22 @@ const FilterList = () => {
             <Box key={type}>
               <TypeHeading>{LABELS[type]}</TypeHeading>
               <TagFlexWrapper>
-                <TransitionGroup>
-                  {selectedFilters.map((filterItem) => (
-                    <Collapse
+                {selectedFilters.map((filterItem) => (
+                    <Tag
+                      contents={filterItem.name}
                       key={filterItem.slug}
-                      orientation="horizontal"
-                      timeout={{ appear: 200, enter: 200, exit: 100 }}
-                    >
-                      <Tag
-                        contents={filterItem.name}
-                        key={filterItem.slug}
-                        title={filterItem.name}
-                        type={type}
-                        onDelete={() => {
+                      title={filterItem.name}
+                      type={type}
+                      onDelete={() => {
+                        deleteValue(filterItem);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
                           deleteValue(filterItem);
-                        }}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            deleteValue(filterItem);
-                          }
-                        }}
-                      />
-                    </Collapse>
-                  ))}
-                </TransitionGroup>
+                        }
+                      }}
+                    />
+                ))}
               </TagFlexWrapper>
             </Box>
           ))}
@@ -346,9 +332,21 @@ const TagSelector = () => {
   );
 };
 
+const ClearAllButton = () => {
+  const { clearAll } = useAutocompleteFilterContext();
+
+  return <StyledClearAllButton
+    onClick={() => { clearAll() }}
+  >
+    <CloseRounded />
+    <TypeHeading>Clear All</TypeHeading>
+  </StyledClearAllButton>
+}
+
 AutocompleteFilter.Input = Input;
 AutocompleteFilter.FilterList = FilterList;
 AutocompleteFilter.TagSelector = TagSelector;
+AutocompleteFilter.ClearAllButton = ClearAllButton;
 
 // STYLES
 
@@ -374,13 +372,11 @@ const TagContainer = styled("div")`
 `;
 
 const TagFlexWrapper = styled("div")`
-  & > div {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 4px;
-    margin-top: 4px;
-  }
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
 `;
 
 const TypeHeading = styled(Typography)`
@@ -390,11 +386,9 @@ const TypeHeading = styled(Typography)`
   letter-spacing: 1px;
 `;
 
-const ClearAllButton = styled("button")`
+const StyledClearAllButton = styled("button")`
+  flex: 1;
   all: unset;
-  position: absolute;
-  top: 6px;
-  right: 8px;
   display: flex;
   align-items: center;
   cursor: pointer;

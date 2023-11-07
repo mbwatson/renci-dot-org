@@ -1,8 +1,11 @@
 import { Page } from "@/components/layout";
+import { ArticleList } from "@/components/news/article-list";
 import { AutocompleteFilter } from "@/components/news/autocomplete";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
 import { fetchTags } from "@/lib/strapi/newsGraphQL";
-import { Button, ButtonGroup } from "@mui/material";
+import { Box, Divider, Paper, Stack, Typography, styled } from "@mui/material";
+import Link from "next/link";
+import { CloseRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import qs from "qs";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -210,25 +213,65 @@ export default function News() {
 
   return (
     <Page title="News" description="View and sort through RENCI news articles and blog posts.">
-      <pre>{JSON.stringify(selectedTags, null, 2)}</pre>
-
-      <NewsOrFeatureToggle 
-        setNewsOrFeature={setNewsOrFeature}
-        newsOrFeature={newsOrFeature}
-      />
-
+      <Typography>
+        Use the search box below to filter the list of articles by tag or category. If there isn’t 
+        a pre-existing item, you can type your query and press enter to search through the article 
+        titles. Use the “filters” sidebar to verify and refine your search. If you would like to 
+        view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
+      </Typography>
       <AutocompleteFilter
         tags={allTags}
         value={flatSelectedTags}
         setValue={setSelectedTags}
       >
-        <AutocompleteFilter.Input />
-        <AutocompleteFilter.FilterList />
-        <AutocompleteFilter.TagSelector />
+        <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
+          {/* Filter sidebar */}
+          <Paper sx={{ 
+            p: 1, 
+            borderRadius: '8px', 
+            flex: '0 0 300px', 
+            minWidth: 0, 
+            position: 'sticky', 
+            top: 'calc(120px + 24px)'
+          }} elevation={3}>
+            <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
+              <Typography variant="h3"  maxWidth='fit-content'>Filters</Typography>
+              <AutocompleteFilter.ClearAllButton />
+            </Stack>
+            <Divider sx={{ mx: '-8px' }} />
+            <Box mt={1} mb='4px'>
+              <TypeHeading px={1} pb='4px'>Category</TypeHeading>
+              <NewsOrFeatureToggle 
+                setNewsOrFeature={setNewsOrFeature}
+                newsOrFeature={newsOrFeature}
+              />
+            </Box>
+            <AutocompleteFilter.FilterList />
+          </Paper>
+
+          {/* Search bar and article list */}
+          <Box flex={1} minWidth={0}>
+            <Paper sx={{ borderRadius: '8px', border: '1px solid #dddddd' }} elevation={2}>
+              <AutocompleteFilter.Input />
+            </Paper>
+            <AutocompleteFilter.TagSelector />
+            <ArticleList 
+              selectedTags={selectedTags}
+              newsOrFeature={newsOrFeature}
+            />
+          </Box>
+        </Stack>
       </AutocompleteFilter>
     </Page>
   );
 }
+
+const TypeHeading = styled(Typography)`
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 1px;
+`;
 
 // there is no data needed for this page, but this is a workaround to prevent getInitialProps from
 // running on this client page

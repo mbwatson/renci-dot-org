@@ -1,8 +1,10 @@
 import { Button, ButtonGroup } from "@mui/material";
 
 export const NewsOrFeatureToggle = ({ newsOrFeature, setNewsOrFeature }) => (
-  <ButtonGroup>
+  <ButtonGroup sx={{ display: 'flex', '--br': '4px', px: '8px' }}>
     <Button
+      sx={{ flex: 1, borderRadius: 'var(--br) 0 0 var(--br)' }}
+      size="small"
       onClick={() => {
         setNewsOrFeature(null);
       }}
@@ -11,6 +13,8 @@ export const NewsOrFeatureToggle = ({ newsOrFeature, setNewsOrFeature }) => (
       All
     </Button>
     <Button
+      sx={{ flex: 1 }}
+      size="small"
       onClick={() => {
         setNewsOrFeature("news");
       }}
@@ -19,6 +23,8 @@ export const NewsOrFeatureToggle = ({ newsOrFeature, setNewsOrFeature }) => (
       News
     </Button>
     <Button
+      sx={{ flex: 1, borderRadius: '0 var(--br) var(--br) 0' }}
+      size="small"
       onClick={() => {
         setNewsOrFeature("feature");
       }}

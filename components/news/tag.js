@@ -4,23 +4,23 @@ import { CloseRounded } from "@mui/icons-material";
 
 const TYPES = {
   researchGroups: {
-    bgColor: "#a6ffd4",
+    bgColor: "#bbffde",
     color: "#2d4339",
   },
   collaborations: {
-    bgColor: "#ffe69c",
+    bgColor: "#ffebb1",
     color: "#473f28",
   },
   projects: {
-    bgColor: "#ccb7ff",
+    bgColor: "#d9c8ff",
     color: "#352f44",
   },
   organizations: {
-    bgColor: "#aaeeff",
+    bgColor: "#bcf2ff",
     color: "#2c3e43",
   },
   people: {
-    bgColor: "#ffc0dd",
+    bgColor: "#ffd1e6",
     color: "#523c46",
   },
   default: {
@@ -43,6 +43,7 @@ export const Tag = ({
   contents,
   inverted = false,
   uppercase = false,
+  sx = {},
   ...props
 }) => {
   if (TYPES[type] === undefined) type = 'default';
@@ -69,8 +70,12 @@ export const Tag = ({
       borderRadius: "6px",
       cursor: "revert",
       border: `1px solid ${!inverted ? color : bgColor}80`,
+      whiteSpace: 'nowrap',
+      overflow:  'hidden',
+      textOverflow: 'ellipsis',
       maxWidth: "35ch",
-      textTransform: uppercase ? 'uppercase' : 'initial'
+      textTransform: uppercase ? 'uppercase' : 'initial',
+      ...sx,
     }}
     {...props}
   />;
