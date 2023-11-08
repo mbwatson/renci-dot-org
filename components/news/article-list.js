@@ -17,7 +17,7 @@ export const ArticleList = ({
       setLoading(true);
       
       try {
-        setArticles(await fetchNewsArticles({
+        const { meta, articles } = await fetchNewsArticles({
           filters: {
             collaborations: selectedTags.collaborations.map(({ slug }) => slug),
             organizations: selectedTags.organizations.map(({ slug }) => slug),
@@ -34,7 +34,8 @@ export const ArticleList = ({
                 : undefined,
           },
           signal: controllerRef.current.signal
-        }));
+        });
+        setArticles(articles);
         setLoading(false);
       } catch (e) {
         if (e.name !== "AbortError") throw e; 

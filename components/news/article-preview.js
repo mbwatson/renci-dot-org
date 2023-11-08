@@ -76,8 +76,7 @@ export const ArticlePreview = ({
       maxHeight: 'var(--maxHeight)',
       overflow: 'hidden',
     }}>
-      {/* { article.excerpt } */}
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Recusandae distinctio rem non soluta mollitia, deserunt excepturi amet porro corrupti expedita, vero animi incidunt accusantium quis? Nisi hic eveniet non, rerum iste beatae! Veniam dolore cupiditate assumenda fugiat inventore, molestias, sapiente ipsa, quia corporis voluptatibus doloremque optio exercitationem odit deleniti sit ab natus quas sed. Perspiciatis odio placeat esse fugit quia, commodi rem maxime nobis atque aliquam voluptatum expedita. Laudantium debitis architecto ea esse. Nemo nisi recusandae quo adipisci amet iure, at necessitatibus quia alias saepe voluptates mollitia, cumque dolorem tempore ullam, ipsum labore inventore. Deserunt veritatis accusantium culpa ratione, doloremque expedita facilis. Debitis, a reprehenderit alias voluptate libero quis natus, provident deleniti asperiores soluta corrupti temporibus doloremque saepe? Explicabo omnis beatae quia quae quis, dolorum labore corporis eligendi sunt pariatur repellendus debitis aliquid sequi unde nemo necessitatibus inventore veritatis, fugit magnam laborum quod. At ipsa saepe assumenda numquam, eum odio! Quam, praesentium tenetur at labore eos architecto impedit voluptatem fugiat nesciunt, maiores debitis, modi magni voluptatum optio officia ipsa nam fugit deserunt animi repellendus quaerat alias. Repellat sunt nihil distinctio consectetur nobis beatae? Esse ab, atque iure vitae omnis quam quo similique dolorum accusantium aperiam aspernatur maiores, consequuntur, cupiditate reprehenderit.
+      {article.excerpt}
       <Link to={articleLink} className='hover-link'>Read more →</Link>
     </Typography>
   </Stack>
