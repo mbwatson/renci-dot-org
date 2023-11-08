@@ -80,7 +80,7 @@ export const ArticleListSkeleton = () => (
   <Stack direction='column' gap={4} paddingY={4}>
     {new Array(25).fill(0).map((_, i) => <Box key={i}>
       <Stack gap={1}>
-        <Skeleton variant="rectangular" sx={{ borderRadius: '8px', maxWidth: `${Math.floor(Math.random() * 30) + 30}ch` }} height="2rem" />
+        <Skeleton variant="rectangular" sx={{ borderRadius: '8px', maxWidth: '60%' }} height="2rem" />
         <Skeleton variant="rectangular" sx={{ borderRadius: '8px' }} height="6rem" />
       </Stack>
     </Box>)}
