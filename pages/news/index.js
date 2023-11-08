@@ -208,32 +208,6 @@ export default function News() {
     );
   }, [parsedQuery, page, router])
 
-  // Loading skeleton for tag fetch
-  if (allTags === null)
-    return (
-      <Page title="News" description="View and sort through RENCI news articles and blog posts.">
-        <Typography>
-          Use the search box below to filter the list of articles by tag or category. If there isn’t 
-          a pre-existing item, you can type your query and press enter to search through the article 
-          titles. Use the “filters” sidebar to verify and refine your search. If you would like to 
-          view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
-        </Typography>
-
-        <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
-          {/* Filter sidebar */}
-          <Skeleton variant="rectangular" height="124px" sx={{ borderRadius: '8px', flex: "0 0 300px", minWidth: 0, position: 'sticky', top: 'calc(120px + 24px)' }} />
-
-          {/* Search bar and article list */}
-          <Box flex={1} minWidth={0}>
-            {/* Search Bar */}
-            <Skeleton variant="rectangular" height="2.5rem" sx={{ borderRadius: '8px' }} />
-
-            <ArticleListSkeleton />
-          </Box>
-        </Stack>
-      </Page>
-    );
-
   return (
     <Page title="News" description="View and sort through RENCI news articles and blog posts.">
       <Typography>
@@ -242,54 +216,72 @@ export default function News() {
         titles. Use the “filters” sidebar to verify and refine your search. If you would like to 
         view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
       </Typography>
-      <AutocompleteFilter
-        tags={allTags}
-        value={flatSelectedTags}
-        setValue={setSelectedTags}
-      >
-        <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
-          {/* Filter sidebar */}
-          <Paper sx={{ 
-            p: 1, 
-            borderRadius: '8px', 
-            flex: '0 0 300px', 
-            minWidth: 0, 
-            position: 'sticky', 
-            top: 'calc(120px + 24px)'
-          }} elevation={3}>
-            <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
-              <Typography variant="h3"  maxWidth='fit-content'>Filters</Typography>
-              {flatSelectedTags.length > 0 && <AutocompleteFilter.ClearAllButton />}
-            </Stack>
-            <Divider sx={{ mx: '-8px' }} />
-            <Box mt={1} mb='4px'>
-              <TypeHeading px={1} pb='4px'>Category</TypeHeading>
-              <NewsOrFeatureToggle 
-                setNewsOrFeature={setNewsOrFeature}
+
+      {allTags === null ? <TagLoadingSkeleton /> : (
+        <AutocompleteFilter
+          tags={allTags}
+          value={flatSelectedTags}
+          setValue={setSelectedTags}
+        >
+          <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
+            {/* Filter sidebar */}
+            <Paper sx={{ 
+              p: 1, 
+              borderRadius: '8px', 
+              flex: '0 0 300px', 
+              minWidth: 0, 
+              position: 'sticky', 
+              top: 'calc(120px + 24px)'
+            }} elevation={3}>
+              <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
+                <Typography variant="h3"  maxWidth='fit-content'>Filters</Typography>
+                {flatSelectedTags.length > 0 && <AutocompleteFilter.ClearAllButton />}
+              </Stack>
+              <Divider sx={{ mx: '-8px' }} />
+              <Box mt={1} mb='4px'>
+                <TypeHeading px={1} pb='4px'>Category</TypeHeading>
+                <NewsOrFeatureToggle 
+                  setNewsOrFeature={setNewsOrFeature}
+                  newsOrFeature={newsOrFeature}
+                />
+              </Box>
+              <AutocompleteFilter.FilterList />
+            </Paper>
+
+            {/* Search bar and article list */}
+            <Box flex={1} minWidth={0}>
+              <Paper sx={{ borderRadius: '8px', border: '1px solid #dddddd' }} elevation={2}>
+                <AutocompleteFilter.Input />
+              </Paper>
+              <AutocompleteFilter.TagSelector />
+              <ArticleList 
+                selectedTags={selectedTags}
                 newsOrFeature={newsOrFeature}
+                page={page}
+                setPage={setPage}
               />
             </Box>
-            <AutocompleteFilter.FilterList />
-          </Paper>
-
-          {/* Search bar and article list */}
-          <Box flex={1} minWidth={0}>
-            <Paper sx={{ borderRadius: '8px', border: '1px solid #dddddd' }} elevation={2}>
-              <AutocompleteFilter.Input />
-            </Paper>
-            <AutocompleteFilter.TagSelector />
-            <ArticleList 
-              selectedTags={selectedTags}
-              newsOrFeature={newsOrFeature}
-              page={page}
-              setPage={setPage}
-            />
-          </Box>
-        </Stack>
-      </AutocompleteFilter>
+          </Stack>
+        </AutocompleteFilter>
+      )}
     </Page>
   );
 }
+
+const TagLoadingSkeleton = () => (
+  <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
+    {/* Filter sidebar */}
+    <Skeleton variant="rectangular" height="124px" sx={{ borderRadius: '8px', flex: "0 0 300px", minWidth: 0, position: 'sticky', top: 'calc(120px + 24px)' }} />
+
+    {/* Search bar and article list */}
+    <Box flex={1} minWidth={0}>
+      {/* Search Bar */}
+      <Skeleton variant="rectangular" height="2.5rem" sx={{ borderRadius: '8px' }} />
+
+      <ArticleListSkeleton />
+    </Box>
+  </Stack>
+)
 
 const TypeHeading = styled(Typography)`
   font-size: 0.7rem;
