@@ -50,7 +50,7 @@ export const ArticlePreview = ({
         </Stack>
       </Stack>
       <Typography variant="h3" sx={{ '& a': { textDecoration: 'none' }}}>
-        <Link href={articleLink}>{article.title}</Link>
+        <Link to={articleLink}>{article.title}</Link>
       </Typography>
     </Box>
     
