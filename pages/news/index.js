@@ -150,6 +150,7 @@ export default function News() {
         freeSearch: next.filter((t) => typeof t === 'string')
       })
     };
+    delete queryParamObj["page"];
 
     router.push(
       {
@@ -173,6 +174,7 @@ export default function News() {
       newsOrFeature: next,
     };
     if (next === null) delete queryParamObj["newsOrFeature"];
+    delete queryParamObj["page"];
     router.push(
       {
         pathname: '/news',
@@ -186,7 +188,9 @@ export default function News() {
   // don't call this state's setter directly! update the query params
   const [page, _setPage] = useState(1);
   useEffect(() => {
-    _setPage(parsedQuery.page ?? 1);
+    let pageNum = Number(parsedQuery.page)
+    if (Number.isNaN(pageNum)) pageNum = 1;
+    _setPage(pageNum);
   }, [parsedQuery]);
   const setPage = useCallback((value) => {
     const next = typeof value === "function" ? value(page) : value;
@@ -277,6 +281,8 @@ export default function News() {
             <ArticleList 
               selectedTags={selectedTags}
               newsOrFeature={newsOrFeature}
+              page={page}
+              setPage={setPage}
             />
           </Box>
         </Stack>
