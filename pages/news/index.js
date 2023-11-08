@@ -259,7 +259,7 @@ export default function News() {
           }} elevation={3}>
             <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
               <Typography variant="h3"  maxWidth='fit-content'>Filters</Typography>
-              <AutocompleteFilter.ClearAllButton />
+              {flatSelectedTags.length > 0 && <AutocompleteFilter.ClearAllButton />}
             </Stack>
             <Divider sx={{ mx: '-8px' }} />
             <Box mt={1} mb='4px'>
