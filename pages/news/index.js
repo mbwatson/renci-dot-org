@@ -1,9 +1,9 @@
 import { Page } from "@/components/layout";
-import { ArticleList } from "@/components/news/article-list";
+import { ArticleList, ArticleListSkeleton } from "@/components/news/article-list";
 import { AutocompleteFilter } from "@/components/news/autocomplete";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
 import { fetchTags } from "@/lib/strapi/newsGraphQL";
-import { Box, Divider, Paper, Stack, Typography, styled } from "@mui/material";
+import { Box, Divider, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
 import { CloseRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
@@ -204,10 +204,29 @@ export default function News() {
     );
   }, [parsedQuery, page, router])
 
+  // Loading skeleton for tag fetch
   if (allTags === null)
     return (
-      <Page title="News" description="">
-        Loading...
+      <Page title="News" description="View and sort through RENCI news articles and blog posts.">
+        <Typography>
+          Use the search box below to filter the list of articles by tag or category. If there isn’t 
+          a pre-existing item, you can type your query and press enter to search through the article 
+          titles. Use the “filters” sidebar to verify and refine your search. If you would like to 
+          view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
+        </Typography>
+
+        <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
+          {/* Filter sidebar */}
+          <Skeleton variant="rectangular" height="124px" sx={{ borderRadius: '8px', flex: "0 0 300px", minWidth: 0, position: 'sticky', top: 'calc(120px + 24px)' }} />
+
+          {/* Search bar and article list */}
+          <Box flex={1} minWidth={0}>
+            {/* Search Bar */}
+            <Skeleton variant="rectangular" height="2.5rem" sx={{ borderRadius: '8px' }} />
+
+            <ArticleListSkeleton />
+          </Box>
+        </Stack>
       </Page>
     );
 
