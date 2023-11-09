@@ -4,6 +4,7 @@ import { Tag } from "./tag"
 
 export const ArticlePreview = ({
   article,
+  isTagSelected,
   skeleton = false,
 }) => {
   const date = new Date(article.publishDate)
@@ -41,10 +42,11 @@ export const ArticlePreview = ({
         </Stack>
 
         <Stack direction='row' flex="1"  gap={1} sx={{ overflowX: 'auto', direction: 'rtl' }}>
-          {tags.map(({ name, type }, i) => <Tag
+          {tags.map(({ name, slug, type }, i) => <Tag
             key={i}
             type={type}
             contents={name}
+            inverted={isTagSelected(type === 'postTags' ? name : slug, type)}
             sx={{ minWidth: 'fit-content' }}
           />)}
         </Stack>

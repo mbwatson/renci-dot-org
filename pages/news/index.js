@@ -100,7 +100,17 @@ export default function News() {
           ? parsedQuery.freeSearch
           : [],
     })
-  }, [allTags, getFullTagsFromIds, parsedQuery])
+  }, [allTags, getFullTagsFromIds, parsedQuery]);
+
+  /**
+   * helper function for checking if a tag is in 
+   */
+  const isTagSelected = useCallback((id, type) => {
+    if (id === undefined || type === undefined) return false;
+    return selectedTags[type]?.find((tag) => (
+      tag[type === 'freeSearch' ? 'name' : 'slug'] === id
+      )) !== undefined;
+  }, [selectedTags]);
 
   // same data as above, but as an array of objs with `type` key
   // this format is used by the autocomplete component
@@ -255,6 +265,7 @@ export default function News() {
               <AutocompleteFilter.TagSelector />
               <ArticleList 
                 selectedTags={selectedTags}
+                isTagSelected={isTagSelected}
                 newsOrFeature={newsOrFeature}
                 page={page}
                 setPage={setPage}
