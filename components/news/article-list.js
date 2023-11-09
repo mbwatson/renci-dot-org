@@ -1,6 +1,5 @@
-import { fetchNewsArticles } from "@/lib/strapi/newsGraphQL";
+import { useNewsArticles } from "@/lib/strapi/newsGraphQL";
 import { Box, Pagination, Skeleton, Stack, Typography } from "@mui/material"
-import { useEffect, useRef, useState } from "react"
 import { ArticlePreview } from "./article-preview";
 
 export const ArticleList = ({
@@ -9,61 +8,43 @@ export const ArticleList = ({
   page,
   setPage,
 }) => {
-  const [articles, setArticles] = useState(null);
-  const [pageCount, setPageCount] = useState(1);
-  const [loading, setLoading] = useState(true);
-  const controllerRef = useRef(new AbortController());
-  useEffect(() => {
-    (async () => {
-      controllerRef.current.abort("Old filtered article request is stale");
-      controllerRef.current = new AbortController();
-      setLoading(true);
-      
-      try {
-        const { meta, articles } = await fetchNewsArticles({
-          filters: {
-            collaborations: selectedTags.collaborations.map(({ slug }) => slug),
-            organizations: selectedTags.organizations.map(({ slug }) => slug),
-            people: selectedTags.people.map(({ slug }) => slug),
-            projects: selectedTags.projects.map(({ slug }) => slug),
-            researchGroups: selectedTags.researchGroups.map(({ slug }) => slug),
-            postTags: selectedTags.postTags.map(({ name }) => name),
-            freeSearch: selectedTags.freeSearch,
-            newsOrBlog:
-              newsOrFeature === 'news'
-                ? 'news'
-                : newsOrFeature === 'feature'
-                ? 'blog'
-                : undefined,
-          },
-          page,
-          signal: controllerRef.current.signal
-        });
-        setArticles(articles);
-        setPageCount(meta.pagination.pageCount);
-        setLoading(false);
-      } catch (e) {
-        if (e.name !== "AbortError") throw e; 
-      }
-    })();
+  const {
+    data,
+    isLoading,
+    error,
+  } = useNewsArticles({
+    filters: {
+      collaborations: selectedTags.collaborations.map(({ slug }) => slug),
+      organizations: selectedTags.organizations.map(({ slug }) => slug),
+      people: selectedTags.people.map(({ slug }) => slug),
+      projects: selectedTags.projects.map(({ slug }) => slug),
+      researchGroups: selectedTags.researchGroups.map(({ slug }) => slug),
+      postTags: selectedTags.postTags.map(({ name }) => name),
+      freeSearch: selectedTags.freeSearch,
+      newsOrBlog:
+        newsOrFeature === 'news'
+          ? 'news'
+          : newsOrFeature === 'feature'
+          ? 'blog'
+          : undefined,
+    },
+    page,
+  });
 
-    return () => { controllerRef.current.abort("Article fetch aborted: component unmounted") }
-  }, [page, selectedTags, newsOrFeature])
-  
+  if (isLoading || !data) return <Stack><ArticleListSkeleton /></Stack>
+
+  const { articles, meta } = data;
+
   if (Array.isArray(articles) && articles.length === 0) return <NoArticlesText />
 
-  return <Stack >
-    {
-      loading || articles === null ? <ArticleListSkeleton /> : (
-        <Stack direction='column' gap={4} paddingY={4}>
-          {articles.map((article, i) => (
-            <ArticlePreview key={i} article={article} />
-          ))}
-        </Stack>
-      )
-    }
+  return <Stack>
+    <Stack direction='column' gap={4} paddingY={4}>
+      {articles.map((article, i) => (
+        <ArticlePreview key={i} article={article} />
+      ))}
+    </Stack>
     
-    <Pagination count={pageCount} page={page} onChange={(_, p) => page === p ? null : setPage(p)} sx={{ alignSelf: 'center' }} />
+    <Pagination count={meta.pagination?.pageCount} page={page} onChange={(_, p) => page === p ? null : setPage(p)} sx={{ alignSelf: 'center' }} />
   </Stack> 
 }
 
