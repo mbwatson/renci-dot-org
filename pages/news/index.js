@@ -5,7 +5,6 @@ import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
 import { fetchTags } from "@/lib/strapi/newsGraphQL";
 import { Box, Divider, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
-import { CloseRounded } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import qs from "qs";
 import { useCallback, useEffect, useMemo, useState } from "react";
