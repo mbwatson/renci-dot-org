@@ -1,12 +1,15 @@
 import { Box, Skeleton, Stack, Typography } from "@mui/material"
 import { Link } from "../link"
 import { Tag } from "./tag"
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
 
 export const ArticlePreview = ({
   article,
   isTagSelected,
   deleteTag,
   addTag,
+  freeSearch,
   skeleton = false,
 }) => {
   const date = new Date(article.publishDate)
@@ -26,7 +29,13 @@ export const ArticlePreview = ({
     article.researchGroups.map((x) => ({ ...x, type: 'researchGroups' })),
     article.organizations.map((x) => ({ ...x, type: 'organizations' })),
     article.tags.map((x) => ({ ...x, type: 'postTags' }))
-  ].flat()
+  ].flat();
+
+  const titleFreeSearchMatches = match(article.title, freeSearch.join(' '), { 
+    findAllOccurrences: true,
+    insideWords: true,
+  });
+  const titleHighlightSections = parse(article.title, titleFreeSearchMatches);
   
   if (skeleton) return <Box>
     <Skeleton />
@@ -60,7 +69,13 @@ export const ArticlePreview = ({
         </Stack>
       </Stack>
       <Typography variant="h3" sx={{ '& a': { textDecoration: 'none' }}}>
-        <Link to={articleLink}>{article.title}</Link>
+        <Link to={articleLink}>{
+          titleHighlightSections.map((part, i) => (
+            <span key={i} style={{
+              fontWeight: part.highlight ? 'bold' : 'initial'
+            }}>{part.text}</span>
+          ))
+        }</Link>
       </Typography>
     </Box>
     

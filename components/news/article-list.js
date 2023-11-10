@@ -1,6 +1,7 @@
 import { useNewsArticles } from "@/lib/strapi/newsGraphQL";
 import { Box, Pagination, Skeleton, Stack, Typography } from "@mui/material"
 import { ArticlePreview } from "./article-preview";
+import { useMemo } from "react";
 
 export const ArticleList = ({
   selectedTags,
@@ -34,6 +35,8 @@ export const ArticleList = ({
     page,
   });
 
+  const freeSearch = useMemo(() => (selectedTags.freeSearch), [selectedTags]);
+
   if (isLoading || !data) return <Stack><ArticleListSkeleton /></Stack>
 
   const { articles, meta } = data;
@@ -43,7 +46,14 @@ export const ArticleList = ({
   return <Stack>
     <Stack direction='column' gap={4} paddingY={4}>
       {articles.map((article, i) => (
-        <ArticlePreview key={i} article={article} isTagSelected={isTagSelected} deleteTag={deleteTag} addTag={addTag} />
+        <ArticlePreview
+          key={i}
+          article={article}
+          isTagSelected={isTagSelected}
+          deleteTag={deleteTag}
+          addTag={addTag}
+          freeSearch={freeSearch}
+        />
       ))}
     </Stack>
     
