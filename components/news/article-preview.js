@@ -54,7 +54,7 @@ export const ArticlePreview = ({
 
         <Stack direction='row' flex="1"  gap={1} sx={{ overflowX: 'auto', direction: 'rtl' }}>
           {tags.map(({ name, slug, type }, i) => {
-            const id = type === type === 'postTags' ? name : slug;
+            const id = type === 'postTags' ? name : slug;
             const isSelected = isTagSelected(id, type);
             return <Tag
               key={i}
