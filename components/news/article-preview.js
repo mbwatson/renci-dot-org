@@ -43,7 +43,12 @@ export const ArticlePreview = ({
 
   return <Stack gap={1}>
     <Box>
-      <Stack direction='row' alignItems='baseline' gap={2}>
+      <Box sx={{
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+        gap: { xs: 1, sm: 1, md: 2 },
+        mb: { xs: 1, sm: 1, md: 0 },
+      }}>
         <Stack direction='row' alignItems='center' gap={1}>
           <Typography variant="subtitle2" whiteSpace='nowrap'>{dateString}</Typography>
           <Box sx={{ width: '0.3em', height: '0.3em', backgroundColor: '#b6b6b6', borderRadius: '50%', flex: '0 0 auto' }} />
@@ -52,7 +57,7 @@ export const ArticlePreview = ({
           }</Typography>
         </Stack>
 
-        <Stack direction='row' flex="1"  gap={1} sx={{ overflowX: 'auto', direction: 'rtl' }}>
+        <Stack direction='row' flex="1"  gap={1} sx={{ overflowX: 'auto', direction: { xs: 'ltr', sm: 'ltr', md: 'rtl'} }}>
           {tags.map(({ name, slug, type }, i) => {
             const id = type === 'postTags' ? name : slug;
             const isSelected = isTagSelected(id, type);
@@ -67,7 +72,7 @@ export const ArticlePreview = ({
             />
           })}
         </Stack>
-      </Stack>
+      </Box>
       <Typography variant="h3" sx={{ '& a': { textDecoration: 'none' }}}>
         <Link to={articleLink}>{
           titleHighlightSections.map((part, i) => (
