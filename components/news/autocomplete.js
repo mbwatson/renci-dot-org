@@ -202,10 +202,10 @@ const FilterList = () => {
             <Box key={type}>
               <TypeHeading>{LABELS[type]}</TypeHeading>
               <TagFlexWrapper>
-                {selectedFilters.map((filterItem) => (
+                {selectedFilters.map((filterItem, i) => (
                     <Tag
                       contents={filterItem.name}
-                      key={filterItem.slug}
+                      key={`${filterItem}_${i}`}
                       title={filterItem.name}
                       type={type}
                       onDelete={() => {
