@@ -4,7 +4,8 @@ import { AutocompleteFilter } from "@/components/news/autocomplete";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
 import { fetchTags } from "@/lib/strapi/newsGraphQL";
 import { deleteIndexFromArray } from "@/utils/array";
-import { Box, Divider, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
+import { Tune } from "@mui/icons-material";
+import { Badge, Box, Divider, Drawer, IconButton, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import qs from "qs";
@@ -22,6 +23,8 @@ export default function News() {
       setAllTags(tags);
     })();
   }, []);
+
+  const [mobileModalOpen, setMobileModalOpen] = useState(false);
 
   /**
    * Takes a single string or array of tag id strings `tags` (mapping to `slug` or `name` in the case of `postTags`),
@@ -273,9 +276,10 @@ export default function News() {
           value={flatSelectedTags}
           setValue={setFlatSelectedTags}
         >
-          <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
+          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 3, my: 6 }}>
             {/* Filter sidebar */}
             <Paper sx={{ 
+              display: { md: 'block', sm: 'none', xs: 'none' },
               p: 1, 
               borderRadius: '8px', 
               flex: '0 0 300px', 
@@ -283,26 +287,35 @@ export default function News() {
               position: 'sticky', 
               top: 'calc(120px + 24px)'
             }} elevation={3}>
-              <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
-                <Typography variant="h3"  maxWidth='fit-content'>Filters</Typography>
-                {flatSelectedTags.length > 0 && <AutocompleteFilter.ClearAllButton />}
-              </Stack>
-              <Divider sx={{ mx: '-8px' }} />
-              <Box mt={1} mb='4px'>
-                <TypeHeading px={1} pb='4px'>Category</TypeHeading>
-                <NewsOrFeatureToggle 
-                  setNewsOrFeature={setNewsOrFeature}
-                  newsOrFeature={newsOrFeature}
-                />
-              </Box>
-              <AutocompleteFilter.FilterList />
+              <FilterSelectorContents
+                flatSelectedTags={flatSelectedTags}
+                newsOrFeature={newsOrFeature}
+                setNewsOrFeature={setNewsOrFeature}
+              />
             </Paper>
 
             {/* Search bar and article list */}
             <Box flex={1} minWidth={0}>
-              <Paper sx={{ borderRadius: '8px', border: '1px solid #dddddd' }} elevation={2}>
-                <AutocompleteFilter.Input />
-              </Paper>
+              <Stack direction='row' alignItems='flex-start' gap={1}>
+                <Paper sx={{ flex: '1', borderRadius: '8px', border: '1px solid #dddddd' }} elevation={2}>
+                  <AutocompleteFilter.Input />
+                </Paper>
+                <IconButton
+                  onClick={() => { setMobileModalOpen(prev => !prev) }}
+                  aria-label="filters"
+                  variant="contained"
+                  sx={{ display: { md: 'none', sm: 'flex' } }}
+                >
+                  <Badge
+                    badgeContent={flatSelectedTags.length}
+                    invisible={flatSelectedTags.length === 0}
+                    color="primary"
+                    sx={{ '& .MuiBadge-badge': { border: '2px solid white' } }}
+                  >
+                    <Tune />
+                  </Badge>
+                </IconButton>
+              </Stack>
               <AutocompleteFilter.TagSelector />
               <ArticleList 
                 selectedTags={selectedTags}
@@ -314,12 +327,53 @@ export default function News() {
                 setPage={setPage}
               />
             </Box>
-          </Stack>
+          </Box>
+
+          {/* Mobile filter modal */}
+          <Drawer
+            anchor="left"
+            open={mobileModalOpen}
+            onClose={() => { setMobileModalOpen(false) }}
+            sx={{ '& .MuiDrawer-paper': { width: '80%' } }}
+          >
+            <Box p={1}>
+              <FilterSelectorContents
+                flatSelectedTags={flatSelectedTags}
+                newsOrFeature={newsOrFeature}
+                setNewsOrFeature={setNewsOrFeature}
+              />
+            </Box>
+          </Drawer>
         </AutocompleteFilter>
       )}
     </Page>
   );
 }
+
+const FilterSelectorContents = ({
+  flatSelectedTags,
+  setNewsOrFeature,
+  newsOrFeature,
+}) => (
+  <>
+    <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
+      <Typography variant="h3"  maxWidth='fit-content'>Filters</Typography>
+      {flatSelectedTags.length > 0 && <AutocompleteFilter.ClearAllButton />}
+    </Stack>
+
+    <Divider sx={{ mx: '-8px' }} />
+    
+    <Box mt={1} mb='4px'>
+      <TypeHeading px={1} pb='4px'>Category</TypeHeading>
+      <NewsOrFeatureToggle 
+        setNewsOrFeature={setNewsOrFeature}
+        newsOrFeature={newsOrFeature}
+      />
+    </Box>
+
+    <AutocompleteFilter.FilterList />
+  </>
+)
 
 const TagLoadingSkeleton = () => (
   <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
