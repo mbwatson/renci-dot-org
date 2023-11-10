@@ -2,6 +2,7 @@ import { useNewsArticles } from "@/lib/strapi/newsGraphQL";
 import { Box, Pagination, Skeleton, Stack, Typography } from "@mui/material"
 import { ArticlePreview } from "./article-preview";
 import { useMemo } from "react";
+import { Error } from "./error";
 
 export const ArticleList = ({
   selectedTags,
@@ -36,6 +37,13 @@ export const ArticleList = ({
   });
 
   const freeSearch = useMemo(() => (selectedTags.freeSearch), [selectedTags]);
+
+  if(error) {
+    return <Error
+      message="We're sorry, something went wrong. Ensure your device has internet access. Refresh or go back a page."
+      sx={{ my: 4 }}
+    />  
+  }
 
   if (isLoading || !data) return <Stack><ArticleListSkeleton /></Stack>
 
