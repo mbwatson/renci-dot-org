@@ -376,9 +376,16 @@ const FilterSelectorContents = ({
 )
 
 const TagLoadingSkeleton = () => (
-  <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
-    {/* Filter sidebar */}
-    <Skeleton variant="rectangular" height="124px" sx={{ borderRadius: '8px', flex: "0 0 300px", minWidth: 0, position: 'sticky', top: 'calc(120px + 24px)' }} />
+  <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 3, my: 6 }}>
+  {/* Filter sidebar */}
+    <Skeleton variant="rectangular" height="124px" sx={{
+      borderRadius: '8px',
+      flex: "0 0 300px",
+      minWidth: 0,
+      position: 'sticky',
+      top: 'calc(120px + 24px)',
+      display: { md: 'block', sm: 'none', xs: 'none' },
+    }} />
 
     {/* Search bar and article list */}
     <Box flex={1} minWidth={0}>
@@ -387,7 +394,7 @@ const TagLoadingSkeleton = () => (
 
       <ArticleListSkeleton />
     </Box>
-  </Stack>
+  </Box>
 )
 
 const TypeHeading = styled(Typography)`
