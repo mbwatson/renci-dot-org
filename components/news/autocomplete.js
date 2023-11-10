@@ -234,6 +234,7 @@ const TagSelector = () => {
     getOptionProps,
     groupedOptions,
     inputValue,
+    setValue,
   } = useAutocompleteFilterContext();
 
   if (!anchorEl) return null;
@@ -260,70 +261,56 @@ const TagSelector = () => {
           timeout={{ appear: 250, enter: 250, exit: 0 }}
         >
           <StyledListbox {...getListboxProps()}>
-            {groupedOptions.length > 0 ? (
-              groupedOptions.map(({ group, options, key }) => (
-                <Box key={key} sx={{ mb: "10px", isolation: "isolate" }}>
-                  <TypeHeading
-                    sx={{
-                      padding: "8px 0px",
-                      position: "sticky",
-                      top: 0,
-                      backgroundColor: "white",
-                      zIndex: 2,
-                      WebkitTransform: "translate3d(0,0,0)", // mobile safari bug https://css-tricks.com/forums/topic/safari-for-ios-z-index-ordering-bug-while-scrolling-a-page-with-a-fixed-element/
-                    }}
-                  >
-                    {LABELS[group]}
-                  </TypeHeading>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: "4px",
-                      zIndex: 1,
-                    }}
-                  >
-                    {options.map((option, i) => {
-                      const matches = match(option.name, inputValue, {
-                        insideWords: true,
-                      });
-                      const parts = parse(option.name, matches);
-                      const optionProps = getOptionProps({
-                        option,
-                        index: key + i,
-                      });
+            {groupedOptions.length > 0 ? (<>
+              <TagSelectorFreeSearchPreview
+                inputValue={inputValue}
+                setValue={setValue}
+              />
+              {groupedOptions.map(({ group, options, key }) => (
+                <TagSelectorGroup label={LABELS[group]} key={key}>
+                  {options.map((option, i) => {
+                    const matches = match(option.name, inputValue, {
+                      insideWords: true,
+                    });
+                    const parts = parse(option.name, matches);
+                    const optionProps = getOptionProps({
+                      option,
+                      index: key + i,
+                    });
 
-                      return (
-                        <StyledOption {...optionProps} key={option.slug}>
-                          <Tag
-                            contents={
-                              <>
-                                {parts.map((part, partIndex) => (
-                                  <span
-                                    key={partIndex}
-                                    style={{
-                                      fontWeight: part.highlight ? 700 : 400,
-                                    }}
-                                  >
-                                    {part.text}
-                                  </span>
-                                ))}
-                                {option.numOfPosts > 1 ? (
-                                  <span> ({option.numOfPosts})</span>
-                                ) : null}
-                              </>
-                            }
-                            inverted={optionProps["aria-selected"]}
-                            type={option.type}
-                          />
-                        </StyledOption>
-                      );
-                    })}
-                  </Box>
-                </Box>
-              ))
-            ) : (
-              <StyledNoOptions>No results</StyledNoOptions>
+                    return (
+                      <StyledOption {...optionProps} key={option.slug}>
+                        <Tag
+                          contents={
+                            <>
+                              {parts.map((part, partIndex) => (
+                                <span
+                                  key={partIndex}
+                                  style={{
+                                    fontWeight: part.highlight ? 700 : 400,
+                                  }}
+                                >
+                                  {part.text}
+                                </span>
+                              ))}
+                              {option.numOfPosts > 1 ? (
+                                <span> ({option.numOfPosts})</span>
+                              ) : null}
+                            </>
+                          }
+                          inverted={optionProps["aria-selected"]}
+                          type={option.type}
+                        />
+                      </StyledOption>
+                    );
+                  })}
+                </TagSelectorGroup>
+              ))}
+            </>) : (
+              <TagSelectorFreeSearchPreview
+                inputValue={inputValue}
+                setValue={setValue}
+              />
             )}
           </StyledListbox>
         </Grow>
@@ -331,6 +318,50 @@ const TagSelector = () => {
     </Popper>
   );
 };
+
+const TagSelectorGroup = ({
+  children,
+  label,
+}) => (
+  <Box sx={{ mb: "10px", isolation: "isolate" }}>
+    <TypeHeading
+      sx={{
+        padding: "8px 0px",
+        position: "sticky",
+        top: 0,
+        backgroundColor: "white",
+        zIndex: 2,
+        WebkitTransform: "translate3d(0,0,0)", // mobile safari bug https://css-tricks.com/forums/topic/safari-for-ios-z-index-ordering-bug-while-scrolling-a-page-with-a-fixed-element/
+      }}
+    >
+      {label}
+    </TypeHeading>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: "4px",
+        zIndex: 1,
+      }}
+    >
+      {children}
+    </Box>
+  </Box>
+);
+
+const TagSelectorFreeSearchPreview = ({ inputValue, setValue }) => {
+  if (inputValue === "") return null;
+  return (
+    <TagSelectorGroup label="Custom filter">
+      <StyledOption onClick={() => { setValue(prev => [...prev, inputValue]) }}>
+        <Tag contents={`"${inputValue}"`} />
+        <span style={{ marginLeft: '8px' }}>
+          press <StyledKbd>enter</StyledKbd> or click to apply.
+        </span>
+      </StyledOption>
+    </TagSelectorGroup>
+  )
+}
 
 const ClearAllButton = () => {
   const { clearAll } = useAutocompleteFilterContext();
@@ -496,8 +527,19 @@ const StyledOption = styled("li")(
 `
 );
 
-const StyledNoOptions = styled("li")`
-  list-style: none;
-  padding: 14px 0 8px 0;
-  cursor: default;
-`;
+const StyledKbd = styled("kbd")`
+  background-color: ${grey[100]};
+  border-radius: 3px;
+  border: 1px solid ${grey[300]};
+  box-shadow:
+    0 1px 1px ${grey[600]},
+    0 2px 0 0 ${grey[100]} inset;
+  color: ${grey[800]};
+  display: inline-block;
+  font-size: 0.85em;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 4px;
+  white-space: nowrap;
+  text-transform: uppercase;
+`
