@@ -3,6 +3,7 @@ import { ArticleList, ArticleListSkeleton } from "@/components/news/article-list
 import { AutocompleteFilter } from "@/components/news/autocomplete";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
 import { fetchTags } from "@/lib/strapi/newsGraphQL";
+import { deleteIndexFromArray } from "@/utils/array";
 import { Box, Divider, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -121,7 +122,7 @@ export default function News() {
     }, [])
   ), [selectedTags]);
 
-  const setSelectedTags = useCallback((value) => {
+  const setFlatSelectedTags = useCallback((value) => {
     // take the flattened selected tags list and push it to the query param state
     // (obj with type keys and slug string arrays)
     
@@ -170,6 +171,46 @@ export default function News() {
       { shallow: true, scroll: false }
     );
   }, [parsedQuery, flatSelectedTags, router]);
+
+  /**
+   * @param {string} id - the `slug` or `name` (for postTags) field for the tag to be deleted
+   * @param {"collaborations" | "people" | "projects" | "organizations" | "researchGroups" | "postTags" | "freeSearch"} type  
+   */
+  const deleteTag = useCallback((id, type) => {
+    const tagIndexToDelete = flatSelectedTags.find((tag) => {
+      if (typeof tag === "string" && type === "freeSearch" && id === tag) return true;
+      if (type === "postTags" && tag.name === id) return true;
+      return tag.slug === id;
+    });
+    if (tagIndexToDelete === -1) return null;
+
+    setFlatSelectedTags(deleteIndexFromArray(flatSelectedTags, tagIndexToDelete));
+  }, [flatSelectedTags, setFlatSelectedTags]);
+
+  /**
+   * adds to the filtered tags. If the tag is already present, this is a no-op
+   */
+  const addTag = useCallback((id, type) => {
+    if(allTags === null || isTagSelected(id, type)) return;
+    if(type === "freeSearch") {
+      if(typeof id === string) setFlatSelectedTags((prev) => { prev.push(id); return prev; })
+      return;
+    }
+
+    if(!(type in allTags)) return;
+
+    // get the full tag object based on the id/type. If it's not a real tag, return
+    const fullTag = allTags[type].find((tag) => tag[type === "postTags" ? "name" : "slug"] === id);
+    if(fullTag === undefined) return;
+
+    setFlatSelectedTags((prev) => {
+      prev.push({
+        ...fullTag,
+        type,
+      });
+      return prev;
+    })
+  }, [allTags, isTagSelected, setFlatSelectedTags]);
 
   // don't call this state's setter directly! update the query params
   const [newsOrFeature, _setNewsOrFeature] = useState(null);
@@ -230,7 +271,7 @@ export default function News() {
         <AutocompleteFilter
           tags={allTags}
           value={flatSelectedTags}
-          setValue={setSelectedTags}
+          setValue={setFlatSelectedTags}
         >
           <Stack spacing={3} my={6} alignItems='flex-start' direction='row'>
             {/* Filter sidebar */}
@@ -266,6 +307,8 @@ export default function News() {
               <ArticleList 
                 selectedTags={selectedTags}
                 isTagSelected={isTagSelected}
+                deleteTag={deleteTag}
+                addTag={addTag}
                 newsOrFeature={newsOrFeature}
                 page={page}
                 setPage={setPage}

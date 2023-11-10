@@ -5,6 +5,8 @@ import { Tag } from "./tag"
 export const ArticlePreview = ({
   article,
   isTagSelected,
+  deleteTag,
+  addTag,
   skeleton = false,
 }) => {
   const date = new Date(article.publishDate)
@@ -42,13 +44,19 @@ export const ArticlePreview = ({
         </Stack>
 
         <Stack direction='row' flex="1"  gap={1} sx={{ overflowX: 'auto', direction: 'rtl' }}>
-          {tags.map(({ name, slug, type }, i) => <Tag
-            key={i}
-            type={type}
-            contents={name}
-            inverted={isTagSelected(type === 'postTags' ? name : slug, type)}
-            sx={{ minWidth: 'fit-content' }}
-          />)}
+          {tags.map(({ name, slug, type }, i) => {
+            const id = type === type === 'postTags' ? name : slug;
+            const isSelected = isTagSelected(id, type);
+            return <Tag
+              key={i}
+              type={type}
+              contents={name}
+              inverted={isSelected}
+              onClick={!isSelected ? () => { addTag(id, type) } : undefined}
+              onDelete={isSelected ? () => { deleteTag(id, type) } : undefined}
+              sx={{ minWidth: 'fit-content' }}
+            />
+          })}
         </Stack>
       </Stack>
       <Typography variant="h3" sx={{ '& a': { textDecoration: 'none' }}}>

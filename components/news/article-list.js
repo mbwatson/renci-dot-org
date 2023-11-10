@@ -5,6 +5,8 @@ import { ArticlePreview } from "./article-preview";
 export const ArticleList = ({
   selectedTags,
   isTagSelected,
+  deleteTag,
+  addTag,
   newsOrFeature,
   page,
   setPage,
@@ -41,7 +43,7 @@ export const ArticleList = ({
   return <Stack>
     <Stack direction='column' gap={4} paddingY={4}>
       {articles.map((article, i) => (
-        <ArticlePreview key={i} article={article} isTagSelected={isTagSelected} />
+        <ArticlePreview key={i} article={article} isTagSelected={isTagSelected} deleteTag={deleteTag} addTag={addTag} />
       ))}
     </Stack>
     

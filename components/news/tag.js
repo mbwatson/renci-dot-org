@@ -65,6 +65,7 @@ export const Tag = ({
       ) : undefined
     }
     sx={{
+      direction: 'initial',
       backgroundColor: !inverted ? bgColor : color,
       color: !inverted ? color : bgColor,
       borderRadius: "6px",
