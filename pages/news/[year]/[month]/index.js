@@ -5,6 +5,7 @@ import { isValidDate } from "@/utils/date";
 export default function MonthCatalog({ year, month, posts }) {
   return <TimeGrouping
     year={year}
+    month={month}
     posts={posts}
   />
 }
