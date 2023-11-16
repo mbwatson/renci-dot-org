@@ -1,10 +1,58 @@
-import { Page } from "@/components/layout";
+import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
+import { Divider, Typography, Box, Stack } from "@mui/material";
+import { Markdown } from "@/components/markdown";
+import Image from "next/image";
 
 export default function Article({ article }) {
-  return <Page title={article.title} description={article.subtitle}>
-    <pre>{JSON.stringify(article, null, 2)}</pre>
+  return (
+  <Page hideTitle title={article.title} description={article.subtitle}>
+
+    {/* Defines the article width, does not include next/previous article buttons */}
+    <Section>
+      {/* container that holds the date and label on the same line */}
+
+      {/*title moved down here below the date/label line*/}
+      <Typography variant="h1">
+        { article.title }
+      </Typography>
+
+      {/*Subheading/subtitle if one exists*/}
+      {
+        article.subtitle && (
+          <Typography variant="subtitle1">
+            {article.excerpt}
+          </Typography>
+        )
+      }
+
+      <Divider sx={{ margin: '1rem 0'}}/>
+
+        
+      {/*Article content is mapped over because each section is grouped by content type, separating rich text from images*/}
+      {
+        article.content.map((item)=> {
+          return item.__typename == "ComponentPostSectionsImage" ? (
+            <Image 
+              priority
+              src={item.image.url}
+              alt={item.altText}
+              width= {item.image.width}
+              height={item.image.height}
+              layout="responsive"
+              objectFit='cover'
+            />
+          ) : (
+            <Markdown>{item.content}</Markdown>
+          )
+        })
+      }
+
+    {/* <pre>{JSON.stringify(article, null, 2)}</pre> */}
+
+    </Section>
   </Page>
+  )
 }
 
 export async function getStaticPaths() {
