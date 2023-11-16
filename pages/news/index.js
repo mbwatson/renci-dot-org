@@ -2,7 +2,7 @@ import { Page } from "@/components/layout";
 import { ArticleList, ArticleListSkeleton } from "@/components/news/article-list";
 import { AutocompleteFilter } from "@/components/news/autocomplete";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
-import { fetchTags } from "@/lib/strapi/newsGraphQL";
+import { useTags } from "@/lib/strapi/newsGraphQL";
 import { deleteIndexFromArray } from "@/utils/array";
 import { Tune } from "@mui/icons-material";
 import { Badge, Box, Divider, Drawer, IconButton, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
@@ -16,13 +16,11 @@ export default function News() {
   // have to use the `comma: true` setting to parse if using qs.stringify with the `array: "comma"` config
   const parsedQuery = useMemo(() => qs.parse(router.query, { comma: true }), [router.query]);
 
-  const [allTags, setAllTags] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const tags = await fetchTags();
-      setAllTags(tags);
-    })();
-  }, []);
+  const {
+    data: allTags,
+    error: allTagsError,
+    isLoading: allTagsLoading,
+  } = useTags();
 
   const [mobileModalOpen, setMobileModalOpen] = useState(false);
 
@@ -43,7 +41,7 @@ export default function News() {
    */
   const getFullTagsFromIds = useCallback(
     (type, tags) => {
-      if (allTags === null) return [];
+      if (allTagsLoading) return [];
       
       // add this guard since if there's no query string the value will be undefined
       if (tags === undefined) return [];
@@ -72,7 +70,7 @@ export default function News() {
         tagIdSet.has(tagWithFullData[identifier])
       );
     },
-    [allTags]
+    [allTags, allTagsLoading]
   );
 
   // don't call this state's setter directly! update the query params
@@ -86,7 +84,7 @@ export default function News() {
     freeSearch: [],
   });
   useEffect(() => {
-    if (allTags === null) return;
+    if (allTagsLoading) return;
     _setSelectedTags({
       collaborations: getFullTagsFromIds("collaborations", parsedQuery.collaborations),
       people: getFullTagsFromIds("people", parsedQuery.people),
@@ -104,7 +102,7 @@ export default function News() {
           ? parsedQuery.freeSearch
           : [],
     })
-  }, [allTags, getFullTagsFromIds, parsedQuery]);
+  }, [allTags, allTagsLoading, getFullTagsFromIds, parsedQuery]);
 
   /**
    * helper function for checking if a tag is in 
@@ -194,7 +192,7 @@ export default function News() {
    * adds to the filtered tags. If the tag is already present, this is a no-op
    */
   const addTag = useCallback((id, type) => {
-    if(allTags === null || isTagSelected(id, type)) return;
+    if(allTagsLoading || isTagSelected(id, type)) return;
     if(type === "freeSearch") {
       if(typeof id === string) setFlatSelectedTags((prev) => { prev.push(id); return prev; })
       return;
@@ -213,7 +211,7 @@ export default function News() {
       });
       return prev;
     })
-  }, [allTags, isTagSelected, setFlatSelectedTags]);
+  }, [allTags, allTagsLoading, isTagSelected, setFlatSelectedTags]);
 
   // don't call this state's setter directly! update the query params
   const [newsOrFeature, _setNewsOrFeature] = useState(null);
@@ -270,7 +268,7 @@ export default function News() {
         view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
       </Typography>
 
-      {allTags === null ? <TagLoadingSkeleton /> : (
+      {allTagsLoading ? <TagLoadingSkeleton /> : (
         <AutocompleteFilter
           tags={allTags}
           value={flatSelectedTags}
