@@ -2,7 +2,7 @@ import { Page } from "@/components/layout";
 import { ArticleList, ArticleListSkeleton } from "@/components/news/article-list";
 import { AutocompleteFilter } from "@/components/news/autocomplete";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
-import { useTags } from "@/lib/strapi/newsGraphQL";
+import { useTags } from "@/lib/strapi/newsSWR";
 import { deleteIndexFromArray } from "@/utils/array";
 import { Tune } from "@mui/icons-material";
 import { Badge, Box, Divider, Drawer, IconButton, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
