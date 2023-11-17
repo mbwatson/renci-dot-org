@@ -35,10 +35,10 @@ export default function Article({ article }) {
           return item.__typename == "ComponentPostSectionsImage" ? (
             <Image 
               priority
-              src={item.image.url}
+              src={item.image.data.attributes.url}
               alt={item.altText}
-              width= {item.image.width}
-              height={item.image.height}
+              width= {item.image.data.attributes.width}
+              height={item.image.data.attributes.height}
               layout="responsive"
               objectFit='cover'
             />
