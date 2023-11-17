@@ -178,7 +178,7 @@ export default function News() {
    * @param {"collaborations" | "people" | "projects" | "organizations" | "researchGroups" | "postTags" | "freeSearch"} type  
    */
   const deleteTag = useCallback((id, type) => {
-    const tagIndexToDelete = flatSelectedTags.find((tag) => {
+    const tagIndexToDelete = flatSelectedTags.findIndex((tag) => {
       if (typeof tag === "string" && type === "freeSearch" && id === tag) return true;
       if (type === "postTags" && tag.name === id) return true;
       return tag.slug === id;
