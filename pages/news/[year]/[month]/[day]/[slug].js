@@ -4,6 +4,7 @@ import { Divider, Typography, Box, Stack } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
+import { Tag } from "@/components/news/tag"
 
 export default function Article({ article }) {
   return (
@@ -18,9 +19,9 @@ export default function Article({ article }) {
         justifyContent="space-between"
       >
         <ArticleDate date={article.publishDate}/>
-
+        
         <div>
-          Label
+          <Tag contents={article.newsOrBlog}/>
         </div>
       </Stack>
 
