@@ -9,7 +9,7 @@ export const ArticleList = ({
   isTagSelected,
   deleteTag,
   addTag,
-  newsOrFeature,
+  blogOrFeature,
   page,
   setPage,
 }) => {
@@ -27,10 +27,10 @@ export const ArticleList = ({
       postTags: selectedTags.postTags.map(({ name }) => name),
       freeSearch: selectedTags.freeSearch,
       newsOrBlog:
-        newsOrFeature === 'news'
-          ? 'news'
-          : newsOrFeature === 'feature'
+        blogOrFeature === 'blog'
           ? 'blog'
+          : blogOrFeature === 'feature'
+          ? 'news'
           : undefined,
     },
     page,

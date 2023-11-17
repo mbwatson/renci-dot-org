@@ -54,7 +54,7 @@ export const ArticlePreview = ({
           <Typography variant="subtitle2" whiteSpace='nowrap'>{dateString}</Typography>
           <Box sx={{ width: '0.3em', height: '0.3em', backgroundColor: '#b6b6b6', borderRadius: '50%', flex: '0 0 auto' }} />
           <Typography variant="subtitle2" textTransform='uppercase'>{
-            article.newsOrBlog === 'news' ? 'News' : 'Feature'
+            article.newsOrBlog === 'blog' ? 'Blog' : 'Feature'
           }</Typography>
         </Stack>
 

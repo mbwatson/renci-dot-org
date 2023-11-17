@@ -138,7 +138,7 @@ export default function News() {
     // object to hopefully avoid errors:
 
     const queryParamObj = {
-      ...(parsedQuery.newsOrFeature && ({ newsOrFeature: parsedQuery.newsOrFeature })),
+      ...(parsedQuery.blogOrFeature && ({ blogOrFeature: parsedQuery.blogOrFeature })),
       ...(parsedQuery.page && ({ page: parsedQuery.page })),
       ...(next.some((t) => t.type === 'researchGroups') && {
         researchGroups: next.filter((t) => t.type === 'researchGroups').map((t) => t.slug)
@@ -215,17 +215,17 @@ export default function News() {
   }, [allTags, allTagsLoading, isTagSelected, setFlatSelectedTags]);
 
   // don't call this state's setter directly! update the query params
-  const [newsOrFeature, _setNewsOrFeature] = useState(null);
+  const [blogOrFeature, _setBlogOrFeature] = useState(null);
   useEffect(() => {
-    _setNewsOrFeature(parsedQuery.newsOrFeature ?? null);
+    _setBlogOrFeature(parsedQuery.blogOrFeature ?? null);
   }, [parsedQuery]);
-  const setNewsOrFeature = useCallback((value) => {
-    const next = typeof value === "function" ? value(newsOrFeature) : value;
+  const setBlogOrFeature = useCallback((value) => {
+    const next = typeof value === "function" ? value(blogOrFeature) : value;
     const queryParamObj = { 
       ...parsedQuery,
-      newsOrFeature: next,
+      blogOrFeature: next,
     };
-    if (next === null) delete queryParamObj["newsOrFeature"];
+    if (next === null) delete queryParamObj["blogOrFeature"];
     delete queryParamObj["page"];
     router.push(
       {
@@ -235,7 +235,7 @@ export default function News() {
       undefined,
       { shallow: true, scroll: false }
     );
-  }, [parsedQuery, newsOrFeature, router])
+  }, [parsedQuery, blogOrFeature, router])
 
   // don't call this state's setter directly! update the query params
   const [page, _setPage] = useState(1);
@@ -288,8 +288,8 @@ export default function News() {
             }} elevation={3}>
               <FilterSelectorContents
                 flatSelectedTags={flatSelectedTags}
-                newsOrFeature={newsOrFeature}
-                setNewsOrFeature={setNewsOrFeature}
+                blogOrFeature={blogOrFeature}
+                setBlogOrFeature={setBlogOrFeature}
               />
             </Paper>
 
@@ -321,7 +321,7 @@ export default function News() {
                 isTagSelected={isTagSelected}
                 deleteTag={deleteTag}
                 addTag={addTag}
-                newsOrFeature={newsOrFeature}
+                blogOrFeature={blogOrFeature}
                 page={page}
                 setPage={setPage}
               />
@@ -338,8 +338,8 @@ export default function News() {
             <Box p={1}>
               <FilterSelectorContents
                 flatSelectedTags={flatSelectedTags}
-                newsOrFeature={newsOrFeature}
-                setNewsOrFeature={setNewsOrFeature}
+                blogOrFeature={blogOrFeature}
+                setBlogOrFeature={setBlogOrFeature}
               />
             </Box>
           </Drawer>
@@ -351,8 +351,8 @@ export default function News() {
 
 const FilterSelectorContents = ({
   flatSelectedTags,
-  setNewsOrFeature,
-  newsOrFeature,
+  setBlogOrFeature,
+  blogOrFeature,
 }) => (
   <>
     <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
@@ -365,8 +365,8 @@ const FilterSelectorContents = ({
     <Box mt={1} mb='4px'>
       <TypeHeading px={1} pb='4px'>Category</TypeHeading>
       <NewsOrFeatureToggle 
-        setNewsOrFeature={setNewsOrFeature}
-        newsOrFeature={newsOrFeature}
+        setBlogOrFeature={setBlogOrFeature}
+        blogOrFeature={blogOrFeature}
       />
     </Box>
 

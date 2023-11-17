@@ -1,6 +1,6 @@
 import { Button, ButtonGroup } from "@mui/material";
 
-export const NewsOrFeatureToggle = ({ newsOrFeature, setNewsOrFeature }) => (
+export const NewsOrFeatureToggle = ({ blogOrFeature, setBlogOrFeature }) => (
   <ButtonGroup
     size="small"
     sx={{
@@ -15,20 +15,20 @@ export const NewsOrFeatureToggle = ({ newsOrFeature, setNewsOrFeature }) => (
     }}
   >
     <Button
-      onClick={() => { setNewsOrFeature(null); }}
-      variant={newsOrFeature === null ? "contained" : "outlined"}
+      onClick={() => { setBlogOrFeature(null); }}
+      variant={blogOrFeature === null ? "contained" : "outlined"}
     >
       All
     </Button>
     <Button
-      onClick={() => { setNewsOrFeature("news"); }}
-      variant={newsOrFeature === "news" ? "contained" : "outlined"}
+      onClick={() => { setBlogOrFeature("blog"); }}
+      variant={blogOrFeature === "blog" ? "contained" : "outlined"}
     >
-      News
+      Blog
     </Button>
     <Button
-      onClick={() => { setNewsOrFeature("feature"); }}
-      variant={newsOrFeature === "feature" ? "contained" : "outlined"}
+      onClick={() => { setBlogOrFeature("feature"); }}
+      variant={blogOrFeature === "feature" ? "contained" : "outlined"}
     >
       Feature
     </Button>
