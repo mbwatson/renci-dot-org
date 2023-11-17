@@ -105,7 +105,7 @@ export default function News() {
   }, [allTags, allTagsLoading, getFullTagsFromIds, parsedQuery]);
 
   /**
-   * helper function for checking if a tag is in 
+   * helper function for checking if a tag is in selectedTags
    */
   const isTagSelected = useCallback((id, type) => {
     if (id === undefined || type === undefined) return false;
