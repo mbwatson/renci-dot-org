@@ -46,6 +46,7 @@ export const ArticlePreview = ({
       <Box sx={{
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+        alignItems: { xs: 'initial', sm: 'initial', md: 'baseline' },
         gap: { xs: 1, sm: 1, md: 2 },
         mb: { xs: 1, sm: 1, md: 0 },
       }}>
@@ -86,7 +87,7 @@ export const ArticlePreview = ({
     
 
     <Typography paragraph className="excerpt" sx={{
-      '--maxHeight': '75px',
+      '--maxHeight': 'calc(4rem * 1.5)',
       '&:before': {
         content: "''",
         width: '100%',
