@@ -3,6 +3,7 @@ import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
 import { Divider, Typography, Box, Stack } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
+import { ArticleDate } from "@/components/news/article-date"
 
 export default function Article({ article }) {
   return (
@@ -10,7 +11,18 @@ export default function Article({ article }) {
 
     {/* Defines the article width, does not include next/previous article buttons */}
     <Section>
+
       {/* container that holds the date and label on the same line */}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+      >
+        <ArticleDate date={article.publishDate}/>
+
+        <div>
+          Label
+        </div>
+      </Stack>
 
       {/*title moved down here below the date/label line*/}
       <Typography variant="h1">
