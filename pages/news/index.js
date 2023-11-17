@@ -1,6 +1,7 @@
 import { Page } from "@/components/layout";
 import { ArticleList, ArticleListSkeleton } from "@/components/news/article-list";
 import { AutocompleteFilter } from "@/components/news/autocomplete";
+import { Error } from "@/components/news/error";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
 import { useTags } from "@/lib/strapi/newsSWR";
 import { deleteIndexFromArray } from "@/utils/array";
@@ -268,7 +269,7 @@ export default function News() {
         view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
       </Typography>
 
-      {allTagsLoading ? <TagLoadingSkeleton /> : (
+      {allTagsError ? <Error sx={{ my: 2 }} /> : allTagsLoading ? <TagLoadingSkeleton /> : (
         <AutocompleteFilter
           tags={allTags}
           value={flatSelectedTags}
