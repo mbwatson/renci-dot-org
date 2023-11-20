@@ -102,22 +102,26 @@ export default function Article({ article }) {
       {article.researchGroups[0] && (
         <Fragment>
           <Typography variant="h3">Research Groups:</Typography>
-          {
-            article.researchGroups.map((item) => (
-              <li><Link to={`researchGroups/${item.slug}`}>{item.name}</Link></li>
-            ))
-          }
+          <ul>
+            {
+              article.researchGroups.map((item) => (
+                <li><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
+              ))
+            }
+          </ul>
           <br/>
         </Fragment>
       )}
       {article.collaborations[0] && (
         <Fragment>
           <Typography variant="h3">Collaborations:</Typography>
-          {
-            article.collaborations.map((item) => (
-              <li><Link to={`collaborations/${item.slug}`}>{item.name}</Link></li>
-            ))
-          }
+          <ul>
+            {
+              article.collaborations.map((item) => (
+                <li><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
+              ))
+            }
+          </ul>
           <br/>
         </Fragment>
       )}
@@ -126,7 +130,7 @@ export default function Article({ article }) {
           <Typography variant="h3">Projects:</Typography>
           {
             article.projects.map((item) => (
-              <li><Link to={`projects/${item.slug}`}>{item.name}</Link></li>
+              <li><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
             ))
           }
           <br/>
@@ -135,22 +139,13 @@ export default function Article({ article }) {
       {article.people[0] && (
         <Fragment>
           <Typography variant="h3">People:</Typography>
-          {
-            article.people.map((item) => (
-              <li><Link to={`people/${item.slug}`}>{item.name}</Link></li>
-            ))
-          }
-          <br/>
-        </Fragment>
-      )}
-      {article.postTags[0] && (
-        <Fragment>
-          <Typography variant="h3">Post Tags:</Typography>
-          {
-            article.postTags.map((item) => (
-              <li><Link to={`postTags/${item.slug}`}>{item.name}</Link></li>
-            ))
-          }
+          <ul>
+            {
+              article.people.map((item) => (
+                <li><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
+              ))
+            }
+          </ul>
           <br/>
         </Fragment>
       )}
