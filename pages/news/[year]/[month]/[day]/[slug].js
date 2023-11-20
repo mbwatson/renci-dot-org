@@ -1,3 +1,4 @@
+import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
 import { Divider, Typography, Box, Stack } from "@mui/material";
@@ -6,6 +7,7 @@ import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
 import { Tag } from "@/components/news/tag"
 import qs from "qs";
+import { Link } from "@/components/link"
 
 export default function Article({ article }) {
   
@@ -36,7 +38,7 @@ export default function Article({ article }) {
         <ArticleDate date={article.publishDate}/>
         
         <div>
-          <Tag contents={article.newsOrBlog}/>
+          <Typography sx={{textTransform: "capitalize", fontWeight: "500",  padding: "0.25rem 0.5rem", backgroundColor:"#D9D9D9"}}>{article.newsOrBlog}</Typography>
         </div>
       </Stack>
 
@@ -92,8 +94,66 @@ export default function Article({ article }) {
         })
       }
 
-    {/* <pre>{JSON.stringify(article, null, 2)}</pre> */}
+    </Section>
 
+    <Divider sx={{ margin: '1rem 0'}}/>
+
+    <Section title="Read More">
+      {article.researchGroups[0] && (
+        <Fragment>
+          <Typography variant="h3">Research Groups:</Typography>
+          {
+            article.researchGroups.map((item) => (
+              <li><Link to={`researchGroups/${item.slug}`}>{item.name}</Link></li>
+            ))
+          }
+          <br/>
+        </Fragment>
+      )}
+      {article.collaborations[0] && (
+        <Fragment>
+          <Typography variant="h3">Collaborations:</Typography>
+          {
+            article.collaborations.map((item) => (
+              <li><Link to={`collaborations/${item.slug}`}>{item.name}</Link></li>
+            ))
+          }
+          <br/>
+        </Fragment>
+      )}
+      {article.projects[0] && (
+        <Fragment>
+          <Typography variant="h3">Projects:</Typography>
+          {
+            article.projects.map((item) => (
+              <li><Link to={`projects/${item.slug}`}>{item.name}</Link></li>
+            ))
+          }
+          <br/>
+        </Fragment>
+      )}
+      {article.people[0] && (
+        <Fragment>
+          <Typography variant="h3">People:</Typography>
+          {
+            article.people.map((item) => (
+              <li><Link to={`people/${item.slug}`}>{item.name}</Link></li>
+            ))
+          }
+          <br/>
+        </Fragment>
+      )}
+      {article.postTags[0] && (
+        <Fragment>
+          <Typography variant="h3">Post Tags:</Typography>
+          {
+            article.postTags.map((item) => (
+              <li><Link to={`postTags/${item.slug}`}>{item.name}</Link></li>
+            ))
+          }
+          <br/>
+        </Fragment>
+      )}
     </Section>
   </Page>
   )
