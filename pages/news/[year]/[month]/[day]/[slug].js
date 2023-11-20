@@ -51,7 +51,7 @@ export default function Article({ article }) {
       {
         article.subtitle && (
           <Typography variant="subtitle1">
-            {article.excerpt}
+            {article.subtitle}
           </Typography>
         )
       }
