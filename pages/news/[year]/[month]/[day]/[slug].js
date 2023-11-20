@@ -104,8 +104,8 @@ export default function Article({ article }) {
           <Typography variant="h3">Research Groups:</Typography>
           <ul>
             {
-              article.researchGroups.map((item) => (
-                <li><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
+              article.researchGroups.map((item, i) => (
+                <li key={i}><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
               ))
             }
           </ul>
@@ -117,8 +117,8 @@ export default function Article({ article }) {
           <Typography variant="h3">Collaborations:</Typography>
           <ul>
             {
-              article.collaborations.map((item) => (
-                <li><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
+              article.collaborations.map((item, i) => (
+                <li key={i}><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
               ))
             }
           </ul>
@@ -129,8 +129,8 @@ export default function Article({ article }) {
         <Fragment>
           <Typography variant="h3">Projects:</Typography>
           {
-            article.projects.map((item) => (
-              <li><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
+            article.projects.map((item, i) => (
+              <li key={i}><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
             ))
           }
           <br/>
@@ -141,8 +141,8 @@ export default function Article({ article }) {
           <Typography variant="h3">People:</Typography>
           <ul>
             {
-              article.people.map((item) => (
-                <li><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
+              article.people.map((item, i) => (
+                <li key={i}><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
               ))
             }
           </ul>
