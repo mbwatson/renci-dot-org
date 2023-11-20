@@ -7,6 +7,16 @@ import { ArticleDate } from "@/components/news/article-date"
 import { Tag } from "@/components/news/tag"
 
 export default function Article({ article }) {
+  
+  const tags = [
+    article.projects.map((x) => ({ ...x, type: 'projects' })),
+    article.people.map((x) => ({ ...x, type: 'people' })),
+    article.collaborations.map((x) => ({ ...x, type: 'collaborations' })),
+    article.researchGroups.map((x) => ({ ...x, type: 'researchGroups' })),
+    article.organizations.map((x) => ({ ...x, type: 'organizations' })),
+    article.postTags.map((x) => ({ ...x, type: 'postTags' }))
+  ].flat();
+
   return (
   <Page hideTitle title={article.title} description={article.subtitle}>
 
