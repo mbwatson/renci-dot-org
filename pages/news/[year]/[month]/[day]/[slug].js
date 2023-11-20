@@ -5,6 +5,7 @@ import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
 import { Tag } from "@/components/news/tag"
+import qs from "qs";
 
 export default function Article({ article }) {
   
@@ -16,6 +17,10 @@ export default function Article({ article }) {
     article.organizations.map((x) => ({ ...x, type: 'organizations' })),
     article.postTags.map((x) => ({ ...x, type: 'postTags' }))
   ].flat();
+
+  const createTagLinkURL = (id, type) => {
+    return `/news?${qs.stringify({[type]: id})}`
+  }
 
   return (
   <Page hideTitle title={article.title} description={article.subtitle}>
@@ -48,6 +53,22 @@ export default function Article({ article }) {
           </Typography>
         )
       }
+      <Stack direction="row" flexWrap="wrap" gap={1}>
+        {tags.map(({ name, slug, type }, i) => {
+          const id = type === 'postTags' ? name : slug;
+
+          return (
+            <Tag
+              type={type}
+              contents={name}
+              sx={{ minWidth: 'fit-content' }}
+              component="a"
+              href={createTagLinkURL(id, type)}
+              key={i}
+            />
+          )
+        })}
+      </Stack>
 
       <Divider sx={{ margin: '1rem 0'}}/>
 
