@@ -1,8 +1,9 @@
 import { Page } from "@/components/layout";
 import { ArticleList, ArticleListSkeleton } from "@/components/news/article-list";
 import { AutocompleteFilter } from "@/components/news/autocomplete";
+import { Error } from "@/components/news/error";
 import { NewsOrFeatureToggle } from "@/components/news/news-or-feature-toggle";
-import { fetchTags } from "@/lib/strapi/newsGraphQL";
+import { useTags } from "@/lib/strapi/newsSWR";
 import { deleteIndexFromArray } from "@/utils/array";
 import { Tune } from "@mui/icons-material";
 import { Badge, Box, Divider, Drawer, IconButton, Paper, Skeleton, Stack, Typography, styled } from "@mui/material";
@@ -16,13 +17,11 @@ export default function News() {
   // have to use the `comma: true` setting to parse if using qs.stringify with the `array: "comma"` config
   const parsedQuery = useMemo(() => qs.parse(router.query, { comma: true }), [router.query]);
 
-  const [allTags, setAllTags] = useState(null);
-  useEffect(() => {
-    (async () => {
-      const tags = await fetchTags();
-      setAllTags(tags);
-    })();
-  }, []);
+  const {
+    data: allTags,
+    error: allTagsError,
+    isLoading: allTagsLoading,
+  } = useTags();
 
   const [mobileModalOpen, setMobileModalOpen] = useState(false);
 
@@ -43,7 +42,7 @@ export default function News() {
    */
   const getFullTagsFromIds = useCallback(
     (type, tags) => {
-      if (allTags === null) return [];
+      if (allTagsLoading) return [];
       
       // add this guard since if there's no query string the value will be undefined
       if (tags === undefined) return [];
@@ -72,7 +71,7 @@ export default function News() {
         tagIdSet.has(tagWithFullData[identifier])
       );
     },
-    [allTags]
+    [allTags, allTagsLoading]
   );
 
   // don't call this state's setter directly! update the query params
@@ -86,7 +85,7 @@ export default function News() {
     freeSearch: [],
   });
   useEffect(() => {
-    if (allTags === null) return;
+    if (allTagsLoading) return;
     _setSelectedTags({
       collaborations: getFullTagsFromIds("collaborations", parsedQuery.collaborations),
       people: getFullTagsFromIds("people", parsedQuery.people),
@@ -104,10 +103,10 @@ export default function News() {
           ? parsedQuery.freeSearch
           : [],
     })
-  }, [allTags, getFullTagsFromIds, parsedQuery]);
+  }, [allTags, allTagsLoading, getFullTagsFromIds, parsedQuery]);
 
   /**
-   * helper function for checking if a tag is in 
+   * helper function for checking if a tag is in selectedTags
    */
   const isTagSelected = useCallback((id, type) => {
     if (id === undefined || type === undefined) return false;
@@ -139,7 +138,7 @@ export default function News() {
     // object to hopefully avoid errors:
 
     const queryParamObj = {
-      ...(parsedQuery.newsOrFeature && ({ newsOrFeature: parsedQuery.newsOrFeature })),
+      ...(parsedQuery.blogOrFeature && ({ blogOrFeature: parsedQuery.blogOrFeature })),
       ...(parsedQuery.page && ({ page: parsedQuery.page })),
       ...(next.some((t) => t.type === 'researchGroups') && {
         researchGroups: next.filter((t) => t.type === 'researchGroups').map((t) => t.slug)
@@ -180,7 +179,7 @@ export default function News() {
    * @param {"collaborations" | "people" | "projects" | "organizations" | "researchGroups" | "postTags" | "freeSearch"} type  
    */
   const deleteTag = useCallback((id, type) => {
-    const tagIndexToDelete = flatSelectedTags.find((tag) => {
+    const tagIndexToDelete = flatSelectedTags.findIndex((tag) => {
       if (typeof tag === "string" && type === "freeSearch" && id === tag) return true;
       if (type === "postTags" && tag.name === id) return true;
       return tag.slug === id;
@@ -194,7 +193,7 @@ export default function News() {
    * adds to the filtered tags. If the tag is already present, this is a no-op
    */
   const addTag = useCallback((id, type) => {
-    if(allTags === null || isTagSelected(id, type)) return;
+    if(allTagsLoading || isTagSelected(id, type)) return;
     if(type === "freeSearch") {
       if(typeof id === string) setFlatSelectedTags((prev) => { prev.push(id); return prev; })
       return;
@@ -213,20 +212,20 @@ export default function News() {
       });
       return prev;
     })
-  }, [allTags, isTagSelected, setFlatSelectedTags]);
+  }, [allTags, allTagsLoading, isTagSelected, setFlatSelectedTags]);
 
   // don't call this state's setter directly! update the query params
-  const [newsOrFeature, _setNewsOrFeature] = useState(null);
+  const [blogOrFeature, _setBlogOrFeature] = useState(null);
   useEffect(() => {
-    _setNewsOrFeature(parsedQuery.newsOrFeature ?? null);
+    _setBlogOrFeature(parsedQuery.blogOrFeature ?? null);
   }, [parsedQuery]);
-  const setNewsOrFeature = useCallback((value) => {
-    const next = typeof value === "function" ? value(newsOrFeature) : value;
+  const setBlogOrFeature = useCallback((value) => {
+    const next = typeof value === "function" ? value(blogOrFeature) : value;
     const queryParamObj = { 
       ...parsedQuery,
-      newsOrFeature: next,
+      blogOrFeature: next,
     };
-    if (next === null) delete queryParamObj["newsOrFeature"];
+    if (next === null) delete queryParamObj["blogOrFeature"];
     delete queryParamObj["page"];
     router.push(
       {
@@ -236,7 +235,7 @@ export default function News() {
       undefined,
       { shallow: true, scroll: false }
     );
-  }, [parsedQuery, newsOrFeature, router])
+  }, [parsedQuery, blogOrFeature, router])
 
   // don't call this state's setter directly! update the query params
   const [page, _setPage] = useState(1);
@@ -270,7 +269,7 @@ export default function News() {
         view articles about RENCI from other publications, visit the <Link href="/news/appearances">news appearances page</Link>.
       </Typography>
 
-      {allTags === null ? <TagLoadingSkeleton /> : (
+      {allTagsError ? <Error sx={{ my: 2 }} /> : allTagsLoading ? <TagLoadingSkeleton /> : (
         <AutocompleteFilter
           tags={allTags}
           value={flatSelectedTags}
@@ -289,8 +288,8 @@ export default function News() {
             }} elevation={3}>
               <FilterSelectorContents
                 flatSelectedTags={flatSelectedTags}
-                newsOrFeature={newsOrFeature}
-                setNewsOrFeature={setNewsOrFeature}
+                blogOrFeature={blogOrFeature}
+                setBlogOrFeature={setBlogOrFeature}
               />
             </Paper>
 
@@ -322,7 +321,7 @@ export default function News() {
                 isTagSelected={isTagSelected}
                 deleteTag={deleteTag}
                 addTag={addTag}
-                newsOrFeature={newsOrFeature}
+                blogOrFeature={blogOrFeature}
                 page={page}
                 setPage={setPage}
               />
@@ -339,8 +338,8 @@ export default function News() {
             <Box p={1}>
               <FilterSelectorContents
                 flatSelectedTags={flatSelectedTags}
-                newsOrFeature={newsOrFeature}
-                setNewsOrFeature={setNewsOrFeature}
+                blogOrFeature={blogOrFeature}
+                setBlogOrFeature={setBlogOrFeature}
               />
             </Box>
           </Drawer>
@@ -352,8 +351,8 @@ export default function News() {
 
 const FilterSelectorContents = ({
   flatSelectedTags,
-  setNewsOrFeature,
-  newsOrFeature,
+  setBlogOrFeature,
+  blogOrFeature,
 }) => (
   <>
     <Stack direction='row' p={1} alignItems='baseline' justifyContent='space-between'>
@@ -366,8 +365,8 @@ const FilterSelectorContents = ({
     <Box mt={1} mb='4px'>
       <TypeHeading px={1} pb='4px'>Category</TypeHeading>
       <NewsOrFeatureToggle 
-        setNewsOrFeature={setNewsOrFeature}
-        newsOrFeature={newsOrFeature}
+        setBlogOrFeature={setBlogOrFeature}
+        blogOrFeature={blogOrFeature}
       />
     </Box>
 

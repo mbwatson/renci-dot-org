@@ -266,7 +266,14 @@ const TagSelector = () => {
                 inputValue={inputValue}
                 setValue={setValue}
               />
-              {groupedOptions.map(({ group, options, key }) => (
+              {groupedOptions.sort((a, b) => {
+                // keep researchGroups at top and postTags at bottom
+                if (a.group === 'researchGroups') return -1;
+                if (b.group === 'researchGroups') return 1;
+                if (a.group === 'postTags') return 1;
+                if (b.group === 'postTags') return -1;
+                else return a.group.localeCompare(b.group);
+              }).map(({ group, options, key }) => (
                 <TagSelectorGroup label={LABELS[group]} key={key}>
                   {options.map((option, i) => {
                     const matches = match(option.name, inputValue, {

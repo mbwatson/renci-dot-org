@@ -1,34 +1,34 @@
 import { Button, ButtonGroup } from "@mui/material";
 
-export const NewsOrFeatureToggle = ({ newsOrFeature, setNewsOrFeature }) => (
-  <ButtonGroup sx={{ display: 'flex', '--br': '4px', px: '8px' }}>
+export const NewsOrFeatureToggle = ({ blogOrFeature, setBlogOrFeature }) => (
+  <ButtonGroup
+    size="small"
+    sx={{
+      display: 'flex',
+      '--br': '4px',
+      px: '8px',
+      '& .MuiButton-root': {
+        flex: 1,
+        '&:first-of-type': { borderRadius: 'var(--br) 0 0 var(--br)' },
+        '&:last-of-type': { borderRadius: '0 var(--br) var(--br) 0' },
+      }
+    }}
+  >
     <Button
-      sx={{ flex: 1, borderRadius: 'var(--br) 0 0 var(--br)' }}
-      size="small"
-      onClick={() => {
-        setNewsOrFeature(null);
-      }}
-      variant={newsOrFeature === null ? "contained" : "outlined"}
+      onClick={() => { setBlogOrFeature(null); }}
+      variant={blogOrFeature === null ? "contained" : "outlined"}
     >
       All
     </Button>
     <Button
-      sx={{ flex: 1 }}
-      size="small"
-      onClick={() => {
-        setNewsOrFeature("news");
-      }}
-      variant={newsOrFeature === "news" ? "contained" : "outlined"}
+      onClick={() => { setBlogOrFeature("blog"); }}
+      variant={blogOrFeature === "blog" ? "contained" : "outlined"}
     >
-      News
+      Blog
     </Button>
     <Button
-      sx={{ flex: 1, borderRadius: '0 var(--br) var(--br) 0' }}
-      size="small"
-      onClick={() => {
-        setNewsOrFeature("feature");
-      }}
-      variant={newsOrFeature === "feature" ? "contained" : "outlined"}
+      onClick={() => { setBlogOrFeature("feature"); }}
+      variant={blogOrFeature === "feature" ? "contained" : "outlined"}
     >
       Feature
     </Button>

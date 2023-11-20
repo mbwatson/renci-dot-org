@@ -1,4 +1,4 @@
-import { useNewsArticles } from "@/lib/strapi/newsGraphQL";
+import { useNewsArticles } from "@/lib/strapi/newsSWR";
 import { Box, Pagination, Skeleton, Stack, Typography } from "@mui/material"
 import { ArticlePreview } from "./article-preview";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ export const ArticleList = ({
   isTagSelected,
   deleteTag,
   addTag,
-  newsOrFeature,
+  blogOrFeature,
   page,
   setPage,
 }) => {
@@ -27,10 +27,10 @@ export const ArticleList = ({
       postTags: selectedTags.postTags.map(({ name }) => name),
       freeSearch: selectedTags.freeSearch,
       newsOrBlog:
-        newsOrFeature === 'news'
-          ? 'news'
-          : newsOrFeature === 'feature'
+        blogOrFeature === 'blog'
           ? 'blog'
+          : blogOrFeature === 'feature'
+          ? 'news'
           : undefined,
     },
     page,
@@ -47,7 +47,7 @@ export const ArticleList = ({
 
   if (isLoading || !data) return <Stack><ArticleListSkeleton /></Stack>
 
-  const { articles, meta } = data;
+  const { results: articles, pagination } = data;
 
   if (Array.isArray(articles) && articles.length === 0) return <NoArticlesText />
 
@@ -65,7 +65,7 @@ export const ArticleList = ({
       ))}
     </Stack>
     
-    <Pagination count={meta.pagination?.pageCount} page={page} onChange={(_, p) => page === p ? null : setPage(p)} sx={{ alignSelf: 'center' }} />
+    <Pagination count={pagination?.pageCount} page={page} onChange={(_, p) => page === p ? null : setPage(p)} sx={{ alignSelf: 'center' }} />
   </Stack> 
 }
 

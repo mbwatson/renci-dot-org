@@ -46,6 +46,7 @@ export const ArticlePreview = ({
       <Box sx={{
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+        alignItems: { xs: 'initial', sm: 'initial', md: 'baseline' },
         gap: { xs: 1, sm: 1, md: 2 },
         mb: { xs: 1, sm: 1, md: 0 },
       }}>
@@ -53,7 +54,7 @@ export const ArticlePreview = ({
           <Typography variant="subtitle2" whiteSpace='nowrap'>{dateString}</Typography>
           <Box sx={{ width: '0.3em', height: '0.3em', backgroundColor: '#b6b6b6', borderRadius: '50%', flex: '0 0 auto' }} />
           <Typography variant="subtitle2" textTransform='uppercase'>{
-            article.newsOrBlog === 'news' ? 'News' : 'Feature'
+            article.newsOrBlog === 'blog' ? 'Blog' : 'Feature'
           }</Typography>
         </Stack>
 
@@ -86,7 +87,7 @@ export const ArticlePreview = ({
     
 
     <Typography paragraph className="excerpt" sx={{
-      '--maxHeight': '75px',
+      '--maxHeight': 'calc(4rem * 1.5)',
       '&:before': {
         content: "''",
         width: '100%',
