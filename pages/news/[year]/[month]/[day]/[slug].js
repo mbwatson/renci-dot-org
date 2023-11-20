@@ -60,14 +60,13 @@ export default function Article({ article }) {
           const id = type === 'postTags' ? name : slug;
 
           return (
-            <Tag
-              type={type}
-              contents={name}
-              sx={{ minWidth: 'fit-content' }}
-              component="a"
-              href={createTagLinkURL(id, type)}
-              key={i}
-            />
+            <Link key={i} to={createTagLinkURL(id, type)}>
+              <Tag
+                type={type}
+                contents={name}
+                sx={{ minWidth: 'fit-content', maxWidth: 'revert' }}
+              />
+            </Link>
           )
         })}
       </Stack>
