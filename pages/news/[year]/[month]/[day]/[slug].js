@@ -1,16 +1,46 @@
+import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
 import { Divider, Typography, Box, Stack } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
+import { ArticleDate } from "@/components/news/article-date"
+import { Tag } from "@/components/news/tag"
+import qs from "qs";
+import { Link } from "@/components/link"
 
 export default function Article({ article }) {
+  
+  const tags = [
+    article.projects.map((x) => ({ ...x, type: 'projects' })),
+    article.people.map((x) => ({ ...x, type: 'people' })),
+    article.collaborations.map((x) => ({ ...x, type: 'collaborations' })),
+    article.researchGroups.map((x) => ({ ...x, type: 'researchGroups' })),
+    article.organizations.map((x) => ({ ...x, type: 'organizations' })),
+    article.postTags.map((x) => ({ ...x, type: 'postTags' }))
+  ].flat();
+
+  const createTagLinkURL = (id, type) => {
+    return `/news?${qs.stringify({[type]: id})}`
+  }
+
   return (
   <Page hideTitle title={article.title} description={article.subtitle}>
 
     {/* Defines the article width, does not include next/previous article buttons */}
     <Section>
+
       {/* container that holds the date and label on the same line */}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+      >
+        <ArticleDate date={article.publishDate}/>
+        
+        <div>
+          <Typography sx={{textTransform: "capitalize", fontWeight: "500",  padding: "0.25rem 0.5rem", backgroundColor:"#D9D9D9"}}>{article.newsOrBlog}</Typography>
+        </div>
+      </Stack>
 
       {/*title moved down here below the date/label line*/}
       <Typography variant="h1">
@@ -21,10 +51,26 @@ export default function Article({ article }) {
       {
         article.subtitle && (
           <Typography variant="subtitle1">
-            {article.excerpt}
+            {article.subtitle}
           </Typography>
         )
       }
+      <Stack direction="row" flexWrap="wrap" gap={1}>
+        {tags.map(({ name, slug, type }, i) => {
+          const id = type === 'postTags' ? name : slug;
+
+          return (
+            <Tag
+              type={type}
+              contents={name}
+              sx={{ minWidth: 'fit-content' }}
+              component="a"
+              href={createTagLinkURL(id, type)}
+              key={i}
+            />
+          )
+        })}
+      </Stack>
 
       <Divider sx={{ margin: '1rem 0'}}/>
 
@@ -35,10 +81,10 @@ export default function Article({ article }) {
           return item.__typename == "ComponentPostSectionsImage" ? (
             <Image 
               priority
-              src={item.image.url}
+              src={item.image.data.attributes.url}
               alt={item.altText}
-              width= {item.image.width}
-              height={item.image.height}
+              width= {item.image.data.attributes.width}
+              height={item.image.data.attributes.height}
               layout="responsive"
               objectFit='cover'
             />
@@ -48,8 +94,61 @@ export default function Article({ article }) {
         })
       }
 
-    {/* <pre>{JSON.stringify(article, null, 2)}</pre> */}
+    </Section>
 
+    <Divider sx={{ margin: '1rem 0'}}/>
+
+    <Section title="Read More">
+      {article.researchGroups[0] && (
+        <Fragment>
+          <Typography variant="h3">Research Groups:</Typography>
+          <ul>
+            {
+              article.researchGroups.map((item) => (
+                <li><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
+              ))
+            }
+          </ul>
+          <br/>
+        </Fragment>
+      )}
+      {article.collaborations[0] && (
+        <Fragment>
+          <Typography variant="h3">Collaborations:</Typography>
+          <ul>
+            {
+              article.collaborations.map((item) => (
+                <li><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
+              ))
+            }
+          </ul>
+          <br/>
+        </Fragment>
+      )}
+      {article.projects[0] && (
+        <Fragment>
+          <Typography variant="h3">Projects:</Typography>
+          {
+            article.projects.map((item) => (
+              <li><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
+            ))
+          }
+          <br/>
+        </Fragment>
+      )}
+      {article.people[0] && (
+        <Fragment>
+          <Typography variant="h3">People:</Typography>
+          <ul>
+            {
+              article.people.map((item) => (
+                <li><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
+              ))
+            }
+          </ul>
+          <br/>
+        </Fragment>
+      )}
     </Section>
   </Page>
   )
