@@ -1,14 +1,67 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Typography, Box, useTheme } from '@mui/material'
+import { Typography, Box, useTheme, styled } from '@mui/material'
 import { Link, Page } from '../../components'
 import { Pre } from '../../components/pre'
 import { fetchAllStrapiProjects } from "../../lib/strapi"
 import { ProjectCard } from '../../components/projectSpotlight'
+import TextField from "@mui/material/TextField";
+
+const StyledAutocompleteSearch = styled("div")(
+  ({ theme, bottomBorderRadius = true }) => `
+  display: flex;
+  border-radius: inherit;
+  border-bottom-left-radius: ${bottomBorderRadius ? "inherit" : 0};
+  border-bottom-right-radius: ${bottomBorderRadius ? "inherit" : 0};
+
+  &.focused {
+    border-color: ${theme.palette.primary.main}90;
+    box-shadow: 0 0 0 3px ${theme.palette.primary.main}a0;
+  }
+
+  &:focus-visible {
+    outline: 0;
+  }
+`
+);
+
+const SearchBar = ({setSearchQuery}) => (
+  <form>
+    <StyledAutocompleteSearch>
+    <TextField
+      id="search-bar"
+      style={{  fontSize: "1rem",
+        color: "grey",
+        background: "inherit",
+        border: "none",
+        borderRadius: "inherit",
+        padding: "8px 12px",
+        outline: 0,
+        flex: "1 0 auto"}}
+      onInput={(e) => {
+        setSearchQuery(e.target.value);
+      }}
+      variant="outlined"
+      placeholder="Search..."
+      size="large"
+    />
+    </StyledAutocompleteSearch>
+  </form>
+);
+
+const filterData = (query, data) => {
+  if (!query) {
+    return data;
+  } else {
+    return data.filter((d) => d.name.toLowerCase().includes(query));
+  }
+};
 
 export default function Projects({ projects, size = 'medium' }) {
   const theme = useTheme();  
+  const [searchQuery, setSearchQuery] = useState("");
+  const projectsFiltered = filterData(searchQuery, projects);
 
   let minWidth;
   switch (size) {
@@ -39,6 +92,8 @@ export default function Projects({ projects, size = 'medium' }) {
         Learn more about each project at RENCI below. 
       </Typography>
 
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
       <Box sx={{
         flex: 1,
         marginTop: '3rem',
@@ -51,7 +106,7 @@ export default function Projects({ projects, size = 'medium' }) {
   
       }}>
         {
-          projects.map((project) => {
+          projectsFiltered.map((project) => {
             return (
               <ProjectCard project={project} key={`project-${project.slug}`}/>
             )
