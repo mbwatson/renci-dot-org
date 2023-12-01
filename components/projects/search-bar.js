@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { styled } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
@@ -33,39 +32,15 @@ export const SearchBar = ({ setSearchQuery, options }) => {
     >
       <FormLabel>Project Search</FormLabel>
       <StyledAutocompleteSearch>
-        <Autocomplete
-          freeSolo
-          id="projects-list-search"
-          disableClearable
-          options={options.map((option) => option.name)}
-          onChange={(event) => {
-            setSearchQuery(event.target.textContent.toLowerCase());
-          }}
-          style={{
-            fontSize: "1rem",
-            color: "grey",
-            background: "inherit",
-            border: "none",
-            borderRadius: "inherit",
-            padding: "8px 12px",
-            outline: 0,
-            flex: "1 0 auto",
-          }}
-          renderInput={(params) => (
-            <TextField
-              id="search-bar"
-              {...params}
-              onInput={(e) => {
-                setSearchQuery(e.target.value.toLowerCase());
+        <TextField
+              style={{
+                width: "100%",
               }}
-              InputProps={{
-                ...params.InputProps,
-                type: "search",
-              }}
-              placeholder="Search..."
-              size="large"
-            />
-          )}
+          id="search-bar"
+          onInput={(e) => {
+            setSearchQuery(e.target.value.toLowerCase());
+          }}
+          placeholder="Search..."
         />
       </StyledAutocompleteSearch>
     </FormControl>
