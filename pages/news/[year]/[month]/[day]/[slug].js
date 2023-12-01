@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
-import { Divider, Typography, Box, Stack } from "@mui/material";
+import { Divider, Typography, Stack, styled } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
@@ -80,15 +80,18 @@ export default function Article({ article }) {
       {
         article.content.map((item)=> {
           return item.__typename == "ComponentPostSectionsImage" ? (
-            <Image 
-              priority
-              src={item.image.data.attributes.url}
-              alt={item.altText}
-              width= {item.image.data.attributes.width}
-              height={item.image.data.attributes.height}
-              layout="responsive"
-              objectFit='cover'
-            />
+            <Figure>
+              <Image 
+                priority
+                src={item.image.data.attributes.url}
+                alt={item.altText}
+                width= {item.image.data.attributes.width}
+                height={item.image.data.attributes.height}
+                layout="responsive"
+                objectFit='cover'
+              />
+              <Typography component={"figcaption"} variant="caption">{item.caption}</Typography>
+            </Figure>
           ) : (
             <Markdown>{item.content}</Markdown>
           )
@@ -154,6 +157,18 @@ export default function Article({ article }) {
   </Page>
   )
 }
+
+const Figure = styled('figure')`
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & figcaption.MuiTypography-root {
+    align-self: center;
+    font-style: italic;
+  }
+`;
 
 export async function getStaticPaths() {
   const postsGql = await fetchStrapiGraphQL(`query {
