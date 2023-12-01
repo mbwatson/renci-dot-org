@@ -8,8 +8,10 @@ import { ArticleDate } from "@/components/news/article-date"
 import { Tag } from "@/components/news/tag"
 import qs from "qs";
 import { Link } from "@/components/link"
+import { useRouter } from "next/router";
 
 export default function Article({ article }) {
+  const router = useRouter();
   
   const tags = [
     article.projects.map((x) => ({ ...x, type: 'projects' })),
@@ -60,13 +62,13 @@ export default function Article({ article }) {
           const id = type === 'postTags' ? name : slug;
 
           return (
-            <Link key={i} to={createTagLinkURL(id, type)}>
-              <Tag
-                type={type}
-                contents={name}
-                sx={{ minWidth: 'fit-content', maxWidth: 'revert' }}
-              />
-            </Link>
+            <Tag
+              key={i}
+              type={type}
+              contents={name}
+              onClick={() => { router.push(createTagLinkURL(id, type)); }}
+              sx={{ maxWidth: 'revert', cursor: 'pointer' }}
+            />
           )
         })}
       </Stack>
