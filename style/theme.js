@@ -31,8 +31,9 @@ const typography = {
     fontSize: 'clamp(1.7rem, 1.486rem + 0.571vw, 2rem)',
   },
   h3: {
-    fontSize: 'clamp(1.3rem, 0.986rem + 0.571vw, 1.7rem)',
-    paddingBottom: '0.5rem'
+    fontSize: '1.17rem',
+    paddingBottom: '0.5rem',
+    fontWeight: '500'
   },
   h4: {
     fontSize: 'clamp(1.2rem, 3vw, 1.6rem)',
