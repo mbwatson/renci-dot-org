@@ -95,58 +95,64 @@ export default function Article({ article }) {
 
     </Section>
 
-    <Divider sx={{ margin: '1rem 0'}}/>
+    {
+      ( article.researchGroups[0] || article.collaborations[0] || article.projects[0] || article.people[0] ) && (
+        <Fragment>
+          <Divider sx={{ margin: '1rem 0'}}/>
 
-    <Section title="Read More">
-      {article.researchGroups[0] && (
-        <Fragment>
-          <Typography variant="h3">Research Groups</Typography>
-          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
-            {
-              article.researchGroups.map((item, i) => (
-                <li key={i}><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
-              ))
-            }
-          </ul>
+          <Section title="Read More">
+            {article.researchGroups[0] && (
+              <Fragment>
+                <Typography variant="h3">Research Groups</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                  {
+                    article.researchGroups.map((item, i) => (
+                      <li key={i}><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+            )}
+            {article.collaborations[0] && (
+              <Fragment>
+                <Typography variant="h3">Collaborations</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                  {
+                    article.collaborations.map((item, i) => (
+                      <li key={i}><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+            )}
+            {article.projects[0] && (
+              <Fragment>
+                <Typography variant="h3">Projects</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                {
+                  article.projects.map((item, i) => (
+                    <li key={i}><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
+                  ))
+                }
+                </ul>
+              </Fragment>
+            )}
+            {article.people[0] && (
+              <Fragment>
+                <Typography variant="h3">People</Typography>
+                <ul style={{marginTop: 0, marginBottom: '1rem'}}>
+                  {
+                    article.people.map((item, i) => (
+                      <li key={i}><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
+                    ))
+                  }
+                </ul>
+              </Fragment>
+            )}
+          </Section>
         </Fragment>
-      )}
-      {article.collaborations[0] && (
-        <Fragment>
-          <Typography variant="h3">Collaborations</Typography>
-          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
-            {
-              article.collaborations.map((item, i) => (
-                <li key={i}><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
-              ))
-            }
-          </ul>
-        </Fragment>
-      )}
-      {article.projects[0] && (
-        <Fragment>
-          <Typography variant="h3">Projects</Typography>
-          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
-          {
-            article.projects.map((item, i) => (
-              <li key={i}><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
-            ))
-          }
-          </ul>
-        </Fragment>
-      )}
-      {article.people[0] && (
-        <Fragment>
-          <Typography variant="h3">People</Typography>
-          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
-            {
-              article.people.map((item, i) => (
-                <li key={i}><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
-              ))
-            }
-          </ul>
-        </Fragment>
-      )}
-    </Section>
+      )
+    }
   </Page>
   )
 }
