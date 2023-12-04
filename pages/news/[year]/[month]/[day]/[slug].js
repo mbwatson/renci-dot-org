@@ -100,52 +100,50 @@ export default function Article({ article }) {
     <Section title="Read More">
       {article.researchGroups[0] && (
         <Fragment>
-          <Typography variant="h3">Research Groups:</Typography>
-          <ul>
+          <Typography variant="h3">Research Groups</Typography>
+          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
             {
               article.researchGroups.map((item, i) => (
                 <li key={i}><Link to={`/groups/${item.slug}`}>{item.name}</Link></li>
               ))
             }
           </ul>
-          <br/>
         </Fragment>
       )}
       {article.collaborations[0] && (
         <Fragment>
-          <Typography variant="h3">Collaborations:</Typography>
-          <ul>
+          <Typography variant="h3">Collaborations</Typography>
+          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
             {
               article.collaborations.map((item, i) => (
                 <li key={i}><Link to={`/collaborations/${item.slug}`}>{item.name}</Link></li>
               ))
             }
           </ul>
-          <br/>
         </Fragment>
       )}
       {article.projects[0] && (
         <Fragment>
-          <Typography variant="h3">Projects:</Typography>
+          <Typography variant="h3">Projects</Typography>
+          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
           {
             article.projects.map((item, i) => (
               <li key={i}><Link to={`/projects/${item.slug}`}>{item.name}</Link></li>
             ))
           }
-          <br/>
+          </ul>
         </Fragment>
       )}
       {article.people[0] && (
         <Fragment>
-          <Typography variant="h3">People:</Typography>
-          <ul>
+          <Typography variant="h3">People</Typography>
+          <ul style={{marginTop: 0, marginBottom: '1rem'}}>
             {
               article.people.map((item, i) => (
                 <li key={i}><Link to={`/people/${item.slug}`}>{item.name}</Link></li>
               ))
             }
           </ul>
-          <br/>
         </Fragment>
       )}
     </Section>
