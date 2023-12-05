@@ -1,15 +1,17 @@
 import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
-import { Divider, Typography, Box, Stack } from "@mui/material";
+import { Divider, Typography, Stack, styled } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
 import { Tag } from "@/components/news/tag"
 import qs from "qs";
 import { Link } from "@/components/link"
+import { useRouter } from "next/router";
 
 export default function Article({ article }) {
+  const router = useRouter();
   
   const tags = [
     article.projects.map((x) => ({ ...x, type: 'projects' })),
@@ -60,13 +62,13 @@ export default function Article({ article }) {
           const id = type === 'postTags' ? name : slug;
 
           return (
-            <Link key={i} to={createTagLinkURL(id, type)}>
-              <Tag
-                type={type}
-                contents={name}
-                sx={{ minWidth: 'fit-content', maxWidth: 'revert' }}
-              />
-            </Link>
+            <Tag
+              key={i}
+              type={type}
+              contents={name}
+              onClick={() => { router.push(createTagLinkURL(id, type)); }}
+              sx={{ maxWidth: 'revert', cursor: 'pointer' }}
+            />
           )
         })}
       </Stack>
@@ -78,15 +80,18 @@ export default function Article({ article }) {
       {
         article.content.map((item)=> {
           return item.__typename == "ComponentPostSectionsImage" ? (
-            <Image 
-              priority
-              src={item.image.data.attributes.url}
-              alt={item.altText}
-              width= {item.image.data.attributes.width}
-              height={item.image.data.attributes.height}
-              layout="responsive"
-              objectFit='cover'
-            />
+            <Figure>
+              <Image 
+                priority
+                src={item.image.data.attributes.url}
+                alt={item.altText}
+                width= {item.image.data.attributes.width}
+                height={item.image.data.attributes.height}
+                layout="responsive"
+                objectFit='cover'
+              />
+              <Typography component={"figcaption"} variant="caption">{item.caption}</Typography>
+            </Figure>
           ) : (
             <Markdown>{item.content}</Markdown>
           )
@@ -156,6 +161,18 @@ export default function Article({ article }) {
   </Page>
   )
 }
+
+const Figure = styled('figure')`
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  & figcaption.MuiTypography-root {
+    align-self: center;
+    font-style: italic;
+  }
+`;
 
 export async function getStaticPaths() {
   const postsGql = await fetchStrapiGraphQL(`query {
