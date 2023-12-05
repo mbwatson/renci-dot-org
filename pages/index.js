@@ -1,11 +1,12 @@
 import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { Typography } from '@mui/material'
+import { Typography, Stack } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchActiveStrapiProjects } from '../lib/strapi'
+import { HomePageArticlePreview } from "../components/news/article-preview";
 
 export default function Home({ selectedProjects}) {
   const [newsArray, setNewsArray] = useState(null);
@@ -35,7 +36,6 @@ export default function Home({ selectedProjects}) {
       }
     };
 
-    // Call the fetchData function
     fetchData();
   }, [setNewsArray, setLoading, setError])
   return (
@@ -54,6 +54,22 @@ export default function Home({ selectedProjects}) {
       </Typography>
       
       <ProjectSpotlight selectedProjects={selectedProjects}/>
+      {
+        newsArray && (
+          <Fragment>
+            <Typography variant='h2'>Recent News</Typography>
+            <Stack direction='column' gap={2} paddingY={2}>
+              { newsArray.map((article, i) => (
+                <HomePageArticlePreview
+                  key={i}
+                  article={article}
+                />
+              ))}
+            </Stack>
+          </Fragment>
+        )
+      }
+      
     </Page>
   )
 }
