@@ -57,7 +57,7 @@ export default function Home({ selectedProjects}) {
       {
         newsArray && (
           <Fragment>
-            <Typography variant='h2'>Recent News</Typography>
+            <Typography variant='h2' sx={{paddingTop: '1rem'}}>Recent News</Typography>
             <Stack direction='column' gap={2} paddingY={2}>
               { newsArray.map((article, i) => (
                 <HomePageArticlePreview
