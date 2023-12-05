@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
-import { Divider, Typography, Stack, styled } from "@mui/material";
+import { Divider, Typography, Stack, styled, Box } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
@@ -26,6 +26,11 @@ export default function Article({ article }) {
     return `/news?${qs.stringify({[type]: id})}`
   }
 
+  let authors = [
+    ...article.renciAuthors,
+    ...article.externalAuthors?.split(",").map((a) => a.trim()) ?? []
+  ]
+  
   return (
   <Page hideTitle title={article.title} description={article.subtitle}>
 
@@ -72,6 +77,32 @@ export default function Article({ article }) {
           )
         })}
       </Stack>
+
+      {Boolean(authors.length) && <Stack my={2} flexDirection="row" alignItems="center" gap={1} flexWrap="wrap">
+        {authors.reduce((acc, a, i) => {
+          let out;
+          if (typeof a === "string") out = <span>{a}</span>;
+          else if (!a.active) out = <span>{a.name}</span>;
+          else out = <Link to={`/people/${a.slug}`} key={a.slug}>
+            <Stack flexDirection="row" alignItems="center" sx={{ maxWidth: "fit-content" }}>
+              {Boolean(a.photo) && <Box sx={{ aspectRatio: '1 / 1', height: '1.5lh', borderRadius: '50%', overflow: 'hidden', mr: 0.5 }}>
+                <Image
+                  src={a.photo.url}
+                  alt={`A thumbnail photo of ${a.name}`}
+                  width={a.photo.width}
+                  height={a.photo.height}
+                  layout="responsive"
+                />
+              </Box>}
+              <span>{a.name}</span>
+            </Stack>
+          </Link>
+
+          acc.push(out);
+          if(i < authors.length - 1) acc.push("·");
+          return acc;
+        }, [])}
+      </Stack>}
 
       <Divider sx={{ margin: '1rem 0'}}/>
 
