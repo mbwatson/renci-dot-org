@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography } from '@mui/material'
@@ -8,6 +8,36 @@ import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchActiveStrapiProjects } from '../lib/strapi'
 
 export default function Home({ selectedProjects}) {
+  const [newsArray, setNewsArray] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://api.renci.org/api/post-list', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        setNewsArray(result.results.slice(0, 3));
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // Call the fetchData function
+    fetchData();
+  }, [setNewsArray, setLoading, setError])
   return (
     <Page
       title="Home"
