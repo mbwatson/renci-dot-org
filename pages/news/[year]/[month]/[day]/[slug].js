@@ -1,7 +1,7 @@
 import { Fragment } from "react"
 import { Page, Section } from "@/components/layout";
 import { fetchArticle, fetchStrapiGraphQL } from "@/lib/strapi";
-import { Divider, Typography, Stack, styled, Box } from "@mui/material";
+import { Divider, Typography, Stack, styled, Avatar } from "@mui/material";
 import { Markdown } from "@/components/markdown";
 import Image from "next/image";
 import { ArticleDate } from "@/components/news/article-date"
@@ -85,15 +85,7 @@ export default function Article({ article }) {
           else if (!a.active) out = <span>{a.name}</span>;
           else out = <Link to={`/people/${a.slug}`} key={a.slug}>
             <Stack flexDirection="row" alignItems="center" sx={{ maxWidth: "fit-content" }}>
-              {Boolean(a.photo) && <Box sx={{ aspectRatio: '1 / 1', height: '1.5lh', borderRadius: '50%', overflow: 'hidden', mr: 0.5 }}>
-                <Image
-                  src={a.photo.url}
-                  alt={`A thumbnail photo of ${a.name}`}
-                  width={a.photo.width}
-                  height={a.photo.height}
-                  layout="responsive"
-                />
-              </Box>}
+              {Boolean(a.photo) && <Avatar alt={`A thumbnail photo of ${a.name}`} src={a.photo.url} sx={{ mr: 1, width: '2lh', height: '2lh' }} />}
               <span>{a.name}</span>
             </Stack>
           </Link>
