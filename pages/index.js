@@ -16,19 +16,26 @@ export default function Home({ selectedProjects}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        let bodyContent = JSON.stringify({
+          "pagination": {
+            "pageSize": 3,
+            "page": 1
+          }
+        });
         const response = await fetch('https://api.renci.org/api/post-list', {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
           },
+          body: bodyContent
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
 
         const result = await response.json();
-        setNewsArray(result.results.slice(0, 3));
+        setNewsArray(result.results);
       } catch (error) {
         setError(error);
       } finally {
