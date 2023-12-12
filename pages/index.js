@@ -53,9 +53,11 @@ export async function getServerSideProps({ res }) {
       'no-cache, no-store, must-revalidate'
     )
   
-    const newsArray = await fetchHomeNews()
-    const projects = await fetchActiveStrapiProjects()
-
+    const [newsArray, projects] = await Promise.all([
+      fetchHomeNews(),
+      fetchActiveStrapiProjects(),
+    ]);
+    
     let projectsCopy = [...projects]
     let projectSelection = []
     for (let i = 0; i < 3; i += 1) {
