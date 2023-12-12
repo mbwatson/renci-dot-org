@@ -121,7 +121,7 @@ export const HomePageArticlePreview = ({article }) => {
   ]
   const dateString = date.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 
-  const articleLink = `news/${year}/${month}/${day}/${article.slug}`;
+  const articleLink = `/news/${year}/${month}/${day}/${article.slug}`;
 
   return <Stack gap={1}>
     <Box>
