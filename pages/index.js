@@ -1,50 +1,15 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Typography, Stack } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
-import { fetchActiveStrapiProjects } from '../lib/strapi'
+import { fetchActiveStrapiProjects, fetchHomeNews } from '../lib/strapi'
 import { HomePageArticlePreview } from "../components/news/article-preview";
 
-export default function Home({ selectedProjects}) {
-  const [newsArray, setNewsArray] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default function Home({ selectedProjects, newsArray }) {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        let bodyContent = JSON.stringify({
-          "pagination": {
-            "pageSize": 3,
-            "page": 1
-          }
-        });
-        const response = await fetch('https://api.renci.org/api/post-list', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: bodyContent
-        });
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const result = await response.json();
-        setNewsArray(result.results);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [setNewsArray, setLoading, setError])
   return (
     <Page
       title="Home"
@@ -82,25 +47,36 @@ export default function Home({ selectedProjects}) {
 }
 
 export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
+  try {
+    res.setHeader(
+      'Cache-Control',
+      'no-cache, no-store, must-revalidate'
+    )
   
-  const projects = await fetchActiveStrapiProjects()
+    const newsArray = await fetchHomeNews()
+    const projects = await fetchActiveStrapiProjects()
 
-  let projectsCopy = [...projects]
-  let projectSelection = []
-  for (let i = 0; i < 3; i += 1) {
-    const randomIndex = Math.floor(Math.random() * projectsCopy.length)
-    const randomProject = projectsCopy.splice(randomIndex, 1)[0]
-    //add a property that is a snippet of the original description before pushing to the array
-    projectSelection.push({
-      ...randomProject,
-    })
-  }
+    let projectsCopy = [...projects]
+    let projectSelection = []
+    for (let i = 0; i < 3; i += 1) {
+      const randomIndex = Math.floor(Math.random() * projectsCopy.length)
+      const randomProject = projectsCopy.splice(randomIndex, 1)[0]
+      //add a property that is a snippet of the original description before pushing to the array
+      projectSelection.push({
+        ...randomProject,
+      })
+    }
 
-  return {
-    props: { selectedProjects: JSON.parse(JSON.stringify(projectSelection)) },
+    return {
+      props: { 
+        selectedProjects: JSON.parse(JSON.stringify(projectSelection)), 
+        newsArray: JSON.parse(JSON.stringify(newsArray)) 
+      },
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    return {
+      props: { selectedProjects: [], newsArray: [] }
+    };
   }
 }
