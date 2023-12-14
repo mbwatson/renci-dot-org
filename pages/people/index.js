@@ -155,15 +155,11 @@ export default function People({ people }) {
   );
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
+export async function getStaticProps() {
   const people = await fetchStrapiPeople();
 
   return {
     props: { people: JSON.parse(JSON.stringify(people)) },
+    revalidate: 3600,
   };
 }
