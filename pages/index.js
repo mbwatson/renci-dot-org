@@ -28,12 +28,7 @@ export default function Home({ selectedProjects}) {
   )
 }
 
-export async function getServerSideProps({ res }) {
-  res.setHeader(
-    'Cache-Control',
-    'no-cache, no-store, must-revalidate'
-  )
-  
+export async function getStaticProps() {
   const projects = await fetchActiveStrapiProjects()
 
   let projectsCopy = [...projects]
@@ -48,6 +43,9 @@ export async function getServerSideProps({ res }) {
   }
 
   return {
-    props: { selectedProjects: JSON.parse(JSON.stringify(projectSelection)) },
+    props: {
+      selectedProjects: JSON.parse(JSON.stringify(projectSelection)),
+      revalidate: 3600,
+    },
   }
 }
