@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Typography, Box, useTheme } from "@mui/material";
 import { Page } from "../../components";
-import { fetchAllStrapiProjects } from "../../lib/strapi";
+// import { fetchAllStrapiProjects } from "../../lib/strapi";
 import { ProjectCard } from "../../components/projectSpotlight";
 import { SearchBar } from "@/components/projects/search-bar";
+import { fetchDashboardProjects } from "@/lib/dashboard/projects";
 
 const filterData = (query, data) => {
   if (!query) {
     return data;
   } else {
-    return data.filter((d) => d.name.toLowerCase().includes(query));
+    return data.filter((d) => d.webName.toLowerCase().includes(query));
   }
 };
 
@@ -79,9 +80,9 @@ export default function Projects({ projects, size = "medium" }) {
 export async function getServerSideProps({ res }) {
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-  const projects = await fetchAllStrapiProjects();
+  const projectsFromDashboard = await fetchDashboardProjects();
 
   return {
-    props: { projects: JSON.parse(JSON.stringify(projects)) },
+    props: { projects: JSON.parse(JSON.stringify(projectsFromDashboard)) },
   };
 }

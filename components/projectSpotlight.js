@@ -7,6 +7,7 @@ import { useTheme } from '@mui/material/styles'
 import { MarkdownLess } from './markdown'
 
 export const ProjectCard = ({project}) => {
+  console.log(project)
   const styles = {
     project: {
       textAlign: 'center',
@@ -64,13 +65,13 @@ export const ProjectCard = ({project}) => {
   return (
     <Card sx={styles.project} key={project.slug}>
       <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
-          <CardMedia component={'img'} src={ project.featuredImage  } sx={styles.cardMedia} />
+          <CardMedia component={'img'} src={ project.featuredImage.length > 0 ? project.featuredImage[0].url : "https://radx-images.s3.amazonaws.com/hero_aerpaw_b67ec9b4f6.jpeg" } sx={styles.cardMedia} />
           <Box sx={styles.textOverlay}>
-            <Typography variant='h6'>{project.shortTitle ? project.shortTitle : project.name}</Typography>
+            <Typography variant='h6'>{project.shortTitle ? project.shortTitle : project.webName}</Typography>
           </Box>
       </CardActionArea>
-      <CardContent sx={project.description ? styles.description : styles.noSnippet}>
-        <MarkdownLess paragraph >{ project.snippet }</MarkdownLess>
+      <CardContent sx={project.webDescription ? styles.description : styles.noSnippet}>
+        <MarkdownLess paragraph >{ project.webDescription }</MarkdownLess>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
