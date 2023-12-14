@@ -1,5 +1,5 @@
 import {
-  Link, Page, Section
+  Link, Page, Section, Block
 } from '../../components'
 import { Typography } from '@mui/material'
 
@@ -42,6 +42,43 @@ export default function Branding() {
           styled to use the heading font—Roboto, and all paragraphs are styled with the paragraph 
           font—Open Sans.
         </Typography>
+        <br/>
+
+        <Typography variant="h4">Headings</Typography>
+        <br/>
+        <Typography paragraph>
+          The heading font is Google's Roboto font.
+        </Typography>
+        <br/>
+        <Block>
+          {
+            ['h1', 'h2', 'h3', 'h4', 'h5',].map(variant => {
+              return (
+                <Typography variant={ variant } style={{ marginBottom: '16px', }} key={ variant }>
+                  { variant }: The Quick Brown Fox
+                </Typography>
+              )
+            })
+          }
+        </Block>
+        <br/>
+
+        <Typography variant="h4">Paragraphs</Typography>
+        <br/>
+        <Typography paragraph>
+          Paragraphs and general blocks of text use Google's Open Sans font.
+        </Typography>
+        <Block>
+          {
+            ['body1', 'body2'].map(variant => {
+              return (
+                <Typography variant={ variant } style={{ marginBottom: '16px', }} key={ variant }>
+                  { variant }: The quick brown fox jumps over the lazy dog.
+                </Typography>
+              )
+            })
+          }
+        </Block>
       </Section>
 
     </Page>
