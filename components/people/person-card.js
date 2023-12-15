@@ -7,7 +7,7 @@ import { useTheme } from "@emotion/react";
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
-  
+  console.log(person)
   return (
     <Card
       elevation={0}
@@ -35,7 +35,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            image={person.photoData ? person.photoData : avatar.src}
+            image={person.photoData ? `https://dashboard.sandy-web.ad.renci.org/api/webinfo/people/${person.personId}/photo` : avatar.src}
             alt={`${person.firstName} ${person.lastName} photo`}
           />
 
