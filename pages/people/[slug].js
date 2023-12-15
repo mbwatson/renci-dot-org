@@ -72,7 +72,7 @@ export default function Person({ person }) {
               {
                 person.contributions.projects && (
                   <Fragment>
-                    <Typography variant="h3">Projects</Typography>
+                    <Typography variant="h3" gutterBottom>Projects</Typography>
                     <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                       {
                         person.contributions.projects.map(project => (
@@ -88,7 +88,7 @@ export default function Person({ person }) {
               {
                 person.contributions.collaborations && (
                   <Fragment>
-                    <Typography variant="h3">Collaborations</Typography>
+                    <Typography variant="h3" gutterBottom>Collaborations</Typography>
                     <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                       {
                         person.contributions.collaborations.map(project => (

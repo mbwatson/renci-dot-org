@@ -108,7 +108,7 @@ export default function Article({ article }) {
           <Section title="Read More">
             {article.researchGroups[0] && (
               <Fragment>
-                <Typography variant="h3">Research Groups</Typography>
+                <Typography variant="h3" gutterBottom>Research Groups</Typography>
                 <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                   {
                     article.researchGroups.map((item, i) => (
@@ -120,7 +120,7 @@ export default function Article({ article }) {
             )}
             {article.collaborations[0] && (
               <Fragment>
-                <Typography variant="h3">Collaborations</Typography>
+                <Typography variant="h3" gutterBottom>Collaborations</Typography>
                 <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                   {
                     article.collaborations.map((item, i) => (
@@ -132,7 +132,7 @@ export default function Article({ article }) {
             )}
             {article.projects[0] && (
               <Fragment>
-                <Typography variant="h3">Projects</Typography>
+                <Typography variant="h3" gutterBottom>Projects</Typography>
                 <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                 {
                   article.projects.map((item, i) => (
@@ -144,7 +144,7 @@ export default function Article({ article }) {
             )}
             {article.people[0] && (
               <Fragment>
-                <Typography variant="h3">People</Typography>
+                <Typography variant="h3" gutterBottom>People</Typography>
                 <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                   {
                     article.people.map((item, i) => (

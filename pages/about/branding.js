@@ -35,7 +35,7 @@ export default function Branding() {
       </Section>
 
       <Section title="Typography">
-        <Typography variant="h3">RENCI's Font Stack</Typography>
+        <Typography variant="h3" gutterBottom>RENCI's Font Stack</Typography>
         <Typography paragraph>
           The font families making up this style guide are Google's Roboto and Open Sans fonts, used for 
           headings and paragraphs, respectively. With the RENCI stylesheet, all headings are already 
@@ -52,7 +52,7 @@ export default function Branding() {
         <br/>
         <Block>
           {
-            ['h1', 'h2', 'h3', 'h4', 'h5',].map(variant => {
+            ['h1', 'h2', 'h3', 'h4', 'h5'].map(variant => {
               return (
                 <Typography variant={ variant } style={{ marginBottom: '16px', }} key={ variant }>
                   { variant }: The Quick Brown Fox

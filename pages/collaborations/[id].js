@@ -3,7 +3,7 @@ import { fetchStrapiCollaboration } from '../../lib/strapi'
 import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
-import { Divider } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 export default function Collaboration({ collaboration }) {
   return (
@@ -59,7 +59,7 @@ export default function Collaboration({ collaboration }) {
       }
 
       <Section title="Contributors">
-        <h3>People</h3>
+        <Typography variant="h3" gutterBottom>People</Typography>
         <PersonGrid size="small">
           {
             collaboration.members.map(person => (
@@ -71,7 +71,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.partners.length > 0 && (
             <Fragment>
-              <h3>Partners</h3>
+              <Typography variant="h3" gutterBottom>Partners</Typography>
               <ul>
                 {
                   collaboration.partners
@@ -88,7 +88,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.funding.length > 0 && (
             <Fragment>
-              <h3>Funders</h3>
+              <Typography variant="h3" gutterBottom>Funders</Typography>
               <ul>
                 {
                   collaboration.funding
