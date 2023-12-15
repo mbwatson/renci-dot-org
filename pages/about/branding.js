@@ -1,23 +1,51 @@
 import {
-  Link, Page, Section, Block, ColorSection
+  Link, Page, Section, Block, ColorSection, LogoSection
 } from '../../components'
 import { Typography } from '@mui/material'
+
+// Logos
+import Logo from '../../images/branding/png/standard/renci-logo.png'
+import LogoAlt from '../../images/branding/png/standard/renci-logo-alt.png'
+import LogoBlack from '../../images/branding/png/standard/renci-logo-black.png'
+import LogoGray from '../../images/branding/png/standard/renci-logo-gray.png'
+import LogoWhite from '../../images/branding/png/standard/renci-logo-white.png'
+import LogoSimple from '../../images/branding/png/simple/renci-logo-simple.png'
+import LogoAltSimple from '../../images/branding/png/simple/renci-logo-alt-simple.png'
+import LogoBlackSimple from '../../images/branding/png/simple/renci-logo-black-simple.png'
+import LogoGraySimple from '../../images/branding/png/simple/renci-logo-gray-simple.png'
+import LogoWhiteSimple from '../../images/branding/png/simple/renci-logo-white-simple.png'
+import ClearSpaceLogo from '../../images/branding/clearspace-logo.png'
 
 export default function Branding() {
   const renciColors = {
     primary: {
-        renciBlue: { name: 'RENCI Blue', hex: '#00758D', },
-        lightGrey: { name: 'Light Grey', hex: '#F3F3F8', },
-        darkGrey: { name: 'Dark Grey', hex: '#474748', },
-        black: { name: 'Black', hex: '#231F20', },
+      renciBlue: { name: 'RENCI Blue', hex: '#00758D', },
+      lightGrey: { name: 'Light Grey', hex: '#F3F3F8', },
+      darkGrey: { name: 'Dark Grey', hex: '#474748', },
+      black: { name: 'Black', hex: '#231F20', },
     },
     secondary: {
-        primaryBlue: { name: 'Primary Blue', hex: '#00A9C4', },
-        lightBlue: { name: 'Light Blue', hex: '#D6E8F2', },
-        darkBlue: { name: 'Dark Blue', hex: '#14385F', },
-        blueGrey: { name: 'Blue Grey', hex: '#666676', },
+      primaryBlue: { name: 'Primary Blue', hex: '#00A9C4', },
+      lightBlue: { name: 'Light Blue', hex: '#D6E8F2', },
+      darkBlue: { name: 'Dark Blue', hex: '#14385F', },
+      blueGrey: { name: 'Blue Grey', hex: '#666676', },
     },
-}
+  }
+
+  const standardLogos = [
+    { image: Logo, bgColor: '#fff', },
+    { image: LogoBlack, bgColor: '#fff', },
+    { image: LogoAlt, bgColor: renciColors.primary.renciBlue.hex, },
+    { image: LogoGray, bgColor: renciColors.primary.black.hex, },
+    { image: LogoWhite, bgColor: renciColors.primary.black.hex, },
+  ]
+  const simpleLogos = [
+    { image: LogoSimple, bgColor: '#fff', },
+    { image: LogoBlackSimple, bgColor: '#fff', },
+    { image: LogoAltSimple, bgColor: renciColors.primary.renciBlue.hex, },
+    { image: LogoGraySimple, bgColor: renciColors.primary.black.hex, },
+    { image: LogoWhiteSimple, bgColor: renciColors.primary.black.hex, },
+  ]
 
   return (
     <Page
@@ -41,6 +69,9 @@ export default function Branding() {
           for the r, e, i, and the comet above the i, and white (#FFFFFF) for the n and c.
           Solid white is acceptable in certain cases.
         </Typography>
+
+        <LogoSection logos={ standardLogos }/>
+
         <Typography variant="h3" gutterBottom>Usage</Typography>
         <ul>
           <li>The logo must be reproduced from high-resolution digital artwork.</li>
@@ -60,6 +91,9 @@ export default function Branding() {
           between the outside edge of the logo and any other page element, including
           the edge of the page.
         </Typography>
+
+        <LogoSection logos={[{ image: ClearSpaceLogo, bgColor: '#fff', },]}/>
+
         <Typography variant="h3" gutterBottom>Logo Elements</Typography>
         <Typography paragraph>
           The RENCI comet element can only be 3 colors: white (#FFFFFF), black (#231F20), or
@@ -94,12 +128,8 @@ export default function Branding() {
         </Typography>
         <br/>
 
-        <Typography variant="h4">Headings</Typography>
-        <br/>
-        <Typography paragraph>
-          The heading font is Google's Roboto font.
-        </Typography>
-        <br/>
+        <Typography variant="h4" gutterBottom>Headings</Typography>
+
         <Block>
           {
             ['h1', 'h2', 'h3', 'h4', 'h5'].map(variant => {
@@ -113,11 +143,8 @@ export default function Branding() {
         </Block>
         <br/>
 
-        <Typography variant="h4">Paragraphs</Typography>
-        <br/>
-        <Typography paragraph>
-          Paragraphs and general blocks of text use Google's Open Sans font.
-        </Typography>
+        <Typography variant="h4" gutterBottom>Paragraphs</Typography>
+
         <Block>
           {
             ['body1', 'body2'].map(variant => {
