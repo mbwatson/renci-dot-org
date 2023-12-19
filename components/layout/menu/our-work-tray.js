@@ -55,8 +55,8 @@ export const OurWorkTray = ({
                 }
                 {/* Add a one-off menu item that links to the list of all RENCI projects */}
                 <Divider sx={{ paddingTop: '0.5rem' }}/>
-                <ListItem sx={{ padding: '0.5rem' }}>
-                  <Link to="/projects">All Projects</Link>
+                <ListItem sx={{ padding: '0.5rem', fontWeight: '500' }}>
+                  <Link to="/projects">See All Projects</Link>
                 </ListItem>
               </List>
             </Grid>
