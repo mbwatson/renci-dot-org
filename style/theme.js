@@ -29,15 +29,19 @@ const typography = {
   },
   h2: {
     fontSize: 'clamp(1.7rem, 1.486rem + 0.571vw, 2rem)',
+    paddingBottom: '0.5rem'
   },
   h3: {
     fontSize: 'clamp(1.2rem, 1.15vw + 0.26vw, 1.4rem)',
+    paddingBottom: '0.5rem'
   },
   h4: {
     fontSize: 'clamp(1.1rem, 1.05vw + 0.26vw, 1.3rem)',
+    paddingBottom: '0.5rem'
   },
   h5: {
     fontSize: 'clamp(1.1rem, 0.95vw + 0.26vw, 1.2rem)',
+    paddingBottom: '0.5rem'
   },
 
 }

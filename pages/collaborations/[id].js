@@ -59,7 +59,7 @@ export default function Collaboration({ collaboration }) {
       }
 
       <Section title="Contributors">
-        <Typography variant="h3" gutterBottom>People</Typography>
+        <Typography variant="h3">People</Typography>
         <PersonGrid size="small">
           {
             collaboration.members.map(person => (
@@ -71,7 +71,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.partners.length > 0 && (
             <Fragment>
-              <Typography variant="h3" gutterBottom>Partners</Typography>
+              <Typography variant="h3">Partners</Typography>
               <ul>
                 {
                   collaboration.partners
@@ -88,7 +88,7 @@ export default function Collaboration({ collaboration }) {
         {
           collaboration.funding.length > 0 && (
             <Fragment>
-              <Typography variant="h3" gutterBottom>Funders</Typography>
+              <Typography variant="h3">Funders</Typography>
               <ul>
                 {
                   collaboration.funding

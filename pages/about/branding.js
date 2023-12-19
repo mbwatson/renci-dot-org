@@ -72,7 +72,7 @@ export default function Branding() {
 
         <LogoSection logos={ standardLogos }/>
 
-        <Typography variant="h3" gutterBottom>Usage</Typography>
+        <Typography variant="h3">Usage</Typography>
         <ul>
           <li>The logo must be reproduced from high-resolution digital artwork.</li>
           <li>As the primary visual identity for RENCI, the logo must appear on all communications,
@@ -83,7 +83,7 @@ export default function Branding() {
             consistent, reinforcing identity.</li>
           <li>The logo may not be cut or cropped in any way.</li>
         </ul>
-        <Typography variant="h3" gutterBottom>Clear Space Requirements</Typography>
+        <Typography variant="h3">Clear Space Requirements</Typography>
         <Typography paragraph>
           To ensure the integrity and visual impact of the logo, the appropriate “clear
           space” must be maintained on all sides. Specifically, where “x” is equal to the
@@ -94,7 +94,7 @@ export default function Branding() {
 
         <LogoSection logos={[{ image: ClearSpaceLogo, bgColor: '#fff', },]}/>
 
-        <Typography variant="h3" gutterBottom>Logo Elements</Typography>
+        <Typography variant="h3">Logo Elements</Typography>
         <Typography paragraph>
           The RENCI comet element can only be 3 colors: white (#FFFFFF), black (#231F20), or
           RENCI blue (#00758D).
@@ -110,10 +110,10 @@ export default function Branding() {
           on all designs.
         </Typography>
 
-        <Typography variant="h3" gutterBottom>Primary Palette</Typography>
+        <Typography variant="h3">Primary Palette</Typography>
         <ColorSection colors={ renciColors.primary }/>
         <br/>
-        <Typography variant="h3" gutterBottom>Secondary Palette</Typography>
+        <Typography variant="h3">Secondary Palette</Typography>
         <ColorSection colors={ renciColors.secondary }/>
 
       </Section>
