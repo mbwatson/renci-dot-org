@@ -118,46 +118,6 @@ export default function Branding() {
 
       </Section>
 
-      <Section title="Typography">
-        <Typography variant="h3" gutterBottom>RENCI's Font Stack</Typography>
-        <Typography paragraph>
-          The font families making up this style guide are Google's Roboto and Open Sans fonts, used for 
-          headings and paragraphs, respectively. With the RENCI stylesheet, all headings are already 
-          styled to use the heading font—Roboto, and all paragraphs are styled with the paragraph 
-          font—Open Sans.
-        </Typography>
-        <br/>
-
-        <Typography variant="h4" gutterBottom>Headings</Typography>
-
-        <Block>
-          {
-            ['h1', 'h2', 'h3', 'h4', 'h5'].map(variant => {
-              return (
-                <Typography variant={ variant } style={{ marginBottom: '16px', }} key={ variant }>
-                  { variant }: The Quick Brown Fox
-                </Typography>
-              )
-            })
-          }
-        </Block>
-        <br/>
-
-        <Typography variant="h4" gutterBottom>Paragraphs</Typography>
-
-        <Block>
-          {
-            ['body1', 'body2'].map(variant => {
-              return (
-                <Typography variant={ variant } style={{ marginBottom: '16px', }} key={ variant }>
-                  { variant }: The quick brown fox jumps over the lazy dog.
-                </Typography>
-              )
-            })
-          }
-        </Block>
-      </Section>
-
     </Page>
   )
 }
