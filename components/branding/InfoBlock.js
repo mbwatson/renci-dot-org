@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material'
+import { copyToClipboard } from 'hooks';
 
 const styles = {
   title: {
@@ -35,6 +36,7 @@ export const InfoBlock = ( props ) => {
                 { props.title }
             </Typography>
             <Typography variant="body2"  
+              onClick={()=> copyToClipboard(props.body)}
             >
                 { props.body }
             </Typography>
