@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardContent } from '@mui/material/'
+import { Card, CardContent, Stack } from '@mui/material/'
 import { InfoBlock } from './InfoBlock'
 
 const hexToRgb = (hex) => {
@@ -16,7 +16,6 @@ const styles = {
   margin: '16px',
   display: 'flex',
   flexDirection: 'row',
-  width: '100%',
  },
  colorChip: {
   flex: 1,
@@ -43,12 +42,17 @@ export const ColorBlock = ({colorName, colorHex}) => {
   
   return (
     <Card elevation={3} sx={styles.card}>
-      <CardContent sx={styles.colorChip} style={{ backgroundColor: colorHex }}/>
-      <CardContent sx={styles.content}>
-        <InfoBlock title="Name" body={ colorName } style={styles.info}/>
-        <InfoBlock copyable title="Hex" body={ colorHex } style={styles.info}/>
-        <InfoBlock copyable title="RGB" body={ colorRgb } style={styles.info}/>
-      </CardContent>
+        <CardContent sx={styles.colorChip} style={{ backgroundColor: colorHex }}/>
+        <CardContent sx={styles.content}>
+      <Stack 
+        direction={{ sm: 'column', md: 'row' }} 
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+        sx={{width: '100%'}} >
+          <InfoBlock title="Name" body={ colorName } style={styles.info}/>
+          <InfoBlock copyable title="Hex" body={ colorHex } style={styles.info}/>
+          <InfoBlock copyable title="RGB" body={ colorRgb } style={styles.info}/>
+      </Stack>
+        </CardContent>
     </Card>
   )
 }
