@@ -1,5 +1,9 @@
 # renci-dot-org
 
+## Project deployment overview
+*Note that this diagram is for the entire project, while this repo represents the Next.js application exclusively.*
+![image](https://github.com/mbwatson/renci-dot-org/assets/16181779/26d297d4-867d-4cdc-90b8-6ad3088a3b14)
+
 This is a [Next.js](https://nextjs.org/) project. To run the development server:
 
 ```bash
