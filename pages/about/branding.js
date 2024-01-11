@@ -20,15 +20,15 @@ export default function Branding() {
   const renciColors = {
     primary: {
       renciBlue: { name: 'RENCI Blue', hex: '#00758D', },
-      lightGrey: { name: 'Light Grey', hex: '#F3F3F8', },
-      darkGrey: { name: 'Dark Grey', hex: '#474748', },
+      lightGrey: { name: 'Neutral Grey', hex: '#F3F3F8', },
+      darkGrey: { name: 'Wrought Iron Gate', hex: '#474748', },
       black: { name: 'Black', hex: '#231F20', },
     },
     secondary: {
-      primaryBlue: { name: 'Primary Blue', hex: '#00A9C4', },
-      lightBlue: { name: 'Light Blue', hex: '#D6E8F2', },
-      darkBlue: { name: 'Dark Blue', hex: '#14385F', },
-      blueGrey: { name: 'Blue Grey', hex: '#666676', },
+      secondaryBlue: { name: 'Ultramarine Blue', hex: '#00A9C4', },
+      lightBlue: { name: 'Frost Blue', hex: '#D6E8F2', },
+      darkBlue: { name: 'Space Cadet Blue', hex: '#14385F', },
+      blueGrey: { name: 'Dim Grey', hex: '#666676', },
     },
   }
 
