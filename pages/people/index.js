@@ -25,7 +25,6 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
  * }
  */
 export default function People({ people, peopleFromDashboard }) {
-  // console.log(peopleFromDashboard)
   const [oodPids, setOodPids] = useState([]);
   let previousLetter, currentLetter = '?' // used for adding name attrs for vertical letters nav menu
 

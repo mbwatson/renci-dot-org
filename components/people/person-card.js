@@ -35,7 +35,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            image={person.photoData ? `https://dashboard.sandy-web.ad.renci.org/api/webinfo/people/${person.personId}/photo` : avatar.src}
+            image={`http://dashboard.sandy-web.ad.renci.org/api/webinfo/people/${person.personId}/photo`}
             alt={`${person.firstName} ${person.lastName} photo`}
           />
 

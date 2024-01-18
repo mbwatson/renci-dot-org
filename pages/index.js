@@ -6,6 +6,7 @@ import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
 import { fetchActiveStrapiProjects } from '../lib/strapi'
+import { fetchDashboardProjects } from '@/lib/dashboard/projects'
 
 export default function Home({ selectedProjects}) {
   return (
@@ -34,7 +35,8 @@ export async function getServerSideProps({ res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const projects = await fetchActiveStrapiProjects()
+  // const projects = await fetchActiveStrapiProjects()
+  const projects = await fetchDashboardProjects();
 
   let projectsCopy = [...projects]
   let projectSelection = []

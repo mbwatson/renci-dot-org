@@ -62,6 +62,7 @@ export const ProjectCard = ({project}) => {
       }
     }
   }
+  
   return (
     <Card sx={styles.project} key={project.slug}>
       <CardActionArea component={Link} to={ `/projects/${ project.slug }` }>
