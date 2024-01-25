@@ -57,7 +57,11 @@ export const LinkTray = ({ urls }) => {
       gap: '0.5rem',
     }}>
       {
-        urls.map(url => <SocialLink to={ url } key={ url } />)
+        urls.map((url) => { 
+          return(
+            <SocialLink to={ url.address } key={ url.address } />
+          )
+        })
       }
     </Box>
   )
