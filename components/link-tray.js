@@ -7,6 +7,7 @@ import {
   YouTube as YouTube,
   Instagram as InstagramIcon,
   Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
   Link as LinkIcon,
 } from '@mui/icons-material'
 import { Link } from './'
@@ -17,6 +18,7 @@ const ICONS = {
   'youtube.com': <YouTube />,
   'instagram.com': <InstagramIcon />,
   'facebook.com': <FacebookIcon />,
+  'twitter.com': <TwitterIcon />,
   'default': <LinkIcon />,
 }
 
