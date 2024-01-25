@@ -55,6 +55,7 @@ export const LinkTray = ({ urls }) => {
       display: 'flex',
       flexDirection: 'row',
       gap: '0.5rem',
+      justifyContent: 'flex-end'
     }}>
       {
         urls.map((url) => { 
