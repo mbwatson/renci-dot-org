@@ -4,6 +4,7 @@ import {
   Link, Page, PersonCard, PersonGrid, Section, Markdown
 } from '../../components'
 import { Divider } from '@mui/material'
+import { LinkTray } from '../../components/link-tray'
 
 export default function Collaboration({ collaboration }) {
   return (
@@ -23,6 +24,9 @@ export default function Collaboration({ collaboration }) {
             <Divider />
           </>
         )
+      }
+      {
+        <LinkTray urls={collaboration.urls}/>
       }
       {
         collaboration.role && (
