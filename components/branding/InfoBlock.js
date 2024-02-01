@@ -1,46 +1,58 @@
 import React from 'react';
 import { Typography } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { copyToClipboard } from 'hooks';
 
 const styles = {
   title: {
-    color: 'grey',
-    textTransform: 'uppercase',
-},
-body: {
-    color: 'grey',
+    color: '#666676',
+  },
+  body: {
+    color: '#666676',
     marginBottom: '8px',
-},
-copyableBody: {
-    position: 'relative',
-   
-    '&:hover $copyText': {
-        opacity: 0.5,
+    
+  },
+  copyableBody: {
+    // color: '#666676',
+    marginBottom: '1px',
+    '&:active': {
+      color: '#474748'
     },
-},
-copyText: {
+    '&:hover .copyIcon': {
+      opacity: 0.7,
+    },
+  },
+  copyIcon: {
     textTransform: 'uppercase',
-    position: 'absolute',
-    bottom: 0,
-    transform: 'translateY(-50%)',
     marginLeft: '8px',
     opacity: 0,
-    fontSize: '95%',
-},
+    fontSize: '98%',
+  },
 }
 
 export const InfoBlock = ( props ) => {
-    return (
-        <div  style={props.style}>
-            <Typography variant="body1" sx={ styles.title }>
-                { props.title }
-            </Typography>
-            <Typography variant="body2"  
-              onClick={()=> copyToClipboard(props.body)}
-            >
-                { props.body }
-            </Typography>
-        </div>
-    )
+  const { copyable } = props
+
+  const theme = useTheme()
+
+  return (
+    <div style={props.style}>
+      <Typography variant="body1" sx={ styles.title }>
+        { props.title }
+      </Typography>
+      <Typography variant="body2"
+      onClick={()=> copyToClipboard(props.body)}
+      sx={copyable ? styles.copyableBody : styles.body}>
+        { props.body }
+        {
+          copyable
+          ? <FileCopyIcon fontSize="small" sx={styles.copyIcon} className="copyIcon"/>
+          : null
+        }
+      </Typography>
+
+    </div>
+  )
 }
 
