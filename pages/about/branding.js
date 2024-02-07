@@ -121,3 +121,9 @@ export default function Branding() {
     </Page>
   )
 }
+
+// there is no data needed for this page, but this is a workaround to prevent getInitialProps from
+// running on this client page
+export const getStaticProps = () => {
+  return { props: { dummyValue: 1 }}
+}
