@@ -19,6 +19,9 @@ const styles = {
     '&:active': {
       color: '#474748'
     },
+    '&:hover': {
+      cursor: 'pointer'
+    },
     '&:hover .copyIcon': {
       opacity: 0.7,
     },
