@@ -1,8 +1,10 @@
 import React from 'react'
 import { Card, CardContent } from '@mui/material/'
-import { InfoBlock } from './InfoBlock'
 import Image from 'next/image'
-import {Link} from '../link'
+
+// to do: 
+// consider using usePathname and our custom 
+// Link component when upgrading to Nextjs v13
 
 const styles = {
   card: {
@@ -21,7 +23,11 @@ export const LogoBlock = ({logo, bgColor}) => {
   return (
     <Card sx={ styles.card }>
       <CardContent sx={ styles.topper } style={{ backgroundColor: bgColor }}>
-        <Link to={logo.src}>
+        <a
+          href={logo.src} 
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image 
             src={ logo.src } 
             alt="Logo" 
@@ -30,7 +36,7 @@ export const LogoBlock = ({logo, bgColor}) => {
             layout="responsive"
             objectFit='cover'
           />
-        </Link>
+        </a>
       </CardContent>
     </Card>
   )
