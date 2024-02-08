@@ -7,6 +7,7 @@ import { useTheme } from "@emotion/react";
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
+
   return (
     <Card
       elevation={0}
@@ -15,7 +16,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
         "& a": { textDecoration: "none" },
       }}
     >
-      <Link to={`/people/${person.slug}`}>
+      <Link to={`/people/${person.personId}`}>
         <Box sx={{
           display: "flex",
           flexDirection: "column",
@@ -34,7 +35,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            image={`http://dashboard.sandy-web.ad.renci.org/api/webinfo/people/${person.personId}/photo`}
+            image={`https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
             alt={`${person.firstName} ${person.lastName} photo`}
           />
 
