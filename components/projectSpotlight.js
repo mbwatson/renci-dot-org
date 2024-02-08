@@ -7,7 +7,6 @@ import { useTheme } from '@mui/material/styles'
 import { MarkdownLess } from './markdown'
 
 export const ProjectCard = ({project}) => {
-  console.log(project)
   const styles = {
     project: {
       textAlign: 'center',
@@ -71,7 +70,7 @@ export const ProjectCard = ({project}) => {
           </Box>
       </CardActionArea>
       <CardContent sx={project.webDescription ? styles.description : styles.noSnippet}>
-        <MarkdownLess paragraph >{ project.webDescription }</MarkdownLess>
+        <MarkdownLess paragraph >{ project.snippet }</MarkdownLess>
       </CardContent>
       <CardContent>
         <Link to={ `/projects/${ project.slug }` } style={{textAlign: 'right'}}>Read More</Link>
