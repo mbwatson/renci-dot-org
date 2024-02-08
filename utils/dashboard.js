@@ -1,7 +1,7 @@
 export function getDashboardURL(endpoint) {
   return `${
     process.env.NEXT_PUBLIC_DASHBOARD_API_URL ||
-    "http://dashboard.sandy-web.ad.renci.org/api/webinfo/"
+    "https://dashboard.renci.org/api/webinfo"
   }${endpoint}`;
 }
 
@@ -17,7 +17,6 @@ export async function fetchFromDashboard(endpoint, options = {}) {
     ...options,
   };
   const requestUrl = getDashboardURL(endpoint);
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
   
   const response = await fetch(requestUrl, mergedOptions);
 

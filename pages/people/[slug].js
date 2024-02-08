@@ -4,10 +4,11 @@ import { fetchStrapiPerson } from "../../lib/strapi";
 import { Link, Page, Section, TextImageSection } from '../../components'
 
 export default function Person({ person }) {
+  console.log(person)
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <TextImageSection 
-        imageUrl={ person.photoURL }
+        imageUrl={ `https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo` }
         imageWidth={400}
         imageHeight={400}
         imageAspectRatio={"1 / 1"}

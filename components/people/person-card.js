@@ -7,7 +7,6 @@ import { useTheme } from "@emotion/react";
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
-  console.log(person)
   return (
     <Card
       elevation={0}

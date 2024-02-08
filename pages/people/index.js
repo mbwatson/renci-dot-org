@@ -34,7 +34,7 @@ export default function People({ people, peopleFromDashboard }) {
     });
     setOodPids(oodPid);
   }, [people]);
-
+console.log(people)
   // this variable will track which letters in the vertical menu will be links
   // use a Link component for letter X if we have someone whose last name begins with X.
   const linkedLetters = letters.reduce((chars, char) => {
