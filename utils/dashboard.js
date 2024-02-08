@@ -1,7 +1,6 @@
 export function getDashboardURL(endpoint) {
   return `${
-    process.env.NEXT_PUBLIC_DASHBOARD_API_URL ||
-    "https://dashboard.renci.org/api/webinfo"
+    "https://dashboard.renci.org/api/webinfo/"
   }${endpoint}`;
 }
 
