@@ -7,7 +7,7 @@ import {
   YouTube as YouTube,
   Instagram as InstagramIcon,
   Facebook as FacebookIcon,
-  Twitter as TwitterIcon,
+  X as TwitterIcon,
   Link as LinkIcon,
 } from '@mui/icons-material'
 import { Link } from './'
