@@ -5,7 +5,7 @@ import { Link } from './link'
 import { Pre } from './pre'
 import { useTheme } from '@mui/material/styles'
 import { MarkdownLess } from './markdown'
-import serverRacks from '../image/racks.jpg'
+import serverRacks from '../images/racks.jpg'
 
 export const ProjectCard = ({project}) => {
   const styles = {
