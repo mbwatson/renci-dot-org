@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import { copyToClipboard } from 'hooks';
 
@@ -36,8 +35,6 @@ const styles = {
 
 export const InfoBlock = ( props ) => {
   const { copyable } = props
-
-  const theme = useTheme()
 
   return (
     <div style={props.style}>

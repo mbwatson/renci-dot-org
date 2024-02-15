@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import { ColorBlock } from './ColorBlock'
 
 export const ColorSection = (props) => {
-  const { classes, colors } = props
+  const { colors } = props
   return (
     <Grid container >
       {
