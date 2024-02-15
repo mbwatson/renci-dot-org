@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography } from '@mui/material'
-import FileCopyIcon from '@mui/icons-material/FileCopy';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { copyToClipboard } from 'hooks';
 
 const styles = {
@@ -47,7 +47,7 @@ export const InfoBlock = ( props ) => {
         { props.body }
         {
           copyable
-          ? <FileCopyIcon fontSize="small" sx={styles.copyIcon} className="copyIcon"/>
+          ? <ContentCopyIcon fontSize="small" sx={styles.copyIcon} className="copyIcon"/>
           : null
         }
       </Typography>
