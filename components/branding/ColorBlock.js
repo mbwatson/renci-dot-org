@@ -40,7 +40,7 @@ export const ColorBlock = ({colorName, colorHex}) => {
         direction={{ sm: 'column', md: 'row' }} 
         spacing={{ xs: 1, sm: 2, md: 4 }}
         sx={{width: '100%'}} >
-          <InfoBlock title="Name" body={ colorName } style={styles.info}/>
+          <InfoBlock copyable title="Name" body={ colorName } style={styles.info}/>
           <InfoBlock copyable title="Hex" body={ colorHex } style={styles.info}/>
           <InfoBlock copyable title="RGB" body={ colorRgb } style={styles.info}/>
       </Stack>
