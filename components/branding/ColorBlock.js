@@ -30,7 +30,7 @@ const styles = {
 
 export const ColorBlock = ({colorName, colorHex}) => {
   const { r, g, b } = hexToRgb(colorHex)
-  const colorRgb = [r, g, b].join(', ')
+  const colorRgb = `rgb(${[r, g, b].join(', ')})`
   
   return (
     <Card elevation={3} sx={styles.card}>
