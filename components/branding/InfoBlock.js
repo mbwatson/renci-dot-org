@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from '@mui/material'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { copyToClipboard } from 'hooks';
+import { copyToClipboard } from '@/utils/copyToClipboard';
 
 const styles = {
   title: {
