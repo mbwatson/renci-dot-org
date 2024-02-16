@@ -22,7 +22,7 @@ const styles = {
 export const LogoBlock = ({logo, bgColor}) => {
   return (
     <Card sx={ styles.card }>
-      <CardContent sx={ styles.topper } style={{ backgroundColor: bgColor }}>
+      <CardContent sx={{ ...styles.topper, backgroundColor: bgColor }}>
         <a
           href={logo.src} 
           target="_blank"
