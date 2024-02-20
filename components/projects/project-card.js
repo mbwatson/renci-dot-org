@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Typography, CardActionArea, ButtonBase, useMediaQuery } from '@mui/material'
+import { Stack, Box, Card, CardHeader, CardMedia, CardContent, Chip, Typography, CardActionArea, ButtonBase, useMediaQuery } from '@mui/material'
 import { Link } from '../link'
 import { Pre } from '../pre'
 import { useTheme } from '@mui/material/styles'
@@ -21,7 +21,7 @@ export const ProjectCard = ({project}) => {
     },
     description: {
       textAlign: 'left',
-      flexBasis: useMediaQuery(theme.breakpoints.down("md")) ? null :'840px'
+      flexBasis: useMediaQuery(theme.breakpoints.down("md")) ? null:'840px'
     },
   }
 
@@ -38,19 +38,30 @@ export const ProjectCard = ({project}) => {
           sx={styles.cardMedia} 
         />
         <CardContent sx={styles.description}>
-          {project.researchGroups.length > 0 ? (
-            <Link to={`/groups`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
-              <Typography variant='caption' sx={{}}>
-                {project.researchGroups[0].text}
-              </Typography>
-            </Link>
-          ) : project.collaborations.length > 0 ? (
-            <Link to={`/collaborations`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
-              <Typography variant='caption' sx={{}}>
-                {project.collaborations[0].text}
-              </Typography>
-            </Link>
-          ) : null}
+          <Stack direction="row-reverse" justifyContent="space-between" >
+            {project.isActive ? (
+              <Chip label="ACTIVE" size="small" sx={{
+                background: "linear-gradient(135deg, #238b8b, #00778f)", 
+                color: "white", 
+                fontWeight: 500
+              }}/>
+            ) : (
+              <Chip label="INACTIVE" size="small"/>
+            )}
+            {project.researchGroups.length > 0 ? (
+              <Link to={`/groups`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
+                <Typography variant='caption' sx={{}}>
+                  {project.researchGroups[0].text}
+                </Typography>
+              </Link>
+            ) : project.collaborations.length > 0 ? (
+              <Link to={`/collaborations`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
+                <Typography variant='caption' sx={{}}>
+                  {project.collaborations[0].text}
+                </Typography>
+              </Link>
+            ) : null}
+          </Stack>
           
           <Link to={ `/projects/${ project.slug }`} style={{textDecoration: 'none',}}>
             <Typography variant='h4' sx={{marginBottom: '1rem', fontWeight:'500'}}>{project.webName}</Typography>
