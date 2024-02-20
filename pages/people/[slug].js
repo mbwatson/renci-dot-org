@@ -73,8 +73,8 @@ export default function Person({ person }) {
               {
                 person.contributions.projects && (
                   <Fragment>
-                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem'}}>Projects</Typography>
-                    <ul style={{marginTop: 0, marginBottom: 0}}>
+                    <Typography variant="h3">Projects</Typography>
+                    <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                       {
                         person.contributions.projects.map(project => (
                           <li key={ `${ project.name }` }>
@@ -86,12 +86,11 @@ export default function Person({ person }) {
                   </Fragment>
                 )
               }
-              { person.contributions.projects && person.contributions.collaborations && <br/>}
               {
                 person.contributions.collaborations && (
                   <Fragment>
-                    <Typography variant="h3" sx={{fontSize: "1.17em", fontWeight: '500', paddingBottom: '.5rem'}}>Collaborations</Typography>
-                    <ul style={{marginTop: 0, marginBottom: 0}}>
+                    <Typography variant="h3">Collaborations</Typography>
+                    <ul style={{marginTop: 0, marginBottom: '1rem'}}>
                       {
                         person.contributions.collaborations.map(project => (
                           <li key={ `${ project.name }` }>
