@@ -33,7 +33,7 @@ export const ProjectCard = ({project}) => {
           src={  project.featuredImage.length > 0 ? project.featuredImage[0].url : serverRacks.src} 
           sx={styles.cardMedia} 
         />
-        <CardContent sx={project.webDescription ? styles.description : styles.noSnippet}>
+        <CardContent sx={styles.description}>
           {project.researchGroups.length > 0 ? (
             <Link to={`/groups`} style={{textDecoration: 'none', textTransform: 'uppercase', letterSpacing: '0.4px', marginBottom: '0.5rem'}}>
               <Typography variant='caption' sx={{}}>
