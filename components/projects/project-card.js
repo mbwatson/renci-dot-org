@@ -8,17 +8,20 @@ import { Markdown } from '../markdown'
 import serverRacks from '../../images/racks.jpg'
 
 export const ProjectCard = ({project}) => {
+  const theme = useTheme();
+
   const styles = {
     project: {
       margin: '1rem 0'
     },
     cardMedia: {
-      maxWidth: '300px',
-      maxHeight: '500px',
+      maxWidth: useMediaQuery(theme.breakpoints.down("md")) ? '100%' : '25%',
+      maxHeight: useMediaQuery(theme.breakpoints.down("md")) ? '175px' : null
+
     },
     description: {
-
-      textAlign: 'left'
+      textAlign: 'left',
+      flexBasis: useMediaQuery(theme.breakpoints.down("md")) ? null :'840px'
     },
   }
 
@@ -27,6 +30,7 @@ export const ProjectCard = ({project}) => {
       <Stack
         direction={{ sm: 'column', md: 'row' }}
         spacing={3}
+        flex
       >
         <CardMedia 
           component={'img'} 
@@ -58,3 +62,4 @@ export const ProjectCard = ({project}) => {
     </Card>
   )
 }
+
