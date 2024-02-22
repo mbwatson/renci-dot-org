@@ -1,13 +1,14 @@
 import { Fragment } from 'react'
 import { Divider, Typography } from '@mui/material'
 import { fetchStrapiPerson } from "../../lib/strapi";
+import { fetchFromDashboard } from '@/utils/dashboard';
 import { Link, Page, Section, TextImageSection } from '../../components'
 
 export default function Person({ person }) {
   return (
     <Page title={ `${ person.firstName } ${ person.lastName }` } hideTitle>
       <TextImageSection 
-        imageUrl={ person.photoURL }
+        imageUrl={ `https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo` }
         imageWidth={400}
         imageHeight={400}
         imageAspectRatio={"1 / 1"}
@@ -15,17 +16,17 @@ export default function Person({ person }) {
         rounded={true}
         >
           <Typography variant="h1" >
-            { person.fullName }
+            { person.displayName }
           </Typography>
           <Typography paragraph>{ person.title }</Typography>
           {
-            person.team && (
+            person.teams && (
               <Fragment>
                 {
-                  person.team.map(group => (
-                    <Typography paragraph sx={{ fontWeight: 500 }} key={group.name}>
-                      <Link to={ `/teams/${ group.slug }` }> 
-                        { group.name } Operational Team
+                  person.teams.map(group => (
+                    <Typography paragraph sx={{ fontWeight: 500 }} key={group.id}>
+                      <Link to={ `/teams/${ group.id }` }> 
+                        { group.text } Operational Team
                       </Link> 
                     </Typography>
                   ))
@@ -34,10 +35,10 @@ export default function Person({ person }) {
             )
           }
           {
-            person.researchGroup && (
+            person.researchGroups && (
               <Fragment>
                 {
-                  person.researchGroup.map(group => (
+                  person.researchGroups.map(group => (
                     <Typography paragraph sx={{ fontWeight: 500 }} key={group.name}>
                     <Link to={ `/groups/${ group.slug }` }>
                       { group.name } Research Group
@@ -58,8 +59,8 @@ export default function Person({ person }) {
             )
           }
           {
-            person.phoneNumber && (
-              <Typography paragraph>{ person.phoneNumber }</Typography>
+            person.phones.length > 0 && (
+              <Typography paragraph>{ person.phones[0].number }</Typography>
             )
           }
       </TextImageSection>
@@ -128,7 +129,8 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const person = await fetchStrapiPerson(params.slug)
+  const person = await fetchFromDashboard(`people/${params.slug}`)
+  console.log(JSON.parse(JSON.stringify(person)))
 
   return { props: { person: JSON.parse(JSON.stringify(person)) } }
 }

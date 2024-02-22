@@ -16,7 +16,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
         "& a": { textDecoration: "none" },
       }}
     >
-      <Link to={`/people/${person.slug}`}>
+      <Link to={`/people/${person.personId}`}>
         <Box sx={{
           display: "flex",
           flexDirection: "column",
@@ -35,7 +35,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            image={person.photoURL ? person.photoURL : avatar.src}
+            image={`https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
             alt={`${person.firstName} ${person.lastName} photo`}
           />
 

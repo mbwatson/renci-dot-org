@@ -5,7 +5,8 @@ import { Typography, Stack } from '@mui/material'
 import { Link, Page } from '../components'
 import homeHero from '../images/racks.jpg'
 import { ProjectSpotlight } from '../components/projectSpotlight'
-import { fetchActiveStrapiProjects, fetchHomeNews } from '../lib/strapi'
+import { fetchDashboardProjects } from "@/lib/dashboard/projects";
+import { fetchHomeNews } from '../lib/strapi'
 import { HomePageArticlePreview } from "../components/news/article-preview";
 
 export default function Home({ selectedProjects, newsArray }) {
@@ -55,7 +56,7 @@ export async function getServerSideProps({ res }) {
   
     const [newsArray, projects] = await Promise.all([
       fetchHomeNews(),
-      fetchActiveStrapiProjects(),
+      fetchDashboardProjects(),
     ]);
     
     let projectsCopy = [...projects]

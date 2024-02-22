@@ -8,10 +8,10 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { fetchStrapiPeople } from "../../lib/strapi";
 import { Link, Page } from "../../components";
 import { PersonGrid, PersonCard } from "../../components/people";
 import { useEffect, useState } from "react";
+import { fetchDashboardPeople } from "@/lib/dashboard/people";
 
 // this provides data for the vertical menu
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -24,7 +24,7 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
  *   people: […],
  * }
  */
-export default function People({ people }) {
+export default function People({ people, peopleFromDashboard }) {
   const [oodPids, setOodPids] = useState([]);
   let previousLetter, currentLetter = '?' // used for adding name attrs for vertical letters nav menu
 
@@ -160,10 +160,10 @@ export async function getServerSideProps({ res }) {
     'Cache-Control',
     'no-cache, no-store, must-revalidate'
   )
-  
-  const people = await fetchStrapiPeople();
+
+  const people1 = await fetchDashboardPeople();
 
   return {
-    props: { people: JSON.parse(JSON.stringify(people)) },
+    props: { people: {ood: people1.ood, people: people1.people} },
   };
 }
