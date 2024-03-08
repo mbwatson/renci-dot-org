@@ -33,7 +33,7 @@ export default function Teams({ teams }) {
         {
           teams.map(team => (
             <li key={ `link-to-${ team.name }` }>
-              <Link to={ `/teams/${ team.slug }` }>
+              <Link to={ `/teams/${ team.id }` }>
                 { team.name }
               </Link>
             </li>
