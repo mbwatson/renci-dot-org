@@ -1,5 +1,6 @@
 import { Typography, Divider } from '@mui/material'
 import { fetchStrapiGroup } from '../../lib/strapi'
+import { fetchSingleResearchGroup } from '@/lib/dashboard/research-groups'
 import { Link, Page } from '../../components'
 import { Section } from '../../components/layout'
 import { PersonCard, PersonGrid } from "../../components/people/";
@@ -11,7 +12,6 @@ export default function ResearchGroup({ researchGroup }) {
       description={ researchGroup.description }
       heroImage={ researchGroup.featuredImage ? researchGroup.featuredImage.url : null }
     >
-
       {
         !researchGroup.featuredImage && (
           <>
@@ -100,7 +100,7 @@ export async function getServerSideProps({ params, res }) {
     'no-cache, no-store, must-revalidate'
   )
   
-  const researchGroup = await fetchStrapiGroup(params.id)
+  const researchGroup = await fetchSingleResearchGroup(params.id)
 
   return { props: { researchGroup: JSON.parse(JSON.stringify(researchGroup)) } }
 }
