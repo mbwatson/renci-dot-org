@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardContent,
   Grid,
+  Stack,
   Typography,
   useMediaQuery,
 } from "@mui/material";
@@ -73,6 +74,37 @@ const VerticalLettersMenu = ({ linkedLetters }) => {
   )
 }
 
+const HorizontalLettersMenu = ({ linkedLetters }) => {
+  return (
+    <Stack
+      flexDirection="row"
+      alignItems="center"
+      justifyContent="flex-start"
+      component="nav"
+      gap={ 1 }
+      sx={{
+        alignSelf: { xs: 'unset', md: 'center' },
+      }}
+    >
+      {letters.map((letter) =>
+        linkedLetters.includes(letter) ? (
+          <Link to={`#${letter}`} key={letter}>
+            {letter}
+          </Link>
+        ) : (
+          <Typography
+            component="span"
+            key={letter}
+            style={{ color: "#abc" }}
+          >
+            {letter}
+          </Typography>
+        )
+      )}
+    </Stack>
+  )
+}
+
 /*
  * people are coming into this component from
  * fetchStrapiPeople with this shape:
@@ -125,7 +157,15 @@ export default function People({ people, peopleFromDashboard }) {
         </PersonGrid>
       </Box>
 
-      <Typography variant="h2">Everyone Else</Typography>
+      <Stack
+        direction={{ xs: 'column', md: 'row' }}
+        alignItems={{ xs: 'flex-start', lg: 'stretch' }}
+        justifyContent="flex-start"
+        gap={ 2 }
+      >
+        <Typography variant="h2">Everyone Else</Typography>
+        { !tallViewport && <HorizontalLettersMenu linkedLetters={ linkedLetters } /> }
+      </Stack>
 
       <Box sx={{ display: "flex", gap: "1rem", my: '2rem' }}>
         { tallViewport && <VerticalLettersMenu linkedLetters={ linkedLetters } /> }
