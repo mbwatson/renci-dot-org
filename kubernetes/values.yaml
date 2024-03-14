@@ -24,4 +24,4 @@ service:
   port: 3000
 
 ingress:
-  host: new-rdo.apps.renci.org
+  host: new.renci.org
