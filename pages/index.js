@@ -18,12 +18,13 @@ export default function Home({ selectedProjects, newsArray }) {
       heroImage={ homeHero.src }
     >
       <Typography paragraph>
-        Lorem ipsum dolor eiusmod quis excepteur mollit sit elit labore non aliqua.
-        Consequat voluptate elit magna laboris anim do officia ea proident ad.
-        Reprehenderit consequat officia aliquip non ea laborum aliquip ut commodo aliquip exercitation ut cupidatat eiusmod fugiat dolore ut.
-        Lorem ipsum magna occaecat non ut pariatur dolor ullamco ut in non aute sunt esse ex.
-        Occaecat irure irure anim quis sit velit nulla ut tempor non aliqua sed nulla nostrud excepteur magna.
-        Esse incididunt ex ea pariatur nisi sit quis est anim incididunt in culpa laboris.
+        The Renaissance Computing Institute (RENCI) is a research institute at UNC-Chapel 
+        Hill that focuses on data science for the greater good. We are a team of innovators, 
+        problem-solvers, and forward-thinking individuals from a diverse range of backgrounds, 
+        skill sets, and perspectives coming together to conduct groundbreaking research and 
+        enact positive change at the local, state, national, and international levels. Explore 
+        our various projects, research groups, collaborations, and operations teams to learn 
+        more about our work and the people who make it happen. 
       </Typography>
       
       <ProjectSpotlight selectedProjects={selectedProjects}/>
