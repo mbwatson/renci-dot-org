@@ -79,11 +79,12 @@ const HorizontalLettersMenu = ({ linkedLetters }) => {
     <Stack
       flexDirection="row"
       alignItems="center"
-      justifyContent="flex-start"
+      justifyContent={{ xs: 'center', md: 'flex-end' }}
       component="nav"
       gap={ 1 }
       sx={{
-        alignSelf: { xs: 'unset', md: 'center' },
+        flex: 1,
+        flexWrap: 'wrap',
       }}
     >
       {letters.map((letter) =>
