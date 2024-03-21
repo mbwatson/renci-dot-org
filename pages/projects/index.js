@@ -68,7 +68,7 @@ export default function Projects({ projects, size = "medium" }) {
       >
         {projectsFiltered.map((project) => {
           return (
-            <ProjectCard project={project} key={`project-${project.slug}`} />
+            <ProjectCard project={project} key={`project-${project.id}`} />
           );
         })}
       </Box>
