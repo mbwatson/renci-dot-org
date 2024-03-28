@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
 import { Link } from "../link";
-import avatar from "../../images/generic-avatar.svg";
 import { useTheme } from "@emotion/react";
 
 export const PersonCard = ({ person, showTitle = false, anchorName }) => {
   const theme = useTheme();
 
+  const onMediaFallback = event => event.target.src = "/static/images/generic-avatar.svg" ;
   return (
     <Card
       elevation={0}
@@ -16,7 +16,7 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
         "& a": { textDecoration: "none" },
       }}
     >
-      <Link to={`/people/${person.personId}`}>
+      <Link to={`/people/${person.slug}`}>
         <Box sx={{
           display: "flex",
           flexDirection: "column",
@@ -35,10 +35,11 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            image={`https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
+            
+            src={ `https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
+            onError={onMediaFallback}
             alt={`${person.firstName} ${person.lastName} photo`}
           />
-
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
             <Typography mb={0.5} sx={{ textDecoration: "underline" }}>
               {person.firstName} {person.lastName}
