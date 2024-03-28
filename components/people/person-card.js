@@ -35,10 +35,9 @@ export const PersonCard = ({ person, showTitle = false, anchorName }) => {
                 width: 100,
               },
             }}
-            image={`https://dashboard.renci.org/api/webinfo/people/${person.personId}/photo`}
+            image={person.photo}
             alt={`${person.fullName || person.displayName} photo`}
           />
-
           <CardContent sx={{ display: "flex", flexDirection: "column" }}>
             <Typography mb={0.5} sx={{ textDecoration: "underline" }}>
               {person.fullName || person.displayName}
@@ -61,9 +60,6 @@ PersonCard.propTypes = {
   showTitle: PropTypes.bool.isRequired,
   person: PropTypes.shape({
     slug: PropTypes.string.isRequired,
-    firstName: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
     title: PropTypes.string,
-    photo: PropTypes.object,
   }),
 };
