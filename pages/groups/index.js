@@ -27,7 +27,7 @@ export default function ResearchGroups({ researchGroups }) {
         {
           researchGroups.map(group => (
             <li key={ `link-to-${ group.name }` }>
-              <Link to={ `/research-groups/${ group.id }` }>
+              <Link to={ `/groups/${ group.slug }` }>
                 { group.name }
               </Link>
             </li>

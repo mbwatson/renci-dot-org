@@ -34,7 +34,7 @@ export default function ResearchGroups({ collaborations }) {
         {
           collaborations.map(collaboration => (
             <li key={ `link-to-${ collaboration.slug }` }>
-              <Link to={ `/collaborations/${ collaboration.id }` }>
+              <Link to={ `/collaborations/${ collaboration.slug }` }>
                 { collaboration.name }
               </Link>
             </li>
